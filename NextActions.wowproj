@@ -1,0 +1,41 @@
+﻿<Project DefaultTargets="Deploy" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Default</Configuration>
+    <Name>NextActions</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1dad4bb6-5fbc-4d32-a159-e38f983a7135}</ProjectGuid>
+    <AssemblyName>NextActions</AssemblyName>
+    <RootNamespace>NextActions</RootNamespace>
+    <WowPath>E:\games\wow\</WowPath>
+    <AddonTitle>NextActions</AddonTitle>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Default' ">
+    <OutputPath>.</OutputPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WowAddonStudio\2.0\WowAddonStudio.targets" />
+  <ItemGroup>
+    <Content Include="NAcore.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="NextActions.toc">
+      <SubType>TableOfContents</SubType>
+    </Content>
+    <Content Include="NAframe.xml">
+      <SubType>Frame</SubType>
+    </Content>
+    <Content Include="NAframe.lua">
+      <SubType>Code</SubType>
+      <DependentUpon>NAframe.xml</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <!--
+	To modify your build process, add your task inside one of the targets below and uncomment it. 
+		
+	<Target Name="BeforeClean"></Target>
+	<Target Name="AfterClean"></Target>
+	<Target Name="BeforeRebuild"></Target>
+	<Target Name="AfterRebuild"></Target>
+	<Target Name="BeforeDeploy"></Target>
+	<Target Name="AfterDeploy"></Target>
+	-->
+</Project>

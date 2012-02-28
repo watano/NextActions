@@ -1,0 +1,169 @@
+name, rank, iconTexture, count, duration, timeLeft =  UnitBuff(unit, buffIndex [, castable]);
+name, rank, texture, count, debuffType, duration, timeLeft  =  UnitDebuff(unitID, debuffIndex [, removable]);
+
+for i=1,40 do local B=UnitDebuff("target",i); if B then print(i.."="..B) end end 
+
+buff: 火球!
+思维冷却1 44546
+思维冷却2 44548
+思维冷却3 44549
+
+7,0 - 20,8
+
+UnitClass("player") == "Mage"
+
+/cast 奥术弹幕
+/script print(UnitAffectingCombat("player"));
+/script print(GetSpellCooldown("奥术弹幕"));
+/script print(UnitAffectingCombat("player"));
+
+/cast 奥术冲击
+/script print(W_BuffCount(30451, "player"));
+/script print(NA_Cast4NoBuffs({14325}, 100201, "target"));
+/script print(W_checkBuffs({14325}, 100201, "target"));
+/script print(NA_FireSpell(100201,"target"))
+/script print(W_IsUsableSpell(100201,"target"))
+
+
+Anesthetic Poison 麻醉药膏 
+Crippling Poison 减速药膏 	
+Deadly Poison	致命药膏
+Mind-numbing Poison 麻痹药膏
+Poison Spit
+Scorpid Poison
+Scorpid Sting
+Serpent Sting
+Touch of Zanzil
+Upset Tummy
+Viper Sting
+Weak Poison
+Wound Poison
+Wyvern Sting
+
+local i = 1 
+while i <= GetNumTalentTabs() do 
+	local numTalents = GetNumTalents(i) 
+       DEFAULT_CHAT_FRAME:AddMessage( numTalents .. ' ' .. GetTalentTabInfo(i) .. ' ' )
+       i = i+1
+end
+
+index = GetShapeshiftForm(flag);
+
+
+#showtooltip [stance:1/3]裂伤（熊）;裂伤（豹）
+/cast [stance:1/3]裂伤（熊）;裂伤（豹）
+
+#showtooltip
+/cast [target=target,nostance,nohelp] 月火术;
+[target=target,nostance, help] 回春;
+[stance:3,stealth] 突袭;
+[stance:3,nostealth] 斜掠;
+[stance:1,harm] 低吼;
+/startattack 
+
+#showtooltip [stance:1/3,nocombat]精灵之火（野性）;星火术
+/startattack 
+/cast [stance:1/3,nocombat]精灵之火（野性）
+/cast 星火术
+
+#showtooltip [stance:1]野性冲锋 - 熊;[stance:3]野性冲锋 - 豹
+/cast [stance:1]野性冲锋 - 熊
+/cast [stance:3]野性冲锋 - 豹
+
+NOCOMBAT (2.0) CreateMacro("name", icon, "body", perCharacter, isLocal) - Create a new macro.
+GetMacroInfo(id or "name") - Returns "name", "iconTexture", "body", isLocal.
+
+
+_\[			\n_[
+_\[([0-9]+)\]=\{name_enus:'(.*)',icon:'(.*)'\};		\3\t\2\t\1
+
+
+API EasyMenuedit this page
+
+Main Menu
+WoW API
+Widget API
+Macro API
+Lua functions
+Events
+XML UI
+Changes
+HOWTOs
+Snippets
+UI tech.
+Category nav.
+→ FrameXML Docs
+This function is implemented by FrameXML in FrameXML/EasyMenu.lua.
+Populate a context menu with options described in a provided table.
+EasyMenu(menuList, menuFrame, anchor, x, y, displayMode, autoHideDelay)
+editArguments
+
+menuList 
+Table - an array of tables describing the entries in the menu to be created. The descriptions may use any key-value tables used in a UIDropDownMenu info table; as a bare minimum, each option should specify the "text" key.
+menuFrame 
+Frame - a Frame object that will be used to store some information about the menu.
+anchor 
+String/Region - Specify what to anchor the menu relative to: either "cursor", a region name, or a region (frame) reference.
+x 
+Number - x offset from the anchor.
+y 
+Number - y offset from the anchor.
+displayMode 
+String - "MENU" enables a tooltip-styled context menu, any other value the dropdown style.
+autoHideDelay 
+Number - Automatically hide the menu after this many seconds.
+edit Details
+
+The menu becomes visible as soon as you call the function and goes away after you click a menu item unless keepShownOnClick in menuList was set to 1.
+Fine-grained control over the positioning of the menu is possible by setting the menuFrame.point and menuFrame.relativePoint values to specific anchor points to use when anchoring the frame to a non-cursor region.
+editExample
+
+The following example creates a context menu based on a table description:
+local menu = {
+    { text = "Select an Option", isTitle = true},
+    { text = "Option 1", func = function() print("You've chosen option 1"); end },
+    { text = "Option 2", func = function() print("You've chosen option 2"); end },
+    { text = "More Options", hasArrow = true,
+        menuList = {
+            { text = "Option 3", func = function() print("You've chosen option 3"); end }
+        } 
+    }
+}
+local menuFrame = CreateFrame("Frame", "ExampleMenuFrame", UIParent, "UIDropDownMenuTemplate")
+
+-- Make the menu appear at the cursor: 
+EasyMenu(menu, menuFrame, "cursor", 0 , 0, "MENU");
+-- Or make the menu appear at the frame:
+menuFrame:SetPoint("Center", UIParent, "Center")
+EasyMenu(menu, menuFrame, menuFrame, 0 , 0, "MENU");
+editNotes
+
+You must give the frame a name (argument 2 to CreateFrame()) for menus to work.
+
+
+MainMenuExpBar:Hide();
+MainMenuBarLeftEndCap:Hide();
+MainMenuBarRightEndCap:Hide();
+--PlayerFrame:Hide();
+--HidePartyFrame() -- hides all party members
+--PartyMemberFrameX:Hide() -- hides a specified party member (X=1/2/3/4)
+MainActionBar:SetPoint("BOTTOMLEFT", "UIParent", "BOTTOMLEFT", 0, 0);
+ShapeshiftBarFrame:SetPoint("BOTTOMLEFT", "UIParent", "BOTTOMLEFT", 0, MainActionBar:GetHeight());
+MainMenuBar:SetPoint("BOTTOMLEFT", "UIParent", "BOTTOMLEFT", ShapeshiftBarFrame:GetWidth(), MainActionBar:GetHeight());
+MultiBarBottomLeft:SetPoint("BOTTOMLEFT", "UIParent", "BOTTOMLEFT", MainActionBar:GetWidth(), 0);
+MultiBarBottomRight:SetPoint("BOTTOMLEFT", "UIParent", "BOTTOMLEFT", MainActionBar:GetWidth(), MainActionBar:GetHeight());
+--MultiBarLeft
+--MultiBarRight
+
+
+主辅天赋装备一键切换宏
+#showtooltip [spec:2] Unholy Presence; Frost Presence
+/equipset [spec:2] UnholySet
+/equipset [spec:1] FrostSet
+/usetalents [spec:2] 1; 2
+
+死缠宏
+#showtooltip Death Coil
+/startattack [harm]
+/cast [modifier:alt,target=pet,exists] Death Coil, [harm] Death Coil, [target=pet,exists] Death Coil
+

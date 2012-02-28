@@ -1,0 +1,46 @@
+﻿<Ui xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="NAframe.lua" />
+	<Frame name="NA_Main_Frame" alpha="1" toplevel="true" frameStrata="HIGH" parent="UIParent" movable="false"
+		hidden="false">
+		<Scripts>
+			<OnLoad>NA_Main_Frame_OnLoad(self);</OnLoad>
+			<OnEvent>NA_OnEvent(event,...);</OnEvent>
+		</Scripts>
+		<Size><AbsDimension x="16" y="16"/></Size>
+		<Anchors><Anchor point="TOPLEFT"/></Anchors>
+	</Frame>
+	<Frame name="NA_Option_Frame" alpha="1" toplevel="false" frameStrata="HIGH"
+		hidden="false" enableMouse="true" movable="true" parent="UIParent" clampedToScreen="true">
+		<Scripts>
+			<OnLoad>NA_Option_Frame_OnLoad(self);</OnLoad>
+			<OnEvent></OnEvent>
+			<OnMouseDown>
+				if (button == "LeftButton" ) then self:StartMoving(); self.IsMoving=true; end
+			</OnMouseDown>
+			<OnMouseUp>
+				if (self.IsMoving) then self:StopMovingOrSizing(); self.IsMoving=false; end
+			</OnMouseUp>
+			<OnHide>
+				if (self.IsMoving) then self:StopMovingOrSizing(); self.IsMoving=false; end
+			</OnHide>
+		</Scripts>
+		<Size><AbsDimension x="120" y="150"/></Size>
+		<Anchors><Anchor point="CENTER"/></Anchors>
+        <Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border" 
+            bgFile="Interface\Tooltips\UI-Tooltip-Background">
+            <BackgroundInsets><AbsInset left="4" right="4" top="4" bottom="4"/></BackgroundInsets>
+            <EdgeSize><AbsValue val="16"/></EdgeSize>
+            <Color r="0" g="0" b="0" a="0.4"/>
+            <BorderColor r="1" g="0.8" b="0" a="0.8"/>
+        </Backdrop>
+		<Layers>
+			<Layer level="OVERLAY">
+				<FontString name="$parent_Title"
+					inherits="GameFontNormal"
+					text="NA">
+					<Anchors><Anchor point="TOP"><Offset><AbsDimension x="0" y="5" /></Offset></Anchor></Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+	</Frame>
+</Ui>

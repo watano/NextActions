@@ -1,0 +1,14 @@
+## Interface: 20200
+## X-Curse-Packaged-Version: Beta-r820
+## X-Curse-Project-Name: Ace3
+## X-Curse-Project-ID: ace3
+## X-Curse-Repository-ID: wow/ace3/mainline
+
+## Title: AceGUITest 
+
+## Author: Nargiddley
+## Version: Alpha
+## OptionalDeps:  LibStub, Ace3
+
+LibStub.lua
+test.lua

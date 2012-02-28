@@ -1,0 +1,25 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Frame name="NAOptionFrame" toplevel="true" hidden="false" frameStrata="HIGH"
+		enableMouse="true" movable="true" parent="UIParent" clampedToScreen="true">
+		<Size><AbsDimension x="200" y="300" /></Size>
+		<Anchors><Anchor point="CENTER" /></Anchors>
+		<Scripts>
+			<OnLoad>
+				W_Log(1,"NA_OnLoad...");
+				self:SetBackdrop({
+					bgFile = "Interface\Tooltips\UI-Tooltip-Background", 
+					edgeFile = "Interface\Tooltips\UI-Tooltip-Border", 
+					tile = true, tileSize = 0, edgeSize = 1, 
+					insets = { left = 0, right = 0, top = 0, bottom = 0 }
+				});
+				self:SetBackdropColor(0,0,0,0.5);
+				self:Show();
+			</OnLoad>
+			<OnEvent></OnEvent>
+			<OnMouseDown>if (button == "LeftButton" ) then self:StartMoving(); self.IsMoving=true; end</OnMouseDown>
+			<OnMouseUp>if (self.IsMoving) then self:StopMovingOrSizing(); self.IsMoving=false; end</OnMouseUp>
+			<OnHide>if (self.IsMoving) then self:StopMovingOrSizing(); self.IsMoving=false; end</OnHide>
+		</Scripts>
+	</Frame>
+</Ui>
