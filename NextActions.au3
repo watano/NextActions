@@ -31,23 +31,19 @@ Func GetShowBoxValue()
 		$y = $box_y + $box_h/2
 
 		$box_value[$i] = NAParseColor2Value(PixelGetColor( $x , $y ))
-		NAdebug($x &"x"& $y &"--"& Hex(PixelGetColor( $x , $y ), 6) &"--"& $box_value[$i] &"--"& Hex($box_value[$i], 6))
 	Next
 	Return $box_value
 EndFunc
 
 Func NAParseColor2Value($color)
 	$c = Hex($color, 6)
-	return Number("0x" & StringMid($c, 1, 1) & StringMid($c, 3, 1) & StringMid($c, 5, 1))
-EndFunc
-
-Func NAParseValue2Color($value)
-	$v = Hex($value, 3)
-	return Number("0x" & StringMid($v, 1,1) & "7" & StringMid($v, 2,1) & "7" & StringMid($v, 3,1) & "7")
+	$v = Number(StringMid($c, 1, 1) & StringMid($c, 3, 1) & StringMid($c, 5, 1))
+	NAdebug($c & "-------------" & $v)
+	return $v
 EndFunc
 
 Func NAdebug($text)
-	;ConsoleWrite($text & @CRLF)
+	ConsoleWrite($text & @CRLF)
 EndFunc
 
 Func NAExecute()
@@ -65,7 +61,7 @@ Func NAExecute()
 ;		$ActionCount = 0;
 ;	EndIf
 
-	;NAdebug($value[0])
+	NAdebug($value[0])
 	Switch $value[0]
 	Case 1 To 9
 		Send("^" & $value[0]);
@@ -97,15 +93,6 @@ Func NAExecute()
 		Send("=");
 	Case Else
 	EndSwitch
-
 EndFunc
 
-Func testcase()
-	For $i = 0 to 0xFFF Step 1
-		If $i <> NAParseColor2Value(NAParseValue2Color($i)) Then
-			NAdebug($i)
-		EndIf
-	Next
-	Terminate()
-EndFunc
 

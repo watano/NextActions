@@ -1,0 +1,23 @@
+## Author: watano(watano@qq.com)
+## Interface: 60000
+## Title: NextActions
+## Notes: wow自动施法按键助手 
+## Version: 6.0.2
+## SavedVariablesPerCharacter: NA_ProfileNo
+NAutil.lua
+NAUIutil.lua
+NAcore.lua
+
+NAdeathknight.lua
+NApaladin.lua
+NAhunter.lua
+NAmage.lua
+NAwarrior.lua
+NAwarlock.lua
+NAdruid.lua
+NAmonk.lua
+NApriest.lua
+NArogue.lua
+NAshaman.lua
+
+NAframe.xml

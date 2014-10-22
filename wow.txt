@@ -1,7 +1,67 @@
+﻿雙持冰:力量 > 技能命中(黃字)達標 = 熟練達標 > 精通 >= 加速 > 致命
+雙手冰:力量 > 技能命中(黃字)達標 = 熟練達標 > 加速 > 致命 > 精通
+兽王猎：敏捷>命中和精准等级(每个均为7.5%达标)>暴击等级>急速等级>专精等级
+
+天赋及雕文：
+T1：吸血瘟疫
+T2：反魔法领域/炼狱(根据个人喜好)
+T3：死亡脚步/冻疮(根据BOSS调整)
+T4：天灾契约
+T5：活力分流/符文强化
+T6：血魔之握/冷酷严冬(根据BOSS调整)
+必选雕文：传染雕文，大军取消嘲讽
+可选雕文：凋零减速雕文，绿坝雕文，百变灵气雕文，冰路减摔雕文
+
+
+
+45477 冰触 IcyTouch 49143 冰霜打击 FrostStrike 45462 暗影打击 PlagueStrike 49020 湮没 Obliterate  47541 凋零缠绕 DeathCoil 130735 灵魂收割 SoulReaper
+AOE: 50842 传染 Pestilence 48721 血液沸腾 BloodBoil 49184 凛风冲击 HowlingBlast
+other:57330 寒冬号角 HornOfWinter 46584 亡者复生 RaiseDead 47568 符文武器增效 EmpowerRuneWeapon 77575 爆发 Outbreak 77606 黑暗模拟 DarkSimulacrum 51271 冰霜之柱 PillarOfFrost 61999 复活盟友 RaiseAlly
+保命:119975 符能转换 Conversion 48792 冰封之韧 IceboundFortitude 48707 反魔法护罩 AntiMagicShell 49998 灵界打击 DeathStrike
+
+print(W_HasBuff('player', 51124, true));
+print(W_RetainBuff('target', -55095, true));
+W_UnitBuff(isBuff, UnitId, i)
+W_getBuff(UnitId, buffID, onlyMine);
+name, rank, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate, spellId
+name, rank, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate, spellId
+
 name, rank, iconTexture, count, duration, timeLeft =  UnitBuff(unit, buffIndex [, castable]);
 name, rank, texture, count, debuffType, duration, timeLeft  =  UnitDebuff(unitID, debuffIndex [, removable]);
 
-for i=1,40 do local B=UnitDebuff("target",i); if B then print(i.."="..B) end end 
+for i=1,40 do local B=UnitDebuff("target",i); if B then print(i.."="..B) end end
+1131, 1133
+
+Message: Interface\AddOns\NextActions\NAutil.lua:245: attempt to index local 'spellInfo' (a nil value)
+Time: 01/25/13 13:44:21
+Count: 119
+
+Stack: Interface\AddOns\NextActions\NAutil.lua:245: in function `W_IsUsableSpell'
+
+Interface\AddOns\NextActions\NAutil.lua:210: in function `NA_FireSpell'
+
+Interface\AddOns\NextActions\NAutil.lua:201: in function `NA_Fire'
+
+Interface\AddOns\NextActions\NA_DK.lua:36: in function <Interface\AddOns\NextActions\NA_DK.lua:15>
+(tail call): ?
+
+Interface\AddOns\NextActions\NAcore.lua:190: in function `NA_DoAction'
+
+Interface\AddOns\NextActions\NAcore.lua:166: in function `NA_OnEvent'
+[string "*:OnEvent"]:1: in function <[string "*:OnEvent"]:1>
+
+Locals: spellID = "Diseases"
+UnitId = "target"
+spellInfo = nil
+(*temporary) = <function> defined =[C]:-1
+(*temporary) = "Diseases"
+(*temporary) = 1
+(*temporary) = "Diseases"
+(*temporary) = 0
+(*temporary) = "attempt to index local 'spellInfo' (a nil value)"
+
+/console SET accountName "watano@gmail.com"
+
 
 buff: 火球!
 思维冷却1 44546
@@ -25,8 +85,8 @@ UnitClass("player") == "Mage"
 /script print(W_IsUsableSpell(100201,"target"))
 
 
-Anesthetic Poison 麻醉药膏 
-Crippling Poison 减速药膏 	
+Anesthetic Poison 麻醉药膏
+Crippling Poison 减速药膏
 Deadly Poison	致命药膏
 Mind-numbing Poison 麻痹药膏
 Poison Spit
@@ -40,9 +100,9 @@ Weak Poison
 Wound Poison
 Wyvern Sting
 
-local i = 1 
-while i <= GetNumTalentTabs() do 
-	local numTalents = GetNumTalents(i) 
+local i = 1
+while i <= GetNumTalentTabs() do
+	local numTalents = GetNumTalents(i)
        DEFAULT_CHAT_FRAME:AddMessage( numTalents .. ' ' .. GetTalentTabInfo(i) .. ' ' )
        i = i+1
 end
@@ -59,10 +119,10 @@ index = GetShapeshiftForm(flag);
 [stance:3,stealth] 突袭;
 [stance:3,nostealth] 斜掠;
 [stance:1,harm] 低吼;
-/startattack 
+/startattack
 
 #showtooltip [stance:1/3,nocombat]精灵之火（野性）;星火术
-/startattack 
+/startattack
 /cast [stance:1/3,nocombat]精灵之火（野性）
 /cast 星火术
 
@@ -98,19 +158,19 @@ Populate a context menu with options described in a provided table.
 EasyMenu(menuList, menuFrame, anchor, x, y, displayMode, autoHideDelay)
 editArguments
 
-menuList 
+menuList
 Table - an array of tables describing the entries in the menu to be created. The descriptions may use any key-value tables used in a UIDropDownMenu info table; as a bare minimum, each option should specify the "text" key.
-menuFrame 
+menuFrame
 Frame - a Frame object that will be used to store some information about the menu.
-anchor 
+anchor
 String/Region - Specify what to anchor the menu relative to: either "cursor", a region name, or a region (frame) reference.
-x 
+x
 Number - x offset from the anchor.
-y 
+y
 Number - y offset from the anchor.
-displayMode 
+displayMode
 String - "MENU" enables a tooltip-styled context menu, any other value the dropdown style.
-autoHideDelay 
+autoHideDelay
 Number - Automatically hide the menu after this many seconds.
 edit Details
 
@@ -126,12 +186,12 @@ local menu = {
     { text = "More Options", hasArrow = true,
         menuList = {
             { text = "Option 3", func = function() print("You've chosen option 3"); end }
-        } 
+        }
     }
 }
 local menuFrame = CreateFrame("Frame", "ExampleMenuFrame", UIParent, "UIDropDownMenuTemplate")
 
--- Make the menu appear at the cursor: 
+-- Make the menu appear at the cursor:
 EasyMenu(menu, menuFrame, "cursor", 0 , 0, "MENU");
 -- Or make the menu appear at the frame:
 menuFrame:SetPoint("Center", UIParent, "Center")
@@ -167,3 +227,68 @@ MultiBarBottomRight:SetPoint("BOTTOMLEFT", "UIParent", "BOTTOMLEFT", MainActionB
 /startattack [harm]
 /cast [modifier:alt,target=pet,exists] Death Coil, [harm] Death Coil, [target=pet,exists] Death Coil
 
+http://www.battlenet.com.cn/wow/zh/tool/talent-calculator/11
+
+for(var i=0;i<Grid.gridData.length; i++){
+    var item = Grid.gridData[i];
+	console.log('if(unitLevel>='+item[1]+')then listSpell[\"'+item[0][1]+'\"] = '+item[0][0]+'; end		--'+item[0][3]);
+}
+
+for(var i=0;i<spells_data.length; i++){
+    var item = spells_data[i];
+	console.log('if(unitLevel>='+item[3]+')then listSpell[\"'+_[item[0]].i+'\"] = '+item[0]+'; end		--'+item[1]);
+}
+
+http://www.battlenet.com.cn/wow/zh/tool/talent-calculator#U!21111.
+
+//dk:6 
+
+var wowdata = TalentSelector.instances[10].data;
+for(var i=0;i<wowdata.spells.length; i++){
+    var item = wowdata.spells[i];
+	console.log('if(unitLevel>='+item.minLevel+')then listSpell[\"'+item.spell.icon+'\"] = '+item.spell.id+'; end		--'+item.spell.name +'--'+item.spell.htmlDescription);
+}
+for(var specNo=0;specNo<3;specNo++){
+	console.log('--'+wowdata.specs[specNo].name+'--'+wowdata.specs[specNo].bg);
+	spells = wowdata.specs[specNo].spells;
+	for(var i=0;i<spells.length; i++){
+		var item = spells[i];
+		console.log('if(unitLevel>='+item.minLevel+')then listSpell[\"'+item.spell.icon+'\"] = '+item.spell.id+'; end		--'+item.spell.name +'--'+item.spell.htmlDescription);
+	}
+}
+console.log('-------------------------talent-------------------------');
+for(var talentNo=0;talentNo<18;talentNo++){
+	item = wowdata.talents[(talentNo-talentNo%3)/3][talentNo%3].spell;
+	console.log('if(unitLevel>='+((talentNo-talentNo%3)/3+1)*15+')then listSpell[\"'+item.icon+'\"] = '+item.id+'; end		--'+item.name +'--'+item.htmlDescription);
+}
+
+/run print(W_BuffTime(NA_Player, -114664, true));
+
+{{Zone Map Note|<X-coordinate>|<Y-coordinate>|<Icon name>|<Hover text>}}
+
+
+
+{{Zone Map|zone=雷神岛|notes=
+{{Zone Map Note|25.8|89.6|Skull|Hogger}}
+{{Zone Map Note|39.4|60.5|Star|Graveyard}}
+{{Zone Map Note|24.4|78|Cross|Raid meets here}}
+}}
+
+{{Zone Map|zone=Isle of Thunder|notes={{Zone Map Note|25.8|89.6|Skull|Hogger}}{{Zone Map Note|39.4|60.5|Star|Graveyard}}}}
+
+#showtooltip 冰霜之柱
+/use # (#為你所裝備的主動飾品等)
+/cast 冰霜之柱
+/cast 亡者复生
+爆发宏，冰霜之柱1mincd 亡者复生 2mincd ，可以搭配一些主动sp使用
+
+/run SetCVar("raidFramesDisplayIncomingHeals",1)
+
+
+
+/script NA_TestMaxDPS(0)
+/script NA_testSpell('5118', NA_Player)
+/script NA_testSpell('3044', NA_Target)
+/run print(NA_FireSpell('3044', NA_Target))
+/run print(UnitIsVisible(NA_Target))
+/run print(W_IsUsableSpell('3044', NA_Target))
