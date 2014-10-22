@@ -24,7 +24,7 @@ NextActions是一个标准的wow lua插件,她调用wow API分析当前游戏角
 - WOD 6.0.2: 完美支持兽王LR. 基本可用的:狂暴战,冰法,奥法,野德,血DK,冰DK,兽王LR,惩戒骑,防骑,奶骑,毁灭SS.
 
 ###使用帮助
-1. 安装NextActions插件: 解压缩NextActions.rar到wow的Interface\AddOns\目录下, 启动wow后应该可以在插件列表中显示NextActions插件.
+1. 安装NextActions插件: 解压缩[NextActions.rar](https://raw.githubusercontent.com/watano/NextActions/master/NextActions.rar)到wow的Interface\AddOns\目录下, 启动wow后应该可以在插件列表中显示NextActions插件.
 1. 运行NextActions.exe程序
 1. **设置wow的视频选项,设置为"窗口最大化"** 注意:此选项必须选择,否则NextActions将不能正确模拟按键!
 ![wow视频设置](./img/cfg01.jpg)
