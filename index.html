@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Nextactions : wow自动施法按键助手">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Nextactions</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/watano/NextActions">View on GitHub</a>
+
+          <h1 id="project_title">Nextactions</h1>
+          <h2 id="project_tagline">wow自动施法按键助手</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/watano/NextActions/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/watano/NextActions/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h2>
+<a name="nextactions---wow%E8%87%AA%E5%8A%A8%E6%96%BD%E6%B3%95%E6%8C%89%E9%94%AE%E5%8A%A9%E6%89%8B" class="anchor" href="#nextactions---wow%E8%87%AA%E5%8A%A8%E6%96%BD%E6%B3%95%E6%8C%89%E9%94%AE%E5%8A%A9%E6%89%8B"><span class="octicon octicon-link"></span></a>
+<a href="https://github.com/watano/NextActions">NextActions</a> - wow自动施法按键助手</h2>
+
+<h4>
+<a name="%E4%BD%9C%E8%80%85-watanowatanoqqcom" class="anchor" href="#%E4%BD%9C%E8%80%85-watanowatanoqqcom"><span class="octicon octicon-link"></span></a>作者: watano(<a href="mailto:watano@qq.com">watano@qq.com</a>)</h4>
+
+<h3>
+<a name="%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E5%A4%96%E6%8C%82%E5%91%A2" class="anchor" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E5%A4%96%E6%8C%82%E5%91%A2"><span class="octicon octicon-link"></span></a>为什么需要这样一个<strong>"外挂"</strong>呢?</h3>
+
+<p>wow是本人最爱的一个网游,从国服公测开始一直玩到现在, 但基本属于修仙玩家,没有参加过60年代的公会团.在wow中,经常需要长时间无脑刷怪或者随机副本,但因为工作原因,经常没有足够的时间精力,所以开发出此程序,帮助我自己刷怪刷随机副本.此程序从国服TBC时代就开始使用,后来转战台服也仍然继续使用,但一直没有开放给其他人使用,只是自己自娱自乐使用.</p>
+
+<h3>
+<a name="%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86" class="anchor" href="#%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86"><span class="octicon octicon-link"></span></a>运行原理</h3>
+
+<p>NextActions是一个标准的wow lua插件,她调用wow API分析当前游戏角色及目标状态数据,计算当前最佳施放法术, 然后在屏幕左上角的一个固定显示区域中显示法术对应的颜色块. 同时, 一个autuIt3编写的脚本程序NextActions.exe将检测屏幕左上角的固定区域中的颜色,并模拟键盘按动颜色块对应的快捷键完成法术施放.</p>
+
+<h3>
+<a name="nextactions%E5%8F%AF%E4%BB%A5%E5%81%9A%E4%BB%80%E4%B9%88" class="anchor" href="#nextactions%E5%8F%AF%E4%BB%A5%E5%81%9A%E4%BB%80%E4%B9%88"><span class="octicon octicon-link"></span></a>NextActions可以做什么？</h3>
+
+<ol>
+<li>非战斗状态下,根据选择profile绑定可用法术快捷键;目前支持到36个法术的绑定,计划支持物品和宏绑定</li>
+<li>非战斗状态时,对友好目标补buff;</li>
+<li>非战斗状态时,自动对敌对目标施放伤害法术;</li>
+<li>战斗状态时,判断目标友好状态,自动施放最优增益或伤害法术;</li>
+<li>战斗状态时,根据当前玩家血量及魔法值,自动施放技能回血回蓝;</li>
+<li>玩家选择Max DPS模式时,自动施放增益法术或者开启饰品;</li>
+<li>每个职业可以有3-4个独立配置profile支持不同天赋, 3个运行模式:MaxDPS-最大化输出,一般在需要发大招时使用; AOE-A怪的时候使用; SOLO-单刷做任务的时候使用,可以自己回血,释放一些小大招,自动开怪等.</li>
+</ol>
+
+<h3>
+<a name="%E6%94%AF%E6%8C%81wow%E7%89%88%E6%9C%AC" class="anchor" href="#%E6%94%AF%E6%8C%81wow%E7%89%88%E6%9C%AC"><span class="octicon octicon-link"></span></a>支持wow版本</h3>
+
+<ul>
+<li>TBC: 法师,猎人,奶德(曾经支持过,后转战台服,没有reroll法师和猎人)</li>
+<li>WLK 3.3.5: 奶德(完美支持), 熊德(准完美), 树德、貓德及3系DK(可用,但dps不是最优)</li>
+<li>CTM 4.x: 熊德,防骑(完美支持), 惩戒骑士,貓德,树德(基本可用) </li>
+<li>MOP 5.x: 完美支持血DK,冰DK,兽王LR,惩戒骑,防骑,奶骑,毁灭SS. 基本可用的有:狂暴战,防战,冰法,奥法,野德,恶魔SS.</li>
+<li>WOD 6.0.2: 完美支持兽王LR. 基本可用的:狂暴战,冰法,奥法,野德,血DK,冰DK,兽王LR,惩戒骑,防骑,奶骑,毁灭SS.</li>
+</ul>
+
+<h3>
+<a name="%E4%BD%BF%E7%94%A8%E5%B8%AE%E5%8A%A9" class="anchor" href="#%E4%BD%BF%E7%94%A8%E5%B8%AE%E5%8A%A9"><span class="octicon octicon-link"></span></a>使用帮助</h3>
+
+<ol>
+<li>安装NextActions插件: 解压缩<a href="https://raw.githubusercontent.com/watano/NextActions/master/NextActions.rar">NextActions.rar</a>到wow的Interface\AddOns\目录下, 启动wow后应该可以在插件列表中显示NextActions插件.</li>
+<li>运行NextActions.exe程序</li>
+<li>
+<strong>设置wow的视频选项,设置为"窗口最大化"</strong> 注意:此选项必须选择,否则NextActions将不能正确模拟按键!
+<img src="./img/cfg01.jpg" alt="wow视频设置">
+</li>
+<li>运行wow,选择启用NextActions插件,并进入角色
+<img src="./img/cfg02.jpg" alt="启用插件">
+</li>
+<li>检查插件是否争取运行. 正确运行时应该在wow左上角显示一个黑色方框,同时屏幕上还会显示NextActions的主界面.
+<img src="./img/cfg03.jpg" alt="黑色方框">
+<img src="./img/cfg04.jpg" alt="主界面1">
+<img src="./img/cfg05.jpg" alt="主界面2">
+</li>
+<li>界面说明: 
+
+<ul>
+<li>选择当前使用的配置文件profile(每个职业目前支持3个配置,详细配置说明请参见<strong>职业profile章节</strong>)
+<img src="./img/cfg04.jpg" alt="选择profile">
+</li>
+<li>选择运行模式, 目前NextActions支持MaxDPS,AOE,SOLO 3种模式. 分别对应3个checkbox
+<img src="./img/cfg05.jpg" alt="运行模式">
+</li>
+</ul>
+</li>
+<li>命令行说明:
+
+<ul>
+<li>/na version 或者 /na ver 输出插件版本号</li>
+<li>/na toogle 切换是否启用/停用插件</li>
+<li>/na 0 或 /na 1或/na 2 切换运行配置</li>
+<li><em>/na mykey 作者自己使用的一些按键绑定,不喜欢的请不要使用. 这个不影响插件使用</em></li>
+<li><em>/na myui 作者自己使用的一些界面设定,不喜欢的请不要使用. 这个不影响插件使用</em></li>
+</ul>
+</li>
+</ol>
+
+<h3>
+<a name="%E8%81%8C%E4%B8%9Aprofile" class="anchor" href="#%E8%81%8C%E4%B8%9Aprofile"><span class="octicon octicon-link"></span></a>职业Profile</h3>
+
+<h4>
+<a name="%E7%8C%8E%E4%BA%BA" class="anchor" href="#%E7%8C%8E%E4%BA%BA"><span class="octicon octicon-link"></span></a>猎人</h4>
+
+<ol>
+<li>兽王猎: 目前只支持兽王天赋.暂时没有优化wow 6.0.2下的dps, 所以这个只保证可以正常使用,最大化输出就不要指望了.
+
+<ul>
+<li>SOLO模式下可以自动奥术射击开怪; </li>
+<li>非MaxDPS和非战斗状态时, 自动切换到猎豹守护提高奔跑速度</li>
+<li>非战斗状态时,自动治疗宠物 </li>
+<li>兽王猎人配置5分钟测试数据: <img src="./img/testlr.jpg" alt="兽王猎人配置测试数据">
+</li>
+</ul>
+</li>
+<li>射击天赋: 目前暂时还不支持6.0.2</li>
+<li>生存天赋: 目前暂时还不支持6.0.2</li>
+</ol>
+
+<h4>
+<a name="%E6%88%98%E5%A3%AB" class="anchor" href="#%E6%88%98%E5%A3%AB"><span class="octicon octicon-link"></span></a>战士</h4>
+
+<ol>
+<li>防战: 目前支持防战天赋.只保证可用</li>
+<li>狂暴战: 支持天赋为狂暴战. 可用,但不保证最大化输出.</li>
+<li><em>武器战:不可用</em></li>
+</ol>
+
+<h4>
+<a name="%E6%AD%BB%E4%BA%A1%E9%AA%91%E5%A3%AB" class="anchor" href="#%E6%AD%BB%E4%BA%A1%E9%AA%91%E5%A3%AB"><span class="octicon octicon-link"></span></a>死亡骑士</h4>
+
+<ol>
+<li>双手冰DK:支持使用双手武器的冰DK.功能完备,但是还没有对wow6.x进行优化输出.</li>
+<li>血DK:支持血天赋.功能完备,但是还没有对wow6.x进行优化输出.</li>
+<li>双持冰DK:支持双持武器的冰DK.功能完备,但是还没有对wow6.x进行优化输出.</li>
+</ol>
+
+<h4>
+<a name="%E5%9C%A3%E9%AA%91%E5%A3%AB" class="anchor" href="#%E5%9C%A3%E9%AA%91%E5%A3%AB"><span class="octicon octicon-link"></span></a>圣骑士</h4>
+
+<ol>
+<li>防骑:功能完备,但是还没有对wow6.x进行优化输出.</li>
+<li>惩戒骑:功能完备,但是还没有对wow6.x进行优化输出.</li>
+<li><em>奶骑:可用,但是相当不好用,敬请期待下个版本.</em></li>
+</ol>
+
+<h4>
+<a name="%E6%B3%95%E5%B8%88" class="anchor" href="#%E6%B3%95%E5%B8%88"><span class="octicon octicon-link"></span></a>法师</h4>
+
+<ol>
+<li><em>奥法:仅仅只是能用</em></li>
+<li><em>冰法:仅仅只是能用</em></li>
+<li><em>火法:暂时不可用</em></li>
+</ol>
+
+<h4>
+<a name="%E6%9C%AF%E5%A3%AB" class="anchor" href="#%E6%9C%AF%E5%A3%AB"><span class="octicon octicon-link"></span></a>术士</h4>
+
+<ol>
+<li>恶魔术士:功能完备,但是还没有对wow6.x进行优化输出.</li>
+<li>毁灭术士:功能完备,但是还没有对wow6.x进行优化输出.</li>
+<li><em>痛苦术士:仅仅只是能用</em></li>
+</ol>
+
+<h4>
+<a name="%E5%BE%B7%E9%B2%81%E4%BC%8A" class="anchor" href="#%E5%BE%B7%E9%B2%81%E4%BC%8A"><span class="octicon octicon-link"></span></a>德鲁伊</h4>
+
+<ol>
+<li><em>熊德: 仅仅只是能用</em></li>
+<li><em>猫德: 不可用</em></li>
+<li><em>恢复德: 不可用</em></li>
+<li><em>平衡德: 不可用</em></li>
+</ol>
+
+<h4>
+<a name="%E5%85%B6%E4%BB%96%E8%81%8C%E4%B8%9A" class="anchor" href="#%E5%85%B6%E4%BB%96%E8%81%8C%E4%B8%9A"><span class="octicon octicon-link"></span></a>其他职业</h4>
+
+<p><em>暂时不可用</em></p>
+
+<h3>
+<a name="%E7%9B%AE%E5%89%8D%E5%B7%B2%E7%9F%A5%E9%97%AE%E9%A2%98" class="anchor" href="#%E7%9B%AE%E5%89%8D%E5%B7%B2%E7%9F%A5%E9%97%AE%E9%A2%98"><span class="octicon octicon-link"></span></a>目前已知问题</h3>
+
+<ol>
+<li>
+<strong>只支持自动释放法术</strong>, 使用物品和释放宏命令将在以后版本支持</li>
+<li>wow 6.0.2下暂时没有优化输出序列,所以不要指望最大化输出</li>
+<li>暂时多个同类天赋技能判断不太准确,所以可以使用注释代码的方式支持多个技能</li>
+<li>
+<strong>战斗时不能聊天</strong>, 因为本程序使用模拟按键方式施法,所以在战斗时会影响聊天的按键操作. 计划在以后版本中增加聊天激活检测</li>
+<li>不能记住上次释放的技能,所以会多次重复按键释放同一个法术. 目前只是做了个延时判断,并没有真正解决此问题. 计划在以后版本解决此问题.</li>
+<li>由于个人习惯问题,所以提示信息暂时都是英文的,计划在以后版本支持多语言.</li>
+<li>为了方便编写,使用dart编写了一个lua代码生成器,代码比较混乱,暂时不开放相关源代码.</li>
+</ol>
+
+<h3>
+<a name="%E7%94%B3%E6%98%8E" class="anchor" href="#%E7%94%B3%E6%98%8E"><span class="octicon octicon-link"></span></a>申明</h3>
+
+<ol>
+<li>此代码仅仅是自娱自乐,不喜欢的请不要使用. 如需修改使用在商业用途,请给我一个帐号娱乐下,谢谢!</li>
+<li>此插件的相关源代码都已经开放源代码,有兴趣的朋友可以随意修改. 改版的请通知我一下,让我也乐呵乐呵.</li>
+<li>
+<strong>此插件不包含任何木马后门,但不保证其他人挂马,所以请到项目开源地址下载使用!</strong><a href="https://github.com/watano/NextActions">NextActions</a>
+</li>
+<li>作者很懒,所以不要指望提交插件到各大发布网站,需要的请从项目地址下载!</li>
+<li><strong>原则上此插件应该不会导致被暴雪封号. 如果被封号了,请及时检查自己的使用方式并通告其他人,同时也请大家为他默哀10分钟!</strong></li>
+</ol>
+
+<h3>
+<a name="%E5%B9%BF%E5%91%8A%E6%97%B6%E9%97%B4" class="anchor" href="#%E5%B9%BF%E5%91%8A%E6%97%B6%E9%97%B4"><span class="octicon octicon-link"></span></a>广告时间</h3>
+
+<ol>
+<li>媳妇在微商卖东西,请大家支持下老婆的小店,谢谢! 媳妇的微信帐号是5044940. 公众号是"筱野"<img src="./img/xy.jpg" alt="筱野">
+</li>
+<li>本人已经辞职在家,大家有合适的私活可以qq:77041519 推荐给我.我擅长java企业级web应用,android应用开发,微信应用开发等.目前有11年相关开发和管理经验.</li>
+<li>如果大家发现bug,可以在github的项目地址<a href="https://github.com/watano/NextActions">NextActions</a>给我提交issues.</li>
+<li>如果大家喜欢这个插件,请打赏点小费支持我继续开发下去,谢谢. 我的微信帐号是:"watanoo" <img src="./img/watanoo.jpg" alt="watanoo">
+</li>
+</ol>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Nextactions maintained by <a href="https://github.com/watano">watano</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-3707778-2");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+
+  </body>
+</html>
