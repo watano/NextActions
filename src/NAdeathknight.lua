@@ -38,9 +38,11 @@ local needHP = W_HPlevel(NA_Player) < 0.3 or (NA_IsSolo and not NA_IsMaxDps and 
                           
   
   if(W_IsInCombat())then
-    if(W_TargetCanAttack()) then
+    if(W_IsDeadTarget()) then
+      return NA_ChagetTarget();       
+    elseif(W_TargetCanAttack()) then
       -- 保命施法
-    
+          
       if(false
           or NA_Fire(NA_ProfileNo == 0 and needHP, '49998', NA_Target) --灵界打击
 or NA_Fire(NA_ProfileNo == 0 and needHP, '48707', NA_Player) --反魔法护罩

@@ -150,6 +150,15 @@ function W_BuffTime(UnitId, buffID, onlyMine)
 	return 0;
 end
 
+function W_IsDeadTarget()
+	if(UnitIsDead(NA_Target) and UnitCanAttack(NA_Player,NA_Target) and
+	(UnitIsEnemy(NA_Player,NA_Target) or UnitIsTapped(NA_Target) or UnitIsPlayer(NA_Target))) then
+		return true;
+	else
+		return false
+	end
+end
+
 function W_TargetCanAttack()
 	if(not UnitIsDead(NA_Target) and UnitCanAttack(NA_Player,NA_Target) and
 	(UnitIsEnemy(NA_Player,NA_Target) or UnitIsTapped(NA_Target) or UnitIsPlayer(NA_Target))) then
@@ -209,6 +218,12 @@ function NA_Fire(cond, spellID, UnitId, interval)
 	end
 	return false;
 end
+
+function NA_ChagetTarget()
+	NA_ShowVars(101);
+	return true;
+end
+
 --spell
 function NA_FireSpell(spellID, UnitId)
 	local spellInfo = NA_getSpellInfo(spellID);

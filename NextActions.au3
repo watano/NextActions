@@ -89,6 +89,8 @@ Func NAExecute()
 		Send("+=");
 	Case 100	;NA_PetAttack() 
 		Send("+T");
+	Case 101    ;tab
+		Send("{TAB}");
 	Case 900
 		Send("=");
 	Case Else

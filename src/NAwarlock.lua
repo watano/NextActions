@@ -35,9 +35,11 @@ function NA9Dps()
 
   
   if(W_IsInCombat())then
-    if(W_TargetCanAttack()) then
+    if(W_IsDeadTarget()) then
+      return NA_ChagetTarget();       
+    elseif(W_TargetCanAttack()) then
       -- 保命施法
-    
+          
       if(false
           or NA_Fire(W_HPlevel(NA_Pet) < 0.35 and not UnitIsDead(NA_Pet) and W_HPlevel(NA_Player)>0.5, '755', NA_Pet) --生命通道
 or NA_Fire(W_HPlevel(NA_Player)<0.1, '104773', NA_Player) --不灭决心

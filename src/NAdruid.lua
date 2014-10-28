@@ -38,9 +38,11 @@ local inCat = W_HasBuff(NA_Player, 768, true);
 
   
   if(W_IsInCombat())then
-    if(W_TargetCanAttack()) then
+    if(W_IsDeadTarget()) then
+      return NA_ChagetTarget();       
+    elseif(W_TargetCanAttack()) then
       -- 保命施法
-    
+          
       if(false
           or NA_Fire(needHP, '62606', NA_Player) --野蛮防御
 or NA_Fire(needHP, '22812', NA_Player) --树皮术
@@ -59,7 +61,7 @@ or NA_Fire(needHP, '22842', NA_Player) --狂暴回复
       if(not NA_IsAOE and (false
         or NA_Fire(not NA_IsSolo and not W_HasBuff(NA_Target, -770, true), '770', NA_Target) --精灵之火
 or NA_Fire(inBear and notTanking, '6795', NA_Target) --低吼
-or NA_Fire(inBear and W_RetainBuff(NA_Player, -135286, true), '6807', NA_Target) --重殴
+or NA_Fire(inBear and W_RetainBuff(NA_Target, -135601, true), '6807', NA_Target) --重殴
 or NA_Fire(inBear and not hasThrash, '106832', NA_Target) --痛击
 or NA_Fire(inBear and countLacerate < 3, '33745', NA_Target) --割伤
 or NA_Fire(inBear and W_RetainBuff(NA_Target, -33745, true), '33745', NA_Target) --割伤

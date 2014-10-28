@@ -1,4 +1,4 @@
-##[NextActions](https://github.com/watano/NextActions) - wow自动施法按键助手 
+##[NextActions](https://github.com/watano/NextActions) - wow自动施法按键助手
 ####作者: watano(watano@qq.com)
 
 ###为什么需要这样一个**"外挂"**呢?
@@ -16,10 +16,10 @@ NextActions是一个标准的wow lua插件,她调用wow API分析当前游戏角
 1. 玩家选择Max DPS模式时,自动施放增益法术或者开启饰品;
 1. 每个职业可以有3-4个独立配置profile支持不同天赋, 3个运行模式:MaxDPS-最大化输出,一般在需要发大招时使用; AOE-A怪的时候使用; SOLO-单刷做任务的时候使用,可以自己回血,释放一些小大招,自动开怪等.
 
-###支持wow版本 
+###支持wow版本
 - TBC: 法师,猎人,奶德(曾经支持过,后转战台服,没有reroll法师和猎人)
 - WLK 3.3.5: 奶德(完美支持), 熊德(准完美), 树德、貓德及3系DK(可用,但dps不是最优)
-- CTM 4.x: 熊德,防骑(完美支持), 惩戒骑士,貓德,树德(基本可用) 
+- CTM 4.x: 熊德,防骑(完美支持), 惩戒骑士,貓德,树德(基本可用)
 - MOP 5.x: 完美支持血DK,冰DK,兽王LR,惩戒骑,防骑,奶骑,毁灭SS. 基本可用的有:狂暴战,防战,冰法,奥法,野德,恶魔SS.
 - WOD 6.0.2: 完美支持兽王LR. 基本可用的:狂暴战,冰法,奥法,野德,血DK,冰DK,兽王LR,惩戒骑,防骑,奶骑,毁灭SS.
 
@@ -27,18 +27,18 @@ NextActions是一个标准的wow lua插件,她调用wow API分析当前游戏角
 1. 安装NextActions插件: 解压缩[NextActions.rar](https://raw.githubusercontent.com/watano/NextActions/master/NextActions.rar)到wow的Interface\AddOns\目录下, 启动wow后应该可以在插件列表中显示NextActions插件.
 1. 运行NextActions.exe程序
 1. **设置wow的视频选项,设置为"窗口最大化"** 注意:此选项必须选择,否则NextActions将不能正确模拟按键!
-![wow视频设置](./img/cfg01.jpg)
+  ![wow视频设置](./img/cfg01.jpg)
 1. 运行wow,选择启用NextActions插件,并进入角色
-![启用插件](./img/cfg02.jpg)
+  ![启用插件](./img/cfg02.jpg)
 1. 检查插件是否争取运行. 正确运行时应该在wow左上角显示一个黑色方框,同时屏幕上还会显示NextActions的主界面.
-![黑色方框](./img/cfg03.jpg)
-![主界面1](./img/cfg04.jpg)
-![主界面2](./img/cfg05.jpg)
-1. 界面说明: 
+  ![黑色方框](./img/cfg03.jpg)
+  ![主界面1](./img/cfg04.jpg)
+  ![主界面2](./img/cfg05.jpg)
+1. 界面说明:
  - 选择当前使用的配置文件profile(每个职业目前支持3个配置,详细配置说明请参见**职业profile章节**)
- ![选择profile](./img/cfg04.jpg)
+  ![选择profile](./img/cfg04.jpg)
  - 选择运行模式, 目前NextActions支持MaxDPS,AOE,SOLO 3种模式. 分别对应3个checkbox
- ![运行模式](./img/cfg05.jpg)
+  ![运行模式](./img/cfg05.jpg)
 1. 命令行说明:
  - /na version 或者 /na ver 输出插件版本号
  - /na toogle 切换是否启用/停用插件
@@ -49,9 +49,9 @@ NextActions是一个标准的wow lua插件,她调用wow API分析当前游戏角
 ###职业Profile
 ####猎人
 1. 兽王猎: 目前只支持兽王天赋.暂时没有优化wow 6.0.2下的dps, 所以这个只保证可以正常使用,最大化输出就不要指望了.
- - SOLO模式下可以自动奥术射击开怪; 
+ - SOLO模式下可以自动奥术射击开怪;
  - 非MaxDPS和非战斗状态时, 自动切换到猎豹守护提高奔跑速度
- - 非战斗状态时,自动治疗宠物 
+ - 非战斗状态时,自动治疗宠物
  - 兽王猎人配置5分钟测试数据: ![兽王猎人配置测试数据](./img/testlr.jpg)
 1. 射击天赋: 目前暂时还不支持6.0.2
 1. 生存天赋: 目前暂时还不支持6.0.2
@@ -87,6 +87,11 @@ NextActions是一个标准的wow lua插件,她调用wow API分析当前游戏角
  1. *恢复德: 不可用*
  1. *平衡德: 不可用*
 
+####武僧
+ 1. 酿酒: 可用，感谢“巨型青蛙”
+ 1. *织雾: 不可用*
+ 1. *风行: 不可用*
+
 ####其他职业
 *暂时不可用*
 
@@ -107,7 +112,8 @@ NextActions是一个标准的wow lua插件,她调用wow API分析当前游戏角
 1. **原则上此插件应该不会导致被暴雪封号. 如果被封号了,请及时检查自己的使用方式并通告其他人,同时也请大家为他默哀10分钟!**
 
 ###广告时间
-1. 媳妇在微商卖东西,请大家支持下老婆的小店,谢谢! 媳妇的微信帐号是5044940. 公众号是"筱野"![筱野](./img/xy.jpg)
+1. 媳妇在微商卖东西,请大家支持下老婆的小店,谢谢! 媳妇的微信帐号是5044940. 公众号是"筱野"
+  ![筱野](./img/xy.jpg)
 1. 本人已经辞职在家,大家有合适的私活可以qq:77041519 推荐给我.我擅长java企业级web应用,android应用开发,微信应用开发等.目前有11年相关开发和管理经验.
 1. 如果大家发现bug,可以在github的项目地址[NextActions](https://github.com/watano/NextActions)给我提交issues.
 1. 如果大家喜欢这个插件,请打赏点小费支持我继续开发下去,谢谢. 我的微信帐号是:"watanoo" ![watanoo](./img/watanoo.jpg)

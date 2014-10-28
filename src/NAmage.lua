@@ -35,9 +35,11 @@ function NA8Dps()
 
   
   if(W_IsInCombat())then
-    if(W_TargetCanAttack()) then
+    if(W_IsDeadTarget()) then
+      return NA_ChagetTarget();       
+    elseif(W_TargetCanAttack()) then
       -- 保命施法
-    
+          
       if(false
            )then return true; end
 

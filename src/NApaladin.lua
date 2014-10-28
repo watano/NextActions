@@ -36,9 +36,11 @@ function NA2Dps()
 
   
   if(W_IsInCombat())then
-    if(W_TargetCanAttack()) then
+    if(W_IsDeadTarget()) then
+      return NA_ChagetTarget();       
+    elseif(W_TargetCanAttack()) then
       -- 保命施法
-    
+          
       if(false
           or NA_Fire(W_HPlevel(NA_Player) < 0.85 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.9), '114163', NA_Target) --永恒之火
 or NA_Fire(W_HPlevel(NA_Player) < 0.1 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.2), '633', NA_Player) --圣疗术

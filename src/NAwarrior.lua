@@ -35,9 +35,11 @@ function NA1Dps()
 
   
   if(W_IsInCombat())then
-    if(W_TargetCanAttack()) then
+    if(W_IsDeadTarget()) then
+      return NA_ChagetTarget();       
+    elseif(W_TargetCanAttack()) then
       -- 保命施法
-    
+          
       if(false
           or NA_Fire(not NA_IsMaxDps and W_HPlevel(NA_Player)<0.8, '34428', NA_Player) --乘胜追击
 or NA_Fire(NA_ProfileNo == 0 and W_HPlevel(NA_Player)<0.8, '112048', NA_Player) --盾牌屏障
