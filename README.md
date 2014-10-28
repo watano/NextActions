@@ -95,6 +95,15 @@ NextActions是一个标准的wow lua插件,她调用wow API分析当前游戏角
 ####其他职业
 *暂时不可用*
 
+###相关工具
+####NextActions.exe
+使用[autoit3](https://www.autoitscript.com/site/autoit/)编写的模拟按键程序。程序源代码在NextActions.au3中。
+####codegen
+使用[dart](https://www.dartlang.org/)编写的NextActions角色配置生成工具,使用时请使用Dart Editor打开codegen目录，并运行WowProfile.dart文件
+1. WowProfile.dart：NextActions角色配置生成工具
+1. WowInfo.dart中的fetchAll()：从官网获取角色技能数据的json文件
+1. WowInfo2.dart中的simc()：根据simc的profile翻译生成可用的NextActions配置。**simc的语法较为复杂，翻译对应技能实现不完整，所以目前此工具只能做参考**
+
 ###目前已知问题
 1. **只支持自动释放法术**, 使用物品和释放宏命令将在以后版本支持
 1. wow 6.0.2下暂时没有优化输出序列,所以不要指望最大化输出
