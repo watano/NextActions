@@ -36,9 +36,7 @@ function NA2Dps()
 
   
   if(W_IsInCombat())then
-    if(W_IsDeadTarget()) then
-      return NA_ChagetTarget();       
-    elseif(W_TargetCanAttack()) then
+    if(W_TargetCanAttack()) then
       -- 保命施法
           
       if(false
@@ -136,6 +134,8 @@ or NA_Fire(not NA_IsAOE and W_HPlevel(NA_Target) < 0.7, '19750', NA_Target) --�
 or NA_Fire(NA_IsAOE and W_HPlevel(NA_Target) < 0.7, '82327', NA_Target) --圣光普照
       )then return true; end
       return false;
+    elseif(NA_IsSolo)then
+      return NA_ChagetTarget();      
     end
   else
     

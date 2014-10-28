@@ -38,9 +38,7 @@ local needHP3 = W_HPlevel(NA_Player) < 0.9 or (NA_IsSolo and not NA_IsMaxDps and
 
   
   if(W_IsInCombat())then
-    if(W_IsDeadTarget()) then
-      return NA_ChagetTarget();       
-    elseif(W_TargetCanAttack()) then
+    if(W_TargetCanAttack()) then
       -- 保命施法
           
       if(false
@@ -118,6 +116,8 @@ or NA_Fire(W_HPlevel(NA_Player)<1, '115072', NA_Player) --移花接木
       if(false
               )then return true; end
       return false;
+    elseif(NA_IsSolo)then
+      return NA_ChagetTarget();      
     end
   else
     

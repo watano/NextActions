@@ -35,9 +35,7 @@ function NA9Dps()
 
   
   if(W_IsInCombat())then
-    if(W_IsDeadTarget()) then
-      return NA_ChagetTarget();       
-    elseif(W_TargetCanAttack()) then
+    if(W_TargetCanAttack()) then
       -- 保命施法
           
       if(false
@@ -149,6 +147,8 @@ or NA_Fire(W_HPlevel(NA_Target)<0.2, '103103', NA_Target) --吸取灵魂
       if(false
               )then return true; end
       return false;
+    elseif(NA_IsSolo)then
+      return NA_ChagetTarget();      
     end
   else
     

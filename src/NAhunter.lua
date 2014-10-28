@@ -35,9 +35,7 @@ function NA3Dps()
 
   
   if(W_IsInCombat())then
-    if(W_IsDeadTarget()) then
-      return NA_ChagetTarget();       
-    elseif(W_TargetCanAttack()) then
+    if(W_TargetCanAttack()) then
       -- 保命施法
           
       if(false
@@ -121,6 +119,8 @@ or NA_Fire(true, '77767', NA_Target) --眼镜蛇射击
       if(false
               )then return true; end
       return false;
+    elseif(NA_IsSolo)then
+      return NA_ChagetTarget();      
     end
   else
     

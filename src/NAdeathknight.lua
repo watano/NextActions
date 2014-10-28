@@ -38,9 +38,7 @@ local needHP = W_HPlevel(NA_Player) < 0.3 or (NA_IsSolo and not NA_IsMaxDps and 
                           
   
   if(W_IsInCombat())then
-    if(W_IsDeadTarget()) then
-      return NA_ChagetTarget();       
-    elseif(W_TargetCanAttack()) then
+    if(W_TargetCanAttack()) then
       -- 保命施法
           
       if(false
@@ -191,6 +189,8 @@ or NA_Fire(true, '45462', NA_Target) --暗影打击
         or NA_Fire(UnitIsDead(NA_Target), '61999', NA_Target) --复活盟友
       )then return true; end
       return false;
+    elseif(NA_IsSolo)then
+      return NA_ChagetTarget();      
     end
   else
     

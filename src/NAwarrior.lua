@@ -35,9 +35,7 @@ function NA1Dps()
 
   
   if(W_IsInCombat())then
-    if(W_IsDeadTarget()) then
-      return NA_ChagetTarget();       
-    elseif(W_TargetCanAttack()) then
+    if(W_TargetCanAttack()) then
       -- 保命施法
           
       if(false
@@ -125,6 +123,8 @@ or NA_Fire(true, '107570', NA_Target) --风暴之锤
         or NA_Fire(not NA_IsSolo, '114029', NA_Target) --捍卫
       )then return true; end
       return false;
+    elseif(NA_IsSolo)then
+      return NA_ChagetTarget();      
     end
   else
     
