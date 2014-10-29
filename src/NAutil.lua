@@ -212,7 +212,14 @@ function NA_Fire(cond, spellID, UnitId, interval)
 		return false;
 	end
 
-	if(cond and NA_FireSpell(spellID, UnitId)) then
+	local spellType = NA_SpellInfoType(spellID)
+	if(cond and spellType == 1 and NA_FireSpell(spellID, UnitId)) then
+		NA_SpellTimes[spellID] = 0;
+		return true;
+	elseif(cond and spellType == 2 and NA_FireItem(spellID, UnitId)) then
+		NA_SpellTimes[spellID] = 0;
+		return true;
+	elseif(cond and spellType == 3 and NA_FireMacro(spellID, UnitId)) then
 		NA_SpellTimes[spellID] = 0;
 		return true;
 	end
@@ -224,12 +231,37 @@ function NA_ChagetTarget()
 	return true;
 end
 
---spell
 function NA_FireSpell(spellID, UnitId)
 	local spellInfo = NA_getSpellInfo(spellID);
 	if(spellInfo ~= nil and spellInfo.keyNo ~= nil and W_IsUsableSpell(spellID, UnitId) and UnitIsVisible(UnitId)) then
 		W_Log(2,"NA_FireSpell:" .. spellID .."->"..spellInfo.name..spellInfo.keyNo);
 		W_UpdateLabelText('NA_SpellLabel', spellInfo.name);
+		NA_ShowVars(spellInfo.keyNo);
+		return true;
+	else
+		W_UpdateLabelText('NA_SpellLabel', '');
+		return false;
+	end
+end
+
+function NA_FireItem(spellID, UnitId)
+	local spellInfo = NA_getSpellInfo(spellID);
+	if(spellInfo ~= nil and spellInfo.keyNo ~= nil) then
+		W_Log(2,"NA_FireItem:" .. spellID .."->"..spellInfo.keyNo);
+		W_UpdateLabelText('NA_SpellLabel', spellInfo.name);
+		NA_ShowVars(spellInfo.keyNo);
+		return true;
+	else
+		W_UpdateLabelText('NA_SpellLabel', '');
+		return false;
+	end
+end
+
+function NA_FireMacro(spellID, UnitId)
+	local spellInfo = NA_getSpellInfo(spellID);
+	if(spellInfo ~= nil and spellInfo.keyNo ~= nil) then
+		W_Log(2,"NA_FireMacro:" .. spellID .."->"..spellInfo.keyNo);
+		W_UpdateLabelText('NA_SpellLabel', spellInfo.spellID);
 		NA_ShowVars(spellInfo.keyNo);
 		return true;
 	else

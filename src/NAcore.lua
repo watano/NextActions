@@ -133,8 +133,6 @@ function NA_InitClass()
 	for k,v in pairs(NA_Actions) do
 		no = no + 1;
 		if(v ~= nil and NA_SpellInfoType(v) == 1) then
-			--v = 'Spell_'..v;
-		--if(NA_ClassInfo[v] ~= nil and NA_ClassInfo[v].name ~= nil)then
 			local name, rank, icon, cost, isFunnel, powerType, castTime, minRange, maxRange;
 			name, rank, icon, cost, isFunnel, powerType, castTime, minRange, maxRange = GetSpellInfo(tonumber(v));
 			if(name ~= nil) then
@@ -156,6 +154,20 @@ function NA_InitClass()
 				W_Log(3,"GetSpellInfo error: ".. k);
 			end
 		end
+	elseif(v ~= nil and NA_SpellInfoType(v) == 2)then --Item
+		local name = strsub(v,1,strlen(v))
+		NA_ClassInfo[v] = {};
+      NA_ClassInfo[v]['spellID'] = name;
+		NA_ClassInfo[v]['keyNo'] = no;
+		W_SetBinding(no, name, 2);
+	elseif(v ~= nil and NA_SpellInfoType(v) == 3)then --Macro
+		local name = strsub(spellID,1,strlen(v))
+		NA_ClassInfo[v] = {};
+      NA_ClassInfo[v]['spellID'] = name;
+		NA_ClassInfo[v]['keyNo'] = no;
+		W_SetBinding(no, name, 3);
+	else
+		W_Log(4,"unkonw action: ".. v);
 	end	
 	--W_Log(1, W_toString(NA_ClassInfo))
 	if(not W_IsInCombat())then SaveBindings(2); end
@@ -279,11 +291,9 @@ end
 function NA_SpellInfoType(spellID)
 	if(spellID == nil)then
 		return -1;
-	elseif(strlen(spellID) > 7 and strsub(spellID,0,7) == 'NAItem_')then
+	elseif(strlen(spellID) > 1 and strsub(spellID,0,1) == 'I')then --Item
 		return 2;
-	elseif(strlen(spellID) > 8 and strsub(spellID,0,8) == 'NAMacro_')then
-		return 3;
-	elseif(strlen(spellID) > 7 and strsub(spellID,0,7) == 'NABuff_')then
+	elseif(strlen(spellID) > 1 and strsub(spellID,0,1) == 'M')then --Macro
 		return 3;
 	end
 	return 1;
