@@ -29,15 +29,13 @@ local retainBloodPlague = W_RetainBuff(NA_Target, -55078, true);    --血之疫�
 '''
 
     //灵魂收割 当目标血量低于35%
-    ..addattackCmd('W_HPlevel(NA_Target) < 0.35', '灵魂收割', NA_Target)
+    ..addattackCmd('true', '灵魂收割', NA_Target)
     ..addattackCmd('NA_IsSolo or NA_IsMaxDps', '冰霜之柱', NA_Target)
     ..addattackCmd('NA_IsMaxDps', '符文武器增效', NA_Target)
-    //..addattackCmd('NA_IsMaxDps', '亡者复生', NA_Player)
     //湮没 当杀戮机器触发且有双病
     ..addattackCmd('hasKillingMachine and retainFrostFever and retainBloodPlague', '湮没', NA_Target)
     //保持双疾病
     ..addattackCmd('not retainFrostFever and not retainBloodPlague', '爆发', NA_Target)
-    //..addattackCmd('not retainFrostFever and not retainBloodPlague, '传染', NA_Target)
     ..addattackCmd('not retainFrostFever', '凛风冲击', NA_Target)//凛风冲击 冰冷触摸
     ..addattackCmd('not retainBloodPlague', '暗影打击', NA_Target)
     //湮没 当任何一对符文冷却完成
@@ -58,25 +56,19 @@ local retainBloodPlague = W_RetainBuff(NA_Target, -55078, true);    --血之疫�
     ..addattackAOECmd('W_HPlevel(NA_Target) < 0.35', '灵魂收割', NA_Target)
     ..addattackAOECmd('NA_IsSolo or NA_IsMaxDps', '冰霜之柱', NA_Target)
     ..addattackAOECmd('NA_IsMaxDps', '符文武器增效', NA_Target)
-    //..addattackAOECmd('NA_IsMaxDps', '亡者复生', NA_Player)
     //疾病：血病跳数达到10跳
     ..addattackCmd('not retainFrostFever and not retainBloodPlague', '爆发', NA_Target)
-    //..addattackCmd('not retainFrostFever and not retainBloodPlague, '传染', NA_Target)
     ..addattackCmd('not retainFrostFever', '凛风冲击', NA_Target)//凛风冲击 冰冷触摸
     ..addattackCmd('not retainBloodPlague', '暗影打击', NA_Target)
     //凛风冲击 当两个冰霜符文和死亡符文冷却完成
     ..addattackAOECmd('hasFreezingFog or hasRime', '凛风冲击', NA_Target)//--免費冰冷触摸/凛风冲击
     ..addattackAOECmd('W_StarCount(3)>1 or W_StarCount(4)>1', '凛风冲击', NA_Target)
-    //枯萎凋零 当2个邪恶符文冷却完成
-    //  ..addattackAOECmd('W_StarCount(2)>1', '枯萎凋零', NA_Target)
     //冰霜打击 当符能即将达到上限
     ..addattackAOECmd('W_PowerLevel(NA_Player) > 0.7', '冰霜打击', NA_Target)
     //湮没 当杀戮机器触发
     ..addattackCmd('hasKillingMachine and retainFrostFever and retainBloodPlague', '湮没', NA_Target)
     //凛风冲击
     ..addattackAOECmd('true', '凛风冲击', NA_Target)
-    //枯萎凋零
-    //  ..addattackAOECmd('true', '枯萎凋零', NA_Target)
     //冰霜打击
     ..addattackAOECmd('true', '冰霜打击', NA_Target)
     //暗影打击
@@ -161,22 +153,19 @@ local retainFrostFever = W_RetainBuff(NA_Target, -55095, true);   --冰霜疫病
 local retainBloodPlague = W_RetainBuff(NA_Target, -55078, true);    --血之疫病
 '''
     //灵魂收割 当目标血量低于35%
-    ..addattackCmd('W_HPlevel(NA_Target) < 0.35', '灵魂收割', NA_Target)
+    ..addattackCmd('true', '灵魂收割', NA_Target)
     ..addattackCmd('NA_IsSolo or NA_IsMaxDps', '冰霜之柱', NA_Target)
     ..addattackCmd('NA_IsMaxDps', '符文武器增效', NA_Target)
-    //..addattackCmd('NA_IsMaxDps', '亡者复生', NA_Player)
-    //活力分流：超过11个血转
-    //  ..addattackCmd('false', '活力分流', NA_Player)
-    //冰霜打击：杀戮机器触发/符能超过89
-    ..addattackCmd('hasKillingMachine or W_PowerLevel(NA_Player) > 0.89', '冰霜打击', NA_Target)
+    //冰霜打击：杀戮机器触发/符能超过88
+    ..addattackCmd('hasKillingMachine or W_PowerLevel(NA_Player) > 0.88', '冰霜打击', NA_Target)
     //凛风冲击：2个死/冰符文同时冷却
     ..addattackCmd('W_StarCount(3)>1 and W_StarCount(4)>1', '凛风冲击', NA_Target)
     //暗影打击：邪恶符文不在冷却，血病即将消失。
     ..addattackCmd('not retainBloodPlague', '暗影打击', NA_Target)
     //凛风冲击：触发白霜
     ..addattackCmd('hasRime', '凛风冲击', NA_Target)
-    //冰霜打击：符文能量大于77.
-    ..addattackCmd('W_PowerLevel(NA_Player) > 0.77', '冰霜打击', NA_Target)
+    //冰霜打击：符文能量大于76.
+    ..addattackCmd('W_PowerLevel(NA_Player) > 0.76', '冰霜打击', NA_Target)
     //湮没：一个或更多的邪符文不在冷却，并且触发杀戮机器
     ..addattackCmd('(W_StarCount(1)>0 or W_StarCount(2)>0 or W_StarCount(3)>0 or W_StarCount(4)>0) and hasKillingMachine', '湮没', NA_Target)
     //凛风冲击
@@ -186,33 +175,26 @@ local retainBloodPlague = W_RetainBuff(NA_Target, -55078, true);    --血之疫�
     //冰霜打击：符文能量超过40
     ..addattackCmd('W_PowerLevel(NA_Player) > 0.40', '冰霜打击', NA_Target)
     //吸血瘟疫
-    //  ..addattackCmd('true', '吸血瘟疫', NA_Target)
-
+    ..addattackCmd('true', '吸血瘟疫', NA_Target)
 
     //------------------------------------------AOE------------------------------------
     //灵魂收割 当目标血量低于35%
-    ..addattackAOECmd('W_HPlevel(NA_Target) < 0.35', '灵魂收割', NA_Target)
+    ..addattackAOECmd('true', '灵魂收割', NA_Target)
     ..addattackAOECmd('NA_IsSolo or NA_IsMaxDps', '冰霜之柱', NA_Target)
     ..addattackAOECmd('NA_IsMaxDps', '符文武器增效', NA_Target)
-    //..addattackAOECmd('NA_IsMaxDps', '亡者复生', NA_Player)
     //疾病：血病跳数达到10跳
     ..addattackCmd('not retainFrostFever and not retainBloodPlague', '爆发', NA_Target)
-    //..addattackCmd('not retainFrostFever and not retainBloodPlague, '传染', NA_Target)
     ..addattackCmd('not retainFrostFever', '凛风冲击', NA_Target)//凛风冲击 冰冷触摸
     ..addattackCmd('not retainBloodPlague', '暗影打击', NA_Target)
     //凛风冲击 当两个冰霜符文和死亡符文冷却完成
     ..addattackAOECmd('hasFreezingFog or hasRime', '凛风冲击', NA_Target)//--免費冰冷触摸/凛风冲击
     ..addattackAOECmd('W_StarCount(3)>1 or W_StarCount(4)>1', '凛风冲击', NA_Target)
-    //枯萎凋零 当2个邪恶符文冷却完成
-    //  ..addattackAOECmd('W_StarCount(2)>1', '枯萎凋零', NA_Target)
     //冰霜打击 当符能即将达到上限
     ..addattackAOECmd('W_PowerLevel(NA_Player) > 0.7', '冰霜打击', NA_Target)
     //湮没 当杀戮机器触发
     ..addattackCmd('hasKillingMachine and retainFrostFever and retainBloodPlague', '湮没', NA_Target)
     //凛风冲击
     ..addattackAOECmd('true', '凛风冲击', NA_Target)
-    //枯萎凋零
-    //  ..addattackAOECmd('true', '枯萎凋零', NA_Target)
     //冰霜打击
     ..addattackAOECmd('true', '冰霜打击', NA_Target)
     //暗影打击

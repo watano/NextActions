@@ -11,7 +11,7 @@ function getNA6Actions(no)
     };
   elseif(no == 2)then
     return {
-      '130736','51271','47568','49143','49184','45462','49020','77575'
+      '130736','51271','47568','49143','49184','45462','49020','123693','77575'
     };
   
   end
@@ -62,7 +62,7 @@ function NA6Dps()
 				
         
         if(not NA_IsAOE and (false
-					or NA_Fire(W_HPlevel(NA_Target) < 0.35, '130736', NA_Target) --灵魂收割
+					or NA_Fire(true, '130736', NA_Target) --灵魂收割
 					or NA_Fire(NA_IsSolo or NA_IsMaxDps, '51271', NA_Target) --冰霜之柱
 					or NA_Fire(NA_IsMaxDps, '47568', NA_Target) --符文武器增效
 					or NA_Fire(hasKillingMachine and retainFrostFever and retainBloodPlague, '49020', NA_Target) --湮没
@@ -149,17 +149,18 @@ function NA6Dps()
 				
         
         if(not NA_IsAOE and (false
-					or NA_Fire(W_HPlevel(NA_Target) < 0.35, '130736', NA_Target) --灵魂收割
+					or NA_Fire(true, '130736', NA_Target) --灵魂收割
 					or NA_Fire(NA_IsSolo or NA_IsMaxDps, '51271', NA_Target) --冰霜之柱
 					or NA_Fire(NA_IsMaxDps, '47568', NA_Target) --符文武器增效
-					or NA_Fire(hasKillingMachine or W_PowerLevel(NA_Player) > 0.89, '49143', NA_Target) --冰霜打击
+					or NA_Fire(hasKillingMachine or W_PowerLevel(NA_Player) > 0.88, '49143', NA_Target) --冰霜打击
 					or NA_Fire(W_StarCount(3)>1 and W_StarCount(4)>1, '49184', NA_Target) --凛风冲击
 					or NA_Fire(not retainBloodPlague, '45462', NA_Target) --暗影打击
 					or NA_Fire(hasRime, '49184', NA_Target) --凛风冲击
-					or NA_Fire(W_PowerLevel(NA_Player) > 0.77, '49143', NA_Target) --冰霜打击
+					or NA_Fire(W_PowerLevel(NA_Player) > 0.76, '49143', NA_Target) --冰霜打击
 					or NA_Fire((W_StarCount(1)>0 or W_StarCount(2)>0 or W_StarCount(3)>0 or W_StarCount(4)>0) and hasKillingMachine, '49020', NA_Target) --湮没
 					or NA_Fire(true, '49184', NA_Target) --凛风冲击
 					or NA_Fire(W_PowerLevel(NA_Player) > 0.40, '49143', NA_Target) --冰霜打击
+					or NA_Fire(true, '123693', NA_Target) --吸血瘟疫
 					or NA_Fire(not retainFrostFever and not retainBloodPlague, '77575', NA_Target) --爆发
 					or NA_Fire(not retainFrostFever, '49184', NA_Target) --凛风冲击
 					or NA_Fire(not retainBloodPlague, '45462', NA_Target) --暗影打击
@@ -168,7 +169,7 @@ function NA6Dps()
         ))then return true; end
   
         if(NA_IsAOE and (false
-					or NA_Fire(W_HPlevel(NA_Target) < 0.35, '130736', NA_Target) --灵魂收割
+					or NA_Fire(true, '130736', NA_Target) --灵魂收割
 					or NA_Fire(NA_IsSolo or NA_IsMaxDps, '51271', NA_Target) --冰霜之柱
 					or NA_Fire(NA_IsMaxDps, '47568', NA_Target) --符文武器增效
 					or NA_Fire(hasFreezingFog or hasRime, '49184', NA_Target) --凛风冲击
