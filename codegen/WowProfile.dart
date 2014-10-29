@@ -4,8 +4,7 @@ import 'Utils.dart';
 
 //-----------------------------------------------------------Two-Handed Frost
 Profile DKProfile0 = new Profile(6, 0, 'Two-Handed Frost', 'Frost')
-    ..commonCodes = '''
-local hasHornOfWinter = W_HasBuff(NA_Player, 57330, true);  --寒冬号角
+    ..commonCodes='''
 local needHP = W_HPlevel(NA_Player) < 0.3 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.5);
 '''
     ..addassistCmd('UnitIsDead(NA_Target)', '复活盟友', NA_Target)
@@ -15,19 +14,19 @@ local needHP = W_HPlevel(NA_Player) < 0.3 or (NA_IsSolo and not NA_IsMaxDps and 
     ..addkeepHPCmd('NA_ProfileNo == 0 and needHP', '冰封之韧', NA_Player)
     ..addkeepHPCmd('NA_ProfileNo == 0 and needHP', '符能转换', NA_Player)
 
-    ..addkeepBuffCmd('not hasHornOfWinter', '寒冬号角', NA_Player)
+    ..addkeepBuffCmd('not W_HasBuff(NA_Player, 57330, true)', '寒冬号角', NA_Player)
     ..addkeepBuffCmd('NA_IsSolo and W_HPlevel(NA_Player) < 0.7', '符能转换', NA_Player)
     ..addkeepBuffCmd('NA_IsSolo and W_TargetCanAttack()', '冰冷触摸', NA_Target)
     ..addkeepBuffCmd('NA_IsSolo and W_TargetCanAttack()', '死亡之握', NA_Target)
     ..addkeepBuffCmd('NA_IsSolo and W_TargetCanAttack()', '凋零缠绕', NA_Target)
 
     ..attackCodes = '''
-                                  local hasKillingMachine = W_HasBuff(NA_Player, 51124, true);  --杀戮机器
-                                  local hasFreezingFog = W_HasBuff(NA_Player, 59052, true);   --冰冻之雾
-                                  local hasRime = W_HasBuff(NA_Player, 59057, true);   --白霜
-                                  local retainFrostFever = W_RetainBuff(NA_Target, -55095, true);   --冰霜疫病
-                                  local retainBloodPlague = W_RetainBuff(NA_Target, -55078, true);    --血之疫病
-                          '''
+local hasKillingMachine = W_HasBuff(NA_Player, 51124, true);  --杀戮机器
+local hasFreezingFog = W_HasBuff(NA_Player, 59052, true);   --冰冻之雾
+local hasRime = W_HasBuff(NA_Player, 59057, true);   --白霜
+local retainFrostFever = W_RetainBuff(NA_Target, -55095, true);   --冰霜疫病
+local retainBloodPlague = W_RetainBuff(NA_Target, -55078, true);    --血之疫病
+'''
 
     //灵魂收割 当目标血量低于35%
     ..addattackCmd('W_HPlevel(NA_Target) < 0.35', '灵魂收割', NA_Target)
@@ -52,8 +51,6 @@ local needHP = W_HPlevel(NA_Player) < 0.3 or (NA_IsSolo and not NA_IsMaxDps and 
     ..addattackCmd('true', '冰霜打击', NA_Target)
     //湮没
     ..addattackCmd('true', '湮没', NA_Target)
-    //寒冬号角
-    ..addattackCmd('not hasHornOfWinter', '寒冬号角', NA_Player)
 
 
     //------------------------------------------AOE------------------------------------
@@ -82,15 +79,12 @@ local needHP = W_HPlevel(NA_Player) < 0.3 or (NA_IsSolo and not NA_IsMaxDps and 
     //  ..addattackAOECmd('true', '枯萎凋零', NA_Target)
     //冰霜打击
     ..addattackAOECmd('true', '冰霜打击', NA_Target)
-    //寒冬号角
-    ..addattackAOECmd('not hasHornOfWinter', '寒冬号角', NA_Player)
     //暗影打击
     ..addattackAOECmd('true', '暗影打击', NA_Target);
 //-----------------------------------------------------------Blood
 Profile DKProfile1 = new Profile(6, 1, 'Blood', 'Blood')
     ..commonCodes = '''
-                            local hasBoneshield = not(NA_ProfileNo == 1) or W_HasBuff(NA_Player, 49222, true);  --白骨之盾
-                          '''
+local hasBoneshield = not(NA_ProfileNo == 1) or W_HasBuff(NA_Player, 49222, true);  --白骨之盾'''
     ..addkeepHPCmd('NA_ProfileNo == 1 and needHP', '符文分流', NA_Player)
     ..addkeepHPCmd('NA_ProfileNo == 1 and needHP', '吸血鬼之血', NA_Player)
 
@@ -98,11 +92,11 @@ Profile DKProfile1 = new Profile(6, 1, 'Blood', 'Blood')
     ..addkeepBuffCmd('NA_IsSolo and W_HPlevel(NA_Player) < 0.7', '天灾契约', NA_Player)
 
     ..attackCodes = '''
-                                  local retainFrostFever = W_RetainBuff(NA_Target, -55095, true);   --冰霜疫病
-                                  local retainBloodPlague = W_RetainBuff(NA_Target, -55078, true);  --血之疫病
-                                  local hasCrimsonScourge = W_HasBuff(NA_Player, 81141, true);    --赤色天灾
-                                  local notTanking = not NA_IsSolo and not W_isTanking();
-                          '''
+local retainFrostFever = W_RetainBuff(NA_Target, -55095, true);   --冰霜疫病
+local retainBloodPlague = W_RetainBuff(NA_Target, -55078, true);  --血之疫病
+local hasCrimsonScourge = W_HasBuff(NA_Player, 81141, true);    --赤色天灾
+local notTanking = not NA_IsSolo and not W_isTanking();
+'''
     ..addattackCmd('W_HPlevel(NA_Target) < 0.35', '灵魂收割', NA_Target)
     ..addattackCmd('NA_IsMaxDps', '符文武器增效', NA_Target)
     //..addattackCmd('NA_IsMaxDps', '亡者复生', NA_Player)
@@ -159,14 +153,13 @@ Profile DKProfile1 = new Profile(6, 1, 'Blood', 'Blood')
 Profile DKProfile2 = new Profile(6, 2, 'Dual-Wield Frost', 'Frost')
     ..commonCodes = '''
 '''
-
     ..attackCodes = '''
-                                                    local hasKillingMachine = W_HasBuff(NA_Player, 51124, true);  --杀戮机器
-                                                    local hasFreezingFog = W_HasBuff(NA_Player, 59052, true);   --冰冻之雾
-                                                    local hasRime = W_HasBuff(NA_Player, 59057, true);   --白霜
-                                                    local retainFrostFever = W_RetainBuff(NA_Target, -55095, true);   --冰霜疫病
-                                                    local retainBloodPlague = W_RetainBuff(NA_Target, -55078, true);    --血之疫病
-                                                    '''
+local hasKillingMachine = W_HasBuff(NA_Player, 51124, true);  --杀戮机器
+local hasFreezingFog = W_HasBuff(NA_Player, 59052, true);   --冰冻之雾
+local hasRime = W_HasBuff(NA_Player, 59057, true);   --白霜
+local retainFrostFever = W_RetainBuff(NA_Target, -55095, true);   --冰霜疫病
+local retainBloodPlague = W_RetainBuff(NA_Target, -55078, true);    --血之疫病
+'''
     //灵魂收割 当目标血量低于35%
     ..addattackCmd('W_HPlevel(NA_Target) < 0.35', '灵魂收割', NA_Target)
     ..addattackCmd('NA_IsSolo or NA_IsMaxDps', '冰霜之柱', NA_Target)
@@ -192,8 +185,6 @@ Profile DKProfile2 = new Profile(6, 2, 'Dual-Wield Frost', 'Frost')
     //  ..addattackCmd('true', '活力分流', NA_Player)
     //冰霜打击：符文能量超过40
     ..addattackCmd('W_PowerLevel(NA_Player) > 0.40', '冰霜打击', NA_Target)
-    //寒冬号角
-    ..addattackCmd('not hasHornOfWinter', '寒冬号角', NA_Player)
     //吸血瘟疫
     //  ..addattackCmd('true', '吸血瘟疫', NA_Target)
 
@@ -224,8 +215,6 @@ Profile DKProfile2 = new Profile(6, 2, 'Dual-Wield Frost', 'Frost')
     //  ..addattackAOECmd('true', '枯萎凋零', NA_Target)
     //冰霜打击
     ..addattackAOECmd('true', '冰霜打击', NA_Target)
-    //寒冬号角
-    ..addattackAOECmd('not hasHornOfWinter', '寒冬号角', NA_Player)
     //暗影打击
     ..addattackAOECmd('true', '暗影打击', NA_Target);
 
@@ -1088,7 +1077,7 @@ String cmdCodes(List<CmdInfo> cmds) {
       spellName = spellInfo.name;
     }
     actions.add(spellNo);
-    code += '''or NA_Fire(${cmd.cnd}, '${spellNo}', ${cmd.target}) --${spellName}\n''';
+    code += '''\t\t\t\t\tor NA_Fire(${cmd.cnd}, '${spellNo}', ${cmd.target}) --${spellName}\n''';
   }
   return code;
 }
@@ -1116,17 +1105,18 @@ String classProfilesCodes() {
     actions.clear();
 
     profileCodes1 += '''
-    elseif(NA_ProfileNo == ${p.profileID})then --${p.name}
-      ${p.attackCodes}
-      ${p.attackAOECodes}
-      if(not NA_IsAOE and (false
-        ${cmdCodes(p.attackCmds)}
-      ))then return true; end
-
-      if(NA_IsAOE and (false
-        ${cmdCodes(p.attackAOECmds)}
-      ))then return true; end
+      elseif(NA_ProfileNo == ${p.profileID})then --${p.name}
+        ${p.attackCodes.replaceAll('\n', '\n\t\t\t\t')}
+        ${p.attackAOECodes.replaceAll('\n', '\n\t\t\t\t')}
+        if(not NA_IsAOE and (false
+${cmdCodes(p.attackCmds)}
+        ))then return true; end
+  
+        if(NA_IsAOE and (false
+${cmdCodes(p.attackAOECmds)}
+        ))then return true; end
 ''';
+
     assistCodes2 += cmdCodes(p.assistCmds);
     keepHPCodes2 += cmdCodes(p.keepHPCmds);
     keepBuffCodes2 += cmdCodes(p.keepBuffCmds);
@@ -1154,35 +1144,39 @@ String classProfilesCodes() {
 function getNA${classInfo.classID}Actions(no)
   if(no < 0)then
     return {};
-${codeActions}  end
+${codeActions}  
+  end
   return {};
 end
 
 function getNA${classInfo.classID}Telants(no)
   if(no < 0)then
     return '';
-${codeSpecName}  end
+${codeSpecName}  
+  end
   return '';
 end
 
 function NA${classInfo.classID}Dps()
   W_Log(1,"${classInfo.cnName} dps");
-${commonCodes}
+  ${commonCodes.replaceAll('\n', '\n\t')}
   
   if(W_IsInCombat())then
     if(W_TargetCanAttack()) then
       -- 保命施法
       ${keepHPCodes}    
       if(false
-          ${keepHPCodes2} )then return true; end
+${keepHPCodes2}
+      )then return true; end
 
       if(NA_ProfileNo < 0)then
         return false;
-      ${profileCodes1}
+${profileCodes1}
       end
     elseif(UnitCanAssist(NA_Player, NA_Target) and UnitIsPlayer(NA_Target))then
       if(false
-        ${assistCodes2}      )then return true; end
+${assistCodes2}      
+      )then return true; end
       return false;
     elseif(NA_IsSolo)then
       return NA_ChagetTarget();      
@@ -1190,7 +1184,8 @@ ${commonCodes}
   else
     
     if(false
-      ${keepBuffCodes2}    )then return true; end
+${keepBuffCodes2}    
+    )then return true; end
   end
   return false;
 end
