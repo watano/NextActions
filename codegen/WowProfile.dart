@@ -808,13 +808,39 @@ local cfzm = W_RetainBuff(NA_player, 112071, true);   --超凡之盟
 ..addattackCmd('UnitPower(NA_Player,8) >= 0', '愤怒', NA_Target)
 ..addattackCmd('UnitPower(NA_Player,8) <= 0' , '星火术', NA_Target)
 ;
-Profile DZProfile0 = new Profile(4, 0, 'Discipline', 'Discipline');
-Profile DZProfile1 = new Profile(4, 1, 'Holy', 'Holy');
-Profile DZProfile2 = new Profile(4, 2, 'Shadow', 'Shadow');
+Profile MSProfile0 = new Profile(5, 0, 'Discipline', 'Discipline');
+Profile MSProfile1 = new Profile(5, 1, 'Holy', 'Holy');
+Profile MSProfile2 = new Profile(5, 2, 'Shadow', 'Shadow')
+..commonCodes=''' 
+local needHP = W_HPlevel(NA_Player) < 0.3 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.5);
+local needHP2 = W_HPlevel(NA_Player) < 0.6 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.7);
+local needHP3 = W_HPlevel(NA_Player) < 0.9 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.9);
+'''
+..addkeepHPCmd('needHP2', '吸血鬼的拥抱', NA_Player)
+..addkeepHPCmd('needHP', '消散', NA_Player)
+..addkeepHPCmd('needHP', '渐隐术', NA_Player)
+..addkeepHPCmd('needHP2', '绝望祷言', NA_Player)
+..addkeepHPCmd('needHP2', '真言术：盾', NA_Player)
 
-Profile MSProfile0 = new Profile(5, 0, 'Assassination', 'Assassination');
-Profile MSProfile1 = new Profile(5, 1, 'Combat', 'Combat');
-Profile MSProfile2 = new Profile(5, 2, 'Subtlety', 'Subtlety');
+    ..attackCodes = '''
+local ayst = W_RetainBuff(NA_Target, -589, true);   --暗言术：痛
+local xxgzc = W_RetainBuff(NA_Target, -34914, true);   --吸血鬼之触
+local countShadowOrbs = UnitPower(NA_Player, SPELL_POWER_SHADOW_ORBS)  --暗影宝珠
+'''
+..addattackCmd('true', '心灵震爆', NA_Target)
+..addattackCmd('not ayst', '暗言术：痛', NA_Target)
+..addattackCmd('not xxgzc', '吸血鬼之触', NA_Target)
+..addattackCmd('true', '暗言术：灭', NA_Target)
+..addattackCmd('true', '摧心魔', NA_Target)
+..addattackCmd('countShadowOrbs == 3', '噬灵疫病', NA_Target)
+..addattackCmd('true', '光晕', NA_Target)
+..addattackCmd('true', '精神鞭笞', NA_Target)
+
+;
+
+Profile DZProfile0 = new Profile(4, 0, 'Assassination', 'Assassination');
+Profile DZProfile1 = new Profile(4, 1, 'Combat', 'Combat');
+Profile DZProfile2 = new Profile(4, 2, 'Subtlety', 'Subtlety');
 
 Profile WSProfile0 = new Profile(10, 0, 'Brewmaster', 'Brewmaster')
     ..commonCodes = '''
