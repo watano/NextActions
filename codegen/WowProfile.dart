@@ -776,26 +776,32 @@ Profile ZSProfile2 = new Profile(1, 2, 'Arms', 'Arms')
 Profile XDProfile0 = new Profile(11, 0, 'Bear', 'Bear')
     ..commonCodes = '''
 local needHP = W_HPlevel(NA_Player) < 0.3 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.5);
+local needHP2 = W_HPlevel(NA_Player) < 0.6 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.7);
+local needHP3 = W_HPlevel(NA_Player) < 0.9 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.9);
 local inBear = W_HasBuff(NA_Player, 5487, true);
 local inCat = W_HasBuff(NA_Player, 768, true);
+local yxhc = W_HasBuff(NA_Player, 108293, true);
 '''
     ..attackCodes = '''
       local hasThrash = W_RetainBuff(NA_Target, -77758, true);   --痛击dot
       local countLacerate = W_BuffCount(NA_Target, -33745, true);   --割伤dot
       local notTanking = not NA_IsSolo and not W_isTanking();
 '''
-    ..addkeepHPCmd('needHP', '野蛮防御', NA_Player)
-    ..addkeepHPCmd('needHP', '树皮术', NA_Player)
-    ..addkeepHPCmd('needHP', '生存本能', NA_Player)
-    ..addkeepHPCmd('needHP', '狂暴回复', NA_Player)
-    //..addkeepHPCmd('needHP', '乌索克之力', NA_Player)
+    ..addkeepHPCmd('NA_ProfileNo == 0 and needHP3', '塞纳里奥结界', NA_Player)
+    ..addkeepHPCmd('NA_ProfileNo == 0 and needHP3', '野蛮防御', NA_Player)
+    ..addkeepHPCmd('needHP2', '树皮术', NA_Player)
+    ..addkeepHPCmd('NA_ProfileNo == 0 and needHP2', '野性之心', NA_Player)
+    ..addkeepHPCmd('NA_ProfileNo == 0 and needHP2 and yxhc', '回春术', NA_Player) //野性之心下的回春
+    ..addkeepHPCmd('NA_ProfileNo == 0 and needHP', '生存本能', NA_Player)
+    ..addkeepHPCmd('NA_ProfileNo == 0 and needHP', '狂暴回复', NA_Player)
+    ..addkeepHPCmd('NA_ProfileNo == 2 and needHP2', '自然的守护', NA_Player)
 
     ..addkeepBuffCmd('not W_HasBuff(NA_Player, 1126, true)', '野性印记', NA_Player)
     ..addkeepBuffCmd('NA_IsSolo and W_TargetCanAttack()', '野性冲锋', NA_Target)
 
     ..addattackCmd('not NA_IsSolo and not W_HasBuff(NA_Target, -770, true)', '精灵之火', NA_Target)
     ..addattackCmd('inBear and notTanking', '低吼', NA_Target)
-    ..addattackCmd('inBear and W_RetainBuff(NA_Target, -135601, true)', '重殴', NA_Target)
+    ..addattackCmd('inBear and W_RetainBuff(NA_Player, 135286, true)', '重殴', NA_Target)
     ..addattackCmd('inBear and not hasThrash', '痛击', NA_Target)
     ..addattackCmd('inBear and countLacerate < 3', '割伤', NA_Target)
     ..addattackCmd('inBear and W_RetainBuff(NA_Target, -33745, true)', '割伤', NA_Target)
@@ -803,6 +809,7 @@ local inCat = W_HasBuff(NA_Player, 768, true);
 
 
     ..addattackCmd('inCat and GetComboPoints("player","target") > 4', '凶猛撕咬', NA_Target)
+    ..addattackCmd('true', '狂暴', NA_Player)
     ..addattackCmd('true', '裂伤', NA_Target)
     ..addattackCmd('true', '野性冲锋', NA_Target)
 
@@ -821,10 +828,31 @@ Profile XDProfile1 = new Profile(11, 1, 'Cat', 'Cat')..commonCodes = '''
 
 //-----------------------------------------------------------Restoration
 Profile XDProfile2 = new Profile(11, 2, 'Restoration', 'Restoration')..commonCodes = '''
-''';
+'''
+;
 //-----------------------------------------------------------Balance
-Profile XDProfile3 = new Profile(11, 2, 'Balance', 'Balance')..commonCodes = '''
-''';
+Profile XDProfile3 = new Profile(11, 3, 'Balance', 'Balance')..commonCodes = '''
+'''
+    ..attackCodes = '''
+local yhsdot = W_RetainBuff(NA_Target, -164812, true);   --月火术dot
+local yysdot = W_RetainBuff(NA_Target, -164815, true);   --阳炎术dot
+local yzd = W_RetainBuff(NA_Player, 171743, true);   --月之巅
+local rzd = W_RetainBuff(NA_player, 171744, true);   --日之巅
+local ygzx = W_RetainBuff(NA_Player, 164545, true);   --日光增效
+local rgzx = W_RetainBuff(NA_player, 164547, true);   --月光增效
+local cfzm = W_RetainBuff(NA_player, 112071, true);   --超凡之盟
+'''
+
+..addattackCmd('rgzx and UnitPower(NA_Player,8) > 20', '星涌术', NA_Target)
+..addattackCmd('ygzx and UnitPower(NA_Player,8) < -40', '星涌术', NA_Target)
+..addattackCmd('NA_GetSpellCharges(78674)==2 and W_GetSpellCooldown(78674)<6 or NA_GetSpellCharges(78674)==3', '星涌术', NA_Target)
+..addattackCmd('UnitPower(NA_Player,8) > 40', '超凡之盟', NA_Player)
+..addattackCmd('UnitPower(NA_Player,8) > 0', '化身：艾露恩之眷', NA_Player)
+..addattackCmd('W_BuffTime(NA_Target,-164815) < 7 or rzd', '阳炎术', NA_Target)
+..addattackCmd('yzd or W_BuffTime(NA_Target,-164812) < 4 or cfzm and W_BuffTime(NA_Player,112071) <= 2', '月火术', NA_Target)
+..addattackCmd('UnitPower(NA_Player,8) >= 0', '愤怒', NA_Target)
+..addattackCmd('UnitPower(NA_Player,8) <= 0' , '星火术', NA_Target)
+;
 Profile DZProfile0 = new Profile(4, 0, 'Discipline', 'Discipline');
 Profile DZProfile1 = new Profile(4, 1, 'Holy', 'Holy');
 Profile DZProfile2 = new Profile(4, 2, 'Shadow', 'Shadow');
@@ -1182,7 +1210,7 @@ main() {
   AllProfiles.addAll([QSProfile0, QSProfile1, QSProfile2]);
   AllProfiles.addAll([SSProfile0, SSProfile1, SSProfile2]);
   AllProfiles.addAll([ZSProfile0, ZSProfile1, ZSProfile2]);
-  AllProfiles.addAll([XDProfile0, XDProfile1, XDProfile2]);
+  AllProfiles.addAll([XDProfile0, XDProfile1, XDProfile2, XDProfile3]);
   AllProfiles.addAll([DZProfile0, DZProfile1, DZProfile2]);
   AllProfiles.addAll([MSProfile0, MSProfile1, MSProfile2]);
   AllProfiles.addAll([SMProfile0, SMProfile1, SMProfile2]);
