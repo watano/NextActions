@@ -838,8 +838,62 @@ local countShadowOrbs = UnitPower(NA_Player, SPELL_POWER_SHADOW_ORBS)  --暗影�
 
 ;
 
-Profile DZProfile0 = new Profile(4, 0, 'Assassination', 'Assassination');
-Profile DZProfile1 = new Profile(4, 1, 'Combat', 'Combat');
+Profile DZProfile0 = new Profile(4, 0, 'Assassination', 'Assassination')
+..addkeepBuffCmd('not W_HasBuff(NA_Player, 1784, true)', '潜行', NA_Player)
+..addkeepBuffCmd('W_TargetCanAttack()', '伏击', NA_Target)
+
+    ..attackCodes = '''
+      local hasys = W_RetainBuff(NA_Player, 11327, true);   --隐身
+      local hasqx = W_RetainBuff(NA_Player, 1784, true);   --潜行
+      local hasmd = W_RetainBuff(NA_Player, 121153, true);   --盲点
+      --local countyg = W_BuffCount(NA_Player, 114015, true);   --预感
+      --local hasayfs = W_RetainBuff(NA_Player, 152151, true);   --暗影反射
+      --local hasayjz = W_RetainBuff(NA_Player, 108209, true);   --暗影集中
+      local hasqg = W_RetainBuff(NA_Player, 5171, true);   --切割
+      local hasgl = W_RetainBuff(NA_Target, -1943, true);   --割裂
+  '''
+..addattackCmd('W_HPlevel(NA_Target)<0.35 or hasmd', '斩击', NA_Target)
+..addattackCmd('hasgl and UnitPower(NA_Player,4)==5', '毒伤', NA_Target)
+..addattackCmd('not hasgl and UnitPower(NA_Player,4)>0', '割裂', NA_Target)
+..addattackCmd('not hasys and W_GetSpellCooldown(1856)>60', '伺机待发', NA_Player)
+..addattackCmd('true', '消失', NA_Player)
+..addattackCmd('not hasqg and UnitPower(NA_Player,4)>0', '切割', NA_Player)
+..addattackCmd('hasys or hasqx', '伏击', NA_Target)
+..addattackCmd('hasqg and UnitPower(NA_Player,4)>0', '毒伤', NA_Target)
+..addattackCmd('true', '宿敌', NA_Target)
+..addattackCmd('true', '毁伤', NA_Target)
+;
+
+Profile DZProfile1 = new Profile(4, 1, 'Combat', 'Combat')
+    ..commonCodes = '''
+local needHP = W_HPlevel(NA_Player) < 0.3 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.5);
+local needHP2 = W_HPlevel(NA_Player) < 0.6 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.7);
+local needHP3 = W_HPlevel(NA_Player) < 0.9 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.9);
+ '''
+..addkeepHPCmd('needHP3', '佯攻', NA_Player)
+..addkeepHPCmd('needHP2', '复原', NA_Player)
+..addkeepHPCmd('needHP2', '暗影斗篷', NA_Player)
+..addkeepHPCmd('needHP', '闪避', NA_Player)
+..addkeepHPCmd('needHP3', '备战就绪', NA_Player)
+
+    ..attackCodes = '''
+      local hasys = W_RetainBuff(NA_Player, 11327, true);   --隐身
+      local hasqx = W_RetainBuff(NA_Player, 1784, true);   --潜行
+      local hasqg = W_RetainBuff(NA_Player, 5171, true);   --切割
+      local hasyhdj = W_RetainBuff(NA_Target, -84617, true);   --要害打击
+ '''
+..addattackCmd('hasys or hasqx', '伏击', NA_Target)
+..addattackCmd('not hasqg and UnitPower(NA_Player,4)>0', '切割', NA_Player)
+..addattackCmd('true', '要害打击', NA_Target)
+..addattackCmd('W_GetSpellCooldown(1752)>0 and UnitPower(NA_Player)<30', '影舞步', NA_Target)
+..addattackCmd('true', '冲动', NA_Player)
+..addattackCmd('UnitPower(NA_Player,4)>4', '刺骨', NA_Target)
+..addattackCmd('not hasyhdj and W_GetSpellCooldown(1856)>60 and W_GetSpellCooldown(14185)==0', '伺机待发', NA_Player)
+..addattackCmd('not hasyhdj', '要害打击', NA_Target)
+..addattackCmd('true', '消失', NA_Player)
+..addattackCmd('true', '影袭', NA_Target)
+    ;
+
 Profile DZProfile2 = new Profile(4, 2, 'Subtlety', 'Subtlety');
 
 Profile WSProfile0 = new Profile(10, 0, 'Brewmaster', 'Brewmaster')
