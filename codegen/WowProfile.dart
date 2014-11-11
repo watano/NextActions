@@ -952,9 +952,66 @@ local nlp = W_RetainBuff(NA_Player, 113656, true);   --怒雷破
 //..addattackCmd('nlp', '虎眼酒', NA_Player)
 ;
 
-Profile SMProfile0 = new Profile(7, 0, 'Elemental', 'Elemental');
+Profile SMProfile0 = new Profile(7, 0, 'Elemental', 'Elemental')
+    ..commonCodes=''' 
+local needHP = W_HPlevel(NA_Player) < 0.3 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.5);
+local needHP2 = W_HPlevel(NA_Player) < 0.6 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.7);
+local needHP3 = W_HPlevel(NA_Player) < 0.9 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.9);
+'''
+..addkeepHPCmd('needHP', '星界转移', NA_Player)
+..addkeepHPCmd('needHP2', '石壁图腾', NA_Player)
+//..addkeepHPCmd('needHP2', '纳鲁的赐福 ', NA_Player)
+//..addkeepHPCmd('needHP2', '土元素图腾 ', NA_Player)
+
+    ..attackCodes = '''
+local lyzj = W_RetainBuff(NA_Target, -8050, true);   --烈焰震击
+local sdzd = W_BuffCount(NA_Player, 324);   --闪电之盾
+--local qhsf = W_RetainBuff(NA_Player, 222222, true);   --强化释放
+'''
+..addattackCmd('not lyzj or W_BuffTime(NA_Target,-8050)<9', '烈焰震击', NA_Target)
+..addattackCmd('true', '怒火释放', NA_Player)
+..addattackCmd('true', '熔岩爆裂', NA_Target)
+..addattackCmd('true', '元素冲击', NA_Target)
+..addattackCmd('needHP2', '萨满之怒', NA_Player)
+..addattackCmd('true', '火元素图腾', NA_Player)
+//..addattackCmd('qhsf', '火焰释放', NA_Player)
+..addattackCmd('needHP2', '先祖指引', NA_Player)
+..addattackCmd('needHP2', '治疗之涌', NA_Player)
+..addattackCmd('sdzd>14 and W_BuffTime(NA_Target,-8050)<6', '大地震击', NA_Player)
+..addattackCmd('W_GetSpellCooldown(2894)<240', '灼热图腾', NA_Player)
+..addattackCmd('W_GetSpellCooldown(2894)<180', '元素的召唤', NA_Player)
+..addattackCmd('true', '升腾', NA_Player)
+..addattackCmd('true', '闪电箭', NA_Target)
+..addattackCmd('true', '闪电链', NA_Target)
+..addattackCmd('true', '灵魂行者的恩赐', NA_Player)
+;
 Profile SMProfile1 = new Profile(7, 1, 'Enhancement', 'Enhancement');
-Profile SMProfile2 = new Profile(7, 2, 'Restoration', 'Restoration');
+Profile SMProfile2 = new Profile(7, 2, 'Restoration', 'Restoration')
+..assistCodes='''
+    local ddzd = W_RetainBuff(NA_Target, -379, true);   --大地之盾
+    local szhd = W_RetainBuff(NA_Player, 52127, true);   --水之护盾
+    local hasjl = W_RetainBuff(NA_Target, -61295, true);   --激流
+    local hascxby = W_RetainBuff(NA_Player, 51564, true);   --潮汐奔涌
+    local hassmsf = W_RetainBuff(NA_Player, 73685, true);   --生命释放
+    local hasxzxj = W_RetainBuff(NA_Player, 16188, true);   --先祖迅捷
+'''
+..addassistCmd('needHP', '星界转移', NA_Player)
+..addassistCmd('needHP2', '石壁图腾', NA_Player)
+
+..addassistCmd('NA_ProfileNo == 2 and not hasxzxj and W_HPlevel(NA_Target)<0.3', '先祖迅捷', NA_Player)
+..addassistCmd('NA_ProfileNo == 2 and hasxzxj and W_HPlevel(NA_Target)<0.3', '治疗之涌', NA_Target)
+..addassistCmd('NA_ProfileNo == 2 and true', '治疗之泉图腾', NA_Player)
+..addassistCmd('NA_ProfileNo == 2 and not ddzd', '大地之盾', NA_Target)
+..addassistCmd('NA_ProfileNo == 2 and not szhd', '水之护盾', NA_Player)
+//..addassistCmd('NA_ProfileNo == 2 and W_HPlevel(NA_Target)<0.7', '纳鲁的赐福', NA_Target)
+..addassistCmd('NA_ProfileNo == 2 and not hassmsf and W_HPlevel(NA_Target)<0.9', '生命释放', NA_Player)
+..addassistCmd('NA_ProfileNo == 2 and not hasjl and W_HPlevel(NA_Target)<0.9', '激流', NA_Target)
+..addassistCmd('NA_ProfileNo == 2 and hasjl and W_HPlevel(NA_Target)<0.7', '治疗链', NA_Target)
+..addassistCmd('NA_ProfileNo == 2 and hascxby and W_HPlevel(NA_Target)<0.6', '治疗之涌', NA_Target)
+..addassistCmd('NA_ProfileNo == 2 and W_HPlevel(NA_Target)<0.9', '治疗波', NA_Target)
+..addassistCmd('NA_ProfileNo == 2 and W_HPlevel(NA_Target)<0.6', '升腾', NA_Player)
+..addassistCmd('NA_ProfileNo == 2 and W_HPlevel(NA_Target)<0.6', '灵魂行者的恩赐', NA_Player)
+;
 
 
 List<Profile> AllProfiles = [];
