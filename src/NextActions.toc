@@ -2,7 +2,7 @@
 ## Interface: 60000
 ## Title: NextActions
 ## Notes: wow自动施法按键助手 
-## Version: 6.0.2
+## Version: 6.0.3
 ## SavedVariablesPerCharacter: NA_ProfileNo
 NAutil.lua
 NAUIutil.lua

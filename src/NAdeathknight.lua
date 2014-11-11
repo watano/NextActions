@@ -183,6 +183,7 @@ function NA6Dps()
 
       end
     elseif(UnitCanAssist(NA_Player, NA_Target) and UnitIsPlayer(NA_Target))then
+
       if(false
 					or NA_Fire(UnitIsDead(NA_Target), '61999', NA_Target) --复活盟友
       

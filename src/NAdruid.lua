@@ -142,6 +142,7 @@ function NA11Dps()
 
       end
     elseif(UnitCanAssist(NA_Player, NA_Target) and UnitIsPlayer(NA_Target))then
+
       if(false
       
       )then return true; end

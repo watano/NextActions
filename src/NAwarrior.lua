@@ -122,6 +122,7 @@ function NA1Dps()
 
       end
     elseif(UnitCanAssist(NA_Player, NA_Target) and UnitIsPlayer(NA_Target))then
+
       if(false
 					or NA_Fire(not NA_IsSolo, '114029', NA_Target) --捍卫
       

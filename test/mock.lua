@@ -48,7 +48,7 @@ end
 
 
 function GetSpellInfo(spellID)
-	return NA_getSpellName(spellID), "rank", "icon", 10, true, 1, 10, 0, 40;
+	return '', "rank", "icon", 10, true, 1, 10, 0, 40;
 end
 
 function IsUsableAction(slot)
@@ -219,4 +219,8 @@ end
 
 function GetTime()
 	return 60123.558;
+end
+
+function GetRuneCooldown(index)
+	return true;
 end

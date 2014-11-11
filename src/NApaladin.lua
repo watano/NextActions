@@ -123,6 +123,7 @@ function NA2Dps()
 
       end
     elseif(UnitCanAssist(NA_Player, NA_Target) and UnitIsPlayer(NA_Target))then
+
       if(false
 					or NA_Fire(NA_IsMaxDps, '114158', NA_Target) --圣光之锤
 					or NA_Fire(NA_IsMaxDps and W_PowerLevel(NA_Player) > 0.3, '105809', NA_Player) --神圣复仇者

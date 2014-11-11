@@ -153,22 +153,23 @@ function NA_InitClass()
 			else
 				W_Log(3,"GetSpellInfo error: ".. k);
 			end
-		end
-	elseif(v ~= nil and NA_SpellInfoType(v) == 2)then --Item
-		local name = strsub(v,1,strlen(v))
-		NA_ClassInfo[v] = {};
+	  elseif(v ~= nil and NA_SpellInfoType(v) == 2)then --Item
+			local name = strsub(v,1,strlen(v))
+			NA_ClassInfo[v] = {};
       NA_ClassInfo[v]['spellID'] = name;
-		NA_ClassInfo[v]['keyNo'] = no;
-		W_SetBinding(no, name, 2);
-	elseif(v ~= nil and NA_SpellInfoType(v) == 3)then --Macro
-		local name = strsub(spellID,1,strlen(v))
-		NA_ClassInfo[v] = {};
+			NA_ClassInfo[v]['keyNo'] = no;
+			W_SetBinding(no, name, 2);
+		elseif(v ~= nil and NA_SpellInfoType(v) == 3)then --Macro
+			local name = strsub(spellID,1,strlen(v))
+			NA_ClassInfo[v] = {};
       NA_ClassInfo[v]['spellID'] = name;
-		NA_ClassInfo[v]['keyNo'] = no;
-		W_SetBinding(no, name, 3);
-	else
-		W_Log(4,"unkonw action: ".. v);
-	end	
+			NA_ClassInfo[v]['keyNo'] = no;
+			W_SetBinding(no, name, 3);
+		else
+			W_Log(4,"unkonw action: ".. v);
+		end	
+	end
+
 	--W_Log(1, W_toString(NA_ClassInfo))
 	if(not W_IsInCombat())then SaveBindings(2); end
 
@@ -192,7 +193,7 @@ function NA_SlashHandler(msg)
 	if (msg == "options" or msg == "opt") then
 		W_Log(4, "TODO options dialog!");
 	elseif (msg == "version" or msg == "ver") then
-		W_Log(3,"NextActions version: 6.0.2");
+		W_Log(3,"NextActions version: 6.0.3");
 	elseif (msg == "toggle") then
 		NA_Toggle();
 	elseif (msg == "0") then
