@@ -833,12 +833,12 @@ local notTanking = not NA_IsSolo and not W_isTanking();
 
     ..addkeepHPCmd('needHP', '躯不坏', NA_Player)
     ..addkeepHPCmd('needHP', '壮胆酒', NA_Player)
-    ..addkeepHPCmd('needHP2', '禅悟冥想', NA_Player)
-    ..addkeepHPCmd('needHP2', '金钟罩', NA_Player)
+    ..addkeepHPCmd('NA_ProfileNo == 0 and needHP2', '禅悟冥想', NA_Player)
+    ..addkeepHPCmd('NA_ProfileNo == 0 and needHP2', '金钟罩', NA_Player)
     ..addkeepHPCmd('needHP3', '移花接木', NA_Player)
     ..addkeepHPCmd('needHP3', '真气波', NA_Player)
 
-    ..addkeepBuffCmd('not W_HasBuff(NA_Player, 116781, true)', '白虎传承', NA_Player)
+    ..addkeepBuffCmd('not W_HasBuff(NA_Player, 116781, true) and NA_ProfileNo ~= 1', '白虎传承', NA_Player)
 
     ..addattackCmd('true', '轮回之触', NA_Target)
     ..addattackCmd('zdzq', '活血酒', NA_Player)
@@ -865,8 +865,66 @@ local notTanking = not NA_IsSolo and not W_isTanking();
     ..addattackAOECmd('W_HPlevel(NA_Player)<1', '移花接木', NA_Player)
     ;
 
-Profile WSProfile1 = new Profile(10, 1, 'Mistweaver', 'Mistweaver');
-Profile WSProfile2 = new Profile(10, 2, 'Windwalker', 'Windwalker');
+Profile WSProfile1 = new Profile(10, 1, 'Mistweaver', 'Mistweaver')
+    ..attackCodes = '''
+local xrdst2 = W_RetainBuff(NA_Target, -130320, true);   --贯日击的易伤
+local mhzl2 = W_RetainBuff(NA_Player, 125359, true);   --猛虎之力
+local hlzw = W_BuffCount(NA_Player, 118674);   --活力之雾
+local shs = W_FormInfo(2);   --神鹤式
+'''
+    ..addkeepBuffCmd('not W_HasBuff(NA_Player, 115921, true) and NA_ProfileNo == 1', '帝王传承', NA_Player)
+
+..addattackCmd('not shs', '神鹤式', NA_Player)
+..addattackCmd('true', '轮回之触', NA_Target)
+..addattackCmd('not xrdst2', '旭日东升踢', NA_Target)
+..addattackCmd('not mhzl2', '猛虎掌', NA_Target)
+..addattackCmd('true', '真气波', NA_Target)
+..addattackCmd('true', '移花接木', NA_Player)
+..addattackCmd('true', '白虎下凡', NA_Target)
+..addattackCmd('true', '扫堂腿', NA_Target)
+..addattackCmd('hlzw==5', '升腾之雾', NA_Target)
+..addattackCmd('UnitPower(NA_Player, SPELL_POWER_CHI)>3', '幻灭踢', NA_Target)
+..addattackCmd('true', '旭日东升踢', NA_Target)
+..addattackCmd('true', '法力茶', NA_Player)
+..addattackCmd('true', '雷光聚神茶', NA_Player)
+
+..assistCodes = '''
+local fszw = W_RetainBuff(NA_Target, -119611, true);   --复苏之雾
+local fwzw = W_RetainBuff(NA_Target, -115175, true);   --抚慰之雾  
+local lls = W_FormInfo(1);   --灵龙式
+'''
+..addassistCmd('NA_ProfileNo == 1 and not lls', '灵龙式', NA_Player)
+..addassistCmd('NA_ProfileNo == 1 and W_HPlevel(NA_Target)<0.3', '作茧缚命', NA_Target)
+..addassistCmd('NA_ProfileNo == 1 and true', '复苏之雾', NA_Target)
+..addassistCmd('NA_ProfileNo == 1 and true', '移花接木', NA_Player)
+..addassistCmd('NA_ProfileNo == 1 and UnitPower(NA_Player, SPELL_POWER_CHI)>3', '振魂引', NA_Player)
+..addassistCmd('NA_ProfileNo == 1 and true', '真气波', NA_Target)
+..addassistCmd('NA_ProfileNo == 1 and W_HPlevel(NA_Target)<0.8', '神鹤引项踢', NA_Target)
+..addassistCmd('NA_ProfileNo == 1 and W_HPlevel(NA_Target)<0.7 and fwzw', '升腾之雾', NA_Target)
+..addassistCmd('NA_ProfileNo == 1 and W_HPlevel(NA_Target)<0.7 and fwzw', '氤氲之雾', NA_Target)
+..addassistCmd('NA_ProfileNo == 1 and W_HPlevel(NA_Target)<0.9', '抚慰之雾', NA_Target)
+..addassistCmd('NA_ProfileNo == 1 and W_HPlevel(NA_Target)<0.6', '升腾之雾', NA_Target)
+..addassistCmd('NA_ProfileNo == 1 and W_HPlevel(NA_Target)<0.5', '氤氲之雾', NA_Target)
+..addassistCmd('NA_ProfileNo == 1 and true', '法力茶', NA_Player)
+..addassistCmd('NA_ProfileNo == 1 and true', '雷光聚神茶', NA_Player)
+;
+Profile WSProfile2 = new Profile(10, 2, 'Windwalker', 'Windwalker')
+    ..attackCodes = '''
+local xrdst3 = W_RetainBuff(NA_Target, -107428, true);   --贯日击的易伤
+local mhzl3 = W_RetainBuff(NA_Player, 125359, true);   --猛虎之力 
+local nlp = W_RetainBuff(NA_Player, 113656, true);   --怒雷破
+'''
+..addattackCmd('true', '轮回之触', NA_Target)
+..addattackCmd('true', '贯日击', NA_Target)
+..addattackCmd('needHP3 or UnitPower(NA_Player, SPELL_POWER_CHI)<3', '移花接木', NA_Player)
+..addattackCmd('not mhzl3', '猛虎掌', NA_Target)
+..addattackCmd('not xrdst3', '贯日击', NA_Target)
+//..addattackCmd('UnitPower(NA_Player,3)<60', '怒雷破', NA_Target)
+..addattackCmd('true', '贯日击', NA_Target)
+//..addattackCmd('true', '真气波', NA_Player)
+..addattackCmd('UnitPower(NA_Player, SPELL_POWER_CHI)>3', '幻灭踢', NA_Target)
+//..addattackCmd('nlp', '虎眼酒', NA_Player)
+;
 
 Profile SMProfile0 = new Profile(7, 0, 'Elemental', 'Elemental');
 Profile SMProfile1 = new Profile(7, 1, 'Enhancement', 'Enhancement');
@@ -1054,6 +1112,7 @@ String classProfilesCodes() {
 
   String attackAOECodes = '';
   String attackCodes = '';
+  String assistCodes = '';
   String assistCodes2 = '';
   String keepHPCodes = '';
   String keepHPCodes2 = '';
@@ -1100,6 +1159,7 @@ ${cmdCodes(p.attackAOECmds)}
     keepHPCodes += p.keepHPCodes;
     attackAOECodes += p.attackAOECodes;
     attackCodes += p.attackCodes;
+    assistCodes += p.assistCodes;
     keepBuffCodes += p.keepBuffCodes;
 
     print(p.name + '==' + actions.length.toString());
@@ -1139,6 +1199,7 @@ ${keepHPCodes2}
 ${profileCodes1}
       end
     elseif(UnitCanAssist(NA_Player, NA_Target) and UnitIsPlayer(NA_Target))then
+${assistCodes}
       if(false
 ${assistCodes2}      
       )then return true; end
