@@ -7,11 +7,11 @@ function getNA3Actions(no)
     };
   elseif(no == 1)then
     return {
-      '109260','136','131894','121818'
+      '53209','131894','19434','120360','121818','56641','3045','109260','136'
     };
   elseif(no == 2)then
     return {
-      '109260','136','19574','131894','121818','2643','117050','77767'
+      '109260','136','53301','3674','131894','120679','87935','120360','3044','77767'
     };
   
   end
@@ -26,7 +26,7 @@ function getNA3Telants(no)
   elseif(no == 1)then
     return 'Marksman';
   elseif(no == 2)then
-    return 'Beastmaster';
+    return 'Survival';
   
   end
   return '';
@@ -84,18 +84,15 @@ function NA3Dps()
         
         
         if(not NA_IsAOE and (false
-					or NA_Fire(not W_HasBuff(NA_Player, 13165, true) and not W_HasBuff(NA_Player, 109260, true), '109260', NA_Player) --铁鹰守护
-					or NA_Fire(W_HPlevel(NA_Pet) < 0.5 and not W_HasBuff(NA_Pet, 136, true), '136', NA_Pet) --治疗宠物
-or NA_Fire(true, '53209', NA_Target) --奇美拉射击
---or NA_Fire(true, '53351', NA_Target) --杀戮射击
-or NA_Fire(true, '131894', NA_Target) --夺命黑鸦
-or NA_Fire(W_HPlevel(NA_Target) > 0.8 or W_HasBuff(NA_Player, 3045, true), '19434', NA_Target) --反斩杀瞄准射击
-or NA_Fire(W_HasBuff(NA_Player, 109306, true), '19434', NA_Target) --狩猎刺激下的瞄准射击
-or NA_Fire(W_HPlevel(NA_Target) < 0.8 and not W_HasBuff(NA_Player, 3045, true), '120360', NA_Target) --弹幕射击
-or NA_Fire(W_HPlevel(NA_Target) < 0.8 and not W_HasBuff(NA_Player, 3045, true), '19434', NA_Target) --瞄准射击
-or NA_Fire(true, '121818', NA_Target) --群兽奔腾
-or NA_Fire(true, '56641', NA_Target) --稳固射击
-or NA_Fire(true, '3045', NA_Target) --急速射击
+					or NA_Fire(true, '53209', NA_Target) --奇美拉射击
+					or NA_Fire(true, '131894', NA_Target) --夺命黑鸦
+					or NA_Fire(W_HPlevel(NA_Target) > 0.8 or W_HasBuff(NA_Player, 3045, true), '19434', NA_Target) --瞄准射击
+					or NA_Fire(W_HasBuff(NA_Player, 109306, true), '19434', NA_Target) --瞄准射击
+					or NA_Fire(W_HPlevel(NA_Target) < 0.8 and not W_HasBuff(NA_Player, 3045, true), '120360', NA_Target) --弹幕射击
+					or NA_Fire(W_HPlevel(NA_Target) < 0.8 and not W_HasBuff(NA_Player, 3045, true), '19434', NA_Target) --瞄准射击
+					or NA_Fire(true, '121818', NA_Target) --群兽奔腾
+					or NA_Fire(true, '56641', NA_Target) --稳固射击
+					or NA_Fire(true, '3045', NA_Target) --急速射击
 
         ))then return true; end
   
@@ -106,32 +103,24 @@ or NA_Fire(true, '3045', NA_Target) --急速射击
 					or NA_Fire(NA_IsMaxDps, '121818', NA_Target) --群兽奔腾
 
         ))then return true; end
-      elseif(NA_ProfileNo == 2)then --Beastmaster
+      elseif(NA_ProfileNo == 2)then --Survival
         
         
         if(not NA_IsAOE and (false
-        or NA_Fire(not W_HasBuff(NA_Player, 13165, true) and not W_HasBuff(NA_Player, 109260, true), '109260', NA_Player) --铁鹰守护
-or NA_Fire(W_HPlevel(NA_Pet) < 0.5 and not W_HasBuff(NA_Pet, 136, true), '136', NA_Pet) --治疗宠物
-or NA_Fire(true, '53301', NA_Target) --爆炸射击
-or NA_Fire(true, '3674', NA_Target) --黑箭
-or NA_Fire(true, '131894', NA_Target) --夺命黑鸦
-or NA_Fire(true, '120679', NA_Target) --凶暴野兽
-or NA_Fire(true, '87935', NA_Target) --毒蛇钉刺
-or NA_Fire(W_HPlevel(NA_Target) < 0.8 and not W_HasBuff(NA_Player, 3045, true), '120360', NA_Target) --弹幕射击
-or NA_Fire(true, '3045', NA_Target) --急速射击
-or NA_Fire(true, '3044', NA_Target) --奥术射击
-or NA_Fire(true, '77767', NA_Target) --眼镜蛇射击
+					or NA_Fire(not W_HasBuff(NA_Player, 13165, true) and not W_HasBuff(NA_Player, 109260, true), '109260', NA_Player) --铁鹰守护
+					or NA_Fire(W_HPlevel(NA_Pet) < 0.5 and not W_HasBuff(NA_Pet, 136, true), '136', NA_Pet) --治疗宠物
+					or NA_Fire(true, '53301', NA_Target) --爆炸射击
+					or NA_Fire(true, '3674', NA_Target) --黑箭
+					or NA_Fire(true, '131894', NA_Target) --夺命黑鸦
+					or NA_Fire(true, '120679', NA_Target) --凶暴野兽
+					or NA_Fire(true, '87935', NA_Target) --毒蛇钉刺
+					or NA_Fire(W_HPlevel(NA_Target) < 0.8 and not W_HasBuff(NA_Player, 3045, true), '120360', NA_Target) --弹幕射击
+					or NA_Fire(true, '3044', NA_Target) --奥术射击
+					or NA_Fire(true, '77767', NA_Target) --眼镜蛇射击
+
         ))then return true; end
   
         if(NA_IsAOE and (false
-					or NA_Fire(not W_HasBuff(NA_Player, 13165, true) and not W_HasBuff(NA_Player, 109260, true), '109260', NA_Player) --铁鹰守护
-					or NA_Fire(UnitHealth(NA_Pet) >0 and W_HPlevel(NA_Pet) < 0.5 and not W_HasBuff(NA_Pet, 136, true), '136', NA_Pet) --治疗宠物
-					or NA_Fire(NA_IsMaxDps and UnitHealth(NA_Pet) > 0, '19574', NA_Pet) --狂野怒火
-					or NA_Fire(NA_IsMaxDps, '131894', NA_Target) --夺命黑鸦
-					or NA_Fire(NA_IsMaxDps, '121818', NA_Target) --群兽奔腾
-					or NA_Fire(true, '2643', NA_Target) --多重射击
-					or NA_Fire(true, '117050', NA_Target) --飞刃
-					or NA_Fire(true, '77767', NA_Target) --眼镜蛇射击
 
         ))then return true; end
 

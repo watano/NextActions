@@ -274,40 +274,16 @@ Profile LRProfile1 = new Profile(3, 1, 'Marksman', 'Marksman')
 
     ..attackCodes = '''        
 '''
-    ..addattackCmd('not W_HasBuff(NA_Player, 13165, true) and not W_HasBuff(NA_Player, 109260, true)', '铁鹰守护', NA_Player) //--雄鹰守护 雄鹰守护:13165 铁鹰守护:109260
-    ..addattackCmd('W_HPlevel(NA_Pet) < 0.5 and not W_HasBuff(NA_Pet, 136, true)', '治疗宠物', NA_Pet)
-    //  ..addattackCmd('NA_IsMaxDps and W_HPlevel(NA_Pet) > 0', '狂野怒火', NA_Pet)
-    //..addattackCmd('NA_IsMaxDps and W_PowerLevel(NA_Player)<0.5', '急速射击', NA_Player)
-    //  ..addattackCmd('NA_IsMaxDps', '山猫冲锋', NA_Target) //--山猫冲锋
-    ..addattackCmd('NA_IsMaxDps', '夺命黑鸦', NA_Target)//--群兽奔腾
-    ..addattackCmd('NA_IsMaxDps', '群兽奔腾', NA_Target)//--群兽奔腾
-    //  ..addattackCmd('NA_IsMaxDps and hasability_druid_ferociousbite', 'Rabid', NA_Pet)//  --疯乱
-
-    //-----反斩杀(仔细瞄准)阶段(目标血量>80%)
-    //基础循环为：
-    //奇美拉射击-瞄准射击*2-稳固射击*4
-    //奇美拉射击-瞄准*3-稳固*3
-    //当你同时获得嗜血效果与急速射击时，可以在仔细瞄准阶段忽略奇美拉射击与毒蛇钉刺。
-    //仔细瞄准阶段夺命黑鸦，钉刺等技能自行加入，急速射击的开启尽量在准备读条前。
-
-    //-----普通阶段(80%>目标血量>20%)
-    //基础循环为：
-    //15%装备急速以下：
-    //奇美拉射击-奥数射击*2-稳固射击*4
-    //奇美拉射击-奥数射击*3-稳固射击*3
-    //15%装备急速以上：
-    //奇美拉射击-瞄准射击*2-稳固射击*4
-    //其他技能请根据集中值的实际情况穿插入基础循环当中
-
-    //-----斩杀阶段(目标血量<20%)
-    //技能优先级：
-    //1.奇美拉射击
-    //2.杀戮射击
-    //3.夺命黑鸦
-    //4.(装备急速大于15%)目标存活时间大于瞄准施法时间，使用瞄准射击
-    //5.(装备急速大于15%)目标存活时间小于瞄准施法时间，使用奥术射击
-    //6.(装备急速小于15%)奥术射击
-    //7.稳固射击
+..addattackCmd('true', '奇美拉射击', NA_Target)
+//..addattackCmd('true', '杀戮射击', NA_Target)
+..addattackCmd('true', '夺命黑鸦', NA_Target)
+..addattackCmd('W_HPlevel(NA_Target) > 0.8 or W_HasBuff(NA_Player, 3045, true)', '瞄准射击', NA_Target)
+..addattackCmd('W_HasBuff(NA_Player, 109306, true)', '瞄准射击', NA_Target)
+..addattackCmd('W_HPlevel(NA_Target) < 0.8 and not W_HasBuff(NA_Player, 3045, true)', '弹幕射击', NA_Target)
+..addattackCmd('W_HPlevel(NA_Target) < 0.8 and not W_HasBuff(NA_Player, 3045, true)', '瞄准射击', NA_Target)
+..addattackCmd('true', '群兽奔腾', NA_Target)
+..addattackCmd('true', '稳固射击', NA_Target)
+..addattackCmd('true', '急速射击', NA_Target)
 
 
     //------------------------------------------AOE------------------------------------
@@ -321,51 +297,25 @@ Profile LRProfile1 = new Profile(3, 1, 'Marksman', 'Marksman')
 //  ..addattackAOECmd('NA_IsMaxDps and hasability_druid_ferociousbite', 'Rabid', NA_Pet)//  --疯乱
 ;
 //-----------------------------------------------------------Beastmaster
-Profile LRProfile2 = new Profile(3, 2, 'Beastmaster', 'Beastmaster')
+Profile LRProfile2 = new Profile(3, 2, 'Survival', 'Survival')
     ..commonCodes = '''
 '''
 
     ..attackCodes = '''        
 '''
-    //      ..addattackCmd('W_BuffCount(NA_Player, 19615)>=5', '集中火力', NA_Target)
-    ////..addattackCmd("true", "集中火力", NA_Target),five_stacks=..addattackCmd(' not ticking and  not W_HasBuff(NA_Player, "野兽之心")', "1", NA_Target)
-    //      ..addattackCmd('not hasquickshot', "毒蛇钉刺", NA_Target)
-    //      ..addattackCmd("true", "血性狂怒", NA_Target)
-    //      ..addattackCmd('W_PowerLevel(NA_Player)<=65', "热情", NA_Target)
-    //      ..addattackCmd('W_PowerLevel(NA_Player)>60 and  not W_HasBuff(NA_Player, "野兽之心")', "狂野怒火", NA_Target)
-    //      ..addattackCmd('not W_HasBuff(NA_Player, "急速射击")', "急速射击", NA_Target)
-    //      ..addattackCmd('W_HasBuff(NA_Player, "急速射击") or W_HasBuff(NA_Player, "嗜血") or W_PowerLevel(NA_Target)<=25', "群兽奔腾", NA_Target)
-    //      ..addattackCmd("true", "杀戮射击", NA_Target)
-    //      ..addattackCmd("true", "杀戮命令", NA_Target)
-    //      ..addattackCmd('true', "夺命黑鸦", NA_Target)
-    //      ..addattackCmd('true', "飞刃", NA_Target)
-    //      ..addattackCmd('true and  not W_HasBuff(NA_Player, "山猫冲锋", true)', "山猫冲锋", NA_Target)
-    //      ..addattackCmd('true and focus<=90', "凶暴野兽", NA_Target)
-    //      ..addattackCmd('true', "弹幕射击", NA_Target)
-    //      ..addattackCmd('true', "强风射击", NA_Target)
-    //      ..addattackCmd('W_HasBuff(NA_Player, "狩猎刺激") or W_HasBuff(NA_Player, "野兽之心")', "奥术射击", NA_Target)
-    //      ..addattackCmd("true", "集中火力", NA_Target)
-    //      ..addattackCmd('W_BuffTime(NA_Player, "毒蛇钉刺", false)<6', "眼镜蛇射击", NA_Target)
-    //      ..addattackCmd('focus>=61', "奥术射击", NA_Target)
-    //      ..addattackCmd("true", "眼镜蛇射击", NA_Target)
+..addattackCmd('not W_HasBuff(NA_Player, 13165, true) and not W_HasBuff(NA_Player, 109260, true)', '铁鹰守护', NA_Player)
+..addattackCmd('W_HPlevel(NA_Pet) < 0.5 and not W_HasBuff(NA_Pet, 136, true)', '治疗宠物', NA_Pet)
+..addattackCmd('true', '爆炸射击', NA_Target)
+..addattackCmd('true', '黑箭', NA_Target)
+..addattackCmd('true', '夺命黑鸦', NA_Target)
+..addattackCmd('true', '凶暴野兽', NA_Target)
+..addattackCmd('true', '毒蛇钉刺', NA_Target)
+..addattackCmd('W_HPlevel(NA_Target) < 0.8 and not W_HasBuff(NA_Player, 3045, true)', '弹幕射击', NA_Target)
+//..addattackCmd('true', '急速射击', NA_Target)
+..addattackCmd('true', '奥术射击', NA_Target)
+..addattackCmd('true', '眼镜蛇射击', NA_Target)
 
-    //------------------------------------------AOE------------------------------------
-    ..addattackAOECmd('not W_HasBuff(NA_Player, 13165, true) and not W_HasBuff(NA_Player, 109260, true)', '铁鹰守护', NA_Player) //--雄鹰守护 雄鹰守护:13165 铁鹰守护:109260
-    ..addattackAOECmd('UnitHealth(NA_Pet) >0 and W_HPlevel(NA_Pet) < 0.5 and not W_HasBuff(NA_Pet, 136, true)', '治疗宠物', NA_Pet)
-    ..addattackAOECmd('NA_IsMaxDps and UnitHealth(NA_Pet) > 0', '狂野怒火', NA_Pet)
-    //..addattackAOECmd('NA_IsMaxDps and W_PowerLevel(NA_Player)<0.5', '急速射击', NA_Player)
-    //  ..addattackAOECmd('NA_IsMaxDps', '山猫冲锋', NA_Target) //--山猫冲锋
-    ..addattackAOECmd('NA_IsMaxDps', '夺命黑鸦', NA_Target)//--群兽奔腾
-    ..addattackAOECmd('NA_IsMaxDps', '群兽奔腾', NA_Target)//--群兽奔腾
-    //  ..addattackAOECmd('NA_IsMaxDps and hasability_druid_ferociousbite', 'Rabid', NA_Pet)//  --疯乱
-    //1.多重射击，集中值够就施放。
-    ..addattackAOECmd('true', '多重射击', NA_Target)
-    //2.击杀射击
-    //..addattackAOECmd('W_HPlevel(NA_Target) < 0.20', '杀戮射击', NA_Target)
-    //3.在尽可能打中所有敌人的位置使用飞刃，如果boss战中需要大量的aoe伤害，你应该选择弹幕来代替飞刃天赋。
-    ..addattackAOECmd('true', '飞刃', NA_Target)
-    //4.眼镜蛇射击，当你的集中值不足以施放多重射击时。
-    ..addattackAOECmd('true', '眼镜蛇射击', NA_Target);
+;
 //-----------------------------------------------------------Protection
 Profile QSProfile0 = new Profile(2, 0, 'Protection', 'Protection')
     ..commonCodes = '''
