@@ -405,7 +405,8 @@ function W_PaladinPower(unit)
 end
 
 function w_GetComboPoints(unit)
-	return GetComboPoints(unit, 'target');
+	--return GetComboPoints(unit, 'target');
+	return UnitPower(unit,4);
 end
 function W_SpellEnabled(spellID, UnitId)
 	local spellInfo = NA_getSpellInfo(spellID);
@@ -516,4 +517,50 @@ function W_printBuffInfo(UnitId)
 	  buffs = table.concat(buffs, ", ");
 	end;
 	print(buffs);
+end
+
+--姿态检测
+function W_FormInfo(Num)
+    local texture,name,isactive,isCastable = GetShapeshiftFormInfo(Num);
+    if isactive then
+       return true;
+    else 
+       return false;
+    end;
+end
+
+--日月能方向检测
+function W_SunPowerDir()
+    local dir = GetEclipseDirection();
+      if dir=="sun" then
+         return true;
+      elseif dir=="moon" then
+         return false;
+      end
+end
+
+--日月能能量检测
+function W_EclipsePower()
+   local power = UnitPower(NA_Player,8) 
+   --power = power < 0 and -power or power
+      if power<0 then
+         return -1;
+      elseif power>0 then
+         return 1;
+      elseif power==0 then
+         return 0;
+      end
+end
+
+--统计技能可用数量
+function NA_GetSpellCharges(spellID)
+	if(spellID == nil)then
+		return nil;
+	end
+	local currentCharges,maxCharges = GetSpellCharges(spellID);
+	if(currentCharges ~= nil)then
+		return currentCharges;
+	else
+		return nil;
+	end
 end
