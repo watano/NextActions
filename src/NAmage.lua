@@ -7,7 +7,7 @@ function getNA8Actions(no)
     };
   elseif(no == 1)then
     return {
-      '45438','11426','12472','55342','44614','2136','116','120','84714','31687'
+      '45438','11426','12472','30455','55342','44614','84714','112948','108839','116','120','31687'
     };
   elseif(no == 2)then
     return {
@@ -69,21 +69,21 @@ function NA8Dps()
 
         ))then return true; end
       elseif(NA_ProfileNo == 1)then --Frost
-                local counthbz = W_BuffCount(NA_Player, 44544); --寒冰指
-				        local counthlzh = W_BuffCount(NA_Player, 57761); --冰冷智慧
-	local hbzd = W_RetainBuff(NA_Target, -112948, true); --寒冰炸弹
+        local counthbz = W_BuffCount(NA_Player, 44544); --寒冰指
+				local counthlzh = W_BuffCount(NA_Player, 57761); --冰冷智慧 
+				local hbzd = W_RetainBuff(NA_Target, -112948, true); --寒冰炸弹
 				
         
         if(not NA_IsAOE and (false
 					or NA_Fire(W_HPlevel(NA_Player) < 0.2, '45438', NA_Player) --寒冰屏障
 					or NA_Fire(W_HPlevel(NA_Player) < 0.9, '11426', NA_Player) --寒冰护体
 					or NA_Fire(NA_IsMaxDps, '12472', NA_Player) --冰冷血脉
-or NA_Fire(counthbz>0, '30455', NA_Target) --寒冰指下的冰枪术
+					or NA_Fire(counthbz>0, '30455', NA_Target) --冰枪术
 					or NA_Fire(NA_IsMaxDps, '55342', NA_Player) --镜像
 					or NA_Fire(counthlzh>0, '44614', NA_Target) --霜火之箭
-or NA_Fire(true, '84714', NA_Target) --寒冰宝珠
-or NA_Fire(not hbzd, '112948', NA_Target) --寒冰炸弹
-or NA_Fire(true, '108839', NA_Player) --浮冰
+					or NA_Fire(true, '84714', NA_Target) --寒冰宝珠
+					or NA_Fire(not hbzd, '112948', NA_Target) --寒冰炸弹
+					or NA_Fire(true, '108839', NA_Player) --浮冰
 					or NA_Fire(true, '116', NA_Target) --寒冰箭
 
         ))then return true; end

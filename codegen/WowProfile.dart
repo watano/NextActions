@@ -475,17 +475,22 @@ Profile FSProfile1 = new Profile(8, 1, 'Frost', 'Frost')
     ..addkeepBuffCmd('NA_ProfileNo == 1 and NA_IsSolo and W_TargetCanAttack()', '寒冰箭', NA_Target)
 
     ..attackCodes = '''
-        local counthbz = W_BuffCount(NA_Player, 44544); --寒冰指
-        local counthlzh = W_BuffCount(NA_Player, 57761); --冰冷智慧
+local counthbz = W_BuffCount(NA_Player, 44544); --寒冰指
+local counthlzh = W_BuffCount(NA_Player, 57761); --冰冷智慧 
+local hbzd = W_RetainBuff(NA_Target, -112948, true); --寒冰炸弹
 '''
     ..addattackCmd('W_HPlevel(NA_Player) < 0.2', '寒冰屏障', NA_Player)
     ..addattackCmd('W_HPlevel(NA_Player) < 0.9', '寒冰护体', NA_Player)
     ..addattackCmd('NA_IsMaxDps', '冰冷血脉', NA_Player)
+    ..addattackCmd('counthbz>0', '冰枪术', NA_Target) //寒冰指下的冰枪术
     ..addattackCmd('NA_IsMaxDps', '镜像', NA_Player)
     //..addattackCmd('not W_RetainBuff(NA_Target, -44457, true)', '活动炸弹', NA_Target)
     ..addattackCmd('counthlzh>0', '霜火之箭', NA_Target)
     //..addattackCmd('counthbz>0', '冰枪术', NA_Target)
-    ..addattackCmd('NA_IsSolo', '火焰冲击', NA_Target)
+    ..addattackCmd('true', '寒冰宝珠', NA_Target)
+    ..addattackCmd('not hbzd', '寒冰炸弹', NA_Target)
+    ..addattackCmd('true', '浮冰', NA_Player)
+
     //..addattackCmd('NA_IsSolo and W_HPlevel(NA_Target) < 0.2', '冰枪术', NA_Target)
     ..addattackCmd('true', '寒冰箭', NA_Target)
     //..addattackCmd('true', '冰枪术', NA_Target)
