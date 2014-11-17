@@ -3,7 +3,7 @@ function getNA3Actions(no)
     return {};
   elseif(no == 0)then
     return {
-      '136','982','19574','53351','82692','34026','120679','120360','3044','77767','2643','131894','117050','121818','109259','5118'
+      '136','982','19574','53351','82692','34026','120679','120360','3044','77767','2643','121818','5118'
     };
   elseif(no == 1)then
     return {
@@ -73,10 +73,7 @@ function NA3Dps()
 					or NA_Fire(true, '34026', NA_Target) --杀戮命令
 					or NA_Fire(true, '120679', NA_Target) --凶暴野兽
 					or NA_Fire(true, '120360', NA_Target) --弹幕射击
-					or NA_Fire(true, '131894', NA_Target) --夺命黑鸦
-					or NA_Fire(true, '117050', NA_Target) --飞刃
 					or NA_Fire(true, '121818', NA_Target) --群兽奔腾
-					or NA_Fire(true, '109259', NA_Target) --强风射击
 					or NA_Fire(true, '77767', NA_Target) --眼镜蛇射击
 
         ))then return true; end

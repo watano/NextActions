@@ -29,7 +29,7 @@ local retainBloodPlague = W_RetainBuff(NA_Target, -55078, true);    --血之疫�
 '''
 
     //灵魂收割 当目标血量低于35%
-    ..addattackCmd('true', '灵魂收割', NA_Target)
+    ..addattackCmd('W_HPlevel(NA_Target) < 0.35', '灵魂收割', NA_Target)
     ..addattackCmd('NA_IsSolo or NA_IsMaxDps', '冰霜之柱', NA_Target)
     ..addattackCmd('NA_IsMaxDps', '符文武器增效', NA_Target)
     //湮没 当杀戮机器触发且有双病
@@ -57,16 +57,16 @@ local retainBloodPlague = W_RetainBuff(NA_Target, -55078, true);    --血之疫�
     ..addattackAOECmd('NA_IsSolo or NA_IsMaxDps', '冰霜之柱', NA_Target)
     ..addattackAOECmd('NA_IsMaxDps', '符文武器增效', NA_Target)
     //疾病：血病跳数达到10跳
-    ..addattackCmd('not retainFrostFever and not retainBloodPlague', '爆发', NA_Target)
-    ..addattackCmd('not retainFrostFever', '凛风冲击', NA_Target)//凛风冲击 冰冷触摸
-    ..addattackCmd('not retainBloodPlague', '暗影打击', NA_Target)
+    ..addattackAOECmd('not retainFrostFever and not retainBloodPlague', '爆发', NA_Target)
+    ..addattackAOECmd('not retainFrostFever', '凛风冲击', NA_Target)//凛风冲击 冰冷触摸
+    ..addattackAOECmd('not retainBloodPlague', '暗影打击', NA_Target)
     //凛风冲击 当两个冰霜符文和死亡符文冷却完成
     ..addattackAOECmd('hasFreezingFog or hasRime', '凛风冲击', NA_Target)//--免費冰冷触摸/凛风冲击
     ..addattackAOECmd('W_StarCount(3)>1 or W_StarCount(4)>1', '凛风冲击', NA_Target)
     //冰霜打击 当符能即将达到上限
     ..addattackAOECmd('W_PowerLevel(NA_Player) > 0.7', '冰霜打击', NA_Target)
     //湮没 当杀戮机器触发
-    ..addattackCmd('hasKillingMachine and retainFrostFever and retainBloodPlague', '湮没', NA_Target)
+    ..addattackAOECmd('hasKillingMachine and retainFrostFever and retainBloodPlague', '湮没', NA_Target)
     //凛风冲击
     ..addattackAOECmd('true', '凛风冲击', NA_Target)
     //冰霜打击
@@ -153,7 +153,7 @@ local retainFrostFever = W_RetainBuff(NA_Target, -55095, true);   --冰霜疫病
 local retainBloodPlague = W_RetainBuff(NA_Target, -55078, true);    --血之疫病
 '''
     //灵魂收割 当目标血量低于35%
-    ..addattackCmd('true', '灵魂收割', NA_Target)
+    ..addattackCmd('W_HPlevel(NA_Target) < 0.35', '灵魂收割', NA_Target)
     ..addattackCmd('NA_IsSolo or NA_IsMaxDps', '冰霜之柱', NA_Target)
     ..addattackCmd('NA_IsMaxDps', '符文武器增效', NA_Target)
     //冰霜打击：杀戮机器触发/符能超过88
@@ -179,20 +179,20 @@ local retainBloodPlague = W_RetainBuff(NA_Target, -55078, true);    --血之疫�
 
     //------------------------------------------AOE------------------------------------
     //灵魂收割 当目标血量低于35%
-    ..addattackAOECmd('true', '灵魂收割', NA_Target)
+    ..addattackAOECmd('W_HPlevel(NA_Target) < 0.35', '灵魂收割', NA_Target)
     ..addattackAOECmd('NA_IsSolo or NA_IsMaxDps', '冰霜之柱', NA_Target)
     ..addattackAOECmd('NA_IsMaxDps', '符文武器增效', NA_Target)
     //疾病：血病跳数达到10跳
-    ..addattackCmd('not retainFrostFever and not retainBloodPlague', '爆发', NA_Target)
-    ..addattackCmd('not retainFrostFever', '凛风冲击', NA_Target)//凛风冲击 冰冷触摸
-    ..addattackCmd('not retainBloodPlague', '暗影打击', NA_Target)
+    ..addattackAOECmd('not retainFrostFever and not retainBloodPlague', '爆发', NA_Target)
+    ..addattackAOECmd('not retainFrostFever', '凛风冲击', NA_Target)//凛风冲击 冰冷触摸
+    ..addattackAOECmd('not retainBloodPlague', '暗影打击', NA_Target)
     //凛风冲击 当两个冰霜符文和死亡符文冷却完成
     ..addattackAOECmd('hasFreezingFog or hasRime', '凛风冲击', NA_Target)//--免費冰冷触摸/凛风冲击
     ..addattackAOECmd('W_StarCount(3)>1 or W_StarCount(4)>1', '凛风冲击', NA_Target)
     //冰霜打击 当符能即将达到上限
     ..addattackAOECmd('W_PowerLevel(NA_Player) > 0.7', '冰霜打击', NA_Target)
     //湮没 当杀戮机器触发
-    ..addattackCmd('hasKillingMachine and retainFrostFever and retainBloodPlague', '湮没', NA_Target)
+    ..addattackAOECmd('hasKillingMachine and retainFrostFever and retainBloodPlague', '湮没', NA_Target)
     //凛风冲击
     ..addattackAOECmd('true', '凛风冲击', NA_Target)
     //冰霜打击
@@ -256,13 +256,13 @@ Profile LRProfile0 = new Profile(3, 0, 'Beastmaster', 'Beastmaster')
 //弹幕射击(如果选择)
     ..addattackAOECmd('true', '弹幕射击', NA_Target)
 //夺命黑鸦(如果选择)
-    ..addattackAOECmd('true', '夺命黑鸦', NA_Target)
+    //..addattackAOECmd('true', '夺命黑鸦', NA_Target)
 //飞刃(如果选择)
-    ..addattackAOECmd('true', '飞刃', NA_Target)
+    //..addattackAOECmd('true', '飞刃', NA_Target)
 //兽群奔腾(如果选择)
     ..addattackAOECmd('true', '群兽奔腾', NA_Target)
 //强风射击(如果选择)
-    ..addattackAOECmd('true', '强风射击', NA_Target)
+    //..addattackAOECmd('true', '强风射击', NA_Target)
 //眼镜蛇射击
     ..addattackAOECmd('true', '眼镜蛇射击', NA_Target)
 ;
