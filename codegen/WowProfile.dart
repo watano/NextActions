@@ -525,7 +525,7 @@ Profile FSProfile2 = new Profile(8, 2, 'Frost', 'Frost')
 Profile SSProfile0 = new Profile(9, 0, 'Demonology', 'Demonology')
     ..commonCodes = '''
 '''
-    ..addkeepBuffCmd('NA_ProfileNo == 0 and not W_HasBuff(NA_Player, 109773, true)', '黑暗意图', NA_Player)
+    ..addkeepBuffCmd('not W_HasBuff(NA_Player, 109773, true)', '黑暗意图', NA_Player)
     ..addkeepBuffCmd('NA_ProfileNo == 0 and NA_IsSolo and W_TargetCanAttack()', '暗影箭', NA_Target)
 
     //..addkeepHPCmd('NA_IsSolo and UnitIsDead(NA_Pet)', '生命通道', NA_Pet) //召唤
@@ -579,7 +579,7 @@ Profile SSProfile0 = new Profile(9, 0, 'Demonology', 'Demonology')
 Profile SSProfile1 = new Profile(9, 1, 'Destruction', 'Destruction')
     ..commonCodes = '''
 '''
-    ..addkeepBuffCmd('NA_ProfileNo == 1 and not W_HasBuff(NA_Player, 109773, true)', '黑暗意图', NA_Player)
+    ..addkeepBuffCmd('not W_HasBuff(NA_Player, 109773, true)', '黑暗意图', NA_Player)
     ..addkeepBuffCmd('NA_ProfileNo == 1 and NA_IsSolo and W_TargetCanAttack()', '献祭', NA_Target)
     ..addkeepHPCmd('NA_ProfileNo == 1 and NA_IsSolo and W_HPlevel(NA_Player)<0.2', '灰烬转换', NA_Player)
 
@@ -587,12 +587,13 @@ Profile SSProfile1 = new Profile(9, 1, 'Destruction', 'Destruction')
 '''
 
     ..addattackCmd('true', '黑暗灵魂：易爆', NA_Player)
-    //..addattackCmd('W_GetSpellCooldown(119915)<=0 or W_GetSpellCooldown(119914)<=0', '恶魔掌控', NA_Target)
+    ..addattackCmd('UnitName(NA_Pet)==\'菲兹托克\' and W_GetSpellCooldown(119899)<=0', '恶魔掌控', NA_Target)
+    //..addattackCmd('UnitName(NA_Pet)==\'亚塔克西\' and W_GetSpellCooldown(119907)<=0', '恶魔掌控', NA_Target)
+    ..addattackCmd('UnitName(NA_Pet)==\'克丽欧拉\' and W_GetSpellCooldown(115770)<=0', '恶魔掌控', NA_Target)
+    ..addattackCmd('UnitName(NA_Pet)==\'科尔拉克\' and W_GetSpellCooldown(115781)<=0', '恶魔掌控', NA_Target)
     ..addattackCmd('NA_IsMaxDps', '召唤末日守卫', NA_Player)
-    //..addattackCmd('NA_IsMaxDps and not W_HasBuff(NA_Target, -1490, true)', '元素诅咒', NA_Target)
 
     ..addattackCmd('W_HPlevel(NA_Target)<0.2 and UnitPower(NA_Player, SPELL_POWER_BURNING_EMBERS)>0', '暗影灼烧', NA_Target)
-    //..addattackCmd('NA_IsSolo and W_HPlevel(NA_Target)<0.2', '邪焰', NA_Target)
     ..addattackCmd('UnitPower(NA_Player, SPELL_POWER_BURNING_EMBERS)>3', '浩劫', NA_Target)
     ..addattackCmd('GetUnitSpeed(NA_Player)<1 and (W_HasBuff(NA_Player, 80240, true) or UnitPower(NA_Player, SPELL_POWER_BURNING_EMBERS)>3)', '混乱之箭', NA_Target)
     ..addattackCmd('NA_IsSolo and GetUnitSpeed(NA_Player)<1 and UnitPower(NA_Player, SPELL_POWER_BURNING_EMBERS)>1', '混乱之箭', NA_Target)
@@ -604,6 +605,7 @@ Profile SSProfile1 = new Profile(9, 1, 'Destruction', 'Destruction')
     //------------------------------------------AOE------------------------------------
     ..addattackAOECmd('W_HasBuff(NA_Player, 108683, true)', '燃烧', NA_Target)
     ..addattackAOECmd('true', '烧尽', NA_Target);
+
 //-----------------------------------------------------------Affliction
 Profile SSProfile2 = new Profile(9, 2, 'Affliction', 'Affliction')
     ..commonCodes = '''
@@ -614,6 +616,7 @@ Profile SSProfile2 = new Profile(9, 2, 'Affliction', 'Affliction')
   local retain146739 = W_RetainBuff(NA_Target, -146739, true); --腐蚀术
   local retain30108 = W_RetainBuff(NA_Target, -30108, true); --痛苦无常
 '''
+    ..addkeepBuffCmd('not W_HasBuff(NA_Player, 109773, true)', '黑暗意图', NA_Player)
     ..addkeepBuffCmd('NA_ProfileNo == 2 and NA_IsSolo and W_TargetCanAttack()', '痛楚', NA_Target)
 
     ..addattackCmd('NA_IsMaxDps', '召唤末日守卫', NA_Player)

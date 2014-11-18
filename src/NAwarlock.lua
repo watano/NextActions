@@ -7,11 +7,11 @@ function getNA9Actions(no)
     };
   elseif(no == 1)then
     return {
-      '113858','18540','17877','80240','116858','348','17962','29722','114635','109773'
+      '113858','119898','18540','17877','80240','116858','348','17962','29722','114635','109773'
     };
   elseif(no == 2)then
     return {
-      '18540','74434','103103','689','48181','113860','980','172','30108','1122','86121','27243'
+      '18540','74434','103103','689','48181','113860','980','172','30108','1122','86121','27243','109773'
     };
   
   end
@@ -91,6 +91,9 @@ function NA9Dps()
         
         if(not NA_IsAOE and (false
 					or NA_Fire(true, '113858', NA_Player) --黑暗灵魂：易爆
+					or NA_Fire(UnitName(NA_Pet)=='菲兹托克' and W_GetSpellCooldown(119899)<=0, '119898', NA_Target) --恶魔掌控
+					or NA_Fire(UnitName(NA_Pet)=='克丽欧拉' and W_GetSpellCooldown(115770)<=0, '119898', NA_Target) --恶魔掌控
+					or NA_Fire(UnitName(NA_Pet)=='科尔拉克' and W_GetSpellCooldown(115781)<=0, '119898', NA_Target) --恶魔掌控
 					or NA_Fire(NA_IsMaxDps, '18540', NA_Player) --召唤末日守卫
 					or NA_Fire(W_HPlevel(NA_Target)<0.2 and UnitPower(NA_Player, SPELL_POWER_BURNING_EMBERS)>0, '17877', NA_Target) --暗影灼烧
 					or NA_Fire(UnitPower(NA_Player, SPELL_POWER_BURNING_EMBERS)>3, '80240', NA_Target) --浩劫
@@ -157,10 +160,11 @@ function NA9Dps()
   else
     
     if(false
-					or NA_Fire(NA_ProfileNo == 0 and not W_HasBuff(NA_Player, 109773, true), '109773', NA_Player) --黑暗意图
+					or NA_Fire(not W_HasBuff(NA_Player, 109773, true), '109773', NA_Player) --黑暗意图
 					or NA_Fire(NA_ProfileNo == 0 and NA_IsSolo and W_TargetCanAttack(), '686', NA_Target) --暗影箭
-					or NA_Fire(NA_ProfileNo == 1 and not W_HasBuff(NA_Player, 109773, true), '109773', NA_Player) --黑暗意图
+					or NA_Fire(not W_HasBuff(NA_Player, 109773, true), '109773', NA_Player) --黑暗意图
 					or NA_Fire(NA_ProfileNo == 1 and NA_IsSolo and W_TargetCanAttack(), '348', NA_Target) --献祭
+					or NA_Fire(not W_HasBuff(NA_Player, 109773, true), '109773', NA_Player) --黑暗意图
 					or NA_Fire(NA_ProfileNo == 2 and NA_IsSolo and W_TargetCanAttack(), '980', NA_Target) --痛楚
     
     )then return true; end
