@@ -548,7 +548,7 @@ Profile SSProfile0 = new Profile(9, 0, 'Demonology', 'Demonology')
     //..addattackCmd('NA_IsMaxDps', '魔典：邪恶仆从', NA_Player) 119914
     ..addattackCmd('true', '黑暗灵魂：学识', NA_Player)
     ..addattackCmd('W_GetSpellCooldown(119915)<=0 or W_GetSpellCooldown(119914)<=0', '恶魔掌控', NA_Target)
-    //
+//
     ..addattackCmd('NA_IsMaxDps', '召唤末日守卫', NA_Player)
 
     ..addattackCmd('not isDemonform and not W_RetainBuff(NA_Target, -603, true)', '恶魔变形', NA_Player)
@@ -560,12 +560,12 @@ Profile SSProfile0 = new Profile(9, 0, 'Demonology', 'Demonology')
     ..addattackCmd('true', '暗影箭', NA_Target)
 
     //------------------------------------------AOE------------------------------------
-    ..addattackAOECmd('true', '古尔丹之手', NA_Target)
-    ..addattackAOECmd('not isDemonform and not W_RetainBuff(NA_Target, -146739, true)', '腐蚀术', NA_Target)
-    //..addattackAOECmd('NA_IsMaxDps', '魔典：邪恶仆从', NA_Player)
-    ..addattackAOECmd('NA_IsMaxDps', '黑暗灵魂：学识', NA_Player)
-    ..addattackAOECmd('NA_IsMaxDps', '召唤地狱火', NA_Player)
-    ..addattackAOECmd('NA_IsMaxDps and W_GetSpellCooldown(119914)<=0', '恶魔掌控', NA_Target)
+  ..addattackAOECmd('true', '古尔丹之手', NA_Target)
+  ..addattackAOECmd('not isDemonform and not W_RetainBuff(NA_Target, -146739, true)', '腐蚀术', NA_Target)
+  //..addattackAOECmd('NA_IsMaxDps', '魔典：邪恶仆从', NA_Player)
+  ..addattackAOECmd('NA_IsMaxDps', '黑暗灵魂：学识', NA_Player)
+  ..addattackAOECmd('NA_IsMaxDps', '召唤地狱火', NA_Player)
+  ..addattackAOECmd('NA_IsMaxDps and W_GetSpellCooldown(119914)<=0', '恶魔掌控', NA_Target)
 
     ..addattackAOECmd('not isDemonform and UnitPower(NA_Player, SPELL_POWER_DEMONIC_FURY)>=1000 ', '恶魔变形', NA_Player)
     ..addattackAOECmd('isDemonform and not W_RetainBuff(NA_Target, -603, true)', '腐蚀术', NA_Target)//末日降临
@@ -574,6 +574,7 @@ Profile SSProfile0 = new Profile(9, 0, 'Demonology', 'Demonology')
 
     ..addattackAOECmd('moltencore>0', '灵魂之火', NA_Target)
     ..addattackAOECmd('true', '地狱烈焰', NA_Target);
+
 //-----------------------------------------------------------Destruction
 Profile SSProfile1 = new Profile(9, 1, 'Destruction', 'Destruction')
     ..commonCodes = '''
@@ -615,7 +616,6 @@ Profile SSProfile2 = new Profile(9, 2, 'Affliction', 'Affliction')
 '''
     ..addkeepBuffCmd('NA_ProfileNo == 2 and NA_IsSolo and W_TargetCanAttack()', '痛楚', NA_Target)
 
-    ..addattackCmd('true', '黑暗灵魂：哀难', NA_Player)
     ..addattackCmd('NA_IsMaxDps', '召唤末日守卫', NA_Player)
     ..addattackCmd('NA_IsMaxDps', '灵魂燃烧', NA_Player)
     ..addattackCmd('W_HPlevel(NA_Target)<0.2', '吸取灵魂', NA_Target)
@@ -623,30 +623,60 @@ Profile SSProfile2 = new Profile(9, 2, 'Affliction', 'Affliction')
     ..addattackCmd('W_HasBuff(NA_Player, 74434, true)', '吸取生命', NA_Target)
     ..addattackCmd('W_HasBuff(NA_Player, 17941, true)', '鬼影缠身', NA_Target)
 
-    ..addattackCmd('not retain146739', '腐蚀术', NA_Target)
-    ..addattackCmd('count980<10', '痛楚', NA_Target)
-    ..addattackCmd('not W_RetainBuff(NA_Target, -980, true)', '痛楚', NA_Target)
-    ..addattackCmd('not retain30108', '痛苦无常', NA_Target)
-    //..addattackCmd('not W_HasBuff(NA_Target, -1490, true)', '元素诅咒', NA_Target)
-    ..addattackCmd('not W_RetainBuff(NA_Target, -48181, true) and UnitPower(NA_Player, SPELL_POWER_SOUL_SHARDS)>0', '鬼影缠身', NA_Target)
-    //..addattackCmd('true', '灾难之握', NA_Target)
+//卡 CD 黑暗灵魂
+  ..addattackCmd('true', '黑暗灵魂：哀难', NA_Player)
+//卡 CD 大灾变，如果 T7 选择了大灾变
+    //..addattackCmd('true', '大灾变', NA_Player)
+//保持 10 层痛楚
+  ..addattackCmd('count980<10', '痛楚', NA_Target)
+//保持腐蚀术
+  ..addattackCmd('not retain146739', '腐蚀术', NA_Target)
+//保持痛苦无常
+  ..addattackCmd('not retain30108', '痛苦无常', NA_Target)
+//保持鬼魅灵魂，如果 T7 选择了灵魂燃烧：鬼影缠身
+    //..addattackCmd('true', '灵魂燃烧', NA_Player)
+//鬼影缠身，如果黑暗灵魂开启，或灵魂碎片已满
+  ..addattackCmd('not W_RetainBuff(NA_Target, -48181, true) and UnitPower(NA_Player, SPELL_POWER_SOUL_SHARDS)>0', '鬼影缠身', NA_Target)
+//吸取灵魂
+  ..addattackCmd('W_HPlevel(NA_Target)<0.2', '吸取灵魂', NA_Target)
 
     //------------------------------------------AOE------------------------------------
-    ..addattackAOECmd('true', '黑暗灵魂：哀难', NA_Player)
     ..addattackAOECmd('NA_IsMaxDps', '召唤末日守卫', NA_Player)
     ..addattackAOECmd('NA_IsMaxDps', '召唤地狱火', NA_Player)
     ..addattackAOECmd('NA_IsMaxDps', '灵魂燃烧', NA_Player)
     ..addattackAOECmd('count980<5 and W_HasBuff(NA_Player, 86211, true)', '灵魂交换', NA_Target)
 
-    ..addattackAOECmd('not W_RetainBuff(NA_Target, -74434, true)', '灵魂燃烧', NA_Target)
-    ..addattackAOECmd('not W_RetainBuff(NA_Target, -27243, true)', '腐蚀之种', NA_Target)
-    ..addattackAOECmd('not W_RetainBuff(NA_Target, -146739, true)', '腐蚀术', NA_Target)
-    ..addattackAOECmd('count980<10', '痛楚', NA_Target)
-    ..addattackAOECmd('not W_RetainBuff(NA_Target, -980, true)', '痛楚', NA_Target)
-    ..addattackAOECmd('not W_RetainBuff(NA_Target, -30108, true)', '痛苦无常', NA_Target)
-    ..addattackAOECmd('not W_RetainBuff(NA_Target, -48181, true)', '鬼影缠身', NA_Target)
-    ..addattackAOECmd('W_HPlevel(NA_Target)<0.2', '吸取灵魂', NA_Target)
-    //..addattackAOECmd('true', '灾难之握', NA_Target)
+//卡 CD 黑暗灵魂
+..addattackAOECmd('true', '黑暗灵魂：哀难', NA_Player)
+//使用灵魂燃烧：腐蚀之种对尽量多的目标施加腐蚀术，如果多目标相对集中
+..addattackAOECmd('not W_RetainBuff(NA_Target, -27243, true)', '腐蚀之种', NA_Target)
+//卡 CD 大灾变，如果 T7 选择了大灾变
+  //..addattackAOECmd('true', '大灾变', NA_Player)
+//保持主目标的痛楚、腐蚀术和痛苦无常
+//保持 10 层痛楚
+..addattackAOECmd('count980<10', '痛楚', NA_Target)
+//保持腐蚀术
+..addattackAOECmd('not retain146739', '腐蚀术', NA_Target)
+//保持痛苦无常
+..addattackAOECmd('not retain30108', '痛苦无常', NA_Target)
+//保持鬼魅灵魂，如果 T7 选择了灵魂燃烧：鬼影缠身
+  //..addattackAOECmd('true', '灵魂燃烧', NA_Player)
+//鬼影缠身，如果黑暗灵魂开启，或灵魂碎片已满
+..addattackAOECmd('not W_RetainBuff(NA_Target, -48181, true) and UnitPower(NA_Player, SPELL_POWER_SOUL_SHARDS)>0', '鬼影缠身', NA_Target)
+//对副目标逐一施加腐蚀之种
+..addattackAOECmd('not W_RetainBuff(NA_Target, -27243, true)', '腐蚀之种', NA_Target)
+//吸取灵魂
+..addattackAOECmd('W_HPlevel(NA_Target)<0.2', '吸取灵魂', NA_Target)
+
+//    ..addattackAOECmd('not W_RetainBuff(NA_Target, -74434, true)', '灵魂燃烧', NA_Target)
+//    ..addattackAOECmd('not W_RetainBuff(NA_Target, -27243, true)', '腐蚀之种', NA_Target)
+//    ..addattackAOECmd('not retain146739', '腐蚀术', NA_Target)
+//    ..addattackAOECmd('count980<10', '痛楚', NA_Target)
+//    ..addattackAOECmd('not W_RetainBuff(NA_Target, -980, true)', '痛楚', NA_Target)
+//    ..addattackAOECmd('not retain30108', '痛苦无常', NA_Target)
+//    ..addattackAOECmd('not W_RetainBuff(NA_Target, -48181, true)', '鬼影缠身', NA_Target)
+//    ..addattackAOECmd('W_HPlevel(NA_Target)<0.2', '吸取灵魂', NA_Target)
+//    //..addattackAOECmd('true', '灾难之握', NA_Target)
     ;
 
 //-----------------------------------------------------------Protection
