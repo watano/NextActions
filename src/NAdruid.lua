@@ -3,7 +3,7 @@ function getNA11Actions(no)
     return {};
   elseif(no == 0)then
     return {
-      '770','6795','6807','106832','33745','22568','106952','33917','102401','102351','62606','22812','108292','774','61336','22842','124974','1126'
+      '770','6795','6807','106832','33745','22568','106952','33917','102401','102351','62606','22812','108292','774','61336','22842','1126'
     };
   elseif(no == 1)then
     return {
@@ -11,7 +11,7 @@ function getNA11Actions(no)
     };
   elseif(no == 2)then
     return {
-      '5185','102342','18562','132158','774','48438','33763','8936','81269','5185','1126','102401','124974','61336','22812'
+      '132158','5185','102342','18562','774','48438','33763','8936','145205','124974'
     };
   elseif(no == 3)then
     return {
@@ -64,7 +64,6 @@ function NA11Dps()
 					or NA_Fire(NA_ProfileNo == 0 and needHP2 and yxhc, '774', NA_Player) --回春术
 					or NA_Fire(NA_ProfileNo == 0 and needHP, '61336', NA_Player) --生存本能
 					or NA_Fire(NA_ProfileNo == 0 and needHP, '22842', NA_Player) --狂暴回复
-					--or NA_Fire(NA_ProfileNo == 2 and needHP2, '124974', NA_Player) --自然的守护
 
       )then return true; end
 
@@ -137,7 +136,7 @@ function NA11Dps()
 					or NA_Fire(NA_GetSpellCharges(78674)==2 and W_GetSpellCooldown(78674)<6 or NA_GetSpellCharges(78674)==3, '78674', NA_Target) --星涌术
 					or NA_Fire(UnitPower(NA_Player,8) > 40, '112071', NA_Player) --超凡之盟
 					or NA_Fire(UnitPower(NA_Player,8) > 0, '102560', NA_Player) --化身：艾露恩之眷
-					or NA_Fire(W_BuffTime(NA_Target,-164815) < 7 or rzd, '8921', NA_Target) --阳炎术
+					or NA_Fire(W_BuffTime(NA_Target,-164815) < 7 or rzd, '164815', NA_Target) --阳炎术
 					or NA_Fire(yzd or W_BuffTime(NA_Target,-164812) < 4 or cfzm and W_BuffTime(NA_Player,112071) <= 2, '8921', NA_Target) --月火术
 					or NA_Fire(UnitPower(NA_Player,8) >= 0, '5176', NA_Target) --愤怒
 					or NA_Fire(UnitPower(NA_Player,8) <= 0, '2912', NA_Target) --星火术
@@ -150,41 +149,37 @@ function NA11Dps()
 
       end
     elseif(UnitCanAssist(NA_Player, NA_Target) and UnitIsPlayer(NA_Target))then
-     -- 保命施法
+
+
+local hcs = W_RetainBuff(NA_Target, 774, true);   --回春术
+local yh = W_RetainBuff(NA_Target, 8936, true);   --愈合
+local smzf = W_RetainBuff(NA_Target, 33763, true);   --生命绽放
+local yxcz = W_RetainBuff(NA_Target, 48438, true);   --野性成长
+local zrxj = W_RetainBuff(NA_Player, 132158, true);   --自然迅捷
+local jnsf = W_RetainBuff(NA_Player, 16870, true);   --节能施法
+local qxyz = W_RetainBuff(NA_Player, 113043, true);   --清晰预兆
+local xsxz = W_BuffCount(NA_Player, 144871);   --修缮贤哲
+
+
 
       if(false
-      or NA_Fire(needHP, '61336', NA_Player) --生存本能
-      or NA_Fire(needHP2, '22812', NA_Player) --树皮术
-
-           )then return true; end
-       if(NA_ProfileNo == 2)then
-    local hcs = W_RetainBuff(NA_Target, 774, true);   --回春术
-    local yh = W_RetainBuff(NA_Target, 8936, true);   --愈合
-    local smzf = W_RetainBuff(NA_Target, 33763, true);   --生命绽放
-    local yxcz = W_RetainBuff(NA_Target, 48438, true);   --野性成长
-    local zrxj = W_RetainBuff(NA_Player, 132158, true);   --自然迅捷
-    local jnsf = W_RetainBuff(NA_Player, 16870, true);   --节能施法
-    local qxyz = W_RetainBuff(NA_Player, 113043, true);   --清晰预兆
-    local xsxz = W_BuffCount(NA_Player, 144871);   --修缮贤哲
-
-      if(false
-      or NA_Fire(W_HPlevel(NA_Target)<0.6, '132158', NA_Player) --自然迅捷
-      or NA_Fire(W_HPlevel(NA_Target)<0.6 and zrxj, '5185', NA_Target) --自然迅捷下的治疗之触
-or NA_Fire(W_HPlevel(NA_Target)<0.4, '102342', NA_Target) --铁木树皮
-or NA_Fire(W_HPlevel(NA_Target)<0.9 and xsxz==5, '5185', NA_Target) --修缮贤哲下的治疗之触
-or NA_Fire(W_HPlevel(NA_Target)<0.6 and (hcs or yh), '18562', NA_Target) --迅捷治愈
-or NA_Fire(W_HPlevel(NA_Target)<0.9 and (not hcs or W_BuffTime(NA_Target,774))<4, '774', NA_Target) --回春术
-or NA_Fire(W_HPlevel(NA_Target)<0.8 and not yxcz, '48438', NA_Target) --野性成长
-or NA_Fire(W_HPlevel(NA_Target)<0.7 and not smzf, '33763', NA_Target) --生命绽放
-or NA_Fire(W_HPlevel(NA_Target)<0.9 and qxyz, '8936', NA_Target) --愈合
-or NA_Fire(W_HPlevel(NA_Target)<0.9 and jnsf, '8936', NA_Target) --愈合
-or NA_Fire(W_HPlevel(NA_Target)<0.7 and (hcs or yh), '81269', NA_Target) --野性蘑菇
-or NA_Fire(W_HPlevel(NA_Target)<0.8 and smzf, '5185', NA_Target) --治疗之触
-or NA_Fire(W_HPlevel(NA_Target)<0.7, '124974', NA_Player) --自然地守护
-or NA_Fire(W_HPlevel(NA_Target)<0.7, '5185', NA_Target) --治疗之触
+					or NA_Fire(W_HPlevel(NA_Target)<0.6, '132158', NA_Player) --自然迅捷
+					or NA_Fire(W_HPlevel(NA_Target)<0.6 and zrxj, '5185', NA_Target) --治疗之触
+					or NA_Fire(W_HPlevel(NA_Target)<0.4, '102342', NA_Target) --铁木树皮
+					or NA_Fire(W_HPlevel(NA_Target)<0.9 and xsxz==5, '5185', NA_Target) --治疗之触
+					or NA_Fire(W_HPlevel(NA_Target)<0.6 and (hcs or yh), '18562', NA_Target) --迅捷治愈
+					or NA_Fire(W_HPlevel(NA_Target)<0.9 and (not hcs or W_BuffTime(NA_Target,774))<4, '774', NA_Target) --回春术
+					or NA_Fire(W_HPlevel(NA_Target)<0.8 and not yxcz, '48438', NA_Target) --野性成长
+					or NA_Fire(W_HPlevel(NA_Target)<0.7 and not smzf, '33763', NA_Target) --生命绽放
+					or NA_Fire(W_HPlevel(NA_Target)<0.9 and qxyz, '8936', NA_Target) --愈合
+					or NA_Fire(W_HPlevel(NA_Target)<0.9 and jnsf, '8936', NA_Target) --愈合
+					or NA_Fire(W_HPlevel(NA_Target)<0.7 and (hcs or yh), '145205', NA_Target) --野性蘑菇
+					or NA_Fire(W_HPlevel(NA_Target)<0.8 and smzf, '5185', NA_Target) --治疗之触
+					or NA_Fire(W_HPlevel(NA_Target)<0.7, '124974', NA_Player) --自然的守护
+					or NA_Fire(W_HPlevel(NA_Target)<0.7, '5185', NA_Target) --治疗之触
+      
       )then return true; end
       return false;
-      end
     elseif(NA_IsSolo)then
       return NA_ChagetTarget();      
     end

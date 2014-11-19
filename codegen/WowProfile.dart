@@ -1545,25 +1545,19 @@ main() {
 //
 //  genIniCodes();
 
-//  Directory root = new Directory('..\\profiles\\');
-//  for(FileSystemEntity f in root.listSync()){
-//    if(f is File){
-//      AllProfiles.add(readProfileIni(f.path));
-//    }
-//  }
-//
-//  genLuaCodes();
+  Directory root = new Directory('..\\profiles\\');
+  for(FileSystemEntity f in root.listSync()){
+    if(f is File){
+      AllProfiles.add(readProfileIni(f.path));
+    }
+  }
+
+  genLuaCodes();
 
   genIniProfileCodeFromLua('''
-or NA_Fire(not hassl and not hasjrdj, '772', NA_Target) --撕裂
-or NA_Fire(W_GetSpellCooldown(167105)<4, '156287', NA_Target) --破坏者
-or NA_Fire(true, '167105', NA_Target) --巨人打击
-or NA_Fire(true, '12294', NA_Target) --致死打击
-or NA_Fire(hasjrdj or W_GetSpellCooldown(167105)>4, '107570', NA_Target) --风暴之锤
-or NA_Fire(true, '176286', NA_Target) --破城者
-or NA_Fire(not hasjrdj, '118000', NA_Target) --巨龙怒吼
-or NA_Fire(W_BuffTime(NA_Target,-772)<5, '772', NA_Target) --撕裂
-or NA_Fire(hasjrdj or hascs or UnitPower(NA_Player,2)>60 or W_HPlevel(NA_Target)<0.2, '5308', NA_Target) --猝死斩杀
-or NA_Fire(W_HPlevel(NA_Target)>0.2, '1464', NA_Target) --猛击
+      or NA_Fire(needHP, '61336', NA_Player) --生存本能
+      or NA_Fire(needHP2, '22812', NA_Player) --树皮术
+
+
 ''');
 }
