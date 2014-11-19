@@ -34,10 +34,13 @@ end
 
 function NA4Dps()
   W_Log(1,"盗贼 dps");
-  local needHP = W_HPlevel(NA_Player) < 0.3 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.5);
+  
+	local needHP = W_HPlevel(NA_Player) < 0.3 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.5);
 	local needHP2 = W_HPlevel(NA_Player) < 0.6 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.7);
 	local needHP3 = W_HPlevel(NA_Player) < 0.9 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.9);
-	 
+	
+	
+	
   
   if(W_IsInCombat())then
     if(W_TargetCanAttack()) then
@@ -55,15 +58,16 @@ function NA4Dps()
       if(NA_ProfileNo < 0)then
         return false;
       elseif(NA_ProfileNo == 0)then --Assassination
-              local hasys = W_RetainBuff(NA_Player, 11327, true);   --隐身
-				      local hasqx = W_RetainBuff(NA_Player, 1784, true);   --潜行
-				      local hasmd = W_RetainBuff(NA_Player, 121153, true);   --盲点
-				      --local countyg = W_BuffCount(NA_Player, 114015, true);   --预感
-				      --local hasayfs = W_RetainBuff(NA_Player, 152151, true);   --暗影反射
-				      --local hasayjz = W_RetainBuff(NA_Player, 108209, true);   --暗影集中
-				      local hasqg = W_RetainBuff(NA_Player, 5171, true);   --切割
-				      local hasgl = W_RetainBuff(NA_Target, -1943, true);   --割裂
-				  
+        local hasys = W_RetainBuff(NA_Player, 11327, true);   --隐身
+				local hasqx = W_RetainBuff(NA_Player, 1784, true);   --潜行
+				local hasmd = W_RetainBuff(NA_Player, 121153, true);   --盲点
+				--local countyg = W_BuffCount(NA_Player, 114015, true);   --预感
+				--local hasayfs = W_RetainBuff(NA_Player, 152151, true);   --暗影反射
+				--local hasayjz = W_RetainBuff(NA_Player, 108209, true);   --暗影集中
+				local hasqg = W_RetainBuff(NA_Player, 5171, true);   --切割
+				local hasgl = W_RetainBuff(NA_Target, -1943, true);   --割裂
+				
+				
         
         if(not NA_IsAOE and (false
 					or NA_Fire(W_HPlevel(NA_Target)<0.35 or hasmd, '111240', NA_Target) --斩击
@@ -83,11 +87,12 @@ function NA4Dps()
 
         ))then return true; end
       elseif(NA_ProfileNo == 1)then --Combat
-              local hasys = W_RetainBuff(NA_Player, 11327, true);   --隐身
-				      local hasqx = W_RetainBuff(NA_Player, 1784, true);   --潜行
-				      local hasqg = W_RetainBuff(NA_Player, 5171, true);   --切割
-				      local hasyhdj = W_RetainBuff(NA_Target, -84617, true);   --要害打击
-				 
+        local hasys = W_RetainBuff(NA_Player, 11327, true);   --隐身
+				local hasqx = W_RetainBuff(NA_Player, 1784, true);   --潜行
+				local hasqg = W_RetainBuff(NA_Player, 5171, true);   --切割
+				local hasyhdj = W_RetainBuff(NA_Target, -84617, true);   --要害打击
+				
+				
         
         if(not NA_IsAOE and (false
 					or NA_Fire(hasys or hasqx, '8676', NA_Target) --伏击
@@ -108,6 +113,7 @@ function NA4Dps()
         ))then return true; end
       elseif(NA_ProfileNo == 2)then --Subtlety
         
+				
         
         if(not NA_IsAOE and (false
 
@@ -119,6 +125,9 @@ function NA4Dps()
 
       end
     elseif(UnitCanAssist(NA_Player, NA_Target) and UnitIsPlayer(NA_Target))then
+
+
+
 
       if(false
       

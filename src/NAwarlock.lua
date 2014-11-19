@@ -35,6 +35,9 @@ end
 function NA9Dps()
   W_Log(1,"术士 dps");
   
+	
+	
+	
   
   if(W_IsInCombat())then
     if(W_TargetCanAttack()) then
@@ -55,8 +58,9 @@ function NA9Dps()
       if(NA_ProfileNo < 0)then
         return false;
       elseif(NA_ProfileNo == 0)then --Demonology
-          local isDemonform = W_HasBuff(NA_Player, 103958, true);  --恶魔变形
-				  local moltencore = W_BuffCount(NA_Player, 122355, true); --熔火之心 
+        local isDemonform = W_HasBuff(NA_Player, 103958, true);  --恶魔变形
+				local moltencore = W_BuffCount(NA_Player, 122355, true); --熔火之心
+				
 				
         
         if(not NA_IsAOE and (false
@@ -80,7 +84,7 @@ function NA9Dps()
 					or NA_Fire(NA_IsMaxDps, '113861', NA_Player) --黑暗灵魂：学识
 					or NA_Fire(NA_IsMaxDps, '1122', NA_Player) --召唤地狱火
 					or NA_Fire(NA_IsMaxDps and W_GetSpellCooldown(119914)<=0, '119898', NA_Target) --恶魔掌控
-					or NA_Fire(not isDemonform and UnitPower(NA_Player, SPELL_POWER_DEMONIC_FURY)>=1000 , '103958', NA_Player) --恶魔变形
+					or NA_Fire(not isDemonform and UnitPower(NA_Player, SPELL_POWER_DEMONIC_FURY)>=1000, '103958', NA_Player) --恶魔变形
 					or NA_Fire(isDemonform and not W_RetainBuff(NA_Target, -603, true), '172', NA_Target) --腐蚀术
 					or NA_Fire(moltencore>0, '6353', NA_Target) --灵魂之火
 					or NA_Fire(true, '1949', NA_Target) --地狱烈焰
@@ -88,6 +92,7 @@ function NA9Dps()
         ))then return true; end
       elseif(NA_ProfileNo == 1)then --Destruction
         
+				
         
         if(not NA_IsAOE and (false
 					or NA_Fire(true, '113858', NA_Player) --黑暗灵魂：易爆
@@ -111,9 +116,10 @@ function NA9Dps()
 
         ))then return true; end
       elseif(NA_ProfileNo == 2)then --Affliction
-          local count980 = W_BuffCount(NA_Target, -980, true); --痛楚
-				  local retain146739 = W_RetainBuff(NA_Target, -146739, true); --腐蚀术
-				  local retain30108 = W_RetainBuff(NA_Target, -30108, true); --痛苦无常
+        local count980 = W_BuffCount(NA_Target, -980, true); --痛楚
+				local retain146739 = W_RetainBuff(NA_Target, -146739, true); --腐蚀术
+				local retain30108 = W_RetainBuff(NA_Target, -30108, true); --痛苦无常
+				
 				
         
         if(not NA_IsAOE and (false
@@ -149,6 +155,9 @@ function NA9Dps()
 
       end
     elseif(UnitCanAssist(NA_Player, NA_Target) and UnitIsPlayer(NA_Target))then
+
+
+
 
       if(false
       

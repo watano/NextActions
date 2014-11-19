@@ -26,7 +26,7 @@ function getNA10Telants(no)
   elseif(no == 1)then
     return 'Mistweaver';
   elseif(no == 2)then
-    return 'Windwalker';
+    return 'Battledancer';
   
   end
   return '';
@@ -37,6 +37,9 @@ function NA10Dps()
   local needHP = W_HPlevel(NA_Player) < 0.3 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.5);
 	local needHP2 = W_HPlevel(NA_Player) < 0.6 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.7);
 	local needHP3 = W_HPlevel(NA_Player) < 0.9 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.9);
+	
+	
+	
 	
   
   if(W_IsInCombat())then
@@ -59,9 +62,10 @@ function NA10Dps()
         local zdzq = W_RetainBuff(NA_Player, 124274, true);   --中度醉拳dot
 				local maxzq = W_RetainBuff(NA_Player, 124273, true);   --重度醉拳dot
 				local pmj = W_RetainBuff(NA_Player, 115308, true);   --飘渺酒
-				local jxrd = W_RetainBuff(NA_Player, 115307, true);   --酒醒入定  
-				local mhzl = W_RetainBuff(NA_Player, 125359, true);   --猛虎之力  
+				local jxrd = W_RetainBuff(NA_Player, 115307, true);   --酒醒入定
+				local mhzl = W_RetainBuff(NA_Player, 125359, true);   --猛虎之力
 				local notTanking = not NA_IsSolo and not W_isTanking();
+				
 				
         
         if(not NA_IsAOE and (false
@@ -99,6 +103,7 @@ function NA10Dps()
 				local hlzw = W_BuffCount(NA_Player, 118674);   --活力之雾
 				local shs = W_FormInfo(2);   --神鹤式
 				
+				
         
         if(not NA_IsAOE and (false
 					or NA_Fire(not shs, '154436', NA_Player) --神鹤式
@@ -120,10 +125,11 @@ function NA10Dps()
         if(NA_IsAOE and (false
 
         ))then return true; end
-      elseif(NA_ProfileNo == 2)then --Windwalker
+      elseif(NA_ProfileNo == 2)then --Battledancer
         local xrdst3 = W_RetainBuff(NA_Target, -107428, true);   --贯日击的易伤
-				local mhzl3 = W_RetainBuff(NA_Player, 125359, true);   --猛虎之力 
+				local mhzl3 = W_RetainBuff(NA_Player, 125359, true);   --猛虎之力
 				local nlp = W_RetainBuff(NA_Player, 113656, true);   --怒雷破
+				
 				
         
         if(not NA_IsAOE and (false
@@ -143,9 +149,12 @@ function NA10Dps()
 
       end
     elseif(UnitCanAssist(NA_Player, NA_Target) and UnitIsPlayer(NA_Target))then
+
 local fszw = W_RetainBuff(NA_Target, -119611, true);   --复苏之雾
-local fwzw = W_RetainBuff(NA_Target, -115175, true);   --抚慰之雾  
+local fwzw = W_RetainBuff(NA_Target, -115175, true);   --抚慰之雾
 local lls = W_FormInfo(1);   --灵龙式
+
+
 
       if(false
 					or NA_Fire(NA_ProfileNo == 1 and not lls, '115070', NA_Player) --灵龙式

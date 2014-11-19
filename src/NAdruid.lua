@@ -47,6 +47,10 @@ function NA11Dps()
 	local inCat = W_HasBuff(NA_Player, 768, true);
 	local yxhc = W_HasBuff(NA_Player, 108293, true);
 	
+	
+	
+	
+	
   
   if(W_IsInCombat())then
     if(W_TargetCanAttack()) then
@@ -67,9 +71,10 @@ function NA11Dps()
       if(NA_ProfileNo < 0)then
         return false;
       elseif(NA_ProfileNo == 0)then --Bear
-              local hasThrash = W_RetainBuff(NA_Target, -77758, true);   --痛击dot
-				      local countLacerate = W_BuffCount(NA_Target, -33745, true);   --割伤dot
-				      local notTanking = not NA_IsSolo and not W_isTanking();
+        local hasThrash = W_RetainBuff(NA_Target, -77758, true);   --痛击dot
+				local countLacerate = W_BuffCount(NA_Target, -33745, true);   --割伤dot
+				local notTanking = not NA_IsSolo and not W_isTanking();
+				
 				
         
         if(not NA_IsAOE and (false
@@ -95,6 +100,7 @@ function NA11Dps()
         ))then return true; end
       elseif(NA_ProfileNo == 1)then --Cat
         
+				
         
         if(not NA_IsAOE and (false
 
@@ -105,6 +111,7 @@ function NA11Dps()
         ))then return true; end
       elseif(NA_ProfileNo == 2)then --Restoration
         
+				
         
         if(not NA_IsAOE and (false
 
@@ -121,6 +128,7 @@ function NA11Dps()
 				local ygzx = W_RetainBuff(NA_Player, 164545, true);   --日光增效
 				local rgzx = W_RetainBuff(NA_player, 164547, true);   --月光增效
 				local cfzm = W_RetainBuff(NA_player, 112071, true);   --超凡之盟
+				
 				
         
         if(not NA_IsAOE and (false
@@ -142,6 +150,10 @@ function NA11Dps()
 
       end
     elseif(UnitCanAssist(NA_Player, NA_Target) and UnitIsPlayer(NA_Target))then
+
+
+
+
 
       if(false
       

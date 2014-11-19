@@ -35,6 +35,9 @@ end
 function NA3Dps()
   W_Log(1,"猎人 dps");
   
+	
+	
+	
   
   if(W_IsInCombat())then
     if(W_TargetCanAttack()) then
@@ -48,6 +51,7 @@ function NA3Dps()
         return false;
       elseif(NA_ProfileNo == 0)then --Beastmaster
         
+				
         
         if(not NA_IsAOE and (false
 					or NA_Fire(W_HPlevel(NA_Pet)>0 and W_HPlevel(NA_Pet) < 0.5 and not W_HasBuff(NA_Pet, 136, true), '136', NA_Pet) --治疗宠物
@@ -79,6 +83,7 @@ function NA3Dps()
         ))then return true; end
       elseif(NA_ProfileNo == 1)then --Marksman
         
+				
         
         if(not NA_IsAOE and (false
 					or NA_Fire(true, '53209', NA_Target) --奇美拉射击
@@ -102,6 +107,7 @@ function NA3Dps()
         ))then return true; end
       elseif(NA_ProfileNo == 2)then --Survival
         
+				
         
         if(not NA_IsAOE and (false
 					or NA_Fire(not W_HasBuff(NA_Player, 13165, true) and not W_HasBuff(NA_Player, 109260, true), '109260', NA_Player) --铁鹰守护
@@ -123,6 +129,9 @@ function NA3Dps()
 
       end
     elseif(UnitCanAssist(NA_Player, NA_Target) and UnitIsPlayer(NA_Target))then
+
+
+
 
       if(false
       

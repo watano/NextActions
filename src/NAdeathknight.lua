@@ -35,7 +35,10 @@ end
 function NA6Dps()
   W_Log(1,"死亡骑士 dps");
   local needHP = W_HPlevel(NA_Player) < 0.3 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.5);
+	
 	local hasBoneshield = not(NA_ProfileNo == 1) or W_HasBuff(NA_Player, 49222, true);  --白骨之盾
+	
+	
   
   if(W_IsInCombat())then
     if(W_TargetCanAttack()) then
@@ -59,6 +62,7 @@ function NA6Dps()
 				local hasRime = W_HasBuff(NA_Player, 59057, true);   --白霜
 				local retainFrostFever = W_RetainBuff(NA_Target, -55095, true);   --冰霜疫病
 				local retainBloodPlague = W_RetainBuff(NA_Target, -55078, true);    --血之疫病
+				
 				
         
         if(not NA_IsAOE and (false
@@ -99,6 +103,7 @@ function NA6Dps()
 				local retainBloodPlague = W_RetainBuff(NA_Target, -55078, true);  --血之疫病
 				local hasCrimsonScourge = W_HasBuff(NA_Player, 81141, true);    --赤色天灾
 				local notTanking = not NA_IsSolo and not W_isTanking();
+				
 				
         
         if(not NA_IsAOE and (false
@@ -147,6 +152,7 @@ function NA6Dps()
 				local retainFrostFever = W_RetainBuff(NA_Target, -55095, true);   --冰霜疫病
 				local retainBloodPlague = W_RetainBuff(NA_Target, -55078, true);    --血之疫病
 				
+				
         
         if(not NA_IsAOE and (false
 					or NA_Fire(W_HPlevel(NA_Target) < 0.35, '130735', NA_Target) --灵魂收割
@@ -183,6 +189,9 @@ function NA6Dps()
 
       end
     elseif(UnitCanAssist(NA_Player, NA_Target) and UnitIsPlayer(NA_Target))then
+
+
+
 
       if(false
 					or NA_Fire(UnitIsDead(NA_Target), '61999', NA_Target) --复活盟友

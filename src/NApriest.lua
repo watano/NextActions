@@ -34,9 +34,12 @@ end
 
 function NA5Dps()
   W_Log(1,"牧师 dps");
-  local needHP = W_HPlevel(NA_Player) < 0.3 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.5);
+  
+	
+	local needHP = W_HPlevel(NA_Player) < 0.3 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.5);
 	local needHP2 = W_HPlevel(NA_Player) < 0.6 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.7);
 	local needHP3 = W_HPlevel(NA_Player) < 0.9 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.9);
+	
 	
   
   if(W_IsInCombat())then
@@ -56,6 +59,7 @@ function NA5Dps()
         return false;
       elseif(NA_ProfileNo == 0)then --Discipline
         
+				
         
         if(not NA_IsAOE and (false
 
@@ -66,6 +70,7 @@ function NA5Dps()
         ))then return true; end
       elseif(NA_ProfileNo == 1)then --Holy
         
+				
         
         if(not NA_IsAOE and (false
 
@@ -78,6 +83,7 @@ function NA5Dps()
         local ayst = W_RetainBuff(NA_Target, -589, true);   --暗言术：痛
 				local xxgzc = W_RetainBuff(NA_Target, -34914, true);   --吸血鬼之触
 				local countShadowOrbs = UnitPower(NA_Player, SPELL_POWER_SHADOW_ORBS)  --暗影宝珠
+				
 				
         
         if(not NA_IsAOE and (false
@@ -98,6 +104,9 @@ function NA5Dps()
 
       end
     elseif(UnitCanAssist(NA_Player, NA_Target) and UnitIsPlayer(NA_Target))then
+
+
+
 
       if(false
       

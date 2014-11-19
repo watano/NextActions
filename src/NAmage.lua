@@ -35,6 +35,9 @@ end
 function NA8Dps()
   W_Log(1,"法师 dps");
   
+	
+	
+	
   
   if(W_IsInCombat())then
     if(W_TargetCanAttack()) then
@@ -47,8 +50,9 @@ function NA8Dps()
       if(NA_ProfileNo < 0)then
         return false;
       elseif(NA_ProfileNo == 0)then --Arcane
-                local countArcaneCharge = W_BuffCount(NA_Player, -36032); --奥术充能
-				        local countArcaneMissiles = W_BuffCount(NA_Player, 79683); --奥术飞弹
+        local countArcaneCharge = W_BuffCount(NA_Player, -36032); --奥术充能
+				local countArcaneMissiles = W_BuffCount(NA_Player, 79683); --奥术飞弹
+				
 				
         
         if(not NA_IsAOE and (false
@@ -70,8 +74,9 @@ function NA8Dps()
         ))then return true; end
       elseif(NA_ProfileNo == 1)then --Frost
         local counthbz = W_BuffCount(NA_Player, 44544); --寒冰指
-				local counthlzh = W_BuffCount(NA_Player, 57761); --冰冷智慧 
+				local counthlzh = W_BuffCount(NA_Player, 57761); --冰冷智慧
 				local hbzd = W_RetainBuff(NA_Target, -112948, true); --寒冰炸弹
+				
 				
         
         if(not NA_IsAOE and (false
@@ -95,6 +100,7 @@ function NA8Dps()
         ))then return true; end
       elseif(NA_ProfileNo == 2)then --Frost
         
+				
         
         if(not NA_IsAOE and (false
 
@@ -107,6 +113,9 @@ function NA8Dps()
 
       end
     elseif(UnitCanAssist(NA_Player, NA_Target) and UnitIsPlayer(NA_Target))then
+
+
+
 
       if(false
       

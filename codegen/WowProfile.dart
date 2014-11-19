@@ -1394,22 +1394,139 @@ end
   return code;
 }
 
-main() {
-  AllProfiles.addAll([DKProfile0, DKProfile1, DKProfile2]);
-  AllProfiles.addAll([FSProfile0, FSProfile1, FSProfile2]);
-  AllProfiles.addAll([LRProfile0, LRProfile1, LRProfile2]);
-  AllProfiles.addAll([QSProfile0, QSProfile1, QSProfile2]);
-  AllProfiles.addAll([SSProfile0, SSProfile1, SSProfile2]);
-  AllProfiles.addAll([ZSProfile0, ZSProfile1, ZSProfile2]);
-  AllProfiles.addAll([XDProfile0, XDProfile1, XDProfile2, XDProfile3]);
-  AllProfiles.addAll([DZProfile0, DZProfile1, DZProfile2]);
-  AllProfiles.addAll([MSProfile0, MSProfile1, MSProfile2]);
-  AllProfiles.addAll([SMProfile0, SMProfile1, SMProfile2]);
-  AllProfiles.addAll([WSProfile0, WSProfile1, WSProfile2]);
+void genProfileIni(Profile p){
+  String codes = '''
+classID=${p.classID}
+profileID=${p.profileID}
+name=${p.name}
+specName=${p.specName}\n''';
 
+  codes +='\n[commonCodes]\n';
+  codes += p.commonCodes;
+
+  codes +='\n[keepHPCmds]\n';
+  for(CmdInfo cmd in p.keepHPCmds){
+    codes += cmd.spell+'@'+cmd.target+'='+cmd.cnd+'\n';
+  }
+  codes +='\n[keepBuffCmds]\n';
+  for(CmdInfo cmd in p.keepBuffCmds){
+    codes += cmd.spell+'@'+cmd.target+'='+cmd.cnd+'\n';
+  }
+
+  codes +='\n[attackCodes]\n';
+  codes += p.attackCodes;
+  codes +='\n[attackCmds]\n';
+  for(CmdInfo cmd in p.attackCmds){
+    codes += cmd.spell+'@'+cmd.target+'='+cmd.cnd+'\n';
+  }
+  codes +='\n[attackAOECodes]\n';
+  codes += p.attackAOECodes;
+  codes +='\n[attackAOECmds]\n';
+  for(CmdInfo cmd in p.attackAOECmds){
+    codes += cmd.spell+'@'+cmd.target+'='+cmd.cnd+'\n';
+  }
+
+  codes +='\n[assistCodes]\n';
+  codes += p.assistCodes;
+  codes +='\n[assistCmds]\n';
+  for(CmdInfo cmd in p.assistCmds){
+    codes += cmd.spell+'@'+cmd.target+'='+cmd.cnd+'\n';
+  }
+  //print(codes);
+  String enName = '';
+  for(WOWClassInfo c in AllClassInfo){
+    if(c.classID == p.classID){
+      writeToFile('..\\profiles\\' + c.enName+p.profileID.toString() + '.ini', codes, encoding: 'utf-8');
+      return;
+    }
+  }
+}
+
+Profile readProfileIni(String path){
+  Profile p = new Profile(0,0,null,null);
+  List<String> lines = readFileLines(path);
+  String codes = '';
+  String section = '';
+  for(String line in lines){
+    line = line.trim();
+    if(line.startsWith('#')){
+      continue;
+    }
+    if(line.startsWith('[') && line.endsWith(']')){
+      section = line.substring(1, line.length-1).trim().toLowerCase();
+    }else if(section == 'commonCodes'.toLowerCase()){
+      p.commonCodes += line +'\n';
+    }else if(section == 'assistCodes'.toLowerCase()){
+      p.assistCodes += line +'\n';
+    }else if(section == 'attackCodes'.toLowerCase()){
+      p.attackCodes += line +'\n';
+    }else if(line.indexOf('=')>0){
+      String name = line.substring(0, line.indexOf('='));
+      String value = line.substring(line.indexOf('=')+1);
+      if(section == ''){
+        if(name == 'classID'){
+          p.classID = int.parse(value);
+        }
+        if(name == 'profileID'){
+          p.profileID = int.parse(value);
+        }
+        if(name == 'name'){
+          p.name = value;
+        }
+        if(name == 'specName'){
+          p.specName = value;
+        }
+      }else if(section == 'attackCmds'.toLowerCase()){
+        p.addattackCmd(value, name.substring(0, name.indexOf('@')), name.substring(name.indexOf('@')+1));
+      }else if(section == 'attackAOECmds'.toLowerCase()){
+        p.addattackAOECmd(value, name.substring(0, name.indexOf('@')), name.substring(name.indexOf('@')+1));
+      }else if(section == 'assistCmds'.toLowerCase()){
+        p.addassistCmd(value, name.substring(0, name.indexOf('@')), name.substring(name.indexOf('@')+1));
+      }else if(section == 'keepHPCmds'.toLowerCase()){
+        p.addkeepHPCmd(value, name.substring(0, name.indexOf('@')), name.substring(name.indexOf('@')+1));
+      }else if(section == 'keepBuffCmds'.toLowerCase()){
+        p.addkeepBuffCmd(value, name.substring(0, name.indexOf('@')), name.substring(name.indexOf('@')+1));
+      }
+    }
+  }
+  return p;
+}
+
+void genLuaCodes(){
   for (int classID=1;classID<12; classID++) {
     classInfo = readClassInfo(AllClassInfo[classID - 1]);
     String code = classProfilesCodes();
     writeToFile(r'..\src\NA' + classInfo.enName.toLowerCase() + '.lua', code, encoding: 'utf-8');
   }
+}
+
+void genIniCodes(){
+    for(Profile p in AllProfiles){
+      genProfileIni(p);
+    }
+}
+
+main() {
+//  AllProfiles.addAll([DKProfile0, DKProfile1, DKProfile2]);
+//  AllProfiles.addAll([FSProfile0, FSProfile1, FSProfile2]);
+//  AllProfiles.addAll([LRProfile0, LRProfile1, LRProfile2]);
+//  AllProfiles.addAll([QSProfile0, QSProfile1, QSProfile2]);
+//  AllProfiles.addAll([SSProfile0, SSProfile1, SSProfile2]);
+//  AllProfiles.addAll([ZSProfile0, ZSProfile1, ZSProfile2]);
+//  AllProfiles.addAll([XDProfile0, XDProfile1, XDProfile2, XDProfile3]);
+//  AllProfiles.addAll([DZProfile0, DZProfile1, DZProfile2]);
+//  AllProfiles.addAll([MSProfile0, MSProfile1, MSProfile2]);
+//  AllProfiles.addAll([SMProfile0, SMProfile1, SMProfile2]);
+//  AllProfiles.addAll([WSProfile0, WSProfile1, WSProfile2]);
+//
+//  genIniCodes();
+
+  Directory root = new Directory('..\\profiles\\');
+  for(FileSystemEntity f in root.listSync()){
+    if(f is File){
+      AllProfiles.add(readProfileIni(f.path));
+    }
+  }
+
+  genLuaCodes();
 }

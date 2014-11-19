@@ -34,7 +34,10 @@ end
 
 function NA2Dps()
   W_Log(1,"圣骑士 dps");
-    local hastorch_thrown = W_HasBuff(NA_Target, 114163, true);  --永恒之火
+  
+	
+	local hastorch_thrown = W_HasBuff(NA_Target, 114163, true);  --永恒之火
+	
 	
   
   if(W_IsInCombat())then
@@ -52,7 +55,8 @@ function NA2Dps()
       if(NA_ProfileNo < 0)then
         return false;
       elseif(NA_ProfileNo == 0)then --Protection
-                local notTanking = not NA_IsSolo and not W_isTanking();        
+        local notTanking = not NA_IsSolo and not W_isTanking();
+				
 				
         
         if(not NA_IsAOE and (false
@@ -80,6 +84,7 @@ function NA2Dps()
         ))then return true; end
       elseif(NA_ProfileNo == 1)then --Retribution
         
+				
         
         if(not NA_IsAOE and (false
 					or NA_Fire(true, '24275', NA_Target) --愤怒之锤
@@ -104,6 +109,7 @@ function NA2Dps()
         ))then return true; end
       elseif(NA_ProfileNo == 2)then --Holy
         
+				
         
         if(not NA_IsAOE and (false
 					or NA_Fire(W_HPlevel(NA_Target) < 0.2, '24275', NA_Target) --愤怒之锤
@@ -123,6 +129,9 @@ function NA2Dps()
 
       end
     elseif(UnitCanAssist(NA_Player, NA_Target) and UnitIsPlayer(NA_Target))then
+
+
+
 
       if(false
 					or NA_Fire(NA_IsMaxDps, '114158', NA_Target) --圣光之锤

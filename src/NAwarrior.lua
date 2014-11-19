@@ -35,6 +35,9 @@ end
 function NA1Dps()
   W_Log(1,"战士 dps");
   
+	
+	
+	
   
   if(W_IsInCombat())then
     if(W_TargetCanAttack()) then
@@ -53,6 +56,7 @@ function NA1Dps()
         return false;
       elseif(NA_ProfileNo == 0)then --Protection
         local notTanking = not NA_IsSolo and not W_isTanking();
+				
 				
         
         if(not NA_IsAOE and (false
@@ -82,6 +86,7 @@ function NA1Dps()
         ))then return true; end
       elseif(NA_ProfileNo == 1)then --Fury
         
+				
         
         if(not NA_IsAOE and (false
 					or NA_Fire(true, '5308', NA_Target) --斩杀
@@ -111,6 +116,7 @@ function NA1Dps()
         ))then return true; end
       elseif(NA_ProfileNo == 2)then --Arms
         
+				
         
         if(not NA_IsAOE and (false
 
@@ -122,6 +128,9 @@ function NA1Dps()
 
       end
     elseif(UnitCanAssist(NA_Player, NA_Target) and UnitIsPlayer(NA_Target))then
+
+
+
 
       if(false
 					or NA_Fire(not NA_IsSolo, '114029', NA_Target) --捍卫
