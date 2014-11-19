@@ -1,64 +1,52 @@
 function getNA2Actions(no)
-  if(no < 0)then
-    return {};
+  if(no < 0)then return {};
   elseif(no == 0)then
-    return {
-      '24275','62124','53600','35395','20271','31935','119072','26573','53595','114163','633','6940','25780','20217'
-    };
+    return {'24275','62124','53600','35395','20271','31935','119072','26573','53595','114163','633','6940','25780','20217'};
   elseif(no == 1)then
-    return {
-      '24275','114165','85256','879','20271','35395','53385','53595','85673','633','20217'
-    };
+    return {'24275','114165','85256','879','20271','35395','53385','53595','85673','633','20217'};
   elseif(no == 2)then
-    return {
-      '24275','35395','20271','20473','114158','105809','114163','85673','85222','633','498','6940','19750','82327','20217'
-    };
-  
+    return {'24275','35395','20271','20473','114158','105809','114163','85673','85222','633','498','6940','19750','82327','20217'};
   end
   return {};
 end
 
-function getNA2Telants(no)
-  if(no < 0)then
-    return '';
-  elseif(no == 0)then
-    return 'Protection';
-  elseif(no == 1)then
-    return 'Retribution';
-  elseif(no == 2)then
-    return 'Holy';
-  
-  end
-  return '';
-end
+NA2ProfileNames = {'Protection','Retribution','Holy',''};
 
 function NA2Dps()
   W_Log(1,"圣骑士 dps");
-  local needHP = W_HPlevel(NA_Player) < 0.3 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.5);
-	local needHP2 = W_HPlevel(NA_Player) < 0.6 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.7);
-	local needHP3 = W_HPlevel(NA_Player) < 0.9 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.9);
-	
+  
 	
 	local hastorch_thrown = W_HasBuff(NA_Target, 114163, true);  --永恒之火
 	
 	
-  
   if(W_IsInCombat())then
     if(W_TargetCanAttack()) then
       -- 保命施法
-          
-      if(false
+      if(NA_ProfileNo < 0)then return false;
+      elseif(NA_ProfileNo == 0)then --Protection
+        
+        if(false
 					or NA_Fire(W_HPlevel(NA_Player) < 0.85 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.9), '114163', NA_Target) --永恒之火
 					or NA_Fire(W_HPlevel(NA_Player) < 0.1 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.2), '633', NA_Player) --圣疗术
-					or NA_Fire(needHP2, '633', NA_Target) --圣疗术
-					or NA_Fire(needHP2, '6940', NA_Target) --牺牲之手
+					or NA_Fire(NA_checkHP(1), '633', NA_Target) --圣疗术
+					or NA_Fire(NA_checkHP(1), '6940', NA_Target) --牺牲之手
+
+        )then return true; end
+      elseif(NA_ProfileNo == 1)then --Retribution
+        
+        if(false
 					or NA_Fire(W_HPlevel(NA_Player) < 0.7 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.8), '85673', NA_Target) --荣耀圣令
 					or NA_Fire(W_HPlevel(NA_Player) < 0.1 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.2), '633', NA_Target) --圣疗术
 
-      )then return true; end
+        )then return true; end
+      elseif(NA_ProfileNo == 2)then --Holy
+        
+        if(false
 
-      if(NA_ProfileNo < 0)then
-        return false;
+        )then return true; end
+      end
+
+      if(NA_ProfileNo < 0)then return false;
       elseif(NA_ProfileNo == 0)then --Protection
         local notTanking = not NA_IsSolo and not W_isTanking();
 				
@@ -131,14 +119,25 @@ function NA2Dps()
 					or NA_Fire(true, '20473', NA_Target) --神圣震击
 
         ))then return true; end
-
       end
     elseif(UnitCanAssist(NA_Player, NA_Target) and UnitIsPlayer(NA_Target))then
+      if(NA_ProfileNo < 0)then return false;
+      elseif(NA_ProfileNo == 0)then --Protection
+        
+				
+        if(false
 
+        )then return true; end
+      elseif(NA_ProfileNo == 1)then --Retribution
+        
+				
+        if(false
 
-
-
-      if(false
+        )then return true; end
+      elseif(NA_ProfileNo == 2)then --Holy
+        
+				
+        if(false
 					or NA_Fire(NA_IsMaxDps, '114158', NA_Target) --圣光之锤
 					or NA_Fire(NA_IsMaxDps and W_PowerLevel(NA_Player) > 0.3, '105809', NA_Player) --神圣复仇者
 					or NA_Fire(not hastorch_thrown and W_PaladinPower(NA_Player)>2, '114163', NA_Target) --永恒之火
@@ -150,24 +149,38 @@ function NA2Dps()
 					or NA_Fire(NA_IsMaxDps and W_HPlevel(NA_Target) < 0.6 and W_HPlevel(NA_Player)>0.7, '6940', NA_Target) --牺牲之手
 					or NA_Fire(not NA_IsAOE and W_HPlevel(NA_Target) < 0.7, '19750', NA_Target) --圣光闪现
 					or NA_Fire(NA_IsAOE and W_HPlevel(NA_Target) < 0.7, '82327', NA_Target) --圣光普照
-      
-      )then return true; end
+
+        )then return true; end
+      end
       return false;
     elseif(NA_IsSolo)then
       return NA_ChagetTarget();      
     end
-  else
-    
-    if(false
+  else    
+    if(NA_ProfileNo < 0)then return false;
+    elseif(NA_ProfileNo == 0)then --Protection
+      
+      if(false
 					or NA_Fire(NA_ProfileNo == 0 and not NA_IsSolo and not W_HasBuff(NA_Player, 25780, true), '25780', NA_Player) --正义之怒
 					or NA_Fire(NA_IsSolo and not W_HasBuff(NA_Player, 20217, true) and not W_HasBuff(NA_Player, 19740, true), '20217', NA_Player) --王者祝福
 					or NA_Fire(NA_IsSolo and W_TargetCanAttack(), '20271', NA_Target) --审判
+
+      )then return true; end
+    elseif(NA_ProfileNo == 1)then --Retribution
+      
+      if(false
 					or NA_Fire(NA_IsSolo and not W_HasBuff(NA_Player, 20217, true) and not W_HasBuff(NA_Player, 19740, true), '20217', NA_Player) --王者祝福
 					or NA_Fire(NA_IsSolo and W_TargetCanAttack(), '20271', NA_Target) --审判
+
+      )then return true; end
+    elseif(NA_ProfileNo == 2)then --Holy
+      
+      if(false
 					or NA_Fire(NA_IsSolo and not W_HasBuff(NA_Player, 20217, true) and not W_HasBuff(NA_Player, 19740, true), '20217', NA_Player) --王者祝福
 					or NA_Fire(NA_IsSolo and W_TargetCanAttack(), '20271', NA_Target) --审判
-    
-    )then return true; end
+
+      )then return true; end
+    end
   end
   return false;
 end

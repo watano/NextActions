@@ -4,7 +4,7 @@ NA_IsRunning = false;
 NA_IsTest = false;
 NA_LogLevel = 3; -- 1 - 5
 NA_CurrClass = "DEATHKNIGHT";
-NA_CurrTelant = '';
+NA_ProfileName = '';
 NA_ProfileNo = 0;
 NA_Actions = nil;
 NA_ClassInfo = nil;
@@ -52,47 +52,47 @@ end
 function NA_initClassData(className, profileNo)
 	if(className == "WARRIOR") then
 		NA_Actions = getNA1Actions(profileNo);
-		NA_CurrTelant = getNA1Telants(profileNo);
+		NA_ProfileName = NA1ProfileNames[profileNo];
 		NA_MaxDps = NA1Dps;
 	elseif(className == "PALADIN") then
 		NA_Actions = getNA2Actions(profileNo);
-		NA_CurrTelant = getNA2Telants(profileNo);
+		NA_ProfileName = NA2ProfileNames[profileNo];
 		NA_MaxDps = NA2Dps;
 	elseif(className == "HUNTER") then
 		NA_Actions = getNA3Actions(profileNo);
-		NA_CurrTelant = getNA3Telants(profileNo);
+		NA_ProfileName = NA3ProfileNames[profileNo];
 		NA_MaxDps = NA3Dps;
 	elseif(className == "ROGUE") then
 		NA_Actions = getNA4Actions(profileNo);
-		NA_CurrTelant = getNA4Telants(profileNo);
+		NA_ProfileName = NA4ProfileNames[profileNo];
 		NA_MaxDps = NA4Dps;
 	elseif(className == "PRIEST") then
 		NA_Actions = getNA5Actions(profileNo);
-		NA_CurrTelant = getNA5Telants(profileNo);
+		NA_ProfileName = NA5ProfileNames[profileNo];
 		NA_MaxDps = NA5Dps;
 	elseif(className == "DEATHKNIGHT") then
 		NA_Actions = getNA6Actions(profileNo);
-		NA_CurrTelant = getNA6Telants(profileNo);
+		NA_ProfileName = NA6ProfileNames[profileNo];
 		NA_MaxDps = NA6Dps;
 	elseif(className == "SHAMAN") then
 		NA_Actions = getNA7Actions(profileNo);
-		NA_CurrTelant = getNA7Telants(profileNo);
+		NA_ProfileName = NA7ProfileNames[profileNo];
 		NA_MaxDps = NA7Dps;
 	elseif(className == "MAGE") then
 		NA_Actions = getNA8Actions(profileNo);
-		NA_CurrTelant = getNA8Telants(profileNo);
+		NA_ProfileName = NA8ProfileNames[profileNo];
 		NA_MaxDps = NA8Dps;
 	elseif(className == "WARLOCK") then
 		NA_Actions = getNA9Actions(profileNo);
-		NA_CurrTelant = getNA9Telants(profileNo);
+		NA_ProfileName = NA9ProfileNames[profileNo];
 		NA_MaxDps = NA9Dps;
 	elseif(className == "MONK") then
 		NA_Actions = getNA10Actions(profileNo);
-		NA_CurrTelant = getNA10Telants(profileNo);
+		NA_ProfileName = NA10ProfileNames[profileNo];
 		NA_MaxDps = NA10Dps;
 	elseif(className == "DRUID") then
 		NA_Actions = getNA11Actions(profileNo);
-		NA_CurrTelant = getNA11Telants(profileNo);
+		NA_ProfileName = NA11ProfileNames[profileNo];
 		NA_MaxDps = NA11Dps;
 	else
 		W_Log(4, "不能支持此职业!");
@@ -113,13 +113,11 @@ function NA_InitProfile(no)
 		return;
 	end
 
-	--initAllInfo(NA_CurrClass, UnitLevel(NA_Player), NA_CurrTelant);
-
 	if(NA_Actions == nil) then
 		W_Log(4, "不能支持此配置!");
 		return;
 	end
-	W_UpdateLabelText('NA_SpellLabel', NA_CurrTelant);
+	W_UpdateLabelText('NA_SpellLabel', NA_ProfileName);
 	NA_InitClass();
 end
 

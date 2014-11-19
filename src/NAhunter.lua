@@ -1,58 +1,46 @@
 function getNA3Actions(no)
-  if(no < 0)then
-    return {};
+  if(no < 0)then return {};
   elseif(no == 0)then
-    return {
-      '136','982','19574','53351','82692','34026','120679','120360','3044','77767','2643','121818','19263','5118'
-    };
+    return {'136','982','19574','53351','82692','34026','120679','120360','3044','77767','2643','121818','19263','5118'};
   elseif(no == 1)then
-    return {
-      '53209','131894','19434','120360','121818','56641','3045','109260','136'
-    };
+    return {'53209','131894','19434','120360','121818','56641','3045','109260','136'};
   elseif(no == 2)then
-    return {
-      '109260','136','53301','3674','131894','120679','87935','120360','3044','77767'
-    };
-  
+    return {'109260','136','53301','3674','131894','120679','87935','120360','3044','77767'};
   end
   return {};
 end
 
-function getNA3Telants(no)
-  if(no < 0)then
-    return '';
-  elseif(no == 0)then
-    return 'Beastmaster';
-  elseif(no == 1)then
-    return 'Marksman';
-  elseif(no == 2)then
-    return 'Survival';
-  
-  end
-  return '';
-end
+NA3ProfileNames = {'Beastmaster','Marksman','Survival',''};
 
 function NA3Dps()
   W_Log(1,"猎人 dps");
-  local needHP = W_HPlevel(NA_Player) < 0.3 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.5);
-	local needHP2 = W_HPlevel(NA_Player) < 0.6 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.7);
-	local needHP3 = W_HPlevel(NA_Player) < 0.9 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.9);
-	
-	
-	
-	
   
+	
+	
+	
   if(W_IsInCombat())then
     if(W_TargetCanAttack()) then
       -- 保命施法
-          
-      if(false
-					or NA_Fire(needHP2, '19263', NA_Player) --威慑
+      if(NA_ProfileNo < 0)then return false;
+      elseif(NA_ProfileNo == 0)then --Beastmaster
+        
+        if(false
+					or NA_Fire(NA_checkHP(1), '19263', NA_Player) --威慑
 
-      )then return true; end
+        )then return true; end
+      elseif(NA_ProfileNo == 1)then --Marksman
+        
+        if(false
 
-      if(NA_ProfileNo < 0)then
-        return false;
+        )then return true; end
+      elseif(NA_ProfileNo == 2)then --Survival
+        
+        if(false
+
+        )then return true; end
+      end
+
+      if(NA_ProfileNo < 0)then return false;
       elseif(NA_ProfileNo == 0)then --Beastmaster
         
 				
@@ -130,28 +118,53 @@ function NA3Dps()
         if(NA_IsAOE and (false
 
         ))then return true; end
-
       end
     elseif(UnitCanAssist(NA_Player, NA_Target) and UnitIsPlayer(NA_Target))then
+      if(NA_ProfileNo < 0)then return false;
+      elseif(NA_ProfileNo == 0)then --Beastmaster
+        
+				
+        if(false
 
+        )then return true; end
+      elseif(NA_ProfileNo == 1)then --Marksman
+        
+				
+        if(false
 
+        )then return true; end
+      elseif(NA_ProfileNo == 2)then --Survival
+        
+				
+        if(false
 
-
-      if(false
-      
-      )then return true; end
+        )then return true; end
+      end
       return false;
     elseif(NA_IsSolo)then
       return NA_ChagetTarget();      
     end
-  else
-    
-    if(false
+  else    
+    if(NA_ProfileNo < 0)then return false;
+    elseif(NA_ProfileNo == 0)then --Beastmaster
+      
+      if(false
 					or NA_Fire(W_HPlevel(NA_Pet) < 0.9 and not UnitIsDead(NA_Pet) and not W_HasBuff(NA_Pet, 136, true), '136', NA_Pet) --治疗宠物
 					or NA_Fire(not NA_IsMaxDps and not W_HasBuff(NA_Player, 5118, true) and not W_HasBuff(NA_Player, 13159, true), '5118', NA_Player) --猎豹守护
 					or NA_Fire(NA_IsSolo and W_TargetCanAttack(), '3044', NA_Target) --奥术射击
-    
-    )then return true; end
+
+      )then return true; end
+    elseif(NA_ProfileNo == 1)then --Marksman
+      
+      if(false
+
+      )then return true; end
+    elseif(NA_ProfileNo == 2)then --Survival
+      
+      if(false
+
+      )then return true; end
+    end
   end
   return false;
 end

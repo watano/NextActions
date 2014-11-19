@@ -1,64 +1,52 @@
 function getNA4Actions(no)
-  if(no < 0)then
-    return {};
+  if(no < 0)then return {};
   elseif(no == 0)then
-    return {
-      '111240','32645','1943','14185','1856','5171','8676','79140','1329','1784','2823','108211'
-    };
+    return {'111240','32645','1943','14185','1856','5171','8676','79140','1329','1784','2823','108211'};
   elseif(no == 1)then
-    return {
-      '8676','5171','84617','51690','13750','2098','14185','1856','1752','1966','73651','31224','5277','74001'
-    };
+    return {'8676','5171','84617','51690','13750','2098','14185','1856','1752','1966','73651','31224','5277','74001'};
   elseif(no == 2)then
-    return {
-      '8676','14183','16511','53','51713','2098','14185','1856','152151','5171','1943'
-    };
-  
+    return {'8676','14183','16511','53','51713','2098','14185','1856','152151','5171','1943'};
   end
   return {};
 end
 
-function getNA4Telants(no)
-  if(no < 0)then
-    return '';
-  elseif(no == 0)then
-    return 'Assassination';
-  elseif(no == 1)then
-    return 'Combat';
-  elseif(no == 2)then
-    return 'Subtlety';
-  
-  end
-  return '';
-end
+NA4ProfileNames = {'Assassination','Combat','Subtlety',''};
 
 function NA4Dps()
   W_Log(1,"盗贼 dps");
-  local needHP = W_HPlevel(NA_Player) < 0.3 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.5);
-	local needHP2 = W_HPlevel(NA_Player) < 0.6 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.7);
-	local needHP3 = W_HPlevel(NA_Player) < 0.9 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.9);
-	local hasxg = W_RetainBuff(NA_Player, 1966, true);   --佯攻
+  local hasxg = W_RetainBuff(NA_Player, 1966, true);   --佯攻
 	
 	
 	
 	
 	
-  
   if(W_IsInCombat())then
     if(W_TargetCanAttack()) then
       -- 保命施法
-          
-      if(false
-					or NA_Fire(needHP2 and not hasyg, '1966', NA_Player) --佯攻
-					or NA_Fire(needHP2, '73651', NA_Player) --复原
-					or NA_Fire(needHP2, '31224', NA_Player) --暗影斗篷
-					or NA_Fire(needHP, '5277', NA_Player) --闪避
-					or NA_Fire(needHP3, '74001', NA_Player) --备战就绪
+      if(NA_ProfileNo < 0)then return false;
+      elseif(NA_ProfileNo == 0)then --Assassination
+        
+        if(false
 
-      )then return true; end
+        )then return true; end
+      elseif(NA_ProfileNo == 1)then --Combat
+        
+        if(false
+					or NA_Fire(NA_checkHP(1) and not hasyg, '1966', NA_Player) --佯攻
+					or NA_Fire(NA_checkHP(1), '73651', NA_Player) --复原
+					or NA_Fire(NA_checkHP(1), '31224', NA_Player) --暗影斗篷
+					or NA_Fire(NA_checkHP(0), '5277', NA_Player) --闪避
+					or NA_Fire(NA_checkHP(2), '74001', NA_Player) --备战就绪
 
-      if(NA_ProfileNo < 0)then
-        return false;
+        )then return true; end
+      elseif(NA_ProfileNo == 2)then --Subtlety
+        
+        if(false
+
+        )then return true; end
+      end
+
+      if(NA_ProfileNo < 0)then return false;
       elseif(NA_ProfileNo == 0)then --Assassination
         local hasys = W_RetainBuff(NA_Player, 11327, true);   --隐身
 				local hasqx = W_RetainBuff(NA_Player, 1784, true);   --潜行
@@ -140,29 +128,54 @@ function NA4Dps()
         if(NA_IsAOE and (false
 
         ))then return true; end
-
       end
     elseif(UnitCanAssist(NA_Player, NA_Target) and UnitIsPlayer(NA_Target))then
+      if(NA_ProfileNo < 0)then return false;
+      elseif(NA_ProfileNo == 0)then --Assassination
+        
+				
+        if(false
 
+        )then return true; end
+      elseif(NA_ProfileNo == 1)then --Combat
+        
+				
+        if(false
 
+        )then return true; end
+      elseif(NA_ProfileNo == 2)then --Subtlety
+        
+				
+        if(false
 
-
-      if(false
-      
-      )then return true; end
+        )then return true; end
+      end
       return false;
     elseif(NA_IsSolo)then
       return NA_ChagetTarget();      
     end
-  else
-    
-    if(false
+  else    
+    if(NA_ProfileNo < 0)then return false;
+    elseif(NA_ProfileNo == 0)then --Assassination
+      
+      if(false
 					or NA_Fire(not W_HasBuff(NA_Player, 1784, true), '1784', NA_Player) --潜行
 					or NA_Fire(W_TargetCanAttack(), '8676', NA_Target) --伏击
 					or NA_Fire(not W_RetainBuff(NA_Player, 2823, true), '2823', NA_Player) --2823
 					or NA_Fire(not W_RetainBuff(NA_Player, 108211, true), '108211', NA_Player) --108211
-    
-    )then return true; end
+
+      )then return true; end
+    elseif(NA_ProfileNo == 1)then --Combat
+      
+      if(false
+
+      )then return true; end
+    elseif(NA_ProfileNo == 2)then --Subtlety
+      
+      if(false
+
+      )then return true; end
+    end
   end
   return false;
 end

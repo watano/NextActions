@@ -1282,20 +1282,19 @@ String cmdCodes(List<CmdInfo> cmds) {
 
 String classProfilesCodes() {
   String codeActions = '';
-  String codeSpecName = '';
+  String codeProfileNames = '';
   String commonCodes = '';
 
   String attackAOECodes = '';
   String attackCodes = '';
   String assistCodes = '';
-  String assistCodes2 = '';
   String keepHPCodes = '';
-  String keepHPCodes2 = '';
   String keepBuffCodes = '';
-  String keepBuffCodes2 = '';
 
-  String profileCodes1 = '';
-  String profileCodes2 = '';
+  String profileAtkCodes = '';
+  String profileAssistCodes = '';
+  String profileKeepHPCodes = '';
+  String profileKeepBuffCodes = '';
   for (Profile p in AllProfiles) {
     currProfile = p;
     if (p.classID != classInfo.classID) {
@@ -1303,7 +1302,7 @@ String classProfilesCodes() {
     }
     actions.clear();
 
-    profileCodes1 += '''
+    profileAtkCodes += '''
       elseif(NA_ProfileNo == ${p.profileID})then --${p.name}
         ${p.attackCodes.replaceAll('\n', '\n\t\t\t\t')}
         ${p.attackAOECodes.replaceAll('\n', '\n\t\t\t\t')}
@@ -1315,21 +1314,33 @@ ${cmdCodes(p.attackCmds)}
 ${cmdCodes(p.attackAOECmds)}
         ))then return true; end
 ''';
-
-    assistCodes2 += cmdCodes(p.assistCmds);
-    keepHPCodes2 += cmdCodes(p.keepHPCmds);
-    keepBuffCodes2 += cmdCodes(p.keepBuffCmds);
+    profileAssistCodes += '''
+      elseif(NA_ProfileNo == ${p.profileID})then --${p.name}
+        ${p.assistCodes.replaceAll('\n', '\n\t\t\t\t')}
+        if(false
+${cmdCodes(p.assistCmds)}
+        )then return true; end
+''';
+    profileKeepHPCodes += '''
+      elseif(NA_ProfileNo == ${p.profileID})then --${p.name}
+        ${p.keepHPCodes.replaceAll('\n', '\n\t\t\t\t')}
+        if(false
+${cmdCodes(p.keepHPCmds)}
+        )then return true; end
+''';
+    profileKeepBuffCodes += '''
+    elseif(NA_ProfileNo == ${p.profileID})then --${p.name}
+      ${p.keepBuffCodes.replaceAll('\n', '\n\t\t\t\t')}
+      if(false
+${cmdCodes(p.keepBuffCmds)}
+      )then return true; end
+''';
 
     codeActions += '''
   elseif(no == ${p.profileID})then
-    return {
-      ${joinText2(actions, "'", "',", ",")}
-    };
+    return {${joinText2(actions, "'", "',", ",")}};
 ''';
-    codeSpecName += '''
-  elseif(no == ${p.profileID})then
-    return '${p.specName}';
-''';
+    codeProfileNames += '\'${p.name}\',';
     commonCodes += p.commonCodes;
     keepHPCodes += p.keepHPCodes;
     attackAOECodes += p.attackAOECodes;
@@ -1342,51 +1353,34 @@ ${cmdCodes(p.attackAOECmds)}
 
   String code = '''
 function getNA${classInfo.classID}Actions(no)
-  if(no < 0)then
-    return {};
-${codeActions}  
-  end
+  if(no < 0)then return {};
+${codeActions}  end
   return {};
 end
 
-function getNA${classInfo.classID}Telants(no)
-  if(no < 0)then
-    return '';
-${codeSpecName}  
-  end
-  return '';
-end
+NA${classInfo.classID}ProfileNames = {${codeProfileNames}''};
 
 function NA${classInfo.classID}Dps()
   W_Log(1,"${classInfo.cnName} dps");
   ${commonCodes.replaceAll('\n', '\n\t')}
-  
   if(W_IsInCombat())then
     if(W_TargetCanAttack()) then
       -- 保命施法
-      ${keepHPCodes}    
-      if(false
-${keepHPCodes2}
-      )then return true; end
+      if(NA_ProfileNo < 0)then return false;
+${profileKeepHPCodes}      end
 
-      if(NA_ProfileNo < 0)then
-        return false;
-${profileCodes1}
-      end
+      if(NA_ProfileNo < 0)then return false;
+${profileAtkCodes}      end
     elseif(UnitCanAssist(NA_Player, NA_Target) and UnitIsPlayer(NA_Target))then
-${assistCodes}
-      if(false
-${assistCodes2}      
-      )then return true; end
+      if(NA_ProfileNo < 0)then return false;
+${profileAssistCodes}      end
       return false;
     elseif(NA_IsSolo)then
       return NA_ChagetTarget();      
     end
-  else
-    
-    if(false
-${keepBuffCodes2}    
-    )then return true; end
+  else    
+    if(NA_ProfileNo < 0)then return false;
+${profileKeepBuffCodes}    end
   end
   return false;
 end

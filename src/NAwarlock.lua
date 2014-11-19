@@ -1,36 +1,16 @@
 function getNA9Actions(no)
-  if(no < 0)then
-    return {};
+  if(no < 0)then return {};
   elseif(no == 0)then
-    return {
-      '105174','172','113861','119898','18540','103958','686','6353','1122','1949','755','104773','29858','689','6789','1454','109773'
-    };
+    return {'105174','172','113861','119898','18540','103958','686','6353','1122','1949','755','104773','29858','689','6789','1454','109773'};
   elseif(no == 1)then
-    return {
-      '113858','119898','18540','17877','80240','116858','348','17962','29722','114635','109773'
-    };
+    return {'113858','119898','18540','17877','80240','116858','348','17962','29722','114635','109773'};
   elseif(no == 2)then
-    return {
-      '18540','74434','103103','689','48181','113860','980','172','30108','1122','86121','27243','109773'
-    };
-  
+    return {'18540','74434','103103','689','48181','113860','980','172','30108','1122','86121','27243','109773'};
   end
   return {};
 end
 
-function getNA9Telants(no)
-  if(no < 0)then
-    return '';
-  elseif(no == 0)then
-    return 'Demonology';
-  elseif(no == 1)then
-    return 'Destruction';
-  elseif(no == 2)then
-    return 'Affliction';
-  
-  end
-  return '';
-end
+NA9ProfileNames = {'Demonology','Destruction','Affliction',''};
 
 function NA9Dps()
   W_Log(1,"术士 dps");
@@ -38,12 +18,13 @@ function NA9Dps()
 	
 	
 	
-  
   if(W_IsInCombat())then
     if(W_TargetCanAttack()) then
       -- 保命施法
-          
-      if(false
+      if(NA_ProfileNo < 0)then return false;
+      elseif(NA_ProfileNo == 0)then --Demonology
+        
+        if(false
 					or NA_Fire(W_HPlevel(NA_Pet) < 0.35 and not UnitIsDead(NA_Pet) and W_HPlevel(NA_Player)>0.5, '755', NA_Pet) --生命通道
 					or NA_Fire(W_HPlevel(NA_Player)<0.1, '104773', NA_Player) --不灭决心
 					or NA_Fire(W_HPlevel(NA_Player)<0.2, '29858', NA_Target) --灵魂碎裂
@@ -51,12 +32,22 @@ function NA9Dps()
 					or NA_Fire(NA_IsSolo and W_HPlevel(NA_Player)<0.5, '6789', NA_Target) --死亡缠绕
 					or NA_Fire(NA_IsSolo and W_HPlevel(NA_Player)<0.5, '689', NA_Target) --吸取生命
 					or NA_Fire(W_PowerLevel(NA_Player) < 0.2 and W_HPlevel(NA_Player)>0.5, '1454', NA_Player) --生命分流
+
+        )then return true; end
+      elseif(NA_ProfileNo == 1)then --Destruction
+        
+        if(false
 					or NA_Fire(NA_ProfileNo == 1 and NA_IsSolo and W_HPlevel(NA_Player)<0.2, '114635', NA_Player) --灰烬转换
 
-      )then return true; end
+        )then return true; end
+      elseif(NA_ProfileNo == 2)then --Affliction
+        
+        if(false
 
-      if(NA_ProfileNo < 0)then
-        return false;
+        )then return true; end
+      end
+
+      if(NA_ProfileNo < 0)then return false;
       elseif(NA_ProfileNo == 0)then --Demonology
         local isDemonform = W_HasBuff(NA_Player, 103958, true);  --恶魔变形
 				local moltencore = W_BuffCount(NA_Player, 122355, true); --熔火之心
@@ -152,31 +143,56 @@ function NA9Dps()
 					or NA_Fire(W_HPlevel(NA_Target)<0.2, '103103', NA_Target) --吸取灵魂
 
         ))then return true; end
-
       end
     elseif(UnitCanAssist(NA_Player, NA_Target) and UnitIsPlayer(NA_Target))then
+      if(NA_ProfileNo < 0)then return false;
+      elseif(NA_ProfileNo == 0)then --Demonology
+        
+				
+        if(false
 
+        )then return true; end
+      elseif(NA_ProfileNo == 1)then --Destruction
+        
+				
+        if(false
 
+        )then return true; end
+      elseif(NA_ProfileNo == 2)then --Affliction
+        
+				
+        if(false
 
-
-      if(false
-      
-      )then return true; end
+        )then return true; end
+      end
       return false;
     elseif(NA_IsSolo)then
       return NA_ChagetTarget();      
     end
-  else
-    
-    if(false
+  else    
+    if(NA_ProfileNo < 0)then return false;
+    elseif(NA_ProfileNo == 0)then --Demonology
+      
+      if(false
 					or NA_Fire(not W_HasBuff(NA_Player, 109773, true), '109773', NA_Player) --黑暗意图
 					or NA_Fire(NA_ProfileNo == 0 and NA_IsSolo and W_TargetCanAttack(), '686', NA_Target) --暗影箭
+
+      )then return true; end
+    elseif(NA_ProfileNo == 1)then --Destruction
+      
+      if(false
 					or NA_Fire(not W_HasBuff(NA_Player, 109773, true), '109773', NA_Player) --黑暗意图
 					or NA_Fire(NA_ProfileNo == 1 and NA_IsSolo and W_TargetCanAttack(), '348', NA_Target) --献祭
+
+      )then return true; end
+    elseif(NA_ProfileNo == 2)then --Affliction
+      
+      if(false
 					or NA_Fire(not W_HasBuff(NA_Player, 109773, true), '109773', NA_Player) --黑暗意图
 					or NA_Fire(NA_ProfileNo == 2 and NA_IsSolo and W_TargetCanAttack(), '980', NA_Target) --痛楚
-    
-    )then return true; end
+
+      )then return true; end
+    end
   end
   return false;
 end

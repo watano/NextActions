@@ -1,62 +1,50 @@
 function getNA5Actions(no)
-  if(no < 0)then
-    return {};
+  if(no < 0)then return {};
   elseif(no == 0)then
-    return {
-      '123040','14914','585','47540','33206','17','81700','33076','2061','2060','596','120644','132157','21562'
-    };
+    return {'123040','14914','585','47540','33206','17','81700','33076','2061','2060','596','120644','132157','21562'};
   elseif(no == 1)then
-    return {
-      '123040','14914','585','47788','17','139','34861','33076','2061','2060','596','120644','32546'
-    };
+    return {'123040','14914','585','47788','17','139','34861','33076','2061','2060','596','120644','32546'};
   elseif(no == 2)then
-    return {
-      '8092','589','34914','32379','123040','2944','120644','15407','15286','47585','586','19236','17'
-    };
-  
+    return {'8092','589','34914','32379','123040','2944','120644','15407','15286','47585','586','19236','17'};
   end
   return {};
 end
 
-function getNA5Telants(no)
-  if(no < 0)then
-    return '';
-  elseif(no == 0)then
-    return 'Discipline';
-  elseif(no == 1)then
-    return 'Holy';
-  elseif(no == 2)then
-    return 'Shadow';
-  
-  end
-  return '';
-end
+NA5ProfileNames = {'Discipline','Holy','Shadow',''};
 
 function NA5Dps()
   W_Log(1,"牧师 dps");
   
 	
-	local needHP = W_HPlevel(NA_Player) < 0.3 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.5);
-	local needHP2 = W_HPlevel(NA_Player) < 0.6 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.7);
-	local needHP3 = W_HPlevel(NA_Player) < 0.9 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.9);
 	
 	
-  
   if(W_IsInCombat())then
     if(W_TargetCanAttack()) then
       -- 保命施法
-          
-      if(false
-					or NA_Fire(needHP2, '15286', NA_Player) --吸血鬼的拥抱
-					or NA_Fire(needHP, '47585', NA_Player) --消散
-					or NA_Fire(needHP, '586', NA_Player) --渐隐术
-					or NA_Fire(needHP2, '19236', NA_Player) --绝望祷言
-					or NA_Fire(needHP2, '17', NA_Player) --真言术：盾
+      if(NA_ProfileNo < 0)then return false;
+      elseif(NA_ProfileNo == 0)then --Discipline
+        
+        if(false
 
-      )then return true; end
+        )then return true; end
+      elseif(NA_ProfileNo == 1)then --Holy
+        
+        if(false
 
-      if(NA_ProfileNo < 0)then
-        return false;
+        )then return true; end
+      elseif(NA_ProfileNo == 2)then --Shadow
+        
+        if(false
+					or NA_Fire(NA_checkHP(1), '15286', NA_Player) --吸血鬼的拥抱
+					or NA_Fire(NA_checkHP(0), '47585', NA_Player) --消散
+					or NA_Fire(NA_checkHP(0), '586', NA_Player) --渐隐术
+					or NA_Fire(NA_checkHP(1), '19236', NA_Player) --绝望祷言
+					or NA_Fire(NA_checkHP(1), '17', NA_Player) --真言术：盾
+
+        )then return true; end
+      end
+
+      if(NA_ProfileNo < 0)then return false;
       elseif(NA_ProfileNo == 0)then --Discipline
         
 				
@@ -108,25 +96,17 @@ function NA5Dps()
         if(NA_IsAOE and (false
 
         ))then return true; end
-
       end
     elseif(UnitCanAssist(NA_Player, NA_Target) and UnitIsPlayer(NA_Target))then
-local zysd = W_RetainBuff(NA_Target, -17, true);   --真言术：盾
-local xrlh = W_RetainBuff(NA_Target, -6788, true);   --虚弱灵魂
-local tsz = W_RetainBuff(NA_Player, 81700, true);   --天使长
-local fycb = W_BuffCount(NA_Player, 81661);   --福音传播
-
-local zysd2 = W_RetainBuff(NA_Target, -17, true);   --真言术：盾
-local xrlh2 = W_RetainBuff(NA_Target, -6788, true);   --虚弱灵魂
-local hf = W_RetainBuff(NA_Target, -139, true);   --恢复
-local mshc = W_BuffCount(NA_Player, 63735);   --妙手回春：减少治疗术和愈合祷言施法时间
-local qcxy = W_RetainBuff(NA_Player, 145327);   --虔诚信仰：强化治疗术和愈合祷言
-local hf = W_RetainBuff(NA_Target, -139, true);   --恢复
-local syzx = W_RetainBuff(NA_Player, 145336, true);   --宽仁之心:强化圣言术效果
-
-
-
-      if(false
+      if(NA_ProfileNo < 0)then return false;
+      elseif(NA_ProfileNo == 0)then --Discipline
+        local zysd = W_RetainBuff(NA_Target, -17, true);   --真言术：盾
+				local xrlh = W_RetainBuff(NA_Target, -6788, true);   --虚弱灵魂
+				local tsz = W_RetainBuff(NA_Player, 81700, true);   --天使长
+				local fycb = W_BuffCount(NA_Player, 81661);   --福音传播
+				
+				
+        if(false
 					or NA_Fire(W_HPlevel(NA_Target)<0.4, '33206', NA_Target) --痛苦压制
 					or NA_Fire(W_HPlevel(NA_Target)<0.9 and not xrlh, '17', NA_Target) --真言术：盾
 					or NA_Fire(W_HPlevel(NA_Target)<0.6 and fycb>3, '81700', NA_Player) --天使长
@@ -137,6 +117,19 @@ local syzx = W_RetainBuff(NA_Player, 145336, true);   --宽仁之心:强化圣�
 					or NA_Fire(W_HPlevel(NA_Target)<0.8, '596', NA_Target) --治疗祷言
 					or NA_Fire(W_HPlevel(NA_Target)<0.7, '120644', NA_Player) --光晕
 					or NA_Fire(W_HPlevel(NA_Target)<0.7, '132157', NA_Player) --神圣新星
+
+        )then return true; end
+      elseif(NA_ProfileNo == 1)then --Holy
+        local zysd2 = W_RetainBuff(NA_Target, -17, true);   --真言术：盾
+				local xrlh2 = W_RetainBuff(NA_Target, -6788, true);   --虚弱灵魂
+				local hf = W_RetainBuff(NA_Target, -139, true);   --恢复
+				local mshc = W_BuffCount(NA_Player, 63735);   --妙手回春：减少治疗术和愈合祷言施法时间
+				local qcxy = W_RetainBuff(NA_Player, 145327);   --虔诚信仰：强化治疗术和愈合祷言
+				local hf = W_RetainBuff(NA_Target, -139, true);   --恢复
+				local syzx = W_RetainBuff(NA_Player, 145336, true);   --宽仁之心:强化圣言术效果
+				
+				
+        if(false
 					or NA_Fire(W_HPlevel(NA_Target)<0.4, '47788', NA_Target) --守护之魂
 					or NA_Fire(W_HPlevel(NA_Target)<0.9 and not xrlh2, '17', NA_Target) --真言术：盾
 					or NA_Fire(W_HPlevel(NA_Target)<0.9 and not hf, '139', NA_Player) --恢复
@@ -147,18 +140,38 @@ local syzx = W_RetainBuff(NA_Player, 145336, true);   --宽仁之心:强化圣�
 					or NA_Fire(W_HPlevel(NA_Target)<0.8, '596', NA_Target) --治疗祷言
 					or NA_Fire(W_HPlevel(NA_Target)<0.7, '120644', NA_Player) --光晕
 					or NA_Fire(W_HPlevel(NA_Target)<0.7, '32546', NA_Target) --联结治疗
-      
-      )then return true; end
+
+        )then return true; end
+      elseif(NA_ProfileNo == 2)then --Shadow
+        
+				
+        if(false
+
+        )then return true; end
+      end
       return false;
     elseif(NA_IsSolo)then
       return NA_ChagetTarget();      
     end
-  else
-    
-    if(false
+  else    
+    if(NA_ProfileNo < 0)then return false;
+    elseif(NA_ProfileNo == 0)then --Discipline
+      
+      if(false
 					or NA_Fire(not W_HasBuff(NA_Player, 21562, true), '21562', NA_Player) --真言术：韧
-    
-    )then return true; end
+
+      )then return true; end
+    elseif(NA_ProfileNo == 1)then --Holy
+      
+      if(false
+
+      )then return true; end
+    elseif(NA_ProfileNo == 2)then --Shadow
+      
+      if(false
+
+      )then return true; end
+    end
   end
   return false;
 end

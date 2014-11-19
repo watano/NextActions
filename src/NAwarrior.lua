@@ -1,52 +1,30 @@
 function getNA1Actions(no)
-  if(no < 0)then
-    return {};
+  if(no < 0)then return {};
   elseif(no == 0)then
-    return {
-      '355','5308','2565','6572','78','23922','20243','156321','100','57755','107570','114029','34428','112048','12975','871','1160','55694','103840','6673'
-    };
+    return {'355','5308','2565','6572','78','23922','20243','156321','100','57755','107570','114029','34428','112048','12975','871','1160','55694','103840','6673'};
   elseif(no == 1)then
-    return {
-      '5308','23881','107570','100130','85288','34428','100','57755','46924','1680'
-    };
+    return {'5308','23881','107570','100130','85288','34428','100','57755','46924','1680'};
   elseif(no == 2)then
-    return {
-      '772','156287','167105','12294','107570','176286','118000','163201','1464'
-    };
-  
+    return {'772','156287','167105','12294','107570','176286','118000','163201','1464'};
   end
   return {};
 end
 
-function getNA1Telants(no)
-  if(no < 0)then
-    return '';
-  elseif(no == 0)then
-    return 'Protection';
-  elseif(no == 1)then
-    return 'Fury';
-  elseif(no == 2)then
-    return 'Arms';
-  
-  end
-  return '';
-end
+NA1ProfileNames = {'Protection','Fury','Arms',''};
 
 function NA1Dps()
   W_Log(1,"战士 dps");
-  local needHP = W_HPlevel(NA_Player) < 0.3 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.5);
-	local needHP2 = W_HPlevel(NA_Player) < 0.6 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.7);
-	local needHP3 = W_HPlevel(NA_Player) < 0.9 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.9);
-	
-	
-	
-	
   
+	
+	
+	
   if(W_IsInCombat())then
     if(W_TargetCanAttack()) then
       -- 保命施法
-          
-      if(false
+      if(NA_ProfileNo < 0)then return false;
+      elseif(NA_ProfileNo == 0)then --Protection
+        
+        if(false
 					or NA_Fire(not NA_IsMaxDps and W_HPlevel(NA_Player)<0.8, '34428', NA_Player) --乘胜追击
 					or NA_Fire(NA_ProfileNo == 0 and W_HPlevel(NA_Player)<0.8, '112048', NA_Player) --盾牌屏障
 					or NA_Fire(NA_ProfileNo == 0 and W_HPlevel(NA_Player)<0.2, '12975', NA_Player) --破釜沉舟
@@ -56,10 +34,20 @@ function NA1Dps()
 					or NA_Fire(NA_ProfileNo == 0 and W_HPlevel(NA_Player)<0.5, '55694', NA_Player) --狂怒回复
 					or NA_Fire(NA_IsSolo and W_HPlevel(NA_Player)<0.2, '103840', NA_Player) --胜利在望
 
-      )then return true; end
+        )then return true; end
+      elseif(NA_ProfileNo == 1)then --Fury
+        
+        if(false
 
-      if(NA_ProfileNo < 0)then
-        return false;
+        )then return true; end
+      elseif(NA_ProfileNo == 2)then --Arms
+        
+        if(false
+
+        )then return true; end
+      end
+
+      if(NA_ProfileNo < 0)then return false;
       elseif(NA_ProfileNo == 0)then --Protection
         local dpgd = W_RetainBuff(NA_Player, 132404, true);   --盾牌格挡
 				local notTanking = not NA_IsSolo and not W_isTanking();
@@ -148,30 +136,55 @@ function NA1Dps()
         if(NA_IsAOE and (false
 
         ))then return true; end
-
       end
     elseif(UnitCanAssist(NA_Player, NA_Target) and UnitIsPlayer(NA_Target))then
-
-
-
-
-      if(false
+      if(NA_ProfileNo < 0)then return false;
+      elseif(NA_ProfileNo == 0)then --Protection
+        
+				
+        if(false
 					or NA_Fire(not NA_IsSolo, '114029', NA_Target) --捍卫
-      
-      )then return true; end
+
+        )then return true; end
+      elseif(NA_ProfileNo == 1)then --Fury
+        
+				
+        if(false
+
+        )then return true; end
+      elseif(NA_ProfileNo == 2)then --Arms
+        
+				
+        if(false
+
+        )then return true; end
+      end
       return false;
     elseif(NA_IsSolo)then
       return NA_ChagetTarget();      
     end
-  else
-    
-    if(false
+  else    
+    if(NA_ProfileNo < 0)then return false;
+    elseif(NA_ProfileNo == 0)then --Protection
+      
+      if(false
 					or NA_Fire(NA_IsSolo and W_TargetCanAttack(), '100', NA_Target) --冲锋
 					or NA_Fire(NA_IsSolo and NA_ProfileNo == 0 and W_TargetCanAttack(), '156321', NA_Target) --盾牌冲锋
 					or NA_Fire(NA_IsSolo and W_TargetCanAttack(), '57755', NA_Target) --英勇投掷
 					or NA_Fire(NA_IsSolo and not W_HasBuff(NA_Player, 6673, true), '6673', NA_Player) --战斗怒吼
-    
-    )then return true; end
+
+      )then return true; end
+    elseif(NA_ProfileNo == 1)then --Fury
+      
+      if(false
+
+      )then return true; end
+    elseif(NA_ProfileNo == 2)then --Arms
+      
+      if(false
+
+      )then return true; end
+    end
   end
   return false;
 end

@@ -1,49 +1,22 @@
 function getNA11Actions(no)
-  if(no < 0)then
-    return {};
+  if(no < 0)then return {};
   elseif(no == 0)then
-    return {
-      '770','6795','6807','106832','33745','22568','106952','33917','102401','102351','62606','22812','108292','774','61336','22842','1126'
-    };
+    return {'770','6795','6807','106832','33745','22568','106952','33917','102401','102351','62606','22812','108292','774','61336','22842','1126'};
   elseif(no == 1)then
-    return {
-      
-    };
+    return {};
   elseif(no == 2)then
-    return {
-      '132158','5185','102342','18562','774','48438','33763','8936','145205','124974'
-    };
+    return {'132158','5185','102342','18562','774','48438','33763','8936','145205','124974'};
   elseif(no == 3)then
-    return {
-      '78674','112071','102560','8921','5176','2912'
-    };
-  
+    return {'78674','112071','102560','8921','5176','2912'};
   end
   return {};
 end
 
-function getNA11Telants(no)
-  if(no < 0)then
-    return '';
-  elseif(no == 0)then
-    return 'Bear';
-  elseif(no == 1)then
-    return 'Cat';
-  elseif(no == 2)then
-    return 'Restoration';
-  elseif(no == 3)then
-    return 'Balance';
-  
-  end
-  return '';
-end
+NA11ProfileNames = {'Bear','Cat','Restoration','Balance',''};
 
 function NA11Dps()
   W_Log(1,"德鲁伊 dps");
-  local needHP = W_HPlevel(NA_Player) < 0.3 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.5);
-	local needHP2 = W_HPlevel(NA_Player) < 0.6 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.7);
-	local needHP3 = W_HPlevel(NA_Player) < 0.9 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.9);
-	local inBear = W_HasBuff(NA_Player, 5487, true);
+  local inBear = W_HasBuff(NA_Player, 5487, true);
 	local inCat = W_HasBuff(NA_Player, 768, true);
 	local yxhc = W_HasBuff(NA_Player, 108293, true);
 	
@@ -51,24 +24,40 @@ function NA11Dps()
 	
 	
 	
-  
   if(W_IsInCombat())then
     if(W_TargetCanAttack()) then
       -- 保命施法
-          
-      if(false
-					or NA_Fire(NA_ProfileNo == 0 and needHP3, '102351', NA_Player) --塞纳里奥结界
-					or NA_Fire(NA_ProfileNo == 0 and needHP3, '62606', NA_Player) --野蛮防御
-					or NA_Fire(needHP2, '22812', NA_Player) --树皮术
-					or NA_Fire(NA_ProfileNo == 0 and needHP2, '108292', NA_Player) --野性之心
-					or NA_Fire(NA_ProfileNo == 0 and needHP2 and yxhc, '774', NA_Player) --回春术
-					or NA_Fire(NA_ProfileNo == 0 and needHP, '61336', NA_Player) --生存本能
-					or NA_Fire(NA_ProfileNo == 0 and needHP, '22842', NA_Player) --狂暴回复
+      if(NA_ProfileNo < 0)then return false;
+      elseif(NA_ProfileNo == 0)then --Bear
+        
+        if(false
+					or NA_Fire(NA_ProfileNo == 0 and NA_checkHP(2), '102351', NA_Player) --塞纳里奥结界
+					or NA_Fire(NA_ProfileNo == 0 and NA_checkHP(2), '62606', NA_Player) --野蛮防御
+					or NA_Fire(NA_checkHP(1), '22812', NA_Player) --树皮术
+					or NA_Fire(NA_ProfileNo == 0 and NA_checkHP(1), '108292', NA_Player) --野性之心
+					or NA_Fire(NA_ProfileNo == 0 and NA_checkHP(1) and yxhc, '774', NA_Player) --回春术
+					or NA_Fire(NA_ProfileNo == 0 and NA_checkHP(0), '61336', NA_Player) --生存本能
+					or NA_Fire(NA_ProfileNo == 0 and NA_checkHP(0), '22842', NA_Player) --狂暴回复
 
-      )then return true; end
+        )then return true; end
+      elseif(NA_ProfileNo == 1)then --Cat
+        
+        if(false
 
-      if(NA_ProfileNo < 0)then
-        return false;
+        )then return true; end
+      elseif(NA_ProfileNo == 2)then --Restoration
+        
+        if(false
+
+        )then return true; end
+      elseif(NA_ProfileNo == 3)then --Balance
+        
+        if(false
+
+        )then return true; end
+      end
+
+      if(NA_ProfileNo < 0)then return false;
       elseif(NA_ProfileNo == 0)then --Bear
         local hasThrash = W_RetainBuff(NA_Target, -77758, true);   --痛击dot
 				local countLacerate = W_BuffCount(NA_Target, -33745, true);   --割伤dot
@@ -146,23 +135,33 @@ function NA11Dps()
         if(NA_IsAOE and (false
 
         ))then return true; end
-
       end
     elseif(UnitCanAssist(NA_Player, NA_Target) and UnitIsPlayer(NA_Target))then
+      if(NA_ProfileNo < 0)then return false;
+      elseif(NA_ProfileNo == 0)then --Bear
+        
+				
+        if(false
 
+        )then return true; end
+      elseif(NA_ProfileNo == 1)then --Cat
+        
+				
+        if(false
 
-local hcs = W_RetainBuff(NA_Target, 774, true);   --回春术
-local yh = W_RetainBuff(NA_Target, 8936, true);   --愈合
-local smzf = W_RetainBuff(NA_Target, 33763, true);   --生命绽放
-local yxcz = W_RetainBuff(NA_Target, 48438, true);   --野性成长
-local zrxj = W_RetainBuff(NA_Player, 132158, true);   --自然迅捷
-local jnsf = W_RetainBuff(NA_Player, 16870, true);   --节能施法
-local qxyz = W_RetainBuff(NA_Player, 113043, true);   --清晰预兆
-local xsxz = W_BuffCount(NA_Player, 144871);   --修缮贤哲
-
-
-
-      if(false
+        )then return true; end
+      elseif(NA_ProfileNo == 2)then --Restoration
+        local hcs = W_RetainBuff(NA_Target, 774, true);   --回春术
+				local yh = W_RetainBuff(NA_Target, 8936, true);   --愈合
+				local smzf = W_RetainBuff(NA_Target, 33763, true);   --生命绽放
+				local yxcz = W_RetainBuff(NA_Target, 48438, true);   --野性成长
+				local zrxj = W_RetainBuff(NA_Player, 132158, true);   --自然迅捷
+				local jnsf = W_RetainBuff(NA_Player, 16870, true);   --节能施法
+				local qxyz = W_RetainBuff(NA_Player, 113043, true);   --清晰预兆
+				local xsxz = W_BuffCount(NA_Player, 144871);   --修缮贤哲
+				
+				
+        if(false
 					or NA_Fire(W_HPlevel(NA_Target)<0.6, '132158', NA_Player) --自然迅捷
 					or NA_Fire(W_HPlevel(NA_Target)<0.6 and zrxj, '5185', NA_Target) --治疗之触
 					or NA_Fire(W_HPlevel(NA_Target)<0.4, '102342', NA_Target) --铁木树皮
@@ -177,19 +176,44 @@ local xsxz = W_BuffCount(NA_Player, 144871);   --修缮贤哲
 					or NA_Fire(W_HPlevel(NA_Target)<0.8 and smzf, '5185', NA_Target) --治疗之触
 					or NA_Fire(W_HPlevel(NA_Target)<0.7, '124974', NA_Player) --自然的守护
 					or NA_Fire(W_HPlevel(NA_Target)<0.7, '5185', NA_Target) --治疗之触
-      
-      )then return true; end
+
+        )then return true; end
+      elseif(NA_ProfileNo == 3)then --Balance
+        
+				
+        if(false
+
+        )then return true; end
+      end
       return false;
     elseif(NA_IsSolo)then
       return NA_ChagetTarget();      
     end
-  else
-    
-    if(false
+  else    
+    if(NA_ProfileNo < 0)then return false;
+    elseif(NA_ProfileNo == 0)then --Bear
+      
+      if(false
 					or NA_Fire(not W_HasBuff(NA_Player, 1126, true), '1126', NA_Player) --野性印记
 					or NA_Fire(NA_IsSolo and W_TargetCanAttack(), '102401', NA_Target) --野性冲锋
-    
-    )then return true; end
+
+      )then return true; end
+    elseif(NA_ProfileNo == 1)then --Cat
+      
+      if(false
+
+      )then return true; end
+    elseif(NA_ProfileNo == 2)then --Restoration
+      
+      if(false
+
+      )then return true; end
+    elseif(NA_ProfileNo == 3)then --Balance
+      
+      if(false
+
+      )then return true; end
+    end
   end
   return false;
 end

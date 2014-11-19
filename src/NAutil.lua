@@ -564,3 +564,15 @@ function NA_GetSpellCharges(spellID)
 		return nil;
 	end
 end
+
+function NA_checkHP(index)
+	if(index == 0)then
+		return W_HPlevel(NA_Player) < 0.3 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.5);
+	elseif(index == 1)then
+		return W_HPlevel(NA_Player) < 0.6 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.7);
+	elseif(index == 2)then
+		return W_HPlevel(NA_Player) < 0.9 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.9);
+	else
+		return false;
+	end
+end
