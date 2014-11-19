@@ -1026,7 +1026,7 @@ local lls = W_FormInfo(1);   --灵龙式
 ..addassistCmd('NA_ProfileNo == 1 and true', '法力茶', NA_Player)
 ..addassistCmd('NA_ProfileNo == 1 and true', '雷光聚神茶', NA_Player)
 ;
-Profile WSProfile2 = new Profile(10, 2, 'Windwalker', 'Windwalker')
+Profile WSProfile2 = new Profile(10, 2, 'Battledancer', 'Battledancer')
     ..attackCodes = '''
 local xrdst3 = W_RetainBuff(NA_Target, -107428, true);   --贯日击的易伤
 local mhzl3 = W_RetainBuff(NA_Player, 125359, true);   --猛虎之力 
@@ -1037,11 +1037,11 @@ local nlp = W_RetainBuff(NA_Player, 113656, true);   --怒雷破
 ..addattackCmd('needHP3 or UnitPower(NA_Player, SPELL_POWER_CHI)<3', '移花接木', NA_Player)
 ..addattackCmd('not mhzl3', '猛虎掌', NA_Target)
 ..addattackCmd('not xrdst3', '贯日击', NA_Target)
-//..addattackCmd('UnitPower(NA_Player,3)<60', '怒雷破', NA_Target)
+..addattackCmd('UnitPower(NA_Player,3)<60', '怒雷破', NA_Target)
 ..addattackCmd('true', '贯日击', NA_Target)
-//..addattackCmd('true', '真气波', NA_Player)
+..addattackCmd('true', '真气波', NA_Player)
 ..addattackCmd('UnitPower(NA_Player, SPELL_POWER_CHI)>3', '幻灭踢', NA_Target)
-//..addattackCmd('nlp', '虎眼酒', NA_Player)
+..addattackCmd('nlp', '虎眼酒', NA_Player)
 ;
 
 Profile SMProfile0 = new Profile(7, 0, 'Elemental', 'Elemental')
@@ -1053,7 +1053,7 @@ local needHP3 = W_HPlevel(NA_Player) < 0.9 or (NA_IsSolo and not NA_IsMaxDps and
 ..addkeepHPCmd('needHP', '星界转移', NA_Player)
 ..addkeepHPCmd('needHP2', '石壁图腾', NA_Player)
 //..addkeepHPCmd('needHP2', '纳鲁的赐福 ', NA_Player)
-//..addkeepHPCmd('needHP2', '土元素图腾 ', NA_Player)
+..addkeepHPCmd('needHP2', '土元素图腾 ', NA_Player)
 
     ..attackCodes = '''
 local lyzj = W_RetainBuff(NA_Target, -8050, true);   --烈焰震击
@@ -1066,7 +1066,7 @@ local sdzd = W_BuffCount(NA_Player, 324);   --闪电之盾
 ..addattackCmd('true', '元素冲击', NA_Target)
 ..addattackCmd('needHP2', '萨满之怒', NA_Player)
 ..addattackCmd('true', '火元素图腾', NA_Player)
-//..addattackCmd('qhsf', '火焰释放', NA_Player)
+..addattackCmd('qhsf', '火焰释放', NA_Player)
 ..addattackCmd('needHP2', '先祖指引', NA_Player)
 ..addattackCmd('needHP2', '治疗之涌', NA_Player)
 ..addattackCmd('sdzd>14 and W_BuffTime(NA_Target,-8050)<6', '大地震击', NA_Player)

@@ -11,7 +11,7 @@ function getNA10Actions(no)
     };
   elseif(no == 2)then
     return {
-      '115080','100780','115072','100787','100784'
+      '115080','100780','113656','115072','100787','115098','100784','116740'
     };
   
   end
@@ -135,11 +135,14 @@ function NA10Dps()
         if(not NA_IsAOE and (false
 					or NA_Fire(true, '115080', NA_Target) --轮回之触
 					or NA_Fire(true, '100780', NA_Target) --贯日击
+					or NA_Fire(UnitPower(NA_Player,3)<60, '113656', NA_Target) --怒雷破
 					or NA_Fire(needHP3 or UnitPower(NA_Player, SPELL_POWER_CHI)<3, '115072', NA_Player) --移花接木
 					or NA_Fire(not mhzl3, '100787', NA_Target) --猛虎掌
 					or NA_Fire(not xrdst3, '100780', NA_Target) --贯日击
 					or NA_Fire(true, '100780', NA_Target) --贯日击
+					or NA_Fire(true, '115098', NA_Target) --真气波
 					or NA_Fire(UnitPower(NA_Player, SPELL_POWER_CHI)>3, '100784', NA_Target) --幻灭踢
+					or NA_Fire(true, '116740', NA_Player) --虎眼酒
 
         ))then return true; end
   

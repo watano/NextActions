@@ -3,7 +3,7 @@ function getNA7Actions(no)
     return {};
   elseif(no == 0)then
     return {
-      '8050','117012','51505','117014','30823','2894','108281','8004','8042','3599','108285','165339','403','421','79206','108271','108270'
+      '8050','117012','51505','117014','30823','2894','165462','108281','8004','8042','3599','108285','165339','403','421','79206','108271','108270','2062'
     };
   elseif(no == 1)then
     return {
@@ -49,6 +49,7 @@ function NA7Dps()
       if(false
 					or NA_Fire(needHP, '108271', NA_Player) --星界转移
 					or NA_Fire(needHP2, '108270', NA_Player) --石壁图腾
+					or NA_Fire(needHP2, '2062', NA_Player) --土元素图腾
 
       )then return true; end
 
@@ -68,6 +69,7 @@ function NA7Dps()
 					or NA_Fire(true, '117014', NA_Target) --元素冲击
 					or NA_Fire(needHP2, '30823', NA_Player) --萨满之怒
 					or NA_Fire(true, '2894', NA_Player) --火元素图腾
+					or NA_Fire(qhsf, '165462', NA_Player) --火焰释放
 					or NA_Fire(needHP2, '108281', NA_Player) --先祖指引
 					or NA_Fire(needHP2, '8004', NA_Player) --治疗之涌
 					or NA_Fire(sdzd>14 and W_BuffTime(NA_Target,-8050)<6, '8042', NA_Player) --大地震击
