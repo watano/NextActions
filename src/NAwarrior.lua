@@ -11,7 +11,7 @@ function getNA1Actions(no)
     };
   elseif(no == 2)then
     return {
-      '772','156287','167105','12294','107570','118000','163201'
+      '772','156287','167105','12294','107570','176286','118000','163201','1464'
     };
   
   end
@@ -137,9 +137,11 @@ function NA1Dps()
 					or NA_Fire(true, '167105', NA_Target) --巨人打击
 					or NA_Fire(true, '12294', NA_Target) --致死打击
 					or NA_Fire(hasjrdj or W_GetSpellCooldown(167105)>4, '107570', NA_Target) --风暴之锤
+					or NA_Fire(true, '176286', NA_Target) --176286
 					or NA_Fire(not hasjrdj, '118000', NA_Target) --巨龙怒吼
 					or NA_Fire(W_BuffTime(NA_Target,-772)<5, '772', NA_Target) --撕裂
 					or NA_Fire(hasjrdj or hascs or UnitPower(NA_Player,2)>60 or W_HPlevel(NA_Target)<0.2, '163201', NA_Target) --斩杀
+					or NA_Fire(W_HPlevel(NA_Target)>0.2, '1464', NA_Target) --1464
 
         ))then return true; end
   

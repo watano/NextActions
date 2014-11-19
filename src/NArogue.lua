@@ -3,7 +3,7 @@ function getNA4Actions(no)
     return {};
   elseif(no == 0)then
     return {
-      '111240','32645','1943','14185','1856','5171','8676','79140','1329','1784'
+      '111240','32645','1943','14185','1856','5171','8676','79140','1329','1784','2823','108211'
     };
   elseif(no == 1)then
     return {
@@ -11,7 +11,7 @@ function getNA4Actions(no)
     };
   elseif(no == 2)then
     return {
-      '8676','14183','16511','53','51713','2098','14185','1856','5171','1943'
+      '8676','14183','16511','53','51713','2098','14185','1856','152151','5171','1943'
     };
   
   end
@@ -131,6 +131,7 @@ function NA4Dps()
 					or NA_Fire(UnitPower(NA_Player,4)>4, '2098', NA_Target) --刺骨
 					or NA_Fire(not hasyhdj and W_GetSpellCooldown(1856)>60 and W_GetSpellCooldown(14185)<=0, '14185', NA_Player) --伺机待发
 					or NA_Fire(UnitPower(NA_Player,3)<=75 and UnitPower(NA_Player,3)>=45 and UnitPower(NA_Player,4)<=3 and not hasayzw and not hasmrds and not hasdxrd, '1856', NA_Player) --消失
+					or NA_Fire(hasayzw, '152151', NA_Player) --152151
 					or NA_Fire(UnitPower(NA_Player,4)==5 and W_BuffTime(NA_player, 1943)<4, '5171', NA_Player) --切割
 					or NA_Fire(W_BuffTime(NA_Target, 1943)<7, '1943', NA_Target) --割裂
 
@@ -158,6 +159,8 @@ function NA4Dps()
     if(false
 					or NA_Fire(not W_HasBuff(NA_Player, 1784, true), '1784', NA_Player) --潜行
 					or NA_Fire(W_TargetCanAttack(), '8676', NA_Target) --伏击
+					or NA_Fire(not W_RetainBuff(NA_Player, 2823, true), '2823', NA_Player) --2823
+					or NA_Fire(not W_RetainBuff(NA_Player, 108211, true), '108211', NA_Player) --108211
     
     )then return true; end
   end

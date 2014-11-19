@@ -15,7 +15,7 @@ function getNA11Actions(no)
     };
   elseif(no == 3)then
     return {
-      '78674','112071','102560','164815','8921','5176','2912'
+      '78674','112071','102560','8921','5176','2912'
     };
   
   end
@@ -136,7 +136,7 @@ function NA11Dps()
 					or NA_Fire(NA_GetSpellCharges(78674)==2 and W_GetSpellCooldown(78674)<6 or NA_GetSpellCharges(78674)==3, '78674', NA_Target) --星涌术
 					or NA_Fire(UnitPower(NA_Player,8) > 40, '112071', NA_Player) --超凡之盟
 					or NA_Fire(UnitPower(NA_Player,8) > 0, '102560', NA_Player) --化身：艾露恩之眷
-					or NA_Fire(W_BuffTime(NA_Target,-164815) < 7 or rzd, '8921', NA_Target) --阳炎术
+					or NA_Fire(W_BuffTime(NA_Target,-164815) < 7 or rzd, '8921', NA_Target) --8921
 					or NA_Fire(yzd or W_BuffTime(NA_Target,-164812) < 4 or cfzm and W_BuffTime(NA_Player,112071) <= 2, '8921', NA_Target) --月火术
 					or NA_Fire(UnitPower(NA_Player,8) >= 0, '5176', NA_Target) --愤怒
 					or NA_Fire(UnitPower(NA_Player,8) <= 0, '2912', NA_Target) --星火术
