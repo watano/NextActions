@@ -1512,8 +1512,12 @@ void genIniProfileCodeFromLua(String codes){
     line = line.trim();
     String key = '';
     String value = '';
+    if(line.startsWith('--')){
+      key = '#';
+      line = line.substring(2);
+    }
     if(line.indexOf('--')>=0){
-      key = line.substring(line.indexOf('--')+2);
+      key += line.substring(line.indexOf('--')+2);
       line = line.substring(0, line.indexOf('--'));
     }
     if(line.lastIndexOf(',')>0 && line.lastIndexOf(')')>0){
@@ -1554,10 +1558,7 @@ main() {
 
   genLuaCodes();
 
-  genIniProfileCodeFromLua('''
-      or NA_Fire(needHP, '61336', NA_Player) --生存本能
-      or NA_Fire(needHP2, '22812', NA_Player) --树皮术
-
+  genIniProfileCodeFromLua('''                   
 
 ''');
 }

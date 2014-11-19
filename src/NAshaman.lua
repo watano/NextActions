@@ -7,7 +7,7 @@ function getNA7Actions(no)
     };
   elseif(no == 1)then
     return {
-      '324','403','17364','60103','8050','51530','8056','3599','51533','114049','2894','116956','108271','108270','59547','2062'
+      '324','403','17364','60103','8050','73680','8056','3599','51533','165341','2894'
     };
   elseif(no == 2)then
     return {
@@ -49,7 +49,6 @@ function NA7Dps()
       if(false
 					or NA_Fire(needHP, '108271', NA_Player) --星界转移
 					or NA_Fire(needHP2, '108270', NA_Player) --石壁图腾
-					      or NA_Fire(needHP2, '59547', NA_Player) --纳鲁的赐福 
 					or NA_Fire(needHP2, '2062', NA_Player) --土元素图腾
 
       )then return true; end
@@ -87,25 +86,26 @@ function NA7Dps()
 
         ))then return true; end
       elseif(NA_ProfileNo == 1)then --Enhancement
-  local sdzd2 = W_BuffCount(NA_Player, 324);   --闪电之盾
-  local xwwq = W_BuffCount(NA_Player, 51530);   --漩涡武器
-  --local yssf = W_RetainBuff(NA_Player, 51530，true);   --元素释放
-  --local lyzj = W_RetainBuff(NA_Target, -8050，true);   --烈焰震击dot
+        local sdzd2 = W_BuffCount(NA_Player, 324);   --闪电之盾
+				local xwwq = W_BuffCount(NA_Player, 51530);   --漩涡武器
+				--local yssf = W_RetainBuff(NA_Player, 51530，true);   --元素释放
+				--local lyzj = W_RetainBuff(NA_Target, -8050，true);   --烈焰震击dot
+				
+				
         
         if(not NA_IsAOE and (false
-      or NA_Fire(not sdzd, '324', NA_Player) --闪电之盾
-      --or NA_Fire(W_GetSpellCooldown(2894)>=10, '152255', NA_Target) --岩浆
-      or NA_Fire(xwwq==5, '403', NA_Target) --闪电箭
-      or NA_Fire(true, '17364', NA_Target) --风暴打击
-      or NA_Fire(true, '60103', NA_Target) --熔岩猛击
-      or NA_Fire(yssf and W_BuffTime(NA_Target,-8050)<4, '8050', NA_Target) --烈焰震击
-      or NA_Fire(true, '51530', NA_Player) --元素释放
-      or NA_Fire(true, '8056', NA_Target) --冰霜震击
-      or NA_Fire(W_GetSpellCooldown(2894)<240 or W_GetSpellCooldown(3599)<4, '3599', NA_Player) --灼热图腾
-      or NA_Fire(true, '51533', NA_Player) --野性狼魂
-      or NA_Fire(true, '114049', NA_Player) --升腾
-      or NA_Fire(true, '2894', NA_Player) --火元素图腾
-      or NA_Fire(true, '116956', NA_Player) --风元素图腾
+					or NA_Fire(not sdzd, '324', NA_Player) --闪电之盾
+					or NA_Fire(xwwq==5, '403', NA_Target) --闪电箭
+					or NA_Fire(true, '17364', NA_Target) --风暴打击
+					or NA_Fire(true, '60103', NA_Target) --熔岩猛击
+					or NA_Fire(yssf and W_BuffTime(NA_Target,-8050)<4, '8050', NA_Target) --烈焰震击
+					or NA_Fire(true, '73680', NA_Player) --元素释放
+					or NA_Fire(true, '8056', NA_Target) --冰霜震击
+					or NA_Fire(W_GetSpellCooldown(2894)<240 or W_GetSpellCooldown(3599)<4, '3599', NA_Player) --灼热图腾
+					or NA_Fire(true, '51533', NA_Player) --野性狼魂
+					or NA_Fire(true, '165341', NA_Player) --升腾
+					or NA_Fire(true, '2894', NA_Player) --火元素图腾
+
         ))then return true; end
   
         if(NA_IsAOE and (false

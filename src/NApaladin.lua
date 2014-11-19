@@ -3,7 +3,7 @@ function getNA2Actions(no)
     return {};
   elseif(no == 0)then
     return {
-      '24275','62124','53600','35395','20271','31935','119072','26573','53595','114163','633','25780','20217'
+      '24275','62124','53600','35395','20271','31935','119072','26573','53595','114163','633','6940','25780','20217'
     };
   elseif(no == 1)then
     return {
@@ -34,7 +34,10 @@ end
 
 function NA2Dps()
   W_Log(1,"圣骑士 dps");
-  
+  local needHP = W_HPlevel(NA_Player) < 0.3 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.5);
+	local needHP2 = W_HPlevel(NA_Player) < 0.6 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.7);
+	local needHP3 = W_HPlevel(NA_Player) < 0.9 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.9);
+	
 	
 	local hastorch_thrown = W_HasBuff(NA_Target, 114163, true);  --永恒之火
 	
@@ -47,6 +50,8 @@ function NA2Dps()
       if(false
 					or NA_Fire(W_HPlevel(NA_Player) < 0.85 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.9), '114163', NA_Target) --永恒之火
 					or NA_Fire(W_HPlevel(NA_Player) < 0.1 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.2), '633', NA_Player) --圣疗术
+					or NA_Fire(needHP2, '633', NA_Target) --圣疗术
+					or NA_Fire(needHP2, '6940', NA_Target) --牺牲之手
 					or NA_Fire(W_HPlevel(NA_Player) < 0.7 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.8), '85673', NA_Target) --荣耀圣令
 					or NA_Fire(W_HPlevel(NA_Player) < 0.1 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.2), '633', NA_Target) --圣疗术
 
@@ -129,12 +134,9 @@ function NA2Dps()
 
       end
     elseif(UnitCanAssist(NA_Player, NA_Target) and UnitIsPlayer(NA_Target))then
-        ---保命施法
-      if(false
-          or NA_Fire(needHP2, '633', NA_Target) --圣疗术
-     or NA_Fire(needHP2, '6940', NA_Target) --牺牲之手
 
-      )then return true; end
+
+
 
       if(false
 					or NA_Fire(NA_IsMaxDps, '114158', NA_Target) --圣光之锤
