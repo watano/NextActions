@@ -7,11 +7,11 @@ function getNA2Actions(no)
     };
   elseif(no == 1)then
     return {
-      '24275','114165','85256','879','20271','35395','53385','53595','85673','633'
+      '24275','114165','85256','879','20271','35395','53385','53595','85673','633','20217'
     };
   elseif(no == 2)then
     return {
-      '24275','35395','20271','20473','114158','105809','114163','85673','85222','633','498','6940','19750','82327'
+      '24275','35395','20271','20473','114158','105809','114163','85673','85222','633','498','6940','19750','82327','20217'
     };
   
   end
@@ -147,6 +147,11 @@ function NA2Dps()
     if(false
 					or NA_Fire(NA_ProfileNo == 0 and not NA_IsSolo and not W_HasBuff(NA_Player, 25780, true), '25780', NA_Player) --正义之怒
 					or NA_Fire(NA_IsSolo and not W_HasBuff(NA_Player, 20217, true) and not W_HasBuff(NA_Player, 19740, true), '20217', NA_Player) --王者祝福
+					or NA_Fire(NA_IsSolo and W_TargetCanAttack(), '20271', NA_Target) --审判
+					or NA_Fire(NA_IsSolo and not W_HasBuff(NA_Player, 20217, true) and not W_HasBuff(NA_Player, 19740, true), '20217', NA_Player) --王者祝福
+					or NA_Fire(NA_IsSolo and W_TargetCanAttack(), '20271', NA_Target) --审判
+					or NA_Fire(NA_IsSolo and not W_HasBuff(NA_Player, 20217, true) and not W_HasBuff(NA_Player, 19740, true), '20217', NA_Player) --王者祝福
+					or NA_Fire(NA_IsSolo and W_TargetCanAttack(), '20271', NA_Target) --审判
     
     )then return true; end
   end

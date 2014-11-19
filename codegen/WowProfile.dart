@@ -322,7 +322,8 @@ Profile QSProfile0 = new Profile(2, 0, 'Protection', 'Protection')
 '''
 
     ..addkeepBuffCmd('NA_ProfileNo == 0 and not NA_IsSolo and not W_HasBuff(NA_Player, 25780, true)', '正义之怒', NA_Player)
-    ..addkeepBuffCmd('NA_IsSolo and not W_HasBuff(NA_Player, 20217, true) and not W_HasBuff(NA_Player, 19740, true)', '王者祝福', NA_Player) //力量祝福
+    ..addkeepBuffCmd('NA_IsSolo and not W_HasBuff(NA_Player, 20217, true) and not W_HasBuff(NA_Player, 19740, true)', '王者祝福', NA_Player)
+    ..addkeepBuffCmd('NA_IsSolo and W_TargetCanAttack()', '审判', NA_Target)
 
     ..addkeepHPCmd('W_HPlevel(NA_Player) < 0.85 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.9)', '永恒之火', NA_Target)
     ..addkeepHPCmd('W_HPlevel(NA_Player) < 0.1 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.2)', '圣疗术', NA_Player)
@@ -361,6 +362,8 @@ Profile QSProfile1 = new Profile(2, 1, 'Retribution', 'Retribution')
     ..commonCodes = '''
 '''
 
+    ..addkeepBuffCmd('NA_IsSolo and not W_HasBuff(NA_Player, 20217, true) and not W_HasBuff(NA_Player, 19740, true)', '王者祝福', NA_Player)
+    ..addkeepBuffCmd('NA_IsSolo and W_TargetCanAttack()', '审判', NA_Target)
     ..addkeepHPCmd('W_HPlevel(NA_Player) < 0.7 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.8)', '荣耀圣令', NA_Target)
     ..addkeepHPCmd('W_HPlevel(NA_Player) < 0.1 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.2)', '圣疗术', NA_Target)
     //..addkeepHPCmd('W_HPlevel(NA_Player) < 0.1 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.2)', '虔诚光环', NA_Player)
@@ -396,6 +399,8 @@ Profile QSProfile2 = new Profile(2, 2, 'Holy', 'Holy')
     ..commonCodes = '''
   local hastorch_thrown = W_HasBuff(NA_Target, 114163, true);  --永恒之火
 '''
+    ..addkeepBuffCmd('NA_IsSolo and not W_HasBuff(NA_Player, 20217, true) and not W_HasBuff(NA_Player, 19740, true)', '王者祝福', NA_Player)
+    ..addkeepBuffCmd('NA_IsSolo and W_TargetCanAttack()', '审判', NA_Target)
 
     //..addassistCmd('W_PowerLevel(NA_Player) < 0.8', '神圣恳求', NA_Player)
     ..addassistCmd('NA_IsMaxDps', '圣光之锤', NA_Target)
@@ -1405,6 +1410,6 @@ main() {
   for (int classID=1;classID<12; classID++) {
     classInfo = readClassInfo(AllClassInfo[classID - 1]);
     String code = classProfilesCodes();
-    writeToFile(r'e:\work\projects\myprojects\NextActions\src\NA' + classInfo.enName.toLowerCase() + '.lua', code, encoding: 'utf-8');
+    writeToFile(r'..\src\NA' + classInfo.enName.toLowerCase() + '.lua', code, encoding: 'utf-8');
   }
 }
