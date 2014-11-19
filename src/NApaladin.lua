@@ -129,9 +129,12 @@ function NA2Dps()
 
       end
     elseif(UnitCanAssist(NA_Player, NA_Target) and UnitIsPlayer(NA_Target))then
+        ---保命施法
+      if(false
+          or NA_Fire(needHP2, '633', NA_Target) --圣疗术
+     or NA_Fire(needHP2, '6940', NA_Target) --牺牲之手
 
-
-
+      )then return true; end
 
       if(false
 					or NA_Fire(NA_IsMaxDps, '114158', NA_Target) --圣光之锤

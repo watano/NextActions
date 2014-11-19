@@ -92,7 +92,7 @@ class WOWClassInfo {
       index++;
     }
     if(index>=specNames.length){
-      print('error ${spec}![${specNames.toString()}]');
+      print('[ERROR]${spec}![${specNames.toString()}]');
       return null;
     }
     for (WOWSpellInfo s in specs[index]) {

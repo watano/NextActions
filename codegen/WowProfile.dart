@@ -1506,6 +1506,30 @@ void genIniCodes(){
     }
 }
 
+void genIniProfileCodeFromLua(String codes){
+  List<String> lines = codes.split('\n');
+  for(String line in lines){
+    line = line.trim();
+    String key = '';
+    String value = '';
+    if(line.indexOf('--')>=0){
+      key = line.substring(line.indexOf('--')+2);
+      line = line.substring(0, line.indexOf('--'));
+    }
+    if(line.lastIndexOf(',')>0 && line.lastIndexOf(')')>0){
+      key += '@' + line.substring(line.lastIndexOf(',')+1, line.lastIndexOf(')')).trim();
+      line = line.substring(0, line.lastIndexOf(','));
+      line = line.substring(0, line.lastIndexOf(','));
+    }
+    if(line.startsWith('or NA_Fire(')){
+      value = line.substring('or NA_Fire('.length);
+    }
+    if(key.length>0){
+      print(key+'='+value);
+    }
+  }
+}
+
 main() {
 //  AllProfiles.addAll([DKProfile0, DKProfile1, DKProfile2]);
 //  AllProfiles.addAll([FSProfile0, FSProfile1, FSProfile2]);
@@ -1521,12 +1545,25 @@ main() {
 //
 //  genIniCodes();
 
-  Directory root = new Directory('..\\profiles\\');
-  for(FileSystemEntity f in root.listSync()){
-    if(f is File){
-      AllProfiles.add(readProfileIni(f.path));
-    }
-  }
+//  Directory root = new Directory('..\\profiles\\');
+//  for(FileSystemEntity f in root.listSync()){
+//    if(f is File){
+//      AllProfiles.add(readProfileIni(f.path));
+//    }
+//  }
+//
+//  genLuaCodes();
 
-  genLuaCodes();
+  genIniProfileCodeFromLua('''
+or NA_Fire(not hassl and not hasjrdj, '772', NA_Target) --撕裂
+or NA_Fire(W_GetSpellCooldown(167105)<4, '156287', NA_Target) --破坏者
+or NA_Fire(true, '167105', NA_Target) --巨人打击
+or NA_Fire(true, '12294', NA_Target) --致死打击
+or NA_Fire(hasjrdj or W_GetSpellCooldown(167105)>4, '107570', NA_Target) --风暴之锤
+or NA_Fire(true, '176286', NA_Target) --破城者
+or NA_Fire(not hasjrdj, '118000', NA_Target) --巨龙怒吼
+or NA_Fire(W_BuffTime(NA_Target,-772)<5, '772', NA_Target) --撕裂
+or NA_Fire(hasjrdj or hascs or UnitPower(NA_Player,2)>60 or W_HPlevel(NA_Target)<0.2, '5308', NA_Target) --猝死斩杀
+or NA_Fire(W_HPlevel(NA_Target)>0.2, '1464', NA_Target) --猛击
+''');
 }

@@ -11,7 +11,7 @@ function getNA1Actions(no)
     };
   elseif(no == 2)then
     return {
-      
+      '772','156287','167105','12294','107570','176286','118000','5308','1464','103840'
     };
   
   end
@@ -34,10 +34,9 @@ end
 
 function NA1Dps()
   W_Log(1,"战士 dps");
-  
-	
-	
-	
+local needHP = W_HPlevel(NA_Player) < 0.3 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.5);
+local needHP2 = W_HPlevel(NA_Player) < 0.6 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.7);
+local needHP3 = W_HPlevel(NA_Player) < 0.9 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.9);  
   
   if(W_IsInCombat())then
     if(W_TargetCanAttack()) then
@@ -49,27 +48,35 @@ function NA1Dps()
 					or NA_Fire(NA_ProfileNo == 0 and W_HPlevel(NA_Player)<0.2, '12975', NA_Player) --破釜沉舟
 					or NA_Fire(NA_ProfileNo == 0 and W_HPlevel(NA_Player)<0.2, '871', NA_Player) --盾墙
 					or NA_Fire(NA_ProfileNo == 0 and W_HPlevel(NA_Player)<0.1, '1160', NA_Player) --挫志怒吼
+          or NA_Fire(NA_ProfileNo == 0 and W_HPlevel(NA_Player)<0.7, '34428', NA_Player) --乘胜追击
+or NA_Fire(NA_ProfileNo == 0 and W_HPlevel(NA_Player)<0.5, '55694', NA_Player) --狂怒回复
+or NA_Fire(NA_IsSolo and W_HPlevel(NA_Player)<0.2, '103840', NA_Player) --胜利在望
 
       )then return true; end
 
       if(NA_ProfileNo < 0)then
         return false;
       elseif(NA_ProfileNo == 0)then --Protection
+        local dpgd = W_RetainBuff(NA_Player, 132404, true);   --盾牌格挡
         local notTanking = not NA_IsSolo and not W_isTanking();
 				
 				
         
         if(not NA_IsAOE and (false
-					or NA_Fire(notTanking, '355', NA_Target) --嘲讽
-					or NA_Fire(true, '5308', NA_Target) --斩杀
+        --or NA_Fire(notTanking, '355', NA_Target) --嘲讽
+or NA_Fire(W_HPlevel(NA_Target)<0.2, '5308', NA_Target) --斩杀
+or NA_Fire(needHP2, '12975', NA_Player) --破釜沉舟
+or NA_Fire(needHP2, '871', NA_Player) --盾墙
+or NA_Fire(needHP3, '112048', NA_Player) --盾牌屏障
+or NA_Fire(not dpgd, '2565', NA_Player) --盾牌格挡
+or NA_Fire(needHP3, '1160', NA_Player) --挫志怒吼
 					or NA_Fire(W_PowerLevel(NA_Player) < 0.5, '6572', NA_Target) --复仇
-					or NA_Fire(true, '78', NA_Target) --英勇打击
+or NA_Fire(true, '46924', NA_Target) --剑刃风暴
+or NA_Fire(true, '107570', NA_Target) --风暴之锤
 					or NA_Fire(true, '23922', NA_Target) --盾牌猛击
 					or NA_Fire(W_BuffCount(NA_Target, -113746, true)<3, '20243', NA_Target) --毁灭打击
-					or NA_Fire(true, '156321', NA_Target) --盾牌冲锋
+or NA_Fire(true, '78', NA_Target) --英勇打击
 					or NA_Fire(true, '100', NA_Target) --冲锋
-					or NA_Fire(true, '57755', NA_Target) --英勇投掷
-					or NA_Fire(true, '107570', NA_Target) --风暴之锤
 
         ))then return true; end
   
@@ -85,8 +92,8 @@ function NA1Dps()
 
         ))then return true; end
       elseif(NA_ProfileNo == 1)then --Fury
-        
-				
+    local hascs = W_RetainBuff(NA_Player, 29725, true);   --猝死  
+    local hasjn = W_RetainBuff(NA_Player, 13046, true);   --激怒        
         
         if(not NA_IsAOE and (false
 					or NA_Fire(true, '5308', NA_Target) --斩杀
@@ -115,11 +122,21 @@ function NA1Dps()
 
         ))then return true; end
       elseif(NA_ProfileNo == 2)then --Arms
-        
-				
+    local hassl = W_RetainBuff(NA_Target, -772, true);   --撕裂
+    local hasjrdj = W_RetainBuff(NA_Target, -167105, true);   --巨人打击
+    local hascs = W_RetainBuff(NA_Player, 29725, true);   --猝死 
         
         if(not NA_IsAOE and (false
-
+or NA_Fire(not hassl and not hasjrdj, '772', NA_Target) --撕裂
+or NA_Fire(W_GetSpellCooldown(167105)<4, '156287', NA_Target) --破坏者
+or NA_Fire(true, '167105', NA_Target) --巨人打击
+or NA_Fire(true, '12294', NA_Target) --致死打击
+or NA_Fire(hasjrdj or W_GetSpellCooldown(167105)>4, '107570', NA_Target) --风暴之锤
+or NA_Fire(true, '176286', NA_Target) --破城者
+or NA_Fire(not hasjrdj, '118000', NA_Target) --巨龙怒吼
+or NA_Fire(W_BuffTime(NA_Target,-772)<5, '772', NA_Target) --撕裂
+or NA_Fire(hasjrdj or hascs or UnitPower(NA_Player,2)>60 or W_HPlevel(NA_Target)<0.2, '5308', NA_Target) --猝死斩杀
+or NA_Fire(W_HPlevel(NA_Target)>0.2, '1464', NA_Target) --猛击
         ))then return true; end
   
         if(NA_IsAOE and (false

@@ -34,9 +34,9 @@ end
 
 function NA3Dps()
   W_Log(1,"猎人 dps");
-  
-	
-	
+local needHP = W_HPlevel(NA_Player) < 0.3 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.5);
+local needHP2 = W_HPlevel(NA_Player) < 0.6 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.7);
+local needHP3 = W_HPlevel(NA_Player) < 0.9 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.9);  
 	
   
   if(W_IsInCombat())then
@@ -44,7 +44,7 @@ function NA3Dps()
       -- 保命施法
           
       if(false
-
+         or NA_Fire(needHP2, '19263', NA_Player) --威慑
       )then return true; end
 
       if(NA_ProfileNo < 0)then

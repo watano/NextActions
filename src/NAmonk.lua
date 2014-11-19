@@ -164,12 +164,12 @@ local lls = W_FormInfo(1);   --灵龙式
 					or NA_Fire(NA_ProfileNo == 1 and W_HPlevel(NA_Target)<0.3, '116849', NA_Target) --作茧缚命
 					or NA_Fire(NA_ProfileNo == 1 and true, '115151', NA_Target) --复苏之雾
 					or NA_Fire(NA_ProfileNo == 1 and true, '115072', NA_Player) --移花接木
+					or NA_Fire(NA_ProfileNo == 1 and W_HPlevel(NA_Target)<0.9, '115175', NA_Target) --抚慰之雾
 					or NA_Fire(NA_ProfileNo == 1 and UnitPower(NA_Player, SPELL_POWER_CHI)>3, '116670', NA_Player) --振魂引
 					or NA_Fire(NA_ProfileNo == 1 and true, '115098', NA_Target) --真气波
 					or NA_Fire(NA_ProfileNo == 1 and W_HPlevel(NA_Target)<0.8, '101546', NA_Target) --神鹤引项踢
 					or NA_Fire(NA_ProfileNo == 1 and W_HPlevel(NA_Target)<0.7 and fwzw, '116694', NA_Target) --升腾之雾
 					or NA_Fire(NA_ProfileNo == 1 and W_HPlevel(NA_Target)<0.7 and fwzw, '124682', NA_Target) --氤氲之雾
-					or NA_Fire(NA_ProfileNo == 1 and W_HPlevel(NA_Target)<0.9, '115175', NA_Target) --抚慰之雾
 					or NA_Fire(NA_ProfileNo == 1 and W_HPlevel(NA_Target)<0.6, '116694', NA_Target) --升腾之雾
 					or NA_Fire(NA_ProfileNo == 1 and W_HPlevel(NA_Target)<0.5, '124682', NA_Target) --氤氲之雾
 					or NA_Fire(NA_ProfileNo == 1 and true, '115294', NA_Player) --法力茶
