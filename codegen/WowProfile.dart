@@ -1512,8 +1512,12 @@ void genIniProfileCodeFromLua(String codes){
     line = line.trim();
     String key = '';
     String value = '';
+    if(line.startsWith('--')){
+      key = '#';
+      line = line.substring(2);
+    }
     if(line.indexOf('--')>=0){
-      key = line.substring(line.indexOf('--')+2);
+      key += line.substring(line.indexOf('--')+2);
       line = line.substring(0, line.indexOf('--'));
     }
     if(line.lastIndexOf(',')>0 && line.lastIndexOf(')')>0){
@@ -1554,9 +1558,19 @@ main() {
 
   genLuaCodes();
 
-  genIniProfileCodeFromLua('''
-      or NA_Fire(needHP, '61336', NA_Player) --生存本能
-      or NA_Fire(needHP2, '22812', NA_Player) --树皮术
+  genIniProfileCodeFromLua('''                   
+or NA_Fire(not hassl and not hasjrdj, '772', NA_Target) --撕裂
+or NA_Fire(W_GetSpellCooldown(167105)<4, '156287', NA_Target) --破坏者
+or NA_Fire(true, '167105', NA_Target) --巨人打击
+or NA_Fire(true, '12294', NA_Target) --致死打击
+or NA_Fire(hasjrdj or W_GetSpellCooldown(167105)>4, '107570', NA_Target) --风暴之锤
+or NA_Fire(true, '176286', NA_Target) --破城者
+or NA_Fire(not hasjrdj, '118000', NA_Target) --巨龙怒吼
+or NA_Fire(W_BuffTime(NA_Target,-772)<5, '772', NA_Target) --撕裂
+or NA_Fire(hasjrdj or hascs or UnitPower(NA_Player,2)>60 or W_HPlevel(NA_Target)<0.2, '5308', NA_Target) --猝死斩杀
+or NA_Fire(W_HPlevel(NA_Target)>0.2, '1464', NA_Target) --猛击
+
+
 
 
 ''');

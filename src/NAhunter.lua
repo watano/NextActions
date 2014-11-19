@@ -3,7 +3,7 @@ function getNA3Actions(no)
     return {};
   elseif(no == 0)then
     return {
-      '136','982','19574','53351','82692','34026','120679','120360','3044','77767','2643','121818','5118'
+      '136','982','19574','53351','82692','34026','120679','120360','3044','77767','2643','121818','19263','5118'
     };
   elseif(no == 1)then
     return {
@@ -34,9 +34,12 @@ end
 
 function NA3Dps()
   W_Log(1,"猎人 dps");
-local needHP = W_HPlevel(NA_Player) < 0.3 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.5);
-local needHP2 = W_HPlevel(NA_Player) < 0.6 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.7);
-local needHP3 = W_HPlevel(NA_Player) < 0.9 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.9);  
+  local needHP = W_HPlevel(NA_Player) < 0.3 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.5);
+	local needHP2 = W_HPlevel(NA_Player) < 0.6 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.7);
+	local needHP3 = W_HPlevel(NA_Player) < 0.9 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.9);
+	
+	
+	
 	
   
   if(W_IsInCombat())then
@@ -44,7 +47,8 @@ local needHP3 = W_HPlevel(NA_Player) < 0.9 or (NA_IsSolo and not NA_IsMaxDps and
       -- 保命施法
           
       if(false
-         or NA_Fire(needHP2, '19263', NA_Player) --威慑
+					or NA_Fire(needHP2, '19263', NA_Player) --威慑
+
       )then return true; end
 
       if(NA_ProfileNo < 0)then
