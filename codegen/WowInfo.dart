@@ -124,6 +124,7 @@ class WOWSpellInfo {
   String name;
   String icon;
   String htmlDescription;
+  String specName = null;
 
   String getSpellNo(String spell) {
     if (name == spell || icon == spell || no == spell) {

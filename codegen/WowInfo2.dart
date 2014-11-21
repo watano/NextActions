@@ -283,5 +283,5 @@ void main(){
   //simc('death_knight', 6, 'Frost', r'i:\wowtools\simc\profiles\Tier14H\Death_Knight_Frost_2h_T14H.simc');
   //simc('paladin', 2, 'Retribution', r'i:\wowtools\simc\profiles\PreRaid\Paladin_Retribution_PreRaid.simc');
 //  simc('hunter', 3, 'Beastmaster', r'i:\wowtools\simc\profiles\PreRaid\Hunter_BM_PreRaid.simc');
-  simc('hunter', 3, 'Beastmaster', r'i:\wowtools\simc\profiles\PreRaid\Hunter_MM_PreRaid.simc');
+  simc('hunter', 3, 'Beastmaster', r'd:\games\wowtools\simc\profiles\Tier16M\Hunter_BM_T16M.simc');
 }
