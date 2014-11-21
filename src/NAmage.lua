@@ -1,11 +1,11 @@
 function getNA8Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'45438','11426','5143','30451','2136','44425','120','1459','6117'};
+    return {'45438','11426','5143','30451','2136','44425','120','1459'};
   elseif(no == 1)then
-    return {'45438','11426','12472','30455','55342','44614','84714','112948','108839','116','120','31687'};
+    return {'45438','11426','12472','30455','55342','44614','84714','112948','108839','116','120','31687','1459'};
   elseif(no == 2)then
-    return {'84714'};
+    return {'84714','1459'};
   end
   return {};
 end
@@ -133,21 +133,22 @@ function NA8Dps()
       
       if(false
 					or NA_Fire(not W_HasBuff(NA_Player, 1459, true), '1459', NA_Player) --奥术光辉
-					or NA_Fire(not W_HasBuff(NA_Player, 6117, true), '6117', NA_Player) --法师护甲
-					or NA_Fire(NA_ProfileNo == 0 and NA_IsSolo and W_TargetCanAttack(), '2136', NA_Target) --火焰冲击
-					or NA_Fire(NA_ProfileNo == 0 and NA_IsSolo and W_TargetCanAttack(), '44425', NA_Target) --奥术弹幕
+					or NA_Fire(NA_IsSolo and W_TargetCanAttack(), '2136', NA_Target) --火焰冲击
+					or NA_Fire(NA_IsSolo and W_TargetCanAttack(), '44425', NA_Target) --奥术弹幕
 
       )then return true; end
     elseif(NA_ProfileNo == 1)then --Frost
       
       if(false
 					or NA_Fire(UnitHealth(NA_Pet)<=0, '31687', NA_Player) --召唤水元素
-					or NA_Fire(NA_ProfileNo == 1 and NA_IsSolo and W_TargetCanAttack(), '116', NA_Target) --寒冰箭
+					or NA_Fire(NA_IsSolo and W_TargetCanAttack(), '116', NA_Target) --寒冰箭
+					or NA_Fire(not W_HasBuff(NA_Player, 1459, true), '1459', NA_Player) --奥术光辉
 
       )then return true; end
     elseif(NA_ProfileNo == 2)then --Frost
       
       if(false
+					or NA_Fire(not W_HasBuff(NA_Player, 1459, true), '1459', NA_Player) --奥术光辉
 
       )then return true; end
     end

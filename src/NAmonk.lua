@@ -27,8 +27,8 @@ function NA10Dps()
         if(false
 					or NA_Fire(NA_checkHP(0), '122278', NA_Player) --躯不坏
 					or NA_Fire(NA_checkHP(0), '115203', NA_Player) --壮胆酒
-					or NA_Fire(NA_ProfileNo == 0 and NA_checkHP(1), '115176', NA_Player) --禅悟冥想
-					or NA_Fire(NA_ProfileNo == 0 and NA_checkHP(1), '115295', NA_Player) --金钟罩
+					or NA_Fire(NA_checkHP(1), '115176', NA_Player) --禅悟冥想
+					or NA_Fire(NA_checkHP(1), '115295', NA_Player) --金钟罩
 					or NA_Fire(NA_checkHP(2), '115072', NA_Player) --移花接木
 					or NA_Fire(NA_checkHP(2), '115098', NA_Player) --真气波
 

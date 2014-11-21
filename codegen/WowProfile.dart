@@ -1179,7 +1179,7 @@ String getBuffName(String spell, String spec) {
 }
 
 void parseSimc(int classID, String specName, String file) {
-  classInfo = readClassInfo(AllClassInfo[classID - 1]);
+  classInfo = readClassInfo(classID);
   print('----------------------------------------${classInfo.cnName}------${specName}--------${file}');
   var f = new File(file);
   List<String> lines = f.readAsLinesSync();
@@ -1488,7 +1488,7 @@ Profile readProfileIni(String path){
 
 void genLuaCodes(){
   for (int classID=1;classID<12; classID++) {
-    classInfo = readClassInfo(AllClassInfo[classID - 1]);
+    classInfo = readClassInfo(classID);
     String code = classProfilesCodes();
     writeToFile(r'..\src\NA' + classInfo.enName.toLowerCase() + '.lua', code, encoding: 'utf-8');
   }

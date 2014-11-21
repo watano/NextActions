@@ -1,7 +1,7 @@
 function getNA3Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'136','982','19574','53351','82692','34026','120679','120360','3044','77767','2643','121818','19263','5118'};
+    return {'136','982','19574','53351','82692','34026','120679','120360','3044','77767','2643','5118'};
   elseif(no == 1)then
     return {'53209','131894','19434','120360','121818','56641','3045','109260','136'};
   elseif(no == 2)then
@@ -25,7 +25,6 @@ function NA3Dps()
       elseif(NA_ProfileNo == 0)then --Beastmaster
         
         if(false
-					or NA_Fire(NA_checkHP(1), '19263', NA_Player) --威慑
 
         )then return true; end
       elseif(NA_ProfileNo == 1)then --Marksman
@@ -63,13 +62,12 @@ function NA3Dps()
 					or NA_Fire(W_HPlevel(NA_Pet)>0 and W_HPlevel(NA_Pet) < 0.5 and not W_HasBuff(NA_Pet, 136, true), '136', NA_Pet) --治疗宠物
 					or NA_Fire(W_HPlevel(NA_Pet)<=0, '982', NA_Pet) --复活宠物
 					or NA_Fire(W_PowerLevel(NA_Player)>0.7 and W_HPlevel(NA_Pet) > 0, '19574', NA_Pet) --狂野怒火
-					or NA_Fire(true, '82692', NA_Target) --集中火力
+					or NA_Fire(W_BuffCount(NA_Player, 19615)>=5, '82692', NA_Target) --集中火力
 					or NA_Fire(true, '2643', NA_Target) --多重射击
 					or NA_Fire(W_HPlevel(NA_Target)<0.2, '53351', NA_Target) --夺命射击
 					or NA_Fire(true, '34026', NA_Target) --杀戮命令
 					or NA_Fire(true, '120679', NA_Target) --凶暴野兽
 					or NA_Fire(true, '120360', NA_Target) --弹幕射击
-					or NA_Fire(true, '121818', NA_Target) --群兽奔腾
 					or NA_Fire(true, '77767', NA_Target) --眼镜蛇射击
 
         ))then return true; end

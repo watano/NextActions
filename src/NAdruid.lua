@@ -31,13 +31,13 @@ function NA11Dps()
       elseif(NA_ProfileNo == 0)then --Bear
         
         if(false
-					or NA_Fire(NA_ProfileNo == 0 and NA_checkHP(2), '102351', NA_Player) --塞纳里奥结界
-					or NA_Fire(NA_ProfileNo == 0 and NA_checkHP(2), '62606', NA_Player) --野蛮防御
+					or NA_Fire(NA_checkHP(2), '102351', NA_Player) --塞纳里奥结界
+					or NA_Fire(NA_checkHP(2), '62606', NA_Player) --野蛮防御
 					or NA_Fire(NA_checkHP(1), '22812', NA_Player) --树皮术
-					or NA_Fire(NA_ProfileNo == 0 and NA_checkHP(1), '108292', NA_Player) --野性之心
-					or NA_Fire(NA_ProfileNo == 0 and NA_checkHP(1) and yxhc, '774', NA_Player) --回春术
-					or NA_Fire(NA_ProfileNo == 0 and NA_checkHP(0), '61336', NA_Player) --生存本能
-					or NA_Fire(NA_ProfileNo == 0 and NA_checkHP(0), '22842', NA_Player) --狂暴回复
+					or NA_Fire(NA_checkHP(1), '108292', NA_Player) --野性之心
+					or NA_Fire(NA_checkHP(1) and yxhc, '774', NA_Player) --回春术
+					or NA_Fire(NA_checkHP(0), '61336', NA_Player) --生存本能
+					or NA_Fire(NA_checkHP(0), '22842', NA_Player) --狂暴回复
 
         )then return true; end
       elseif(NA_ProfileNo == 1)then --Cat

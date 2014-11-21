@@ -15,7 +15,8 @@ NA6ProfileNames = {'Two-Handed Frost','Blood','Dual-Wield Frost',''};
 function NA6Dps()
   W_Log(1,"死亡骑士 dps");
   
-	local hasBoneshield = not(NA_ProfileNo == 1) or W_HasBuff(NA_Player, 49222, true);  --白骨之盾
+	local hasBoneshield=not(NA_ProfileNo == 1) or W_HasBuff(NA_Player, 49222, true);  --白骨之盾
+	
 	
 	
   if(W_IsInCombat())then
@@ -25,17 +26,17 @@ function NA6Dps()
       elseif(NA_ProfileNo == 0)then --Two-Handed Frost
         
         if(false
-					or NA_Fire(NA_ProfileNo == 0 and NA_checkHP(0), '49998', NA_Target) --灵界打击
-					or NA_Fire(NA_ProfileNo == 0 and NA_checkHP(0), '48707', NA_Player) --反魔法护罩
-					or NA_Fire(NA_ProfileNo == 0 and NA_checkHP(0), '48792', NA_Player) --冰封之韧
-					or NA_Fire(NA_ProfileNo == 0 and NA_checkHP(0), '119975', NA_Player) --符能转换
+					or NA_Fire(NA_checkHP(0), '49998', NA_Target) --灵界打击
+					or NA_Fire(NA_checkHP(0), '48707', NA_Player) --反魔法护罩
+					or NA_Fire(NA_checkHP(0), '48792', NA_Player) --冰封之韧
+					or NA_Fire(NA_checkHP(0), '119975', NA_Player) --符能转换
 
         )then return true; end
       elseif(NA_ProfileNo == 1)then --Blood
         
         if(false
-					or NA_Fire(NA_ProfileNo == 1 and NA_checkHP(0), '48982', NA_Player) --符文分流
-					or NA_Fire(NA_ProfileNo == 1 and NA_checkHP(0), '55233', NA_Player) --吸血鬼之血
+					or NA_Fire(NA_checkHP(0), '48982', NA_Player) --符文分流
+					or NA_Fire(NA_checkHP(0), '55233', NA_Player) --吸血鬼之血
 
         )then return true; end
       elseif(NA_ProfileNo == 2)then --Dual-Wield Frost

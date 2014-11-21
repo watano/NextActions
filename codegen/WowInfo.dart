@@ -92,7 +92,7 @@ class WOWClassInfo {
       index++;
     }
     if(index>=specNames.length){
-      print('[ERROR]${spec}![${specNames.toString()}]');
+      print('[错误]${spec}![${specNames.toString()}]');
       return null;
     }
     for (WOWSpellInfo s in specs[index]) {
@@ -110,6 +110,7 @@ class WOWClassInfo {
         return s;
       }
     }
+    print('[警告]不能找到法术:${spell}@${spec}');
     return null;
   }
 }
@@ -191,9 +192,9 @@ WOWSpellInfo buildSpellInfo(dynamic info, String minLevel) {
   return spellInfo;
 }
 
-WOWClassInfo readClassInfo(WOWClassInfo ci) {
-  var classInfo = ci;
-  var config = new File('.\\' + classInfo.classID.toString() + '.json');
+WOWClassInfo readClassInfo(int classID) {
+  WOWClassInfo classInfo = AllClassInfo[classID-1];
+  var config = new File('.\\' + classID.toString() + '.json');
   String data = config.readAsStringSync();
   Map info = JSON.decode(data);
 
@@ -240,7 +241,7 @@ local listItem = {},{}
 function initAllInfo(unitClass, unitLevel, telants)
 ''';
   for (WOWClassInfo ci in AllClassInfo) {
-    var classInfo = readClassInfo(ci);
+    var classInfo = readClassInfo(ci.classID);
     code += '\nif unitClass=="${classInfo.name}" then --${classInfo.classID.toString()}--${classInfo.cnName}';
     for (WOWSpellInfo spellInfo in classInfo.spells) {
       if (spellInfo.passive) {
