@@ -1,7 +1,7 @@
 function getNA3Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'136','982','19574','53351','82692','34026','120679','120360','3044','77767','2643','5118'};
+    return {'136','982','19574','53351','82692','34026','120679','109259','3044','77767','2643','5118'};
   elseif(no == 1)then
     return {'53209','131894','19434','120360','121818','56641','3045','109260','136'};
   elseif(no == 2)then
@@ -52,7 +52,7 @@ function NA3Dps()
 					or NA_Fire(W_BuffCount(NA_Player, 19615)>=5, '82692', NA_Target) --集中火力
 					or NA_Fire(true, '34026', NA_Target) --杀戮命令
 					or NA_Fire(true, '120679', NA_Target) --凶暴野兽
-					or NA_Fire(true, '120360', NA_Target) --弹幕射击
+					or NA_Fire(NA_IsMaxDps, '109259', NA_Target) --强风射击
 					or NA_Fire(true, '3044', NA_Target) --奥术射击
 					or NA_Fire(true, '77767', NA_Target) --眼镜蛇射击
 
@@ -67,7 +67,7 @@ function NA3Dps()
 					or NA_Fire(W_HPlevel(NA_Target)<0.2, '53351', NA_Target) --夺命射击
 					or NA_Fire(true, '34026', NA_Target) --杀戮命令
 					or NA_Fire(true, '120679', NA_Target) --凶暴野兽
-					or NA_Fire(true, '120360', NA_Target) --弹幕射击
+					or NA_Fire(NA_IsMaxDps, '109259', NA_Target) --强风射击
 					or NA_Fire(true, '77767', NA_Target) --眼镜蛇射击
 
         ))then return true; end

@@ -109,9 +109,7 @@ void fetchCharacterSpell(String realm, String name){
         tSpells.add(s['spell']['id']);
       }
     }
-
     readClassInfo(currCharacterInfo.classID);
-
   });
 }
 
