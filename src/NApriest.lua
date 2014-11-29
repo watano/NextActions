@@ -10,7 +10,7 @@ function getNA5Actions(no)
   return {};
 end
 
-NA5ProfileNames = {'Discipline','Holy','Shadow',''};
+NA5ProfileNames = {[0]='Discipline',[1]='Holy',[2]='Shadow',''};
 
 function NA5Dps()
   W_Log(1,"牧师 dps");

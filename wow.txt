@@ -1,4 +1,19 @@
-﻿雙持冰:力量 > 技能命中(黃字)達標 = 熟練達標 > 精通 >= 加速 > 致命
+﻿/run NA_testSpell('49576', NA_Target)
+/run print(IsSpellInRange('死亡之握', NA_Target)==1);
+/run print(SpellHasRange('死亡之握') ~= true or IsSpellInRange('死亡之握', NA_Target) ==1)
+/run print(W_IsUsableSpell('死亡之握', NA_Target))
+/run print(NA_Fire(true, '49576', NA_Target))
+
+/run NA_testBuff(NA_Target, -55095, true);
+/run print(W_RetainBuff(NA_Target, -55095, true))
+/run print(W_BuffCount(NA_Target, -55095, true))
+/run print(W_getBuff(NA_Target, -55095, true))
+/run W_printDeBuffInfo(NA_Target)
+/run print(W_getBuff2(NA_Target, -55095, "冰霜疫病"))
+
+name, rank, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate, spellId
+
+雙持冰:力量 > 技能命中(黃字)達標 = 熟練達標 > 精通 >= 加速 > 致命
 雙手冰:力量 > 技能命中(黃字)達標 = 熟練達標 > 加速 > 致命 > 精通
 兽王猎：敏捷>命中和精准等级(每个均为7.5%达标)>暴击等级>急速等级>专精等级
 
@@ -29,7 +44,9 @@ name, rank, icon, count, debuffType, duration, expirationTime, unitCaster, isSte
 name, rank, iconTexture, count, duration, timeLeft =  UnitBuff(unit, buffIndex [, castable]);
 name, rank, texture, count, debuffType, duration, timeLeft  =  UnitDebuff(unitID, debuffIndex [, removable]);
 
-for i=1,40 do local B=UnitDebuff("target",i); if B then print(i.."="..B) end end
+/run for i=1,40 do local name, rank, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate, spellId=UnitDebuff("target",i); if name then print(i.."="..name.."-"..count.."-"..spellId) end end
+
+/run local name, rank, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate, spellId=UnitDebuff("target","死疽"); if name then print(name.."--"..rank.."--"..icon.."--"..count.."--"..debuffType.."--"..duration.."--"..expirationTime.."--"..unitCaster.."--"..isStealable.."--"..shouldConsolidate.."--"..spellId) end
 1131, 1133
 
 Message: Interface\AddOns\NextActions\NAutil.lua:245: attempt to index local 'spellInfo' (a nil value)

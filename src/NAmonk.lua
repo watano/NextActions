@@ -10,7 +10,7 @@ function getNA10Actions(no)
   return {};
 end
 
-NA10ProfileNames = {'Brewmaster','Mistweaver','Battledancer',''};
+NA10ProfileNames = {[0]='Brewmaster',[1]='Mistweaver',[2]='Battledancer',''};
 
 function NA10Dps()
   W_Log(1,"武僧 dps");

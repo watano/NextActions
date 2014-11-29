@@ -12,7 +12,7 @@ function getNA11Actions(no)
   return {};
 end
 
-NA11ProfileNames = {'Bear','Cat','Restoration','Balance',''};
+NA11ProfileNames = {[0]='Bear',[1]='Cat',[2]='Restoration',[3]='Balance',''};
 
 function NA11Dps()
   W_Log(1,"德鲁伊 dps");

@@ -10,7 +10,7 @@ function getNA1Actions(no)
   return {};
 end
 
-NA1ProfileNames = {'Protection','Fury','Arms',''};
+NA1ProfileNames = {[0]='Protection',[1]='Fury',[2]='Arms',''};
 
 function NA1Dps()
   W_Log(1,"战士 dps");

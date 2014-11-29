@@ -10,7 +10,7 @@ function getNA8Actions(no)
   return {};
 end
 
-NA8ProfileNames = {'Arcane','Frost','Frost',''};
+NA8ProfileNames = {[0]='Arcane',[1]='Frost',[2]='Frost',''};
 
 function NA8Dps()
   W_Log(1,"法师 dps");

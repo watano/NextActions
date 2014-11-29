@@ -3,7 +3,7 @@
 ## Title: NextActions
 ## Notes: wow自动施法按键助手 
 ## Version: 6.0.3
-## SavedVariablesPerCharacter: NA_ProfileNo
+## SavedVariablesPerCharacter: NA_Config
 NAutil.lua
 NAUIutil.lua
 NAcore.lua

@@ -20,6 +20,19 @@ require "NAframe"
 NA_LogLevel = 3;
 NA_IsTest = true;
 
+function NA_TestMaxDPS(no)
+	local tmpNA_IsTest = NA_IsTest;
+	local tmpNA_LogLevel = NA_LogLevel;
+
+	NA_IsTest = true;
+	NA_LogLevel = 1;
+	NA_InitProfile(no);
+	W_Log(1, NA_MaxDps());
+
+	NA_IsTest = tmpNA_IsTest;
+	NA_LogLevel = tmpNA_LogLevel;
+end
+
 function NA_UnitTest()
 	testSlashHandler();
 	NA_TestMaxDPS(0);

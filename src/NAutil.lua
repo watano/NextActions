@@ -199,7 +199,7 @@ end
 function W_isTanking()
 	if(UnitHealthMax(NA_Target) == 1)then return true; end
 	local isTanking, status, threatpct, rawthreatpct, threatvalue = UnitDetailedThreatSituation(NA_Player, NA_Target);
-	return isTanking == 1;
+	return isTanking;
 end
 
 function NA_Fire(cond, spellID, UnitId, interval)
@@ -292,9 +292,9 @@ function W_IsUsableSpell(spellID, UnitId)
 	if(spellInfo == nil)then
 		return false;
 	end
-	if(SpellHasRange(spellInfo.name) ~=1 or IsSpellInRange(spellInfo.name, UnitId) == nil or IsSpellInRange(spellInfo.name, UnitId)) then
-		local isUsable, nomana = IsUsableSpell(spellInfo.spellID);
-		if (isUsable == true and nomana == false and W_GetCooldown(1, spellID) <= 1) then
+	local isUsable, nomana = IsUsableSpell(spellInfo.spellID);
+	if (isUsable == true and nomana == false and W_GetCooldown(1, spellID) <= 1) then
+		if(SpellHasRange(spellInfo.name) ~=true or IsSpellInRange(spellInfo.name, UnitId) ==1) then
 			return true;
 		end
 	end
@@ -306,9 +306,9 @@ function W_IsUsableItem(spellID, UnitId)
 	if(spellInfo == nil)then
 		return false;
 	end
-	if(ItemHasRange(spellInfo.name) ~=1 or IsItemInRange(spellInfo.name, UnitId) == nil or IsItemInRange(spellInfo.name, UnitId)) then
-		local isUsable, nomana = IsUsableItem(spellInfo.spellID);
-		if (isUsable == true and nomana == false and W_GetCooldown(2, spellID) <= 1) then
+	local isUsable, nomana = IsUsableItem(spellInfo.spellID);
+	if (isUsable == true and nomana == false and W_GetCooldown(2, spellID) <= 1) then
+		if(ItemHasRange(spellInfo.name) ~=true or IsItemInRange(spellInfo.name, UnitId) == 1) then
 			return true;
 		end
 	end
@@ -323,8 +323,7 @@ function W_IsCasting(UnitId)
 		elseif(endTime ~= nil)then
 			return endTime/1000 - GetTime();
 		end
-		W_Log(3,"W_IsCasting1 ".. startTime);
-		W_Log(3,"W_IsCasting1 ".. endTime);
+		W_Log(3,"W_IsCasting1 ".. startTime.."--"..endTime);
 		return 999;
 	end
 
@@ -335,8 +334,7 @@ function W_IsCasting(UnitId)
 		elseif(endTime ~= nil)then
 			return endTime/1000 - GetTime() + 0.8;
 		end
-		W_Log(3,"W_IsCasting2 ".. startTime);
-		W_Log(3,"W_IsCasting2 ".. endTime);
+		W_Log(3,"W_IsCasting2 ".. startTime.."--"..endTime);
 		return 999;
 	end
 	return 0;
@@ -370,11 +368,6 @@ function W_GetSpellCooldown(spellID)
 	else
 		return t;
 	end
-end
-
---send("<ESC><TAB>");
-function NA_ChangeEnemy()
-	W_Log(2,"NA_ChangeEnemy!");
 end
 
 function W_IsInCombat()
@@ -458,26 +451,26 @@ function NA_testSpell(spellID, UnitId)
 	print(SpellHasRange(spellInfo.name));
 
 	if(UnitIsVisible(UnitId) == false)then return; end
-	print("3-UnitIsVisible("..UnitId..")=true");
+	print("3-UnitIsVisible("..UnitId..")==true");
 	if(NA_SpellInfoType(spellID) == 1)then
-		if(SpellHasRange(spellInfo.name) == nil or SpellHasRange(spellInfo.name) == false)then return; end
-		print("4-SpellHasRange("..spellInfo.name..")=true");
-		if(IsSpellInRange(spellInfo.name, UnitId) == nil or IsSpellInRange(spellInfo.name, UnitId) == false)then return; end
-		print("5-IsSpellInRange("..spellInfo.name..", "..UnitId..")=true");
-		if(IsUsableSpell(spellInfo.spellID) == nil or IsUsableSpell(spellInfo.spellID) == false)then return; end
-		print("6-IsUsableSpell("..spellInfo.spellID..")=true");
-		if(W_GetCooldown(1, spellID)>1)then return; end
-		print("7-W_GetCooldown(1, "..spellID..")="..W_GetCooldown(1, spellID));
+		local isUsable, nomana = IsUsableSpell(spellInfo.spellID);
+		print(isUsable);
+		print(nomana);
+		if (isUsable == true and nomana == false and W_GetCooldown(1, spellID) <= 1) then
+			print("3.1-W_GetCooldown(1, "..spellID..")="..W_GetCooldown(1, spellID));
+			if(SpellHasRange(spellInfo.name) ~=true or IsSpellInRange(spellInfo.name, UnitId) ==1) then
+				print("4-SpellHasRange("..spellInfo.name..")==true");
+				print("5-IsSpellInRange("..spellInfo.name..", "..UnitId..")==true");
+
+				if(W_IsUsableSpell(spellID, UnitId) == false)then return; end
+				print("6-W_IsUsableSpell("..spellID..", "..UnitId..")==true");
+				return;
+			end
+		end
 	end
 
-	local isUsable, nomana = IsUsableSpell(spellInfo.spellID);
-	print(isUsable);
-	print(nomana);
-	print("W_GetCooldown(1, spellID)="..W_GetCooldown(1, spellID));
-
-	if(W_IsUsableSpell(spellID, UnitId) == false)then return; end
-	print("8-W_IsUsableSpell("..spellID..", "..UnitId..")=true");
-	
+--	if(W_IsUsableSpell(spellID, UnitId) == false)then return; end
+--	print("8-W_IsUsableSpell("..spellID..", "..UnitId..")==true");
 end
 --/run NA_testSpell('82692', NA_Target)
 
@@ -514,6 +507,23 @@ function W_printBuffInfo(UnitId)
 	  buffs = "You have no buffs";
 	else
 	  buffs[1] = "You're buffed with: "..buffs[1];
+	  buffs = table.concat(buffs, ", ");
+	end;
+	print(buffs);
+end
+
+function W_printDeBuffInfo(UnitId)
+	local buffs, i = { }, 1;
+	local buff = UnitDebuff(UnitId, i);
+	while buff do
+	  buffs[#buffs + 1] = buff;
+	  i = i + 1;
+	  buff = UnitDebuff(UnitId, i);
+	end;
+	if #buffs < 1 then
+	  buffs = "You have no debuffs";
+	else
+	  buffs[1] = "You're debuffs with: "..buffs[1];
 	  buffs = table.concat(buffs, ", ");
 	end;
 	print(buffs);

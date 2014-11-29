@@ -236,7 +236,7 @@ ${cmdCodes(p.keepBuffCmds)}
   elseif(no == ${p.profileID})then
     return {${joinText2(actions, "'", "',", ",")}};
 ''';
-    codeProfileNames += '\'${p.name}\',';
+    codeProfileNames += '[${p.profileID}]=\'${p.name}\',';
     commonCodes += p.commonCodes;
     keepHPCodes += p.keepHPCodes;
     attackAOECodes += p.attackAOECodes;

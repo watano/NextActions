@@ -4,7 +4,6 @@ NA_IsRunning = false;
 NA_IsTest = false;
 NA_LogLevel = 3; -- 1 - 5
 NA_CurrClass = "DEATHKNIGHT";
-NA_ProfileName = '';
 NA_ProfileNo = 0;
 NA_Actions = nil;
 NA_ClassInfo = nil;
@@ -15,41 +14,25 @@ NA_IsMaxDps = false;
 NA_IsSolo = false;
 NA_SpellTimes = {};
 
---[[
---血条显示K
-function HealthBarText(statusFrame, textString, value, valueMin, valueMax) 
-   if string.find(textString:GetName(), "Health") or string.find  then 
-      if valueMax ~= 0 then 
-         local percent = tostring(math.ceil((value / valueMax) * 100)) 
-         value = HealthBarText_CapDisplayOfNumericValue(value) 
-         valueMax = HealthBarText_CapDisplayOfNumericValue(valueMax) 
-         textString:SetText(value.."") 
-      end 
-   end 
-end 
-
-function HealthBarText_CapDisplayOfNumericValue(value) 
-   local strLen = strlen(value); 
-   local retString = value; 
-   if ( strLen > 9 ) then 
-      retString = string.sub(value, 1, -9)..SECOND_NUMBER_CAP;                   
-   elseif ( strLen > 4 ) then 
-      retString = string.sub(value, 1, -4).."K";                                 
-   end 
-   return retString; 
-end
-]]--
-
 function NA_init()
+	if(NA_Config == nil)then		
+		NA_Config = {NA_ProfileNo=0, NA_MyUI=false};
+	end
 	W_SetBinding(0, "NA_Toggle", 3);
-	NA_InitProfile(NA_ProfileNo);
+
+	NA_InitProfile(NA_Config.NA_ProfileNo);
 
 	SLASH_NEXTACTIONS1 = "/nextactions"
 	SLASH_NEXTACTIONS2 = "/na"
 	SlashCmdList["NEXTACTIONS"] = NA_SlashHandler;
+	
+	if(not W_IsInCombat() and NA_Config.NA_MyUI == true)then 
+		NA_MyUI();
+	end
 end
 
 function NA_initClassData(className, profileNo)
+	NA_ProfileName = '';
 	if(className == "WARRIOR") then
 		NA_Actions = getNA1Actions(profileNo);
 		NA_ProfileName = NA1ProfileNames[profileNo];
@@ -98,6 +81,9 @@ function NA_initClassData(className, profileNo)
 		W_Log(4, "不能支持此职业!");
 		return nil;
 	end
+	if(NA_ProfileName ~= nil)then 
+		W_Log(3, "NA_ProfileName="..profileNo..'--'..NA_ProfileName);
+	end
 	return {};
 end
 
@@ -105,9 +91,9 @@ function NA_InitProfile(no)
 	NA_ProfileNo = no;
 	if(NA_ProfileNo ~= 0 and NA_ProfileNo ~=1 and NA_ProfileNo ~=2 and NA_ProfileNo ~=3) then NA_ProfileNo = 0; end
 
+	W_Log(2, "NA_InitProfile:"..NA_ProfileNo);
 	local playerClass, englishClass = UnitClass(NA_Player);
 	NA_CurrClass = englishClass;
-	W_Log(3, "NA_InitProfile:"..NA_ProfileNo);
 
 	if(NA_initClassData(NA_CurrClass, NA_ProfileNo) == nil) then
 		return;
@@ -117,8 +103,8 @@ function NA_InitProfile(no)
 		W_Log(4, "不能支持此配置!");
 		return;
 	end
-	W_UpdateLabelText('NA_SpellLabel', NA_ProfileName);
 	NA_InitClass();
+	NA_Config.NA_ProfileNo = NA_ProfileNo;
 end
 
 function NA_InitClass()
@@ -169,7 +155,9 @@ function NA_InitClass()
 	end
 
 	--W_Log(1, W_toString(NA_ClassInfo))
-	if(not W_IsInCombat())then SaveBindings(2); end
+	if(not W_IsInCombat())then 
+		SaveBindings(2); 
+	end
 
 	W_Log(2, "NA_InitClass ok!");
 end
@@ -178,12 +166,28 @@ function NA_Toggle()
 	if(NA_IsRunning) then
 		NA_IsRunning = false;
 		NA_ClearAction();
-		W_Log(4,"NextActions stop for "..NA_ProfileNo);
+		W_Log(2,"NextActions stop for "..NA_ProfileNo);
 	else
 		NA_IsRunning = true;
-		W_Log(4,"NextActions start "..NA_ProfileNo);
+		W_Log(2,"NextActions start "..NA_ProfileNo);
 	end
 	return NA_IsRunning;
+end
+
+function NA_MyUI()
+		--隐藏主界面的菜单边框装饰物
+		MainMenuBarLeftEndCap:Hide();
+		MainMenuBarRightEndCap:Hide();
+		MainMenuBar:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", 0, 0);
+
+		--头像上收到的伤害取消
+		local p=PlayerHitIndicator;p.Show=p.Hide;p:Hide()
+		--local p=PetHitIndicator;p.Show=p.Hide;p:Hide()
+
+		--血条显示K
+		--hooksecurefunc("TextStatusBar_UpdateTextStringWithValues", HealthBarText);
+		
+		NA_Config.NA_MyUI = true;
 end
 
 function NA_SlashHandler(msg)
@@ -201,17 +205,7 @@ function NA_SlashHandler(msg)
 	elseif (msg == "2") then
 		NA_InitProfile(2);
 	elseif (msg == "myui") then
-		--隐藏主界面的菜单边框装饰物
-		MainMenuBarLeftEndCap:Hide();
-		MainMenuBarRightEndCap:Hide();
-		MainMenuBar:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", 0, 0);
-
-		--头像上收到的伤害取消
-		local p=PlayerHitIndicator;p.Show=p.Hide;p:Hide()
-		--local p=PetHitIndicator;p.Show=p.Hide;p:Hide()
-
-		--血条显示K
-		--hooksecurefunc("TextStatusBar_UpdateTextStringWithValues", HealthBarText);
+		NA_MyUI();
 	elseif (msg == "mykey") then
 		SetBinding("q","ACTIONBUTTON11");
 		SetBinding("e","ACTIONBUTTON12");
@@ -258,7 +252,7 @@ end
 function NA_DoAction()
 	if(UnitIsDead(NA_Player) or UnitIsDead(NA_Target) or W_IsCasting(NA_Player) > 0.9
 	or W_HasBuff(NA_Player, 1133) or W_HasBuff(NA_Player, 1131) or SpellIsTargeting()
-	or IsMounted() or IsFlying() or UnitInVehicle(NA_Player)) then
+	or (IsMounted() and not W_HasBuff(NA_Player, 165803)) or IsFlying() or UnitInVehicle(NA_Player)) then
 		W_Log(1,"busy.....");
 		return false;
 	end
@@ -272,20 +266,6 @@ function NA_DoAction()
 	end
 	return false;
 end
-
-function NA_TestMaxDPS(no)
-	local tmpNA_IsTest = NA_IsTest;
-	local tmpNA_LogLevel = NA_LogLevel;
-
-	NA_IsTest = true;
-	NA_LogLevel = 1;
-	NA_InitProfile(no);
-	W_Log(1, NA_MaxDps());
-
-	NA_IsTest = tmpNA_IsTest;
-	NA_LogLevel = tmpNA_LogLevel;
-end
-
 
 function NA_SpellInfoType(spellID)
 	if(spellID == nil)then
