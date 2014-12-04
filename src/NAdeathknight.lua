@@ -3,7 +3,7 @@ function getNA6Actions(no)
   elseif(no == 0)then
     return {'49998','48707','48792','48743','130735','51271','47568','42650','49020','77575','49184','45462','49143','45477','47541','108199','61999','57330'};
   elseif(no == 1)then
-    return {'49998','48707','48792','55233','48743','114866','47568','49028','56222','45477','47541','49222','50842','77575','45462','108199','61999','57330'};
+    return {'49998','48707','48792','55233','48743','114866','47568','49028','56222','45477','47541','49222','77575','45462','50842','108199','61999','57330'};
   elseif(no == 2)then
     return {'49998','48707','48792','48743','130735','51271','47568','42650','49143','49184','45462','49020','123693','108199','77575','61999','57330','45477'};
   end
@@ -16,6 +16,7 @@ function NA6Dps()
   W_Log(1,"死亡骑士 dps");
   
 	local hasBoneshield=not(NA_ProfileNo == 1) or W_HasBuff(NA_Player, 49222, true);  --白骨之盾
+	local haswyzq=W_HasBuff(NA_Player, 49039, true);  --巫妖之躯
 	
 	
 	
@@ -100,6 +101,9 @@ function NA6Dps()
         local retainFrostFever = W_RetainBuff(NA_Target, -55095, true);   --冰霜疫病
 				local retainBloodPlague = W_RetainBuff(NA_Target, -55078, true);  --血之疫病
 				local hasCrimsonScourge = W_HasBuff(NA_Player, 81141, true);    --赤色天灾
+				local countxzqx = W_BuffCount(NA_Player, 50421); --血之气息
+				local countxxcn = W_BuffCount(NA_Player, 114851);  --鲜血充能
+				local xdgszx = W_RetainBuff(NA_Player, 152279, true);   --辛达苟萨之息
 				local notTanking = not NA_IsSolo and not W_isTanking();
 				
 				
@@ -117,12 +121,13 @@ function NA6Dps()
 					or NA_Fire(notTanking, '45477', NA_Target) --冰冷触摸
 					or NA_Fire(notTanking and W_PowerLevel(NA_Player)>0.6, '47541', NA_Target) --凋零缠绕
 					or NA_Fire(not hasBoneshield, '49222', NA_Player) --白骨之盾
-					or NA_Fire(hasCrimsonScourge, '50842', NA_Target) --血液沸腾
-					or NA_Fire(not retainFrostFever and not retainBloodPlague, '77575', NA_Target) --爆发
+					or NA_Fire(not retainFrostFever and not retainBloodPlague and not xdgszx, '77575', NA_Target) --爆发
 					or NA_Fire(not retainFrostFever, '45477', NA_Target) --冰冷触摸
 					or NA_Fire(not retainBloodPlague, '45462', NA_Target) --暗影打击
-					or NA_Fire(W_PowerLevel(NA_Player) > 0.6, '47541', NA_Target) --凋零缠绕
-					or NA_Fire(W_HPlevel(NA_Player) < 0.8, '49998', NA_Target) --灵界打击
+					or NA_Fire(hasCrimsonScourge or retainFrostFever or retainBloodPlague, '50842', NA_Target) --血液沸腾
+					or NA_Fire(xdgszx, '47568', NA_Player) --符文武器增效
+					or NA_Fire(not xdgszx and W_PowerLevel(NA_Player)>0.6, '47541', NA_Target) --凋零缠绕
+					or NA_Fire((W_StarCount(3)>1 or W_StarCount(4)>1) and (W_StarCount(5)>1 or W_StarCount(6)>1), '49998', NA_Player) --灵界打击
 					or NA_Fire(true, '114866', NA_Target) --灵魂收割
 
         ))then return true; end
