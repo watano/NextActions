@@ -39,9 +39,9 @@ function NA_Option_Frame_OnLoad(self)
 	local top = -8;
 	local left = 5;
 	--enable profile
-	local frameProfile = W_createNCBtn("cbtnNA_Profile",NA_MaxProfile,self,"P:", top, left);
+	local frameProfile = W_createNCBtn("cbtnNA_Profile", NA_ProfileSize, self,"P:", top, left);
 
-	for i=0,NA_MaxProfile-1 do
+	for i=0,NA_ProfileSize-1 do
 		getglobal("cbtnNA_Profile"..i):SetScript("OnClick",
 		function(self, button, down)
 			NA_Option_Frame_Update();
@@ -83,18 +83,18 @@ function NA_Option_Frame_OnLoad(self)
 	spellLabel:SetTextColor(1,1,1,1);
 	spellLabel:SetPoint("BOTTOMLEFT",frameFlag, "BOTTOMLEFT", 0, -18);
 	spellLabel:SetHeight(20);
-	spellLabel:SetWidth(90);
+	spellLabel:SetWidth(100);
 
 	W_UpdateLabelText('NA_SpellLabel', "debug....");
 
 	self:SetHeight(top*-1+40);
-	self:SetWidth(95);
+	self:SetWidth(110);
 	self:Show();
 end
 
 function NA_Option_Frame_Update()
 	NA_ProfileNo = -1;
-	for i=0,NA_MaxProfile-1 do
+	for i=0,NA_ProfileSize-1 do
 		local cbtnProfile = getglobal("cbtnNA_Profile"..i);
 		if(NA_ProfileNo == -1 and cbtnProfile:GetChecked())then
 			NA_ProfileNo = i;

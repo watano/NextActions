@@ -64,7 +64,7 @@ function NA11Dps()
       elseif(NA_ProfileNo == 0)then --Bear
         local hasThrash = W_RetainBuff(NA_Target, -77758, true);   --痛击dot
 				local countLacerate = W_BuffCount(NA_Target, -33745, true);   --割伤dot
-				local hasFs = W_RetainBuff(NA_Player, 80313, true);   --粉碎buff
+				local hasFs = W_RetainBuff(NA_Player, 158792, true);   --粉碎buff
 				local notTanking = not NA_IsSolo and not W_isTanking();
 				
 				

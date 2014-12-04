@@ -5,10 +5,10 @@ NA_IsTest = false;
 NA_LogLevel = 3; -- 1 - 5
 NA_CurrClass = "DEATHKNIGHT";
 NA_ProfileNo = 0;
+NA_ProfileSize = 3;
 NA_Actions = nil;
 NA_ClassInfo = nil;
 NA_PreviousSpell = nil;
-NA_MaxProfile = 3;
 NA_IsAOE = false;
 NA_IsMaxDps = false;
 NA_IsSolo = false;
@@ -33,6 +33,7 @@ end
 
 function NA_initClassData(className, profileNo)
 	NA_ProfileName = '';
+		NA_ProfileSize = 3;
 	if(className == "WARRIOR") then
 		NA_Actions = getNA1Actions(profileNo);
 		NA_ProfileName = NA1ProfileNames[profileNo];
@@ -77,6 +78,7 @@ function NA_initClassData(className, profileNo)
 		NA_Actions = getNA11Actions(profileNo);
 		NA_ProfileName = NA11ProfileNames[profileNo];
 		NA_MaxDps = NA11Dps;
+		NA_ProfileSize = 4;
 	else
 		W_Log(4, "不能支持此职业!");
 		return nil;
