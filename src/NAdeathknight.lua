@@ -122,7 +122,8 @@ function NA6Dps()
 					or NA_Fire(not retainFrostFever, '45477', NA_Target) --冰冷触摸
 					or NA_Fire(not retainBloodPlague, '45462', NA_Target) --暗影打击
 					or NA_Fire(W_PowerLevel(NA_Player) > 0.6, '47541', NA_Target) --凋零缠绕
-					or NA_Fire(true, '49998', NA_Target) --灵界打击
+					or NA_Fire(W_HPlevel(NA_Player) < 0.8, '49998', NA_Target) --灵界打击
+					or NA_Fire(true, '114866', NA_Target) --灵魂收割
 
         ))then return true; end
   
@@ -146,8 +147,9 @@ function NA6Dps()
 					or NA_Fire(not retainBloodPlague, '45462', NA_Target) --暗影打击
 					or NA_Fire(W_PowerLevel(NA_Player) > 0.6, '47541', NA_Target) --凋零缠绕
 					or NA_Fire(NA_IsMaxDps and retainFrostFever and retainBloodPlague, '50842', NA_Target) --血液沸腾
+					or NA_Fire(W_HPlevel(NA_Player) < 0.8, '49998', NA_Target) --灵界打击
+					or NA_Fire(true, '114866', NA_Target) --灵魂收割
 					or NA_Fire(not NA_IsMaxDps, '50842', NA_Target) --血液沸腾
-					or NA_Fire(true, '49998', NA_Target) --灵界打击
 
         ))then return true; end
       elseif(NA_ProfileNo == 2)then --Dual-Wield Frost

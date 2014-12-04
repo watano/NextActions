@@ -1,11 +1,11 @@
 function getNA7Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'8050','117012','51505','117014','30823','2894','165462','108281','8004','8042','3599','108285','165339','403','421','79206','108271','108270','2062'};
+    return {'8050','57994','117012','51505','117014','30823','2894','165462','108281','8004','8042','3599','108285','165339','403','421','79206','108271','108270','2062'};
   elseif(no == 1)then
-    return {'324','403','17364','60103','8050','73680','8056','3599','51533','165341','2894'};
+    return {'324','57994','403','17364','60103','8050','73680','8056','3599','51533','165341','2894'};
   elseif(no == 2)then
-    return {'108271','108270','16188','8004','5394','974','52127','73685','61295','1064','77472','165344','79206'};
+    return {'57994','108271','108270','16188','8004','5394','974','52127','73685','61295','1064','77472','165344','79206'};
   end
   return {};
 end
@@ -52,6 +52,7 @@ function NA7Dps()
         
         if(not NA_IsAOE and (false
 					or NA_Fire(not lyzj or W_BuffTime(NA_Target,-8050)<9, '8050', NA_Target) --烈焰震击
+					or NA_Fire(NA_SpellInterrupt(NA_Target), '57994', NA_Target) --风剪
 					or NA_Fire(true, '117012', NA_Player) --怒火释放
 					or NA_Fire(true, '51505', NA_Target) --熔岩爆裂
 					or NA_Fire(true, '117014', NA_Target) --元素冲击
@@ -83,6 +84,7 @@ function NA7Dps()
         
         if(not NA_IsAOE and (false
 					or NA_Fire(not sdzd, '324', NA_Player) --闪电之盾
+					or NA_Fire(NA_SpellInterrupt(NA_Target), '57994', NA_Target) --风剪
 					or NA_Fire(xwwq==5, '403', NA_Target) --闪电箭
 					or NA_Fire(true, '17364', NA_Target) --风暴打击
 					or NA_Fire(true, '60103', NA_Target) --熔岩猛击
@@ -104,6 +106,7 @@ function NA7Dps()
 				
         
         if(not NA_IsAOE and (false
+					or NA_Fire(NA_SpellInterrupt(NA_Target), '57994', NA_Target) --风剪
 
         ))then return true; end
   

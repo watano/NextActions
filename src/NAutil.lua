@@ -586,3 +586,53 @@ function NA_checkHP(index)
 		return false;
 	end
 end
+
+--技能打断确认
+function NA_SpellInterrupt(UnitId)
+	return false;
+--	local _, _, _, _, _, endTime, _, _, notinterrupt= UnitCastingInfo(NA_Target);
+--	local finish = endTime/1000 - GetTime();
+--	if (finish~=0 and not notinterrupt) then
+--		return true;
+--	else
+--		return false;
+--	end
+end
+
+
+--buff偷取确认
+function NA_CheckBuff(UnitId)
+	for i=1,40 do local _, _, _, _, _, _, _, _, isStealable= UnitBuff(UnitId,i); 
+		if isStealable==1 then
+		return true;
+		end
+	end
+	return false;
+end
+
+function NA_CountLowPlayers(minHPLevel)
+	local posX, posY, posZ, terrainMapID = UnitPosition(NA_Target);
+	local targetName, targetRealm = UnitName(NA_Target)
+	local count = 0;
+	local maxPlayer = 4;
+	local unitPrefix = "party";
+
+	if(UnitInRaid(NA_Player) == 1)then 
+		maxPlayer = 40;
+		unitPrefix = "raid";
+	end
+		for i=1,maxPlayer do 
+			local unitID = unitPrefix..i;
+			if(UnitExists(unitID)==1)then
+				local targetName2, targetRealm2 = UnitName(unitID);
+				if(targetName2 ~= targetName and targetRealm2~=targetRealm)then 
+					local posX2, posY2, posZ2, terrainMapID2 = UnitPosition(unitID);
+					local hpLevel = W_HPlevel(unitID);
+					if(terrainMapID2==terrainMapID and hpLevel < minHPLevel and posX2-posX<10 and posY2-posY<10 and posZ2-posZ<10)then
+						count = count +1;
+					end
+				end		
+			end
+		end
+	return count;
+end

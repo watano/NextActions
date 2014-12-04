@@ -1,11 +1,11 @@
 function getNA5Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'123040','14914','585','47540','33206','17','81700','33076','2061','2060','596','120644','132157','21562'};
+    return {'123040','14914','585','47540','15487','528','33206','17','527','81700','33076','2061','2060','596','120644','132157','586','19236','21562'};
   elseif(no == 1)then
-    return {'123040','14914','585','47788','17','139','34861','33076','2061','2060','596','120644','32546'};
+    return {'123040','14914','585','528','47788','17','527','139','34861','33076','2061','2060','596','120644','32546','586','19236','21562'};
   elseif(no == 2)then
-    return {'8092','589','34914','32379','123040','2944','120644','15407','15286','47585','586','19236','17'};
+    return {'8092','589','34914','15487','528','32379','123040','2944','120644','15407','15286','47585','586','19236','17','21562','15473'};
   end
   return {};
 end
@@ -25,11 +25,17 @@ function NA5Dps()
       elseif(NA_ProfileNo == 0)then --Discipline
         
         if(false
+					or NA_Fire(NA_checkHP(0), '586', NA_Player) --渐隐术
+					or NA_Fire(NA_checkHP(1), '19236', NA_Player) --绝望祷言
+					or NA_Fire(NA_checkHP(1), '17', NA_Player) --真言术：盾
 
         )then return true; end
       elseif(NA_ProfileNo == 1)then --Holy
         
         if(false
+					or NA_Fire(NA_checkHP(0), '586', NA_Player) --渐隐术
+					or NA_Fire(NA_checkHP(1), '19236', NA_Player) --绝望祷言
+					or NA_Fire(NA_checkHP(1), '17', NA_Player) --真言术：盾
 
         )then return true; end
       elseif(NA_ProfileNo == 2)then --Shadow
@@ -54,6 +60,8 @@ function NA5Dps()
 					or NA_Fire(true, '14914', NA_Target) --神圣之火
 					or NA_Fire(true, '585', NA_Target) --惩击
 					or NA_Fire(true, '47540', NA_Target) --苦修
+					or NA_Fire(NA_SpellInterrupt(NA_Target), '15487', NA_Target) --沉默
+					or NA_Fire(true, '528', NA_Target) --驱散魔法
 
         ))then return true; end
   
@@ -68,6 +76,7 @@ function NA5Dps()
 					or NA_Fire(true, '123040', NA_Target) --摧心魔
 					or NA_Fire(true, '14914', NA_Target) --神圣之火
 					or NA_Fire(true, '585', NA_Target) --惩击
+					or NA_Fire(true, '528', NA_Target) --驱散魔法
 
         ))then return true; end
   
@@ -77,7 +86,7 @@ function NA5Dps()
       elseif(NA_ProfileNo == 2)then --Shadow
         local ayst = W_RetainBuff(NA_Target, -589, true);   --暗言术：痛
 				local xxgzc = W_RetainBuff(NA_Target, -34914, true);   --吸血鬼之触
-				local countShadowOrbs = UnitPower(NA_Player, SPELL_POWER_SHADOW_ORBS)  --暗影宝珠
+				local countShadowOrbs = UnitPower(NA_Player, 13)  --暗影宝珠
 				
 				
         
@@ -85,6 +94,8 @@ function NA5Dps()
 					or NA_Fire(true, '8092', NA_Target) --心灵震爆
 					or NA_Fire(not ayst, '589', NA_Target) --暗言术：痛
 					or NA_Fire(not xxgzc, '34914', NA_Target) --吸血鬼之触
+					or NA_Fire(NA_SpellInterrupt(NA_Target), '15487', NA_Target) --沉默
+					or NA_Fire(true, '528', NA_Target) --驱散魔法
 					or NA_Fire(true, '32379', NA_Target) --暗言术：灭
 					or NA_Fire(true, '123040', NA_Target) --摧心魔
 					or NA_Fire(countShadowOrbs == 3, '2944', NA_Target) --噬灵疫病
@@ -109,6 +120,7 @@ function NA5Dps()
         if(false
 					or NA_Fire(W_HPlevel(NA_Target)<0.4, '33206', NA_Target) --痛苦压制
 					or NA_Fire(W_HPlevel(NA_Target)<0.9 and not xrlh, '17', NA_Target) --真言术：盾
+					or NA_Fire(NA_CheckDebuff(NA_Target)==1 or NA_CheckDebuff(NA_Target)==2, '527', NA_Target) --纯净术
 					or NA_Fire(W_HPlevel(NA_Target)<0.6 and fycb>3, '81700', NA_Player) --天使长
 					or NA_Fire(W_HPlevel(NA_Target)<0.6 and tsz, '33076', NA_Target) --愈合祷言
 					or NA_Fire(W_HPlevel(NA_Target)<0.8, '47540', NA_Target) --苦修
@@ -132,6 +144,7 @@ function NA5Dps()
         if(false
 					or NA_Fire(W_HPlevel(NA_Target)<0.4, '47788', NA_Target) --守护之魂
 					or NA_Fire(W_HPlevel(NA_Target)<0.9 and not xrlh2, '17', NA_Target) --真言术：盾
+					or NA_Fire(NA_CheckDebuff(NA_Target)==1 or NA_CheckDebuff(NA_Target)==2, '527', NA_Target) --纯净术
 					or NA_Fire(W_HPlevel(NA_Target)<0.9 and not hf, '139', NA_Player) --恢复
 					or NA_Fire(W_HPlevel(NA_Target)<0.8, '34861', NA_Target) --治疗之环
 					or NA_Fire(W_HPlevel(NA_Target)<0.8 and mshc>0, '33076', NA_Target) --愈合祷言
@@ -164,11 +177,14 @@ function NA5Dps()
     elseif(NA_ProfileNo == 1)then --Holy
       
       if(false
+					or NA_Fire(not W_HasBuff(NA_Player, 21562, true), '21562', NA_Player) --真言术：韧
 
       )then return true; end
     elseif(NA_ProfileNo == 2)then --Shadow
       
       if(false
+					or NA_Fire(not W_HasBuff(NA_Player, 21562, true), '21562', NA_Player) --真言术：韧
+					or NA_Fire(not W_FormInfo(1), '15473', NA_Player) --暗影形态
 
       )then return true; end
     end

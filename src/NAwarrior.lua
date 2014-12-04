@@ -1,11 +1,11 @@
 function getNA1Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'355','5308','2565','6572','78','23922','20243','156321','100','57755','107570','114029','112048','12975','871','1160','34428','55694','103840','6673'};
+    return {'355','5308','2565','6572','78','23922','20243','156321','100','57755','107570','6552','114029','112048','12975','871','1160','34428','55694','103840','6673'};
   elseif(no == 1)then
-    return {'5308','23881','107570','100130','85288','34428','100','57755','46924','1680','103840','6673'};
+    return {'5308','23881','107570','100130','85288','34428','100','57755','6552','46924','1680','103840','6673'};
   elseif(no == 2)then
-    return {'772','156287','167105','12294','107570','176286','118000','163201','1464','34428','103840','100','57755','6673'};
+    return {'772','6552','156287','167105','12294','107570','176286','118000','163201','1464','34428','103840','100','57755','6673'};
   end
   return {};
 end
@@ -75,6 +75,7 @@ function NA1Dps()
   
         if(NA_IsAOE and (false
 					or NA_Fire(notTanking, '355', NA_Target) --嘲讽
+					or NA_Fire(NA_SpellInterrupt(NA_Target), '6552', NA_Target) --拳击
 					or NA_Fire(W_PowerLevel(NA_Player) < 0.5, '6572', NA_Target) --复仇
 					or NA_Fire(true, '23922', NA_Target) --盾牌猛击
 					or NA_Fire(W_BuffCount(NA_Target, -113746, true)<3, '20243', NA_Target) --毁灭打击
@@ -107,6 +108,7 @@ function NA1Dps()
   
         if(NA_IsAOE and (false
 					or NA_Fire(true, '5308', NA_Target) --斩杀
+					or NA_Fire(NA_SpellInterrupt(NA_Target), '6552', NA_Target) --拳击
 					or NA_Fire(NA_IsMaxDps, '46924', NA_Target) --剑刃风暴
 					or NA_Fire(true, '1680', NA_Target) --旋风斩
 					or NA_Fire(W_PowerLevel(NA_Player) < 0.7, '23881', NA_Target) --嗜血
@@ -125,6 +127,7 @@ function NA1Dps()
         
         if(not NA_IsAOE and (false
 					or NA_Fire(not hassl and not hasjrdj, '772', NA_Target) --撕裂
+					or NA_Fire(NA_SpellInterrupt(NA_Target), '6552', NA_Target) --拳击
 					or NA_Fire(W_GetSpellCooldown(167105)<4, '156287', NA_Target) --破坏者
 					or NA_Fire(true, '167105', NA_Target) --巨人打击
 					or NA_Fire(true, '12294', NA_Target) --致死打击
