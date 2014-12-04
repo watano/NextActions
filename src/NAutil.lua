@@ -599,6 +599,21 @@ function NA_SpellInterrupt(UnitId)
 --	end
 end
 
+--debuff驱散确认
+function NA_CheckDebuff(UnitId)
+	for i=1,40 do local _, _, _, _, debuffType= UnitDebuff(UnitId,i,"CANCELABLE"); 
+		if debuffType=="Magic" then
+		return 1;
+		elseif debuffType=="Disease" then
+		return 2;
+		elseif debuffType=="Poison" then
+		return 3;
+		elseif debuffType=="Curse" then
+		return 4;
+		end
+	end
+	return false;
+end
 
 --buff偷取确认
 function NA_CheckBuff(UnitId)
