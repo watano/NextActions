@@ -71,8 +71,8 @@ function NA11Dps()
         
         if(not NA_IsAOE and (false
 					or NA_Fire(not NA_IsSolo and not W_HasBuff(NA_Target, -770, true), '770', NA_Target) --精灵之火
-					or NA_Fire(inbear and countLacerate>2 and (not hasFs or W_BuffTime(NA_Player, 80313, true)<4), '80313', NA_Target) --80313
-					or NA_Fire(inbear and NA_SpellInterrupt(NA_Target), '106839', NA_Target) --迎头痛击
+					or NA_Fire(inBear and countLacerate>2 and (not hasFs or W_BuffTime(NA_Player, 80313, true)<4), '80313', NA_Target) --80313
+					or NA_Fire(inBear and NA_SpellInterrupt(NA_Target), '106839', NA_Target) --迎头痛击
 					or NA_Fire(inBear and notTanking, '6795', NA_Target) --低吼
 					or NA_Fire(inBear and W_RetainBuff(NA_Player, 135286, true), '6807', NA_Target) --重殴
 					or NA_Fire(inBear and not hasThrash, '106832', NA_Target) --痛击
