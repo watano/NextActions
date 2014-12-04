@@ -3,7 +3,7 @@ function getNA4Actions(no)
   elseif(no == 0)then
     return {'111240','1766','32645','1943','14185','1856','5171','8676','79140','1329','1784','2823','108211'};
   elseif(no == 1)then
-    return {'8676','1766','5171','84617','51690','13750','2098','14185','1856','1752','1966','73651','31224','5277','74001','1784','2823','108211'};
+    return {'14185','152151','8676','1856','36554','13750','5171','137619','121411','2098','84617','1752','1784','2823','108211'};
   elseif(no == 2)then
     return {'8676','1766','14183','16511','53','51713','2098','14185','1856','152151','5171','1943','1784','2823','108211'};
   end
@@ -16,7 +16,7 @@ function NA4Dps()
   W_Log(1,"盗贼 dps");
   local hasxg = W_RetainBuff(NA_Player, 1966, true);   --佯攻
 	
-	
+	local hasxg = W_RetainBuff(NA_Player, 1966, true);   --佯攻
 	
 	
 	
@@ -32,11 +32,6 @@ function NA4Dps()
       elseif(NA_ProfileNo == 1)then --Combat
         
         if(false
-					or NA_Fire(NA_checkHP(1) and not hasyg, '1966', NA_Player) --佯攻
-					or NA_Fire(NA_checkHP(1), '73651', NA_Player) --复原
-					or NA_Fire(NA_checkHP(1), '31224', NA_Player) --暗影斗篷
-					or NA_Fire(NA_checkHP(0), '5277', NA_Player) --闪避
-					or NA_Fire(NA_checkHP(2), '74001', NA_Player) --备战就绪
 
         )then return true; end
       elseif(NA_ProfileNo == 2)then --Subtlety
@@ -80,23 +75,35 @@ function NA4Dps()
       elseif(NA_ProfileNo == 1)then --Combat
         local hasys = W_RetainBuff(NA_Player, 11327, true);   --隐身
 				local hasqx = W_RetainBuff(NA_Player, 1784, true);   --潜行
+				local hasmd = W_RetainBuff(NA_Player, 121153, true);   --盲点
+				local hasyhdj = W_RetainBuff(NA_Target, 84617, true);   --要害打击
+				local countyg = W_BuffCount(NA_Player, 114015);   --预感
+				local countckdjz = W_BuffCount(NA_Player, 84654);   --刺客的狡诈
+				local countyhdj = W_BuffCount(NA_Target, 84617);   --要害打击
+				local hasayfs = W_RetainBuff(NA_Player, 152151, true);   --暗影反射
 				local hasqg = W_RetainBuff(NA_Player, 5171, true);   --切割
-				local hasyhdj = W_RetainBuff(NA_Target, -84617, true);   --要害打击
+				local hasgl = W_RetainBuff(NA_Target, -1943, true);   --割裂
+				local hascd = W_RetainBuff(NA_Player, 13750, true);   --冲动
+				local hasxhfb = W_RetainBuff(NA_Target, -121411, true);   --猩红风暴
+				local talentyg = GetTalentRowSelectionInfo(15);   --天赋预感选择
+				local talentayjz = GetTalentRowSelectionInfo(3);   --天赋暗影集中选择
+				local talentgz = GetTalentRowSelectionInfo(2);   --天赋诡诈选择
 				
 				
         
         if(not NA_IsAOE and (false
+					or NA_Fire(not hasys and W_GetSpellCooldown(1856)>60, '14185', NA_Player) --伺机待发
+					or NA_Fire(W_GetSpellCooldown(51690)<10 and UnitPower(NA_Player,4)>3 or hascd, '152151', NA_Player) --152151
 					or NA_Fire(hasys or hasqx, '8676', NA_Target) --伏击
-					or NA_Fire(NA_SpellInterrupt(NA_Target), '1766', NA_Target) --脚踢
-					or NA_Fire(not hasqg and UnitPower(NA_Player,4)>0, '5171', NA_Player) --切割
-					or NA_Fire(true, '84617', NA_Target) --要害打击
-					or NA_Fire(W_GetSpellCooldown(1752)>0 and UnitPower(NA_Player)<30, '51690', NA_Target) --影舞步
-					or NA_Fire(true, '13750', NA_Player) --冲动
-					or NA_Fire(UnitPower(NA_Player,4)>4, '2098', NA_Target) --刺骨
-					or NA_Fire(not hasyhdj and W_GetSpellCooldown(1856)>60 and W_GetSpellCooldown(14185)==0, '14185', NA_Player) --伺机待发
-					or NA_Fire(not hasyhdj, '84617', NA_Target) --要害打击
-					or NA_Fire(true, '1856', NA_Player) --消失
-					or NA_Fire(true, '1752', NA_Target) --影袭
+					or NA_Fire((UnitPower(NA_Player,4)<3 or (talentyg and countyg<3) or (UnitPower(NA_Player,4)<4 (talentyg and countyg<4))) and ((talentayjz and not hascd and UnitPower(NA_Player)<20) or (talentgz and UnitPower(NA_Player)>=90) or (not talentayjz and not talentgz and UnitPower(NA_Player)>=60)), '1856', NA_Player) --消失
+					or NA_Fire(UnitPower(NA_Player)<50 and (not talentzyfs or W_GetSpellCooldown(152151)>30 or W_BuffTime(NA_Player, 152151)>3), '36554', NA_Target) --暗影步
+					or NA_Fire(UnitPower(NA_Player)<35, '13750', NA_Player) --冲动
+					or NA_Fire(W_BuffTime(NA_Player, 5171)<2 or (W_BuffTime(NA_Player, 5171)<15 and countckdjz==11 and UnitPower(NA_Player,4)>=4), '5171', NA_Target) --切割
+					or NA_Fire(UnitPower(NA_Player,4)<=1 and hasyhdj and (not talentayfs or hasayfs or W_GetSpellCooldown(152151)>30), '137619', NA_Target) --死亡标记
+					or NA_Fire(W_BuffTime(NA_Target, -121411)<=1 and (UnitPower(NA_Player,4)==5 and (hasmd or not talentyg or (talentyg and countyg>=4))), '121411', NA_Target) --猩红风暴
+					or NA_Fire(UnitPower(NA_Player,4)==5 and (hasmd or not talentyg or (talentyg and countyg>=4)), '2098', NA_Target) --刺骨
+					or NA_Fire(countyhdj<2 and (UnitPower(NA_Player,4)<5 or (talentyg and countyg<=4 and not hasmd)), '84617', NA_Target) --要害打击
+					or NA_Fire(UnitPower(NA_Player,4)<5 or (talentyg and countyg<=4 and not hasmd), '1752', NA_Player) --影袭
 
         ))then return true; end
   
