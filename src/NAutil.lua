@@ -394,7 +394,8 @@ function W_StarCount(runetype)
 end
 
 function W_PaladinPower(unit)
-	return UnitPower(unit, SPELL_POWER_HOLY_POWER);
+	--return UnitPower(unit, SPELL_POWER_HOLY_POWER);
+        return UnitPower(unit,9);
 end
 
 function w_GetComboPoints(unit)
@@ -532,21 +533,21 @@ end
 --姿态检测
 function W_FormInfo(Num)
     local texture,name,isactive,isCastable = GetShapeshiftFormInfo(Num);
+    if texture then
     if isactive then
        return true;
-    else 
-       return false;
-    end;
+        end
+    end
+    return false;
 end
 
 --日月能方向检测
 function W_SunPowerDir()
-    local dir = GetEclipseDirection();
-      if dir=="sun" then
+    local direction = GetEclipseDirection();
+      if direction == "sun" then
          return true;
-      elseif dir=="moon" then
-         return false;
       end
+    return false;
 end
 
 --日月能能量检测
@@ -590,25 +591,26 @@ end
 --技能打断确认
 function NA_SpellInterrupt(UnitId)
 	return false;
---	local _, _, _, _, _, endTime, _, _, notinterrupt= UnitCastingInfo(NA_Target);
---	local finish = endTime/1000 - GetTime();
---	if (finish~=0 and not notinterrupt) then
+--	local spell, _, _, _, _, endTime, _, _, notinterrupt= UnitCastingInfo(NA_Target);
+--	if (spell and not notinterrupt) then
+--	    local finish = endTime/1000 - GetTime();
+--	    if (finish~=0) then
 --		return true;
---	else
---		return false;
---	end
+--	    end
+--        end
+--	return false;
 end
 
 --debuff驱散确认
 function NA_CheckDebuff(UnitId)
-	for i=1,40 do local _, _, _, _, debuffType= UnitDebuff(UnitId,i,"CANCELABLE"); 
-		if debuffType=="Magic" then
+	for i=1,40 do local _, _, _, _, debuffType= UnitDebuff(UnitId,i,1); 
+		if debuffType=="Magic" then --魔法
 		return 1;
-		elseif debuffType=="Disease" then
+		elseif debuffType=="Disease" then --疾病
 		return 2;
-		elseif debuffType=="Poison" then
+		elseif debuffType=="Poison" then --毒药
 		return 3;
-		elseif debuffType=="Curse" then
+		elseif debuffType=="Curse" then  --诅咒
 		return 4;
 		end
 	end
@@ -616,38 +618,105 @@ function NA_CheckDebuff(UnitId)
 end
 
 --buff偷取确认
-function NA_CheckBuff(UnitId)
-	for i=1,40 do local _, _, _, _, _, _, _, _, isStealable= UnitBuff(UnitId,i); 
-		if isStealable==1 then
-		return true;
+function NA_CheckBuffStealable(UnitId)
+	for i=1,40 do local name, rank, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate, spellId, canApplyAura, isBossDebuff, value1, value2, value3= UnitBuff(UnitId,i); 
+		if name and isStealable==1 then
+			return true;
 		end
 	end
 	return false;
 end
 
-function NA_CountLowPlayers(minHPLevel)
-	local posX, posY, posZ, terrainMapID = UnitPosition(NA_Target);
-	local targetName, targetRealm = UnitName(NA_Target)
+function NA_CountLowPlayers(UnitId,minHPLevel,Range)
+	local posX, posY, posZ, terrainMapID = UnitPosition(UnitId);
+	local targetName, targetRealm = UnitName(UnitId);
 	local count = 0;
-	local maxPlayer = 4;
-	local unitPrefix = "party";
+	local maxPlayer = GetNumGroupMembers();
+	--local unitPrefix = "party";
 
-	if(UnitInRaid(NA_Player) == 1)then 
-		maxPlayer = 40;
-		unitPrefix = "raid";
-	end
+	--if(UnitInRaid(NA_Player) == 1)then 
+		--maxPlayer = GetNumGroupMembers();
+		--unitPrefix = "raid";
+	--end
 		for i=1,maxPlayer do 
-			local unitID = unitPrefix..i;
-			if(UnitExists(unitID)==1)then
-				local targetName2, targetRealm2 = UnitName(unitID);
+			local UnitId2 = GetRaidRosterInfo(i);
+			if(UnitExists(UnitId2)==1)then
+				local targetName2, targetRealm2 = UnitName(UnitId2);
 				if(targetName2 ~= targetName and targetRealm2~=targetRealm)then 
-					local posX2, posY2, posZ2, terrainMapID2 = UnitPosition(unitID);
-					local hpLevel = W_HPlevel(unitID);
-					if(terrainMapID2==terrainMapID and hpLevel < minHPLevel and posX2-posX<10 and posY2-posY<10 and posZ2-posZ<10)then
+					local posX2, posY2, posZ2, terrainMapID2 = UnitPosition(UnitId2);
+					local hpLevel = W_HPlevel(UnitId2);
+					if(terrainMapID2==terrainMapID and hpLevel < minHPLevel and posX2-posX<Range and posY2-posY<Range and posZ2-posZ<Range)then
 						count = count +1;
 					end
 				end		
 			end
 		end
 	return count;
+end
+
+function NA_Autofollow()
+    if ( CheckInteractDistance(NA_Target, 2) and UnitCanAssist(NA_Player, NA_Target) and UnitIsPlayer(NA_Target) ) then
+       FollowUnit(NA_Target);
+    end
+end
+
+--进攻驱散
+function NA_CheckEnrage(UnitId)
+	for i=1,40 do local name, _, _, _, buffType= UnitBuff(UnitId,i,1); 
+	    if name then
+		if buffType=="Enrage effect" then
+		    return true;
+		end
+	    end
+	end
+	return false;
+end
+
+--AOE技能测试
+function NA_AOE()
+	NA_ShowVars(201);
+	return true;
+end
+
+--职责测试
+function NA_CheckRoles(UnitId)
+	local roleToken = UnitGroupRolesAssigned(UnitId);
+	if roleToken == "TANK" then
+	    return 1;
+	  elseif roleToken == "HEALER" then
+	    return 2;
+          elseif roleToken == "DAMAGER" then
+	    return 3;
+	  end
+	return false;
+end
+
+function NA_CheckRace(UnitId)
+	local raceName, raceId = UnitRace(UnitId);
+	if raceId == "Draenei" then
+	    return 1;
+	end
+	return false;
+end
+
+function NA_CheckGlyph(GlyphId)
+	for i=1,3 do
+	local n=i*2;
+	local enabled,_,_,_,_,glyphID2 = GetGlyphSocketInfo(n); 
+	   if enabled then
+		if GlyphId==glyphID2 then
+		  return true;
+		end
+           end
+	end
+	return false;
+end
+function NA_isUsableTalentSpell(tier,column)
+	local talentID, name, texture, selected, available  = GetTalentInfo(tier,column,GetActiveSpecGroup());
+	if talentID then
+	    if (selected) then
+	       return true;
+	    end
+	end
+	return false;	
 end

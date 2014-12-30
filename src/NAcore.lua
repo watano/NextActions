@@ -38,6 +38,7 @@ function NA_initClassData(className, profileNo)
 		NA_Actions = getNA1Actions(profileNo);
 		NA_ProfileName = NA1ProfileNames[profileNo];
 		NA_MaxDps = NA1Dps;
+		NA_ProfileSize = 4;
 	elseif(className == "PALADIN") then
 		NA_Actions = getNA2Actions(profileNo);
 		NA_ProfileName = NA2ProfileNames[profileNo];
@@ -58,6 +59,7 @@ function NA_initClassData(className, profileNo)
 		NA_Actions = getNA6Actions(profileNo);
 		NA_ProfileName = NA6ProfileNames[profileNo];
 		NA_MaxDps = NA6Dps;
+        NA_ProfileSize = 4;
 	elseif(className == "SHAMAN") then
 		NA_Actions = getNA7Actions(profileNo);
 		NA_ProfileName = NA7ProfileNames[profileNo];
@@ -252,16 +254,13 @@ function NA_UpdateSpellTime(spellname, spellrank)
 end
 
 function NA_DoAction()
-	if(UnitIsDead(NA_Player) or UnitIsDead(NA_Target) or W_IsCasting(NA_Player) > 0.9
+	if(UnitIsDead(NA_Player) or W_IsCasting(NA_Player) > 0.9
 	or W_HasBuff(NA_Player, 1133) or W_HasBuff(NA_Player, 1131) or SpellIsTargeting()
 	or (IsMounted() and not W_HasBuff(NA_Player, 165803)) or IsFlying() or UnitInVehicle(NA_Player)) then
 		W_Log(1,"busy.....");
 		return false;
 	end
---	if(UnitName(NA_Target) == "艾雷·碎云" and IsMounted()) then
---		Dismount();
---		return false;
---	end --下马
+
 	if(NA_MaxDps())then
 		UIErrorsFrame:Clear();
 		return true;

@@ -1,7 +1,7 @@
 function getNA5Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'123040','14914','585','47540','15487','528','33206','17','527','81700','33076','2061','2060','596','120644','132157','586','19236','21562'};
+    return {'123040','14914','585','47540','15487','528','33206','596','120644','17','527','81700','33076','2061','2060','132157','586','19236','21562'};
   elseif(no == 1)then
     return {'123040','14914','585','528','47788','17','527','139','34861','33076','2061','2060','596','120644','32546','586','19236','21562'};
   elseif(no == 2)then
@@ -118,6 +118,9 @@ function NA5Dps()
 				
 				
         if(false
+					or NA_Fire(W_HPlevel(NA_Target)<0.4, '33206', NA_Target) --痛苦压制
+					or NA_Fire(NA_CountLowPlayers(NA_Target,0.8,10)>3, '596', NA_Target) --治疗祷言
+					or NA_Fire(NA_CountLowPlayers(NA_Target,0.7,10)>3, '120644', NA_Target) --光晕
 					or NA_Fire(W_HPlevel(NA_Target)<0.4, '33206', NA_Target) --痛苦压制
 					or NA_Fire(W_HPlevel(NA_Target)<0.9 and not xrlh, '17', NA_Target) --真言术：盾
 					or NA_Fire(NA_CheckDebuff(NA_Target)==1 or NA_CheckDebuff(NA_Target)==2, '527', NA_Target) --纯净术

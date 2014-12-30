@@ -96,8 +96,8 @@ function NA4Dps()
 					or NA_Fire(W_GetSpellCooldown(51690)<10 and UnitPower(NA_Player,4)>3 or hascd, '152151', NA_Player) --152151
 					or NA_Fire(hasys or hasqx, '8676', NA_Target) --伏击
 					or NA_Fire((UnitPower(NA_Player,4)<3 or (talentyg and countyg<3) or (UnitPower(NA_Player,4)<4 or (talentyg and countyg<4))) and ((talentayjz and not hascd and UnitPower(NA_Player)<20) or (talentgz and UnitPower(NA_Player)>=90) or (not talentayjz and not talentgz and UnitPower(NA_Player)>=60)), '1856', NA_Player) --消失
-					or NA_Fire(UnitPower(NA_Player)<50 and (not talentzyfs or W_GetSpellCooldown(152151)>30 or W_BuffTime(NA_Player, 152151)>3), '36554', NA_Target) --暗影步
-					or NA_Fire(UnitPower(NA_Player)<35, '13750', NA_Player) --冲动
+					or NA_Fire(UnitPower(NA_Player,3)<50 and (not talentzyfs or W_GetSpellCooldown(152151)>30 or W_BuffTime(NA_Player, 152151)>3), '36554', NA_Target) --暗影步
+					or NA_Fire(UnitPower(NA_Player,3)<35, '13750', NA_Player) --冲动
 					or NA_Fire(W_BuffTime(NA_Player, 5171)<2 or (W_BuffTime(NA_Player, 5171)<15 and countckdjz==11 and UnitPower(NA_Player,4)>=4), '5171', NA_Target) --切割
 					or NA_Fire(UnitPower(NA_Player,4)<=1 and hasyhdj and (not talentayfs or hasayfs or W_GetSpellCooldown(152151)>30), '137619', NA_Target) --死亡标记
 					or NA_Fire(W_BuffTime(NA_Target, -121411)<=1 and (UnitPower(NA_Player,4)==5 and (hasmd or not talentyg or (talentyg and countyg>=4))), '121411', NA_Target) --猩红风暴

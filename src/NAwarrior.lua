@@ -1,11 +1,11 @@
 function getNA1Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'355','5308','2565','6572','78','23922','20243','156321','100','57755','107570','6552','114029','112048','12975','871','1160','34428','55694','103840','6673'};
+    return {'112048','12975','871','1160','34428','55694','103840','355','5308','2565','6572','78','23922','20243','156321','100','57755','107570','6552','114029','6673'};
   elseif(no == 1)then
-    return {'5308','23881','107570','100130','85288','34428','100','57755','6552','46924','1680','103840','6673'};
+    return {'34428','103840','5308','23881','107570','100130','85288','100','57755','6552','46924','1680','6673'};
   elseif(no == 2)then
-    return {'772','6552','156287','167105','12294','107570','176286','118000','163201','1464','34428','103840','100','57755','6673'};
+    return {'34428','103840','772','6552','156287','167105','12294','107570','176286','118000','163201','1464','100','57755','6673'};
   end
   return {};
 end
@@ -25,28 +25,16 @@ function NA1Dps()
       elseif(NA_ProfileNo == 0)then --Protection
         
         if(false
-					or NA_Fire(W_HPlevel(NA_Player)<0.8, '112048', NA_Player) --盾牌屏障
-					or NA_Fire(W_HPlevel(NA_Player)<0.2, '12975', NA_Player) --破釜沉舟
-					or NA_Fire(W_HPlevel(NA_Player)<0.2, '871', NA_Player) --盾墙
-					or NA_Fire(W_HPlevel(NA_Player)<0.1, '1160', NA_Player) --挫志怒吼
-					or NA_Fire(W_HPlevel(NA_Player)<0.7, '34428', NA_Player) --乘胜追击
-					or NA_Fire(W_HPlevel(NA_Player)<0.5, '55694', NA_Player) --狂怒回复
-					or NA_Fire(not NA_IsMaxDps and W_HPlevel(NA_Player)<0.8, '34428', NA_Player) --乘胜追击
-					or NA_Fire(NA_IsSolo and W_HPlevel(NA_Player)<0.2, '103840', NA_Player) --胜利在望
 
         )then return true; end
       elseif(NA_ProfileNo == 1)then --Fury
         
         if(false
-					or NA_Fire(not NA_IsMaxDps and W_HPlevel(NA_Player)<0.8, '34428', NA_Player) --乘胜追击
-					or NA_Fire(NA_IsSolo and W_HPlevel(NA_Player)<0.2, '103840', NA_Player) --胜利在望
 
         )then return true; end
       elseif(NA_ProfileNo == 2)then --Arms
         
         if(false
-					or NA_Fire(not NA_IsMaxDps and W_HPlevel(NA_Player)<0.8, '34428', NA_Player) --乘胜追击
-					or NA_Fire(NA_IsSolo and W_HPlevel(NA_Player)<0.2, '103840', NA_Player) --胜利在望
 
         )then return true; end
       end
@@ -59,6 +47,14 @@ function NA1Dps()
 				
         
         if(not NA_IsAOE and (false
+					or NA_Fire(W_HPlevel(NA_Player)<0.8, '112048', NA_Player) --盾牌屏障
+					or NA_Fire(W_HPlevel(NA_Player)<0.2, '12975', NA_Player) --破釜沉舟
+					or NA_Fire(W_HPlevel(NA_Player)<0.2, '871', NA_Player) --盾墙
+					or NA_Fire(W_HPlevel(NA_Player)<0.1, '1160', NA_Player) --挫志怒吼
+					or NA_Fire(W_HPlevel(NA_Player)<0.7, '34428', NA_Player) --乘胜追击
+					or NA_Fire(W_HPlevel(NA_Player)<0.5, '55694', NA_Player) --狂怒回复
+					or NA_Fire(not NA_IsMaxDps and W_HPlevel(NA_Player)<0.8, '34428', NA_Player) --乘胜追击
+					or NA_Fire(NA_IsSolo and W_HPlevel(NA_Player)<0.2, '103840', NA_Player) --胜利在望
 					or NA_Fire(notTanking, '355', NA_Target) --嘲讽
 					or NA_Fire(W_HPlevel(NA_Target)<0.2, '5308', NA_Target) --斩杀
 					or NA_Fire(not dpgd, '2565', NA_Player) --盾牌格挡
@@ -74,6 +70,14 @@ function NA1Dps()
         ))then return true; end
   
         if(NA_IsAOE and (false
+					or NA_Fire(W_HPlevel(NA_Player)<0.8, '112048', NA_Player) --盾牌屏障
+					or NA_Fire(W_HPlevel(NA_Player)<0.2, '12975', NA_Player) --破釜沉舟
+					or NA_Fire(W_HPlevel(NA_Player)<0.2, '871', NA_Player) --盾墙
+					or NA_Fire(W_HPlevel(NA_Player)<0.1, '1160', NA_Player) --挫志怒吼
+					or NA_Fire(W_HPlevel(NA_Player)<0.7, '34428', NA_Player) --乘胜追击
+					or NA_Fire(W_HPlevel(NA_Player)<0.5, '55694', NA_Player) --狂怒回复
+					or NA_Fire(not NA_IsMaxDps and W_HPlevel(NA_Player)<0.8, '34428', NA_Player) --乘胜追击
+					or NA_Fire(NA_IsSolo and W_HPlevel(NA_Player)<0.2, '103840', NA_Player) --胜利在望
 					or NA_Fire(notTanking, '355', NA_Target) --嘲讽
 					or NA_Fire(NA_SpellInterrupt(NA_Target), '6552', NA_Target) --拳击
 					or NA_Fire(W_PowerLevel(NA_Player) < 0.5, '6572', NA_Target) --复仇
@@ -92,6 +96,8 @@ function NA1Dps()
 				
         
         if(not NA_IsAOE and (false
+					or NA_Fire(not NA_IsMaxDps and W_HPlevel(NA_Player)<0.8, '34428', NA_Player) --乘胜追击
+					or NA_Fire(NA_IsSolo and W_HPlevel(NA_Player)<0.2, '103840', NA_Player) --胜利在望
 					or NA_Fire(W_HPlevel(NA_Target)<0.2, '5308', NA_Target) --斩杀
 					or NA_Fire(W_PowerLevel(NA_Player) < 0.7, '23881', NA_Target) --嗜血
 					or NA_Fire(NA_IsMaxDps, '107570', NA_Target) --风暴之锤
@@ -107,6 +113,8 @@ function NA1Dps()
         ))then return true; end
   
         if(NA_IsAOE and (false
+					or NA_Fire(not NA_IsMaxDps and W_HPlevel(NA_Player)<0.8, '34428', NA_Player) --乘胜追击
+					or NA_Fire(NA_IsSolo and W_HPlevel(NA_Player)<0.2, '103840', NA_Player) --胜利在望
 					or NA_Fire(true, '5308', NA_Target) --斩杀
 					or NA_Fire(NA_SpellInterrupt(NA_Target), '6552', NA_Target) --拳击
 					or NA_Fire(NA_IsMaxDps, '46924', NA_Target) --剑刃风暴
@@ -126,6 +134,8 @@ function NA1Dps()
 				
         
         if(not NA_IsAOE and (false
+					or NA_Fire(not NA_IsMaxDps and W_HPlevel(NA_Player)<0.8, '34428', NA_Player) --乘胜追击
+					or NA_Fire(NA_IsSolo and W_HPlevel(NA_Player)<0.2, '103840', NA_Player) --胜利在望
 					or NA_Fire(not hassl and not hasjrdj, '772', NA_Target) --撕裂
 					or NA_Fire(NA_SpellInterrupt(NA_Target), '6552', NA_Target) --拳击
 					or NA_Fire(W_GetSpellCooldown(167105)<4, '156287', NA_Target) --破坏者
@@ -141,6 +151,8 @@ function NA1Dps()
         ))then return true; end
   
         if(NA_IsAOE and (false
+					or NA_Fire(not NA_IsMaxDps and W_HPlevel(NA_Player)<0.8, '34428', NA_Player) --乘胜追击
+					or NA_Fire(NA_IsSolo and W_HPlevel(NA_Player)<0.2, '103840', NA_Player) --胜利在望
 
         ))then return true; end
       end

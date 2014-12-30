@@ -244,7 +244,9 @@ ${cmdCodes(p.keepBuffCmds)}
     assistCodes += p.assistCodes;
     keepBuffCodes += p.keepBuffCodes;
 
-    print(p.name + '==' + actions.length.toString());
+	if(actions.length>35){
+		print(p.name + '==' + actions.length.toString());	
+	}
   }
 
   String code = '''
