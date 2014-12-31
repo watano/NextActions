@@ -78,7 +78,7 @@ class WOWClassInfo {
   List<WOWSpellInfo> spells = [];
   List<String> specNames = [];
   List<String> specCnNames = [];
-  List<String> specEnNames = [];
+  List<int> specIDs = [];
   List<List<WOWSpellInfo>> specs = [];
   List<WOWSpellInfo> talents = [];
 
@@ -101,7 +101,12 @@ class WOWClassInfo {
       }
     }
     for (WOWSpellInfo s in talents) {
-      if (s.getSpellNo(spell) != null) {
+      if (s.getSpellNo(spell) != null && s.filter.startsWith('talent:') && s.filter.endsWith('_${specIDs[index]}')) {
+        return s;
+      }
+    }
+    for (WOWSpellInfo s in talents) {
+      if (s.getSpellNo(spell) != null && s.filter.startsWith('talent:') && s.filter.endsWith('_0')) {
         return s;
       }
     }
@@ -124,7 +129,7 @@ class WOWSpellInfo {
   String name;
   String icon;
   String htmlDescription;
-  String specName = null;
+  String filter;
 
   String getSpellNo(String spell) {
     if (name == spell || icon == spell || no == spell) {
@@ -171,7 +176,7 @@ void fetchAll() {
   }
 }
 
-WOWSpellInfo buildSpellInfo(dynamic info, String minLevel) {
+WOWSpellInfo buildSpellInfo(dynamic info, String minLevel, String filter) {
   var spell = info['spell'];
   var spellInfo = new WOWSpellInfo();
   spellInfo.passive = (info['passive']).toString() == 'true' || (spell['castTime']).toString() == '被动';
@@ -179,6 +184,7 @@ WOWSpellInfo buildSpellInfo(dynamic info, String minLevel) {
   spellInfo.no = (spell['icon']).toString();
   spellInfo.spellID = spell['id'] as int;
   spellInfo.name = (spell['name']).toString();
+  spellInfo.filter = filter;
 
   for (String k in AllSpells.keys) {
     List info = AllSpells[k];
@@ -202,7 +208,7 @@ WOWClassInfo readClassInfo(int classID) {
   //normal spells
   String key = 'spells';
   for (Map item in info['spells']) {
-    classInfo.spells.add(buildSpellInfo(item, (item['minLevel']).toString()));
+    classInfo.spells.add(buildSpellInfo(item, (item['minLevel']).toString(), ''));
   }
 
   //spec spells
@@ -217,88 +223,29 @@ WOWClassInfo readClassInfo(int classID) {
     specName = specName.substring(0, 1).toUpperCase() + specName.substring(1);
     classInfo.specNames.add(specName);
     classInfo.specCnNames.add(spec['name'].toString());
-    classInfo.specEnNames.add(spec['bg'].toString());
+    classInfo.specIDs.add(spec['id']);
     classInfo.specs.add([]);
     List spells = spec['spells'];
     for (var i = 0; i < spells.length; i++) {
       var spell = spells[i];
-      classInfo.specs[specNo].add(buildSpellInfo(spell, (spell['minLevel']).toString()));
+      classInfo.specs[specNo].add(buildSpellInfo(spell, (spell['minLevel']).toString(), 'spec:${spec['id']}'));
     }
   }
 
   //talent spells
-  for (var talentNo = 0; talentNo < 18; talentNo++) {
+  for (var talentNo = 0; talentNo < 21; talentNo++) {
     int no = ((talentNo - talentNo % 3) ~/ 3).toInt();
-    classInfo.talents.add(buildSpellInfo(info['talents'][no][talentNo % 3][0], ((no + 1) * 15).toString()));
+    for(dynamic talentSpells in info['talents'][no][talentNo % 3]){
+      int minLevel = (no + 1) * 15;
+      if(minLevel>=100){
+        minLevel = 100;
+      }
+      classInfo.talents.add(buildSpellInfo(talentSpells, minLevel.toString(), 'talent:${talentNo}_${talentSpells['specId']}'));
+    }
   }
   return classInfo;
 }
 
-read4AllClass() {
-  String code = '''
-local listSpell = {}, {}
-local listItem = {},{}
-
-function initAllInfo(unitClass, unitLevel, telants)
-''';
-  for (WOWClassInfo ci in AllClassInfo) {
-    var classInfo = readClassInfo(ci.classID);
-    code += '\nif unitClass=="${classInfo.name}" then --${classInfo.classID.toString()}--${classInfo.cnName}';
-    for (WOWSpellInfo spellInfo in classInfo.spells) {
-      if (spellInfo.passive) {
-        continue;
-      }
-      code += '\n\tif(unitLevel>=${spellInfo.minLevel})then listSpell[\"${spellInfo.no}\"] = ${spellInfo.spellID}; end   --${spellInfo.name}--${spellInfo.htmlDescription}';
-    }
-
-    int i = 0;
-    for (String specName in classInfo.specNames) {
-      code += '\n\t--' + classInfo.specCnNames[i] + '--' + classInfo.specEnNames[i];
-      code += '\n\tif(telants == "${specName}")then';
-      for (WOWSpellInfo spellInfo in classInfo.specs[i]) {
-        if (spellInfo.passive) {
-          continue;
-        }
-        code += '\n\tif(unitLevel>=${spellInfo.minLevel})then listSpell[\"${spellInfo.no}\"] = ${spellInfo.spellID}; end   --${spellInfo.name}--${spellInfo.htmlDescription}';
-      }
-      i++;
-      code += '\n\tend';
-    }
-
-    i = 0;
-    code += '\n\t-------------------------talent-------------------------';
-    for (WOWSpellInfo spellInfo in classInfo.talents) {
-      if (spellInfo.passive) {
-        continue;
-      }
-      code += '\n\tif(unitLevel>=${spellInfo.minLevel})then listSpell[\"${spellInfo.no}\"] = ${spellInfo.spellID}; end   --${spellInfo.name}--${spellInfo.htmlDescription}';
-    }
-    code += '\nend';
-  }
-  code += '''\n\nend
-
-function NA_getAllSpell()
-  local allSpell = {}
-  for k in pairs(listSpell) do
-    allSpell[k] = {spellID=listSpell[k]}
-  end
-  return allSpell;
-end
-
-function NA_getSpellName(spellID)
-  for k,v in pairs(listSpell) do
-    if(v == spellID)then
-      return k;
-    end
-  end
-  return spellID;
-end
-''';
-  writeToFile(r'e:\work\projects\myprojects\NextActions\src\NAInfo.lua', code, encoding: 'utf-8');
-}
-
-
 void main() {
-  //read4AllClass();
   fetchAll();
 }

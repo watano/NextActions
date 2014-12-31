@@ -5,12 +5,12 @@ function getNA8Actions(no)
   elseif(no == 1)then
     return {'45438','11426','12472','30455','55342','44614','84714','112948','108839','116','120','31687','1459'};
   elseif(no == 2)then
-    return {'84714','1459'};
+    return {'108839','116011','152087','1459'};
   end
   return {};
 end
 
-NA8ProfileNames = {[0]='Arcane',[1]='Frost',[2]='Frost',};
+NA8ProfileNames = {[0]='Arcane',[1]='Frost',[2]='Fire',};
 
 function NA8Dps()
   W_Log(1,"法师 dps");
@@ -32,7 +32,7 @@ function NA8Dps()
         if(false
 
         )then return true; end
-      elseif(NA_ProfileNo == 2)then --Frost
+      elseif(NA_ProfileNo == 2)then --Fire
         
         if(false
 
@@ -89,16 +89,20 @@ function NA8Dps()
 					or NA_Fire(true, '84714', NA_Target) --寒冰宝珠
 
         ))then return true; end
-      elseif(NA_ProfileNo == 2)then --Frost
-        
+      elseif(NA_ProfileNo == 2)then --Fire
+        local hasfb = W_RetainBuff(NA_Player, 108839, true); --浮冰
+				local hasrs = W_RetainBuff(NA_Target, -11129, true); --燃烧
+				
 				
         
         if(not NA_IsAOE and (false
+					or NA_Fire(not hasfb, '108839', NA_Player) --浮冰
+					or NA_Fire(W_BuffTime(NA_Player,116011)<5, '116011', NA_Player) --能量符文
+					or NA_Fire(true, '152087', NA_Target) --幻灵晶体
 
         ))then return true; end
   
         if(NA_IsAOE and (false
-					or NA_Fire(true, '84714', NA_Target) --寒冰宝珠
 
         ))then return true; end
       end
@@ -116,7 +120,7 @@ function NA8Dps()
         if(false
 
         )then return true; end
-      elseif(NA_ProfileNo == 2)then --Frost
+      elseif(NA_ProfileNo == 2)then --Fire
         
 				
         if(false
@@ -145,7 +149,7 @@ function NA8Dps()
 					or NA_Fire(not W_HasBuff(NA_Player, 1459, true), '1459', NA_Player) --奥术光辉
 
       )then return true; end
-    elseif(NA_ProfileNo == 2)then --Frost
+    elseif(NA_ProfileNo == 2)then --Fire
       
       if(false
 					or NA_Fire(not W_HasBuff(NA_Player, 1459, true), '1459', NA_Player) --奥术光辉

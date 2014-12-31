@@ -5,7 +5,7 @@ function getNA9Actions(no)
   elseif(no == 1)then
     return {'113858','119898','18540','17877','80240','116858','348','17962','29722','114635','109773'};
   elseif(no == 2)then
-    return {'18540','74434','103103','689','48181','113860','980','172','30108','1122','86121','27243','109773'};
+    return {'755','689','6789','18540','74434','103103','48181','113860','980','172','30108','1122','86121','27243','109773'};
   end
   return {};
 end
@@ -114,21 +114,28 @@ function NA9Dps()
 				
         
         if(not NA_IsAOE and (false
+					or NA_Fire(not NA_IsMaxDps and W_HPlevel(NA_Player)<0.2, '755', NA_Pet) --生命通道
+					or NA_Fire(NA_checkHP(2), '689', NA_Target) --吸取生命
+					or NA_Fire(NA_checkHP(1), '6789', NA_Target) --死亡缠绕
 					or NA_Fire(NA_IsMaxDps, '18540', NA_Player) --召唤末日守卫
 					or NA_Fire(NA_IsMaxDps, '74434', NA_Player) --灵魂燃烧
 					or NA_Fire(W_HPlevel(NA_Target)<0.2, '103103', NA_Target) --吸取灵魂
 					or NA_Fire(W_HasBuff(NA_Player, 74434, true), '689', NA_Target) --吸取生命
 					or NA_Fire(W_HasBuff(NA_Player, 17941, true), '48181', NA_Target) --鬼影缠身
 					or NA_Fire(true, '113860', NA_Player) --黑暗灵魂：哀难
-					or NA_Fire(count980<10, '980', NA_Target) --痛楚
+					or NA_Fire(count980<10 or not W_RetainBuff(NA_Target, -980, true), '980', NA_Target) --痛楚
 					or NA_Fire(not retain146739, '172', NA_Target) --腐蚀术
 					or NA_Fire(not retain30108, '30108', NA_Target) --痛苦无常
 					or NA_Fire(not W_RetainBuff(NA_Target, -48181, true) and UnitPower(NA_Player, SPELL_POWER_SOUL_SHARDS)>0, '48181', NA_Target) --鬼影缠身
 					or NA_Fire(W_HPlevel(NA_Target)<0.2, '103103', NA_Target) --吸取灵魂
+					or NA_Fire(true, '30108', NA_Target) --痛苦无常
 
         ))then return true; end
   
         if(NA_IsAOE and (false
+					or NA_Fire(not NA_IsMaxDps and W_HPlevel(NA_Player)<0.2, '755', NA_Pet) --生命通道
+					or NA_Fire(NA_checkHP(2), '689', NA_Target) --吸取生命
+					or NA_Fire(NA_checkHP(1), '6789', NA_Target) --死亡缠绕
 					or NA_Fire(NA_IsMaxDps, '18540', NA_Player) --召唤末日守卫
 					or NA_Fire(NA_IsMaxDps, '1122', NA_Player) --召唤地狱火
 					or NA_Fire(NA_IsMaxDps, '74434', NA_Player) --灵魂燃烧

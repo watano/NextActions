@@ -1,11 +1,11 @@
 function getNA2Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'105809','498','96231','炽天使','86659','633','炙热防御者','642','62124','114163','53600','31935','119072','53595','20271','35395','20925','114157','31801','20154','114158','114165','26573','24275','19750','4987','6940','1022','1038','25780','20217','19740'};
+    return {'105809','498','96231','152262','86659','633','31850','642','62124','114163','53600','31935','119072','53595','20271','35395','20925','114157','31801','20154','114158','114165','26573','24275','19750','4987','6940','1022','1038','25780','20217','19740'};
   elseif(no == 1)then
-    return {'498','633','642','96231','19750','20925','85499','20271','114157','114158','105809','31884','炽天使','53385','85256','最终审判','24275','879','31801','20154','35395','114165','53595','4987','6940','1022','85673','20217','19740'};
+    return {'498','633','642','96231','19750','20925','85499','20271','114157','114158','105809','31884','152262','53385','85256','157048','24275','879','31801','20154','35395','114165','53595','4987','6940','1022','85673','20217','19740'};
   elseif(no == 2)then
-    return {'96231','24275','20271','20473','105593','853','53563','信仰道标','498','642','633','4987','6940','1022','85222','114163','85673','19750','82327','82326','114165','31842','20217','19740'};
+    return {'96231','24275','20271','20473','105593','853','53563','156910','498','642','633','4987','6940','1022','85222','114163','85673','19750','82327','82326','114165','31842','20217','19740'};
   end
   return {};
 end
@@ -53,10 +53,10 @@ function NA2Dps()
 					or NA_Fire(NA_isUsableTalentSpell(5,1) and NA_checkHP(1), '105809', NA_Player) --神圣复仇者
 					or NA_Fire(NA_checkHP(2) or not NA_isUsableTalentSpell(7,2) or (not W_RetainBuff(NA_Player, 152262, true) and W_GetSpellCooldown(152262)>5 and W_GetSpellCooldown(152262)<9), '498', NA_Player) --圣佑术
 					or NA_Fire(NA_SpellInterrupt(NA_Target), '96231', NA_Target) --责难
-					or NA_Fire(NA_checkHP(1) and NA_isUsableTalentSpell(7,2) and not W_RetainBuff(NA_Player, 498, true) and W_GetSpellCooldown(498)>0, '炽天使', NA_Player) --炽天使
+					or NA_Fire(NA_checkHP(1) and NA_isUsableTalentSpell(7,2) and not W_RetainBuff(NA_Player, 498, true) and W_GetSpellCooldown(498)>0, '152262', NA_Player) --炽天使
 					or NA_Fire(NA_checkHP(1) and not W_RetainBuff(NA_Player, 105809, true) and not W_RetainBuff(NA_Player, 53600, true) and not W_RetainBuff(NA_Player, 498, true), '86659', NA_Player) --远古列王守卫
 					or NA_Fire(NA_checkHP(0), '633', NA_Player) --圣疗术
-					or NA_Fire(NA_checkHP(0) and not W_RetainBuff(NA_Player, 105809, true) and not W_RetainBuff(NA_Player, 53600, true) and not W_RetainBuff(NA_Player, 498, true) and not W_RetainBuff(NA_Player, 86659, true), '炙热防御者', NA_Player) --炙热防御者
+					or NA_Fire(NA_checkHP(0) and not W_RetainBuff(NA_Player, 105809, true) and not W_RetainBuff(NA_Player, 53600, true) and not W_RetainBuff(NA_Player, 498, true) and not W_RetainBuff(NA_Player, 86659, true), '31850', NA_Player) --炽热防御者
 					or NA_Fire(W_HPlevel(NA_Player)<0.05, '642', NA_Player) --圣盾术
 					or NA_Fire(W_RetainBuff(NA_Player, 642, true), '62124', NA_Target) --清算
 					or NA_Fire(NA_isUsableTalentSpell(3,2) and W_BuffTime(NA_Player, 114163)<2 and W_BuffCount(NA_Player, 114637)>2 and (W_PaladinPower(NA_Player)>=3 or W_RetainBuff(NA_Player, 86172, true) or W_RetainBuff(NA_Player, 114637, true)), '114163', NA_Player) --永恒之火
@@ -124,15 +124,15 @@ function NA2Dps()
 					or NA_Fire(NA_isUsableTalentSpell(5,1) and W_PaladinPower(NA_Player)<=2 and not NA_isUsableTalentSpell(7,2), '105809', NA_Player) --神圣复仇者
 					or NA_Fire(W_RetainBuff(NA_Player, 152262, true) and NA_isUsableTalentSpell(7,2), '31884', NA_Player) --复仇之怒
 					or NA_Fire(not NA_isUsableTalentSpell(7,2), '31884', NA_Player) --复仇之怒
-					or NA_Fire(NA_isUsableTalentSpell(7,2), '炽天使', NA_Player) --炽天使
+					or NA_Fire(NA_isUsableTalentSpell(7,2), '152262', NA_Player) --炽天使
 					or NA_Fire(W_RetainBuff(NA_Player, 144595, true) and W_PaladinPower(NA_Player)==5 and W_RetainBuff(NA_Player, 157048, true), '53385', NA_Target) --神圣风暴
 					or NA_Fire(W_RetainBuff(NA_Player, 144595, true) and W_PaladinPower(NA_Player)==5 and not NA_isUsableTalentSpell(7,3), '53385', NA_Target) --神圣风暴
 					or NA_Fire(W_PaladinPower(NA_Player)==5 and W_RetainBuff(NA_Player, 157048, true), '53385', NA_Target) --神圣风暴
 					or NA_Fire(W_RetainBuff(NA_Player, 144595, true) and W_PaladinPower(NA_Player)==5 and (NA_isUsableTalentSpell(7,2) and W_GetSpellCooldown(152262)<=5), '53385', NA_Target) --神圣风暴
 					or NA_Fire(W_PaladinPower(NA_Player)==5 or W_RetainBuff(NA_Player, 105809, true) and W_PaladinPower(NA_Player)>=3 and (not NA_isUsableTalentSpell(7,2) or W_GetSpellCooldown(152262)>5), '85256', NA_Target) --圣殿骑士的裁决
 					or NA_Fire(W_RetainBuff(NA_Player, 144595, true) and W_BuffTime(NA_Player, 144595)<4 and not NA_isUsableTalentSpell(7,3), '53385', NA_Target) --神圣风暴
-					or NA_Fire(NA_isUsableTalentSpell(7,3) and W_PaladinPower(NA_Player)==5 or W_RetainBuff(NA_Player, 105809, true) and W_PaladinPower(NA_Player)>=3, '最终审判', NA_Target) --最终审判
-					or NA_Fire(NA_isUsableTalentSpell(7,3) and W_RetainBuff(NA_Player, 86172, true) and W_BuffTime(NA_Player, 86172)<4, '最终审判', NA_Target) --最终审判
+					or NA_Fire(NA_isUsableTalentSpell(7,3) and W_PaladinPower(NA_Player)==5 or W_RetainBuff(NA_Player, 105809, true) and W_PaladinPower(NA_Player)>=3, '157048', NA_Target) --最终审判
+					or NA_Fire(NA_isUsableTalentSpell(7,3) and W_RetainBuff(NA_Player, 86172, true) and W_BuffTime(NA_Player, 86172)<4, '157048', NA_Target) --最终审判
 					or NA_Fire(true, '24275', NA_Target) --愤怒之锤
 					or NA_Fire(NA_isUsableTalentSpell(7,1) and W_FormInfo(1) and W_BuffTime(NA_Player, 156990)<W_GetSpellCooldown(20271), '20271', NA_Target) --审判
 					or NA_Fire(true, '20271', NA_Target) --审判
@@ -140,13 +140,13 @@ function NA2Dps()
 					or NA_Fire(NA_isUsableTalentSpell(7,1) and W_FormInfo(2) and not W_RetainBuff(NA_Player, 156990, true) and W_BuffTime(NA_Player, 156990)<=3, '31801', NA_Player) --真理圣印
 					or NA_Fire(NA_isUsableTalentSpell(7,1) and not W_RetainBuff(NA_Player, 156989, true) and not W_RetainBuff(NA_Player, 31884, true) and not W_RetainBuff(NA_Player, 32182, true) and not W_RetainBuff(NA_Player, 80353, true), '20154', NA_Player) --正义圣印
 					or NA_Fire(W_RetainBuff(NA_Player, 144595, true) and W_RetainBuff(NA_Player, 157048, true) and (W_RetainBuff(NA_Player, 31884, true) or W_HPlevel(NA_Target)<0.35), '53385', NA_Target) --神圣风暴
-					or NA_Fire(NA_isUsableTalentSpell(7,3) and W_RetainBuff(NA_Player, 31884, true) or W_HPlevel(NA_Target)<0.35, '最终审判', NA_Target) --最终审判
+					or NA_Fire(NA_isUsableTalentSpell(7,3) and W_RetainBuff(NA_Player, 31884, true) or W_HPlevel(NA_Target)<0.35, '157048', NA_Target) --最终审判
 					or NA_Fire(W_RetainBuff(NA_Player, 31884, true) or W_HPlevel(NA_Target)<0.35 and (not NA_isUsableTalentSpell(7,2) or W_GetSpellCooldown(152262)>6), '85256', NA_Target) --圣殿骑士的裁决
 					or NA_Fire(W_PaladinPower(NA_Player)<5, '35395', NA_Target) --十字军打击
 					or NA_Fire(W_RetainBuff(NA_Player, 144595, true) and (W_RetainBuff(NA_Player, 31884, true) or W_HPlevel(NA_Target)<0.35) and not NA_isUsableTalentSpell(7,3), '53385', NA_Target) --神圣风暴
 					or NA_Fire(W_RetainBuff(NA_Player, 144595, true) and W_RetainBuff(NA_Player, 157048, true), '53385', NA_Target) --神圣风暴
-					or NA_Fire(NA_isUsableTalentSpell(7,3) and W_RetainBuff(NA_Player, 86172, true), '最终审判', NA_Target) --最终审判
-					or NA_Fire(W_PaladinPower(NA_Player)>=4, '最终审判', NA_Target) --最终审判
+					or NA_Fire(NA_isUsableTalentSpell(7,3) and W_RetainBuff(NA_Player, 86172, true), '157048', NA_Target) --最终审判
+					or NA_Fire(W_PaladinPower(NA_Player)>=4, '157048', NA_Target) --最终审判
 					or NA_Fire(NA_CheckGlyph(1009) and W_PaladinPower(NA_Player)<5 and W_GetSpellCooldown(152262)>3, '879', NA_Target) --驱邪术
 					or NA_Fire(W_RetainBuff(NA_Player, 86172, true), '85256', NA_Target) --圣殿骑士的裁决
 					or NA_Fire(W_RetainBuff(NA_Player, 144595, true) and not NA_isUsableTalentSpell(7,3), '53385', NA_Target) --神圣风暴
@@ -214,7 +214,7 @@ function NA2Dps()
 				
         if(false
 					or NA_Fire(NA_CheckRoles(NA_Target)==1 and not W_RetainBuff(NA_Target, 53563, true), '53563', NA_Target) --圣光道标
-					or NA_Fire(NA_CheckRoles(NA_Target)~=1 and NA_CheckTalent(7,1,activeSpec) and not W_RetainBuff(NA_Target, 156910, true) and W_HPlevel(NA_Target)<0.9, '信仰道标', NA_Target) --信仰道标
+					or NA_Fire(NA_CheckRoles(NA_Target)~=1 and NA_CheckTalent(7,1,activeSpec) and not W_RetainBuff(NA_Target, 156910, true) and W_HPlevel(NA_Target)<0.9, '156910', NA_Target) --信仰道标
 					or NA_Fire(NA_checkHP(1), '498', NA_Player) --圣佑术
 					or NA_Fire(NA_checkHP(0), '642', NA_Player) --圣盾术
 					or NA_Fire(W_HPlevel(NA_Target)<0.3, '633', NA_Target) --圣疗术

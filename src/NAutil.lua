@@ -590,15 +590,15 @@ end
 
 --技能打断确认
 function NA_SpellInterrupt(UnitId)
-	return false;
---	local spell, _, _, _, _, endTime, _, _, notinterrupt= UnitCastingInfo(NA_Target);
---	if (spell and not notinterrupt) then
---	    local finish = endTime/1000 - GetTime();
---	    if (finish~=0) then
---		return true;
---	    end
---        end
 --	return false;
+	local spell, _, _, _, _, endTime, _, _, notinterrupt= UnitCastingInfo(NA_Target);
+	if (spell and not notinterrupt) then
+	    local finish = endTime/1000 - GetTime();
+	    if (finish~=0) then
+		return true;
+	    end
+        end
+	return false;
 end
 
 --debuff驱散确认

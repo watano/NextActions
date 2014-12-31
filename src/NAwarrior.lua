@@ -5,7 +5,7 @@ function getNA1Actions(no)
   elseif(no == 1)then
     return {'34428','103840','5308','23881','107570','100130','85288','100','57755','6552','46924','1680','6673'};
   elseif(no == 2)then
-    return {'34428','103840','772','6552','156287','167105','12294','107570','176286','118000','163201','1464','100','57755','6673'};
+    return {'34428','103840','772','6552','152277','167105','12294','107570','176289','118000','163201','1464','100','57755','6673'};
   end
   return {};
 end
@@ -138,15 +138,15 @@ function NA1Dps()
 					or NA_Fire(NA_IsSolo and W_HPlevel(NA_Player)<0.2, '103840', NA_Player) --胜利在望
 					or NA_Fire(not hassl and not hasjrdj, '772', NA_Target) --撕裂
 					or NA_Fire(NA_SpellInterrupt(NA_Target), '6552', NA_Target) --拳击
-					or NA_Fire(W_GetSpellCooldown(167105)<4, '156287', NA_Target) --破坏者
+					or NA_Fire(W_GetSpellCooldown(167105)<4, '152277', NA_Target) --破坏者
 					or NA_Fire(true, '167105', NA_Target) --巨人打击
 					or NA_Fire(true, '12294', NA_Target) --致死打击
 					or NA_Fire(hasjrdj or W_GetSpellCooldown(167105)>4, '107570', NA_Target) --风暴之锤
-					or NA_Fire(true, '176286', NA_Target) --176286
+					or NA_Fire(true, '176289', NA_Target) --破城者
 					or NA_Fire(not hasjrdj, '118000', NA_Target) --巨龙怒吼
 					or NA_Fire(W_BuffTime(NA_Target,-772)<5, '772', NA_Target) --撕裂
 					or NA_Fire(hasjrdj or hascs or UnitPower(NA_Player,2)>60 or W_HPlevel(NA_Target)<0.2, '163201', NA_Target) --斩杀
-					or NA_Fire(W_HPlevel(NA_Target)>0.2, '1464', NA_Target) --1464
+					or NA_Fire(W_HPlevel(NA_Target)>0.2, '1464', NA_Target) --猛击
 
         ))then return true; end
   

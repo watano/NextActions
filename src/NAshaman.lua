@@ -1,7 +1,7 @@
 function getNA7Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'8050','57994','117012','51505','117014','30823','2894','165462','108281','8004','8042','3599','108285','165339','403','421','79206','108271','108270','2062'};
+    return {'8050','57994','165477','51505','117014','30823','2894','165462','108281','8004','8042','3599','108285','165339','403','421','79206','108271','108270','2062'};
   elseif(no == 1)then
     return {'324','57994','403','17364','60103','8050','73680','8056','3599','51533','165341','2894'};
   elseif(no == 2)then
@@ -28,6 +28,7 @@ function NA7Dps()
 					or NA_Fire(NA_checkHP(0), '108271', NA_Player) --星界转移
 					or NA_Fire(NA_checkHP(1), '108270', NA_Player) --石壁图腾
 					or NA_Fire(NA_checkHP(1), '2062', NA_Player) --土元素图腾
+					or NA_Fire(NA_checkHP(1), '8004', NA_Player) --治疗之涌
 
         )then return true; end
       elseif(NA_ProfileNo == 1)then --Enhancement
@@ -38,6 +39,8 @@ function NA7Dps()
       elseif(NA_ProfileNo == 2)then --Restoration
         
         if(false
+					or NA_Fire(NA_checkHP(1), '108270', NA_Player) --石壁图腾
+					or NA_Fire(NA_checkHP(1), '8004', NA_Player) --治疗之涌
 
         )then return true; end
       end
@@ -46,14 +49,14 @@ function NA7Dps()
       elseif(NA_ProfileNo == 0)then --Elemental
         local lyzj = W_RetainBuff(NA_Target, -8050, true);   --烈焰震击
 				local sdzd = W_BuffCount(NA_Player, 324);   --闪电之盾
-				--local qhsf = W_RetainBuff(NA_Player, 222222, true);   --强化释放
+				local sdzd2 = W_RetainBuff(NA_Player, 324, true);   --元素闪电之盾
 				
 				
         
         if(not NA_IsAOE and (false
 					or NA_Fire(not lyzj or W_BuffTime(NA_Target,-8050)<9, '8050', NA_Target) --烈焰震击
 					or NA_Fire(NA_SpellInterrupt(NA_Target), '57994', NA_Target) --风剪
-					or NA_Fire(true, '117012', NA_Player) --怒火释放
+					or NA_Fire(true, '165477', NA_Player) --怒火释放
 					or NA_Fire(true, '51505', NA_Target) --熔岩爆裂
 					or NA_Fire(true, '117014', NA_Target) --元素冲击
 					or NA_Fire(NA_checkHP(1), '30823', NA_Player) --萨满之怒

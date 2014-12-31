@@ -57,105 +57,6 @@ class CmdInfo {
   CmdInfo(this.cnd, this.spell, this.target);
 }
 
-String getSpellName(String spell, String spec) {
-  var spellInfo = classInfo.findSpell(spell, spec);
-  if (spellInfo != null && spellInfo.name != null) {
-    return spellInfo.name;
-  } else {
-    return spell;
-  }
-}
-
-String getBuffName(String spell, String spec) {
-  var buff = getSpellName(spell, spec);
-  if (buff == spell && AllBuffs[spell] != null) {
-    buff += ':' + (AllBuffs[spell][0] as int).toString();
-  }
-  return buff;
-}
-
-void parseSimc(int classID, String specName, String file) {
-  classInfo = readClassInfo(classID);
-  print('----------------------------------------${classInfo.cnName}------${specName}--------${file}');
-  var f = new File(file);
-  List<String> lines = f.readAsLinesSync();
-
-  //p.attackAOECmds.clear();
-  //p.attackCmds.clear();
-
-  for (String line in lines) {
-    line = line.trim();
-    if (line.startsWith('actions.aoe') || line.startsWith('actions.single_target') || line.startsWith('actions+=')) {
-      if (specName == 'Frost') {
-        line = line.replaceAll('soul_reaper', 'soul_reaper:Frost');
-      } else if (specName == 'Unholy') {
-        line = line.replaceAll('soul_reaper', 'soul_reaper:Unholy');
-      } else if (specName == 'Blood') {
-        line = line.replaceAll('soul_reaper', 'soul_reaper:Blood');
-      }
-      int start = line.indexOf('=/');
-      if (start < 0) {
-        start = line.indexOf('=') - 1;
-      }
-      int end = line.indexOf(', ');
-      if (end < 0) {
-        end = line.length;
-      }
-      //      String spell = line.substring(start+2, end);
-      //print('-----------' + getSpellName(spell, specName));
-      start = line.indexOf('if=');
-      String cnd = line;
-      if (start > 0) {
-        cnd = line.substring(start + 3, line.length);
-      }
-      cnd = cnd.replaceAll('&', ' and ');
-      cnd = cnd.replaceAll('|', ' or ');
-      cnd = cnd.replaceAll('!', ' not ');
-      cnd = cnd.replaceAll('target.health.pct-3*(target.health.pct%target.time_to_die)', 'W_HPlevel(NA_Target)*100');
-      cnd = cnd.replaceAll('runic_power', 'W_PowerLevel(NA_Player)');
-      cnd = regReplace(cnd, r'[,]*line_cd=\d+', '');
-      cnd = regReplace(cnd, r'blood=(\d+)', r'W_StarCount(1)==\1');
-      cnd = regReplace(cnd, r'frost=(\d+)', r'W_StarCount(3)==\1');
-      cnd = regReplace(cnd, r'unholy=(\d+)', r'W_StarCount(2)==\1');
-
-      cnd = cndSpellReplace(specName, cnd, r'talent\.([\w]+)\.enabled', r'W_SpellEnabled("\1", NA_Target)');
-
-      cnd = cndBuffReplace(specName, cnd, r'dot\.([\w]+)\.ticking', r'W_HasBuff(NA_Player, "\1", true)');
-      cnd = cndBuffReplace(specName, cnd, r'cooldown\.([\w]+)\.remains', r'W_BuffTime(NA_Player, "\1", false)');
-      cnd = cndBuffReplace(specName, cnd, r'dot\.([\w]+)\.remains', r'W_BuffTime(NA_Player, "\1", false)');
-      cnd = cndBuffReplace(specName, cnd, r'buff\.([\w]+)\.stack', r'W_BuffCount(NA_Player, "\1")');
-      cnd = cndBuffReplace(specName, cnd, r'buff\.([\w]+)\.react', r'W_HasBuff(NA_Player, "\1")');
-
-      String target = NA_Player;
-      String cmdType = "";
-      if (line.startsWith('actions.aoe')) {
-        //p.addattackAOECmd(cnd, spell, target);
-        cmdType = 'AOE';
-      } else if (line.startsWith('actions.single_target') || line.startsWith('actions+=')) {
-        //p.addattackCmd(cnd, spell, target);
-        cmdType = 'single_target';
-      }
-      print(cmdType + '====>' + cnd);
-    }
-  }
-}
-
-String cndSpellReplace(String specName, String cnd, String regexp, String replace) {
-  return cnd.replaceAllMapped(new RegExp(regexp, caseSensitive: false), (m) {
-    String s = m.group(1);
-    //print(':::'+getSpellName(s, specName));
-    return replace.replaceAll('\\1', getSpellName(s, specName));
-  });
-}
-
-String cndBuffReplace(String specName, String cnd, String regexp, String replace) {
-  return cnd.replaceAllMapped(new RegExp(regexp, caseSensitive: false), (m) {
-    String s = m.group(1);
-    print(':::' + getBuffName(s, specName));
-    return replace.replaceAll('\\1', s);
-  });
-}
-
 Set<String> actions = new Set();
 WOWClassInfo classInfo = null;
 Profile currProfile = null;
@@ -450,7 +351,7 @@ main() {
 
   genLuaCodes();
 
-  genIniProfileCodeFromLua('''                   
+  genIniProfileCodeFromLua('''                                                      
 
 ''');
 }

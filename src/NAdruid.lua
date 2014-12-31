@@ -1,13 +1,13 @@
 function getNA11Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'5487','106839','770','132469','99','62606','22812','鬃毛倒竖','6807','106952','22842','102351','108238','108292','774','124974','5185','粉碎','33745','化身：乌索克之子','106832','33917','102401','2782','61336','1126'};
+    return {'5487','106839','770','132469','99','62606','22812','155835','6807','106952','22842','102351','108238','108293','774','124974','5185','80313','33745','102558','106832','33917','102401','2782','61336','1126'};
   elseif(no == 1)then
-    return {'768','102401','1822','106839','132469','2908','99','102706','5217','化身：丛林之王','106952','影遁','22568','5185','52610','106832','1079','8921','106785','5221','2782','61336','1126','5215'};
+    return {'768','102401','1822','106839','132469','2908','99','102703','5217','102543','106952','22568','5185','52610','106832','1079','8921','106785','5221','2782','61336','1126','5215'};
   elseif(no == 2)then
     return {'5176','2908','132158','5185','8936','102342','88423','48438','33763','145205','124974','145518','22812','1126','774'};
   elseif(no == 3)then
-    return {'24858','78675','124974','2908','102706','78674','112071','102560','48505','8921','星辰耀斑','5176','2912','2782','22812','1126'};
+    return {'24858','78675','124974','2908','33831','78674','112071','102560','48505','164815','152221','8921','5176','2912','2782','22812','1126'};
   end
   return {};
 end
@@ -72,19 +72,19 @@ function NA11Dps()
 					or NA_Fire(inBear and NA_SpellInterrupt(NA_Target) and NA_isUsableTalentSpell(5,1), '99', NA_Target) --夺魂咆哮
 					or NA_Fire(NA_checkHP(2) and not W_RetainBuff(NA_Player, 22812, true), '62606', NA_Player) --野蛮防御
 					or NA_Fire(NA_checkHP(2) and not W_RetainBuff(NA_Player, 155835, true), '22812', NA_Player) --树皮术
-					or NA_Fire(NA_checkHP(2) and not W_RetainBuff(NA_Player, 62606, true) and not W_RetainBuff(NA_Player, 22812, true) and NA_isUsableTalentSpell(7,3), '鬃毛倒竖', NA_Player) --鬃毛倒竖
+					or NA_Fire(NA_checkHP(2) and not W_RetainBuff(NA_Player, 62606, true) and not W_RetainBuff(NA_Player, 22812, true) and NA_isUsableTalentSpell(7,3), '155835', NA_Player) --鬃毛倒竖
 					or NA_Fire(inBear and W_RetainBuff(NA_Player, 135286, true), '6807', NA_Target) --重殴
 					or NA_Fire(W_BuffTime(NA_Player,80313)>10, '106952', NA_Player) --狂暴
 					or NA_Fire(NA_checkHP(2) and UnitPower(NA_Player,1)>=80, '22842', NA_Player) --狂暴回复
 					or NA_Fire(NA_checkHP(2) and NA_isUsableTalentSpell(2,3), '102351', NA_Player) --塞纳里奥结界
 					or NA_Fire(NA_checkHP(0) and NA_isUsableTalentSpell(2,2), '108238', NA_Player) --新生
-					or NA_Fire(NA_checkHP(2) and NA_isUsableTalentSpell(6,1), '108292', NA_Player) --野性之心
+					or NA_Fire(NA_checkHP(2) and NA_isUsableTalentSpell(6,1), '108293', NA_Player) --野性之心
 					or NA_Fire(yxhc and W_BuffTime(NA_Player, 774, true)<=3.6, '774', NA_Player) --回春术
 					or NA_Fire(NA_checkHP(2) and NA_isUsableTalentSpell(6,3), '124974', NA_Player) --自然的守护
 					or NA_Fire(NA_checkHP(2) and NA_isUsableTalentSpell(6,2) and W_RetainBuff(NA_Player, 158501, true), '5185', NA_Player) --治疗之触
-					or NA_Fire(inBear and NA_isUsableTalentSpell(7,2) and (not hasFs or W_BuffTime(NA_Player, 80313)<3.6), '粉碎', NA_Target) --粉碎
+					or NA_Fire(inBear and NA_isUsableTalentSpell(7,2) and (not hasFs or W_BuffTime(NA_Player, 80313)<3.6), '80313', NA_Target) --粉碎
 					or NA_Fire(inBear and NA_isUsableTalentSpell(7,2) and W_BuffTime(NA_Player, 80313)<2.5 and not W_RetainBuff(NA_Player, 106952, true), '33745', NA_Target) --割伤
-					or NA_Fire(inBear and NA_isUsableTalentSpell(4,2), '化身：乌索克之子', NA_Player) --化身：乌索克之子
+					or NA_Fire(inBear and NA_isUsableTalentSpell(4,2), '102558', NA_Player) --化身：乌索克之子
 					or NA_Fire(inBear and not W_RetainBuff(NA_Player, 33745, true), '33745', NA_Target) --割伤
 					or NA_Fire(inBear and not hasThrash, '106832', NA_Target) --痛击
 					or NA_Fire(inBear, '33917', NA_Target) --裂伤
@@ -115,11 +115,10 @@ function NA11Dps()
 					or NA_Fire(inCat and NA_SpellInterrupt(NA_Target) and NA_isUsableTalentSpell(7,3), '132469', NA_Target) --台风
 					or NA_Fire(NA_CheckEnrage(NA_Target), '2908', NA_Target) --安抚
 					or NA_Fire(inCat and NA_SpellInterrupt(NA_Target) and NA_isUsableTalentSpell(5,1), '99', NA_Target) --夺魂咆哮
-					or NA_Fire(inCat and NA_isUsableTalentSpell(4,3) and NA_GetSpellCharges(102703)==3, '102706', NA_Player) --自然之力
+					or NA_Fire(inCat and NA_isUsableTalentSpell(4,3) and NA_GetSpellCharges(102703)==3, '102703', NA_Player) --自然之力
 					or NA_Fire(inCat and (not hasqxyz and UnitPower(NA_Player,3)>=60) or (UnitPowerMax(NA_Player,3)-UnitPower(NA_Player,3))>=80, '5217', NA_Player) --猛虎之怒
-					or NA_Fire(inCat and NA_isUsableTalentSpell(4,2) and W_GetSpellCooldown(106952)<10 and UnitPower(NA_Player,3)<=90, '化身：丛林之王', NA_Player) --化身：丛林之王
+					or NA_Fire(inCat and NA_isUsableTalentSpell(4,2) and W_GetSpellCooldown(106952)<10 and UnitPower(NA_Player,3)<=90, '102543', NA_Player) --化身：丛林之王
 					or NA_Fire(inCat and W_RetainBuff(NA_Player, 5217, true), '106952', NA_Player) --狂暴
-					or NA_Fire(inCat and W_BuffTime(NA_Target,-1822)<4.5 and UnitPower(NA_Player,3)>=35 and (W_RetainBuff(NA_Player, 155672, true) or not NA_isUsableTalentSpell(7,2)) and (not NA_isUsableTalentSpell(4,2) or W_GetSpellCooldown(102543)>15) and not W_RetainBuff(NA_Player, 102543, true), '影遁', NA_Player) --影遁
 					or NA_Fire(W_RetainBuff(NA_Target, -1079, true) and W_BuffTime(NA_Target,-1079)<3 and W_HPlevel(NA_Target)<0.25, '22568', NA_Target) --凶猛撕咬
 					or NA_Fire(NA_isUsableTalentSpell(7,2) and W_RetainBuff(NA_Player, 69369, true) and (UnitPower(NA_Player,4)>=4 or W_BuffTime(NA_Player,16974)<1.5), '5185', NA_Player) --治疗之触
 					or NA_Fire(not hasympx or W_BuffTime(NA_Player,174544)<3, '52610', NA_Player) --野蛮咆哮
@@ -174,15 +173,15 @@ function NA11Dps()
 					or NA_Fire(NA_SpellInterrupt(NA_Target), '78675', NA_Target) --日光术
 					or NA_Fire(NA_CountLowPlayers(NA_Target,0.9,30)>3 and NA_isUsableTalentSpell(6,3), '124974', NA_Player) --自然的守护
 					or NA_Fire(NA_CheckEnrage(NA_Target), '2908', NA_Target) --安抚
-					or NA_Fire(NA_GetSpellCharges(102703)==3 and NA_isUsableTalentSpell(4,3), '102706', NA_Player) --自然之力
+					or NA_Fire(NA_GetSpellCharges(102703)==3 and NA_isUsableTalentSpell(4,3), '33831', NA_Player) --自然之力
 					or NA_Fire(not rgzx and UnitPower(NA_Player,8)>20, '78674', NA_Target) --星涌术
 					or NA_Fire(not ygzx and UnitPower(NA_Player,8)<-40, '78674', NA_Target) --星涌术
 					or NA_Fire((NA_GetSpellCharges(78674)==2 and W_GetSpellCooldown(78674)<6) or NA_GetSpellCharges(78674)==3, '78674', NA_Target) --星涌术
 					or NA_Fire(UnitPower(NA_Player,8)>40, '112071', NA_Player) --超凡之盟
 					or NA_Fire(UnitPower(NA_Player,8)>0 and NA_isUsableTalentSpell(4,2), '102560', NA_Player) --化身：艾露恩之眷
 					or NA_Fire(not W_RetainBuff(NA_player, 50288, true), '48505', NA_Player) --星辰坠落
-					or NA_Fire(W_BuffTime(NA_Target,-164815)<7 or rzd, '8921', NA_Target) --8921
-					or NA_Fire(W_BuffTime(NA_Target,-152221)<7 and NA_isUsableTalentSpell(7,2), '星辰耀斑', NA_Target) --星辰耀斑
+					or NA_Fire(W_BuffTime(NA_Target,-164815)<7 or rzd, '164815', NA_Target) --阳炎术
+					or NA_Fire(W_BuffTime(NA_Target,-152221)<7 and NA_isUsableTalentSpell(7,2), '152221', NA_Target) --星辰耀斑
 					or NA_Fire((W_BuffTime(NA_Player,164812)<24 or W_BuffTime(NA_Player,164812)<4 or (cfzm and W_BuffTime(NA_Player,112071)<=2 and W_BuffTime(NA_Player,164812)<24) or not yhsdot) or rzd, '8921', NA_Target) --月火术
 					or NA_Fire(UnitPower(NA_Player,8)>=25 and UnitPower(NA_Player,8)<=100, '5176', NA_Target) --愤怒
 					or NA_Fire(UnitPower(NA_Player,8)<=25 and UnitPower(NA_Player,8)>=-100, '2912', NA_Target) --星火术
