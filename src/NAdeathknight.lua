@@ -12,7 +12,7 @@ function getNA6Actions(no)
   return {};
 end
 
-NA6ProfileNames = {[0]='Two-Handed Frost',[1]='Blood',[2]='Dual-Wield Frost',[3]='Dual-Wield Frost',};
+NA6ProfileNames = {[0]='Two-Handed Frost',[1]='Blood',[2]='Dual-Wield Frost',[3]='Unholy',};
 
 function NA6Dps()
   W_Log(1,"死亡骑士 dps");
@@ -42,7 +42,7 @@ function NA6Dps()
         if(false
 
         )then return true; end
-      elseif(NA_ProfileNo == 3)then --Dual-Wield Frost
+      elseif(NA_ProfileNo == 3)then --Unholy
         
         if(false
 
@@ -234,7 +234,7 @@ function NA6Dps()
 					or NA_Fire(true, '45462', NA_Target) --暗影打击
 
         ))then return true; end
-      elseif(NA_ProfileNo == 3)then --Dual-Wield Frost
+      elseif(NA_ProfileNo == 3)then --Unholy
         
 				
         
@@ -269,7 +269,7 @@ function NA6Dps()
 					or NA_Fire(UnitIsDead(NA_Target), '61999', NA_Target) --复活盟友
 
         )then return true; end
-      elseif(NA_ProfileNo == 3)then --Dual-Wield Frost
+      elseif(NA_ProfileNo == 3)then --Unholy
         
 				
         if(false
@@ -306,7 +306,7 @@ function NA6Dps()
 					or NA_Fire(NA_IsSolo and W_TargetCanAttack(), '45477', NA_Target) --冰冷触摸
 
       )then return true; end
-    elseif(NA_ProfileNo == 3)then --Dual-Wield Frost
+    elseif(NA_ProfileNo == 3)then --Unholy
       
       if(false
 
