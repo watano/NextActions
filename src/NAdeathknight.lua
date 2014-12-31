@@ -1,18 +1,18 @@
 function getNA6Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'49998','48707','48792','48743','130735','51271','47568','42650','49020','77575','49184','45462','49143','45477','47541','108199','61999','57330'};
+    return {'49998','48707','48792','119975','108196','48743','130735','51271','47568','42650','47528','49020','77575','49184','45462','49143','45477','47541','108199','61999','57330'};
   elseif(no == 1)then
-    return {'49998','48707','48792','55233','48743','114866','47568','49028','56222','45477','47541','49222','77575','45462','50842','108199','61999','57330'};
+    return {'49998','48707','48792','119975','108196','55233','48743','114866','47568','49028','56222','45477','47541','49222','77575','45462','50842','47528','47476','108199','61999','57330'};
   elseif(no == 2)then
-    return {'49998','48707','48792','48743','130735','51271','47568','42650','49143','49184','45462','49020','123693','108199','77575','61999','57330','45477'};
+    return {'49998','48707','48792','119975','108196','48743','130735','51271','47568','42650','49143','49184','45462','49020','123693','108199','77575','61999','57330','45477'};
   elseif(no == 3)then
     return {};
   end
   return {};
 end
 
-NA6ProfileNames = {[0]='Two-Handed Frost',[1]='Blood',[2]='Dual-Wield Frost',[3]='Dual-Wield Frost',''};
+NA6ProfileNames = {[0]='Two-Handed Frost',[1]='Blood',[2]='Dual-Wield Frost',[3]='Dual-Wield Frost',};
 
 function NA6Dps()
   W_Log(1,"死亡骑士 dps");
@@ -63,11 +63,14 @@ function NA6Dps()
 					or NA_Fire(NA_checkHP(2), '49998', NA_Target) --灵界打击
 					or NA_Fire(NA_checkHP(2), '48707', NA_Player) --反魔法护罩
 					or NA_Fire(NA_checkHP(0), '48792', NA_Player) --冰封之韧
-					or NA_Fire(NA_checkHP(0), '48743', NA_Player) --天灾契约
+					or NA_Fire(NA_isUsableTalentSpell(5,3) and NA_checkHP(0), '119975', NA_Player) --符能转换
+					or NA_Fire(NA_isUsableTalentSpell(5,2) and NA_checkHP(0), '108196', NA_Player) --死亡虹吸
+					or NA_Fire(NA_isUsableTalentSpell(5,1) and NA_checkHP(0), '48743', NA_Player) --天灾契约
 					or NA_Fire(W_HPlevel(NA_Target) < 0.35, '130735', NA_Target) --灵魂收割
 					or NA_Fire(NA_IsSolo or NA_IsMaxDps, '51271', NA_Target) --冰霜之柱
 					or NA_Fire(NA_IsMaxDps, '47568', NA_Target) --符文武器增效
 					or NA_Fire(NA_IsMaxDps, '42650', NA_Target) --亡者大军
+					or NA_Fire(NA_SpellInterrupt(NA_Target), '47528', NA_Target) --心灵冰冻
 					or NA_Fire(NA_checkHP(2) and W_HasBuff(NA_Player, 178819, true), '49998', NA_Target) --灵界打击
 					or NA_Fire(hasKillingMachine and retainFrostFever and retainBloodPlague, '49020', NA_Target) --湮没
 					or NA_Fire(not retainFrostFever and not retainBloodPlague, '77575', NA_Target) --爆发
@@ -86,7 +89,9 @@ function NA6Dps()
 					or NA_Fire(NA_checkHP(2), '49998', NA_Target) --灵界打击
 					or NA_Fire(NA_checkHP(2), '48707', NA_Player) --反魔法护罩
 					or NA_Fire(NA_checkHP(0), '48792', NA_Player) --冰封之韧
-					or NA_Fire(NA_checkHP(0), '48743', NA_Player) --天灾契约
+					or NA_Fire(NA_isUsableTalentSpell(5,3) and NA_checkHP(0), '119975', NA_Player) --符能转换
+					or NA_Fire(NA_isUsableTalentSpell(5,2) and NA_checkHP(0), '108196', NA_Player) --死亡虹吸
+					or NA_Fire(NA_isUsableTalentSpell(5,1) and NA_checkHP(0), '48743', NA_Player) --天灾契约
 					or NA_Fire(W_HPlevel(NA_Target) < 0.35, '130735', NA_Target) --灵魂收割
 					or NA_Fire(NA_IsSolo, '108199', NA_Target) --血魔之握
 					or NA_Fire(NA_IsSolo or NA_IsMaxDps, '51271', NA_Target) --冰霜之柱
@@ -120,8 +125,10 @@ function NA6Dps()
 					or NA_Fire(NA_checkHP(2), '49998', NA_Target) --灵界打击
 					or NA_Fire(NA_checkHP(2), '48707', NA_Player) --反魔法护罩
 					or NA_Fire(NA_checkHP(0), '48792', NA_Player) --冰封之韧
+					or NA_Fire(NA_isUsableTalentSpell(5,3) and NA_checkHP(0), '119975', NA_Player) --符能转换
+					or NA_Fire(NA_isUsableTalentSpell(5,2) and NA_checkHP(0), '108196', NA_Player) --死亡虹吸
 					or NA_Fire(NA_checkHP(0), '55233', NA_Player) --吸血鬼之血
-					or NA_Fire(NA_checkHP(0), '48743', NA_Player) --天灾契约
+					or NA_Fire(NA_isUsableTalentSpell(5,1) and NA_checkHP(0), '48743', NA_Player) --天灾契约
 					or NA_Fire(W_HPlevel(NA_Target) < 0.35, '114866', NA_Target) --灵魂收割
 					or NA_Fire(NA_IsMaxDps, '47568', NA_Target) --符文武器增效
 					or NA_Fire(NA_IsMaxDps, '49028', NA_Target) --符文刃舞
@@ -144,8 +151,12 @@ function NA6Dps()
 					or NA_Fire(NA_checkHP(2), '49998', NA_Target) --灵界打击
 					or NA_Fire(NA_checkHP(2), '48707', NA_Player) --反魔法护罩
 					or NA_Fire(NA_checkHP(0), '48792', NA_Player) --冰封之韧
+					or NA_Fire(NA_isUsableTalentSpell(5,3) and NA_checkHP(0), '119975', NA_Player) --符能转换
+					or NA_Fire(NA_isUsableTalentSpell(5,2) and NA_checkHP(0), '108196', NA_Player) --死亡虹吸
 					or NA_Fire(NA_checkHP(0), '55233', NA_Player) --吸血鬼之血
-					or NA_Fire(NA_checkHP(0), '48743', NA_Player) --天灾契约
+					or NA_Fire(NA_isUsableTalentSpell(5,1) and NA_checkHP(0), '48743', NA_Player) --天灾契约
+					or NA_Fire(NA_SpellInterrupt(NA_Target), '47528', NA_Target) --心灵冰冻
+					or NA_Fire(NA_SpellInterrupt(NA_Target), '47476', NA_Target) --绞袭
 					or NA_Fire(W_HPlevel(NA_Target) < 0.35, '114866', NA_Target) --灵魂收割
 					or NA_Fire(NA_IsSolo, '108199', NA_Target) --血魔之握
 					or NA_Fire(NA_IsMaxDps, '47568', NA_Target) --符文武器增效
@@ -178,7 +189,9 @@ function NA6Dps()
 					or NA_Fire(NA_checkHP(2), '49998', NA_Target) --灵界打击
 					or NA_Fire(NA_checkHP(2), '48707', NA_Player) --反魔法护罩
 					or NA_Fire(NA_checkHP(0), '48792', NA_Player) --冰封之韧
-					or NA_Fire(NA_checkHP(0), '48743', NA_Player) --天灾契约
+					or NA_Fire(NA_isUsableTalentSpell(5,3) and NA_checkHP(0), '119975', NA_Player) --符能转换
+					or NA_Fire(NA_isUsableTalentSpell(5,2) and NA_checkHP(0), '108196', NA_Player) --死亡虹吸
+					or NA_Fire(NA_isUsableTalentSpell(5,1) and NA_checkHP(0), '48743', NA_Player) --天灾契约
 					or NA_Fire(W_HPlevel(NA_Target) < 0.35, '130735', NA_Target) --灵魂收割
 					or NA_Fire(NA_IsSolo or NA_IsMaxDps, '51271', NA_Target) --冰霜之柱
 					or NA_Fire(NA_IsMaxDps, '47568', NA_Target) --符文武器增效
@@ -200,7 +213,9 @@ function NA6Dps()
 					or NA_Fire(NA_checkHP(2), '49998', NA_Target) --灵界打击
 					or NA_Fire(NA_checkHP(2), '48707', NA_Player) --反魔法护罩
 					or NA_Fire(NA_checkHP(0), '48792', NA_Player) --冰封之韧
-					or NA_Fire(NA_checkHP(0), '48743', NA_Player) --天灾契约
+					or NA_Fire(NA_isUsableTalentSpell(5,3) and NA_checkHP(0), '119975', NA_Player) --符能转换
+					or NA_Fire(NA_isUsableTalentSpell(5,2) and NA_checkHP(0), '108196', NA_Player) --死亡虹吸
+					or NA_Fire(NA_isUsableTalentSpell(5,1) and NA_checkHP(0), '48743', NA_Player) --天灾契约
 					or NA_Fire(W_HPlevel(NA_Target) < 0.35, '130735', NA_Target) --灵魂收割
 					or NA_Fire(NA_IsSolo, '108199', NA_Target) --血魔之握
 					or NA_Fire(NA_IsSolo or NA_IsMaxDps, '51271', NA_Target) --冰霜之柱
@@ -271,6 +286,7 @@ function NA6Dps()
       
       if(false
 					or NA_Fire(not W_HasBuff(NA_Player, 57330, true), '57330', NA_Player) --寒冬号角
+					or NA_Fire(NA_IsSolo and NA_isUsableTalentSpell(5,3) and W_HPlevel(NA_Player) < 0.7, '119975', NA_Player) --符能转换
 					or NA_Fire(NA_IsSolo and W_TargetCanAttack(), '45477', NA_Target) --冰冷触摸
 
       )then return true; end
@@ -286,6 +302,7 @@ function NA6Dps()
       
       if(false
 					or NA_Fire(not W_HasBuff(NA_Player, 57330, true), '57330', NA_Player) --寒冬号角
+					or NA_Fire(NA_IsSolo and NA_isUsableTalentSpell(5,3) and W_HPlevel(NA_Player) < 0.7, '119975', NA_Player) --符能转换
 					or NA_Fire(NA_IsSolo and W_TargetCanAttack(), '45477', NA_Target) --冰冷触摸
 
       )then return true; end

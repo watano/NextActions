@@ -10,7 +10,7 @@ function getNA4Actions(no)
   return {};
 end
 
-NA4ProfileNames = {[0]='Assassination',[1]='Combat',[2]='Subtlety',''};
+NA4ProfileNames = {[0]='Assassination',[1]='Combat',[2]='Subtlety',};
 
 function NA4Dps()
   W_Log(1,"盗贼 dps");

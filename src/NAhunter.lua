@@ -10,7 +10,7 @@ function getNA3Actions(no)
   return {};
 end
 
-NA3ProfileNames = {[0]='Beastmaster',[1]='Marksman',[2]='Survival',''};
+NA3ProfileNames = {[0]='Beastmaster',[1]='Marksman',[2]='Survival',};
 
 function NA3Dps()
   W_Log(1,"猎人 dps");

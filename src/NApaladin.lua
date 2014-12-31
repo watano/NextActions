@@ -10,7 +10,7 @@ function getNA2Actions(no)
   return {};
 end
 
-NA2ProfileNames = {[0]='Protection',[1]='Retribution',[2]='Holy',''};
+NA2ProfileNames = {[0]='Protection',[1]='Retribution',[2]='Holy',};
 
 function NA2Dps()
   W_Log(1,"圣骑士 dps");

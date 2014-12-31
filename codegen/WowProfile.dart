@@ -245,7 +245,7 @@ ${cmdCodes(p.keepBuffCmds)}
     keepBuffCodes += p.keepBuffCodes;
 
 	if(actions.length>35){
-		print(p.name + '==' + actions.length.toString());	
+		print(p.name + '==' + actions.length.toString());
 	}
   }
 
@@ -256,7 +256,7 @@ ${codeActions}  end
   return {};
 end
 
-NA${classInfo.classID}ProfileNames = {${codeProfileNames}''};
+NA${classInfo.classID}ProfileNames = {${codeProfileNames}};
 
 function NA${classInfo.classID}Dps()
   W_Log(1,"${classInfo.cnName} dps");

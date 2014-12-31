@@ -711,6 +711,7 @@ function NA_CheckGlyph(GlyphId)
 	end
 	return false;
 end
+
 function NA_isUsableTalentSpell(tier,column)
 	local talentID, name, texture, selected, available  = GetTalentInfo(tier,column,GetActiveSpecGroup());
 	if talentID then
@@ -719,4 +720,11 @@ function NA_isUsableTalentSpell(tier,column)
 	    end
 	end
 	return false;	
+end
+
+function NA_TimeToDie(UnitId)
+	if(W_PowerLevel(UnitId)< 1) then
+		return 1;	
+	end
+	return 1000;
 end

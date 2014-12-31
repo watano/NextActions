@@ -89,9 +89,11 @@ function testAllSpellInfo()
 	end
 end
 
+print(NA6ProfileNames[1]);
 NA_ClassName="DEATHKNIGHT";
-NA_InitProfile(0);
-NA_TestMaxDPS(0);
+NA_init()
+NA_InitProfile(1);
+--NA_TestMaxDPS(0);
 --testColor();
 --testBuffs();
 --for k in pairs(NA_ClassInfo) do

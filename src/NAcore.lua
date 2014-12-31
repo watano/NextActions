@@ -33,7 +33,7 @@ end
 
 function NA_initClassData(className, profileNo)
 	NA_ProfileName = '';
-		NA_ProfileSize = 3;
+	NA_ProfileSize = 3;
 	if(className == "WARRIOR") then
 		NA_Actions = getNA1Actions(profileNo);
 		NA_ProfileName = NA1ProfileNames[profileNo];
@@ -93,7 +93,7 @@ end
 
 function NA_InitProfile(no)
 	NA_ProfileNo = no;
-	if(NA_ProfileNo ~= 0 and NA_ProfileNo ~=1 and NA_ProfileNo ~=2 and NA_ProfileNo ~=3) then NA_ProfileNo = 0; end
+	if(NA_ProfileNo < 0 or NA_ProfileNo > NA_ProfileSize) then NA_ProfileNo = 0; end
 
 	W_Log(2, "NA_InitProfile:"..NA_ProfileNo);
 	local playerClass, englishClass = UnitClass(NA_Player);

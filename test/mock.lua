@@ -224,3 +224,11 @@ end
 function GetRuneCooldown(index)
 	return true;
 end
+
+function GetActiveSpecGroup()
+	return 1;
+end
+
+function GetTalentInfo(tier,column,activeSpecGroup)
+	return 1111, 'name', 'texture', true, true;
+end

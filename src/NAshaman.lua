@@ -10,7 +10,7 @@ function getNA7Actions(no)
   return {};
 end
 
-NA7ProfileNames = {[0]='Elemental',[1]='Enhancement',[2]='Restoration',''};
+NA7ProfileNames = {[0]='Elemental',[1]='Enhancement',[2]='Restoration',};
 
 function NA7Dps()
   W_Log(1,"萨满 dps");

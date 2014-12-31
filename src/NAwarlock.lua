@@ -10,7 +10,7 @@ function getNA9Actions(no)
   return {};
 end
 
-NA9ProfileNames = {[0]='Demonology',[1]='Destruction',[2]='Affliction',''};
+NA9ProfileNames = {[0]='Demonology',[1]='Destruction',[2]='Affliction',};
 
 function NA9Dps()
   W_Log(1,"术士 dps");
