@@ -256,7 +256,8 @@ end
 function NA_DoAction()
 	if(UnitIsDead(NA_Player) or W_IsCasting(NA_Player) > 0.9
 	or W_HasBuff(NA_Player, 1133) or W_HasBuff(NA_Player, 1131) or SpellIsTargeting()
-	or (IsMounted() and not W_HasBuff(NA_Player, 165803)) or IsFlying() or UnitInVehicle(NA_Player)) then
+	or (IsMounted() and not W_HasBuff(NA_Player, 165803)) or IsFlying() 
+	or (UnitInVehicle(NA_Player) and UnitExists(NA_Pet) == 1 and strfind(UnitName(NA_Pet), '训练中') == nil)) then
 		W_Log(1,"busy.....");
 		return false;
 	end

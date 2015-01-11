@@ -170,7 +170,7 @@ ${profileKeepHPCodes}      end
 
       if(NA_ProfileNo < 0)then return false;
 ${profileAtkCodes}      end
-    elseif(UnitCanAssist(NA_Player, NA_Target) and UnitIsPlayer(NA_Target))then
+    elseif(UnitCanAssist(NA_Player, NA_Target))then
       if(NA_ProfileNo < 0)then return false;
 ${profileAssistCodes}      end
       return false;

@@ -115,7 +115,9 @@ class WOWClassInfo {
         return s;
       }
     }
-    print('[警告]不能找到法术:${spell}@${spec}');
+	if(spell != 'NA_ChagetTarget'){
+		print('[警告]不能找到法术:${spell}@${spec}');
+	}
     return null;
   }
 }

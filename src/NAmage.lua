@@ -106,7 +106,7 @@ function NA8Dps()
 
         ))then return true; end
       end
-    elseif(UnitCanAssist(NA_Player, NA_Target) and UnitIsPlayer(NA_Target))then
+    elseif(UnitCanAssist(NA_Player, NA_Target))then
       if(NA_ProfileNo < 0)then return false;
       elseif(NA_ProfileNo == 0)then --Arcane
         

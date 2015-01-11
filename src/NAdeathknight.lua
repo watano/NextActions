@@ -1,7 +1,7 @@
 function getNA6Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'49998','48707','48792','119975','108196','48743','130735','51271','47568','42650','47528','49020','77575','49184','45462','49143','45477','47541','108199','61999','57330'};
+    return {'49998','48707','48792','119975','108196','48743','130735','51271','47568','42650','47528','49020','77575','49184','45462','49143','45477','47541','NA_ChagetTarget','108199','61999','57330'};
   elseif(no == 1)then
     return {'49998','48707','48792','119975','108196','55233','48743','114866','47568','49028','56222','45477','47541','49222','77575','45462','50842','47528','47476','108199','61999','57330'};
   elseif(no == 2)then
@@ -82,6 +82,7 @@ function NA6Dps()
 					or NA_Fire(W_PowerLevel(NA_Player) > 0.6, '47541', NA_Target) --凋零缠绕
 					or NA_Fire(true, '49143', NA_Target) --冰霜打击
 					or NA_Fire(true, '49020', NA_Target) --湮没
+					or NA_Fire(NA_IsSolo and W_HPlevel(NA_Target)<=0, 'NA_ChagetTarget', NA_Target) --NA_ChagetTarget
 
         ))then return true; end
   
@@ -246,7 +247,7 @@ function NA6Dps()
 
         ))then return true; end
       end
-    elseif(UnitCanAssist(NA_Player, NA_Target) and UnitIsPlayer(NA_Target))then
+    elseif(UnitCanAssist(NA_Player, NA_Target))then
       if(NA_ProfileNo < 0)then return false;
       elseif(NA_ProfileNo == 0)then --Two-Handed Frost
         

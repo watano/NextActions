@@ -211,6 +211,9 @@ function NA_Fire(cond, spellID, UnitId, interval)
 	if(NA_SpellTimes[spellID] ~= nil and (GetTime() - NA_SpellTimes[spellID]) < interval)then
 		return false;
 	end
+	if(spellID == 'NA_ChagetTarget')then
+		return NA_ChagetTarget();
+	end
 
 	local spellType = NA_SpellInfoType(spellID)
 	if(cond and spellType == 1 and NA_FireSpell(spellID, UnitId)) then
@@ -727,4 +730,8 @@ function NA_TimeToDie(UnitId)
 		return 1;	
 	end
 	return 1000;
+end
+
+function NA_CastSpell(spellID)
+	NA_FireSpell(spellID, NA_Target);
 end
