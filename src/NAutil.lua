@@ -568,16 +568,23 @@ end
 
 --统计技能可用数量
 function NA_GetSpellCharges(spellID)
-	if(spellID == nil)then
-		return nil;
-	end
-	local currentCharges,maxCharges = GetSpellCharges(spellID);
+	local currentCharges, maxCharges, cooldownStart, cooldownDuration = GetSpellCharges(spellID);
 	if(currentCharges ~= nil)then
 		return currentCharges;
-	else
-		return nil;
 	end
+	return 0;
+	end
+
+function NA_GetSpellChargesTime(spellID)
+	local currentCharges, maxCharges, cooldownStart, cooldownDuration = GetSpellCharges(spellID);
+	if (currentCharges ~= nil) then
+	     local chargetime = cooldownStart+cooldownDuration-GetTime();
+				return chargetime;
+	end
+        return 999;
 end
+
+
 
 function NA_checkHP(index)
 	if(index == 0)then
@@ -606,7 +613,8 @@ end
 
 --debuff驱散确认
 function NA_CheckDebuff(UnitId)
-	for i=1,40 do local _, _, _, _, debuffType= UnitDebuff(UnitId,i,1); 
+	  local name, _, _, _, debuffType= UnitDebuff(UnitId,1,1); 
+	    if name then
 		if debuffType=="Magic" then --魔法
 		return 1;
 		elseif debuffType=="Disease" then --疾病
@@ -617,44 +625,44 @@ function NA_CheckDebuff(UnitId)
 		return 4;
 		end
 	end
-	return false;
+	return 0;
 end
 
 --buff偷取确认
 function NA_CheckBuffStealable(UnitId)
-	for i=1,40 do local name, rank, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate, spellId, canApplyAura, isBossDebuff, value1, value2, value3= UnitBuff(UnitId,i); 
-		if name and isStealable==1 then
+	for i=1,40 do local name, _, _, _, _, _, _, _, isStealable= UnitBuff(UnitId,i); 
+		if name then
+		   if isStealable==1 then
 			return true;
 		end
 	end
+	end;
 	return false;
 end
 
 function NA_CountLowPlayers(UnitId,minHPLevel,Range)
-	local posX, posY, posZ, terrainMapID = UnitPosition(UnitId);
-	local targetName, targetRealm = UnitName(UnitId);
+    if (UnitExists(UnitId)) then
+	local posX, posY = UnitPosition(UnitId);
+	local targetName = UnitName(UnitId);
 	local count = 0;
 	local maxPlayer = GetNumGroupMembers();
-	--local unitPrefix = "party";
-
-	--if(UnitInRaid(NA_Player) == 1)then 
-		--maxPlayer = GetNumGroupMembers();
-		--unitPrefix = "raid";
-	--end
 		for i=1,maxPlayer do 
 			local UnitId2 = GetRaidRosterInfo(i);
-			if(UnitExists(UnitId2)==1)then
-				local targetName2, targetRealm2 = UnitName(UnitId2);
-				if(targetName2 ~= targetName and targetRealm2~=targetRealm)then 
-					local posX2, posY2, posZ2, terrainMapID2 = UnitPosition(UnitId2);
+			if (UnitExists(UnitId2)) then
+				local targetName2 = UnitName(UnitId2);
+				if (targetName2 ~= targetName) then 
+					local posX2, posY2 = UnitPosition(UnitId2);
 					local hpLevel = W_HPlevel(UnitId2);
-					if(terrainMapID2==terrainMapID and hpLevel < minHPLevel and posX2-posX<Range and posY2-posY<Range and posZ2-posZ<Range)then
+					local range2 = W_CheckRange(UnitId,UnitId2);
+					if (hpLevel < minHPLevel and range2<Range) then
 						count = count +1;
 					end
 				end		
 			end
 		end
 	return count;
+   end
+  return 0;
 end
 
 function NA_Autofollow()
@@ -664,15 +672,16 @@ function NA_Autofollow()
 end
 
 --进攻驱散
-function NA_CheckEnrage(UnitId)
-	for i=1,40 do local name, _, _, _, buffType= UnitBuff(UnitId,i,1); 
+function NA_CheckBuff(UnitId)
+        local name, _, _, _, debuffType= UnitBuff(UnitId,1,1); 
 	    if name then
-		if buffType=="Enrage effect" then
-		    return true;
-		end
+		if debuffType=="Magic" then --魔法
+		    return 1;
+		elseif debuffType=="Enrage" then --激怒
+		    return 2;
 	    end
 	end
-	return false;
+	return 0;
 end
 
 --AOE技能测试
@@ -691,7 +700,7 @@ function NA_CheckRoles(UnitId)
           elseif roleToken == "DAMAGER" then
 	    return 3;
 	  end
-	return false;
+	return 0;
 end
 
 function NA_CheckRace(UnitId)
@@ -699,7 +708,7 @@ function NA_CheckRace(UnitId)
 	if raceId == "Draenei" then
 	    return 1;
 	end
-	return false;
+	return 0;
 end
 
 function NA_CheckGlyph(GlyphId)
@@ -711,7 +720,7 @@ function NA_CheckGlyph(GlyphId)
 		  return true;
 		end
            end
-	end
+	end;
 	return false;
 end
 
@@ -734,4 +743,26 @@ end
 
 function NA_CastSpell(spellID)
 	NA_FireSpell(spellID, NA_Target);
+end
+
+function W_GetSpellRemain(spellID,remaintime)
+	local start, duration, enable = GetSpellCooldown(spellID)
+	local t = start + remaintime - GetTime();
+	if(enable == true and (start <= 0 or t <= 0))then
+		return 0;
+	elseif(enable ~= 1)then
+		return 99999;
+	else
+		return t;
+	end
+end
+
+function W_CheckRange(UnitId,UnitId2)
+    if (UnitExists(UnitId) and UnitExists(UnitId2)) then
+	local posX3, posY3 = UnitPosition(UnitId);
+        local posX4, posY4 = UnitPosition(UnitId2);
+	local range = ((posX3-posX4)^2+(posY3-posY4)^2)^0.5;
+	return range;
+    end
+   return 9999;
 end

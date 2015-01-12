@@ -286,7 +286,7 @@ function NA6Dps()
     elseif(NA_ProfileNo == 0)then --Two-Handed Frost
       
       if(false
-					or NA_Fire(not W_HasBuff(NA_Player, 57330, true), '57330', NA_Player) --寒冬号角
+					or NA_Fire(select(3,UnitStat(NA_Player,1))==0, '57330', NA_Player) --寒冬号角
 					or NA_Fire(NA_IsSolo and NA_isUsableTalentSpell(5,3) and W_HPlevel(NA_Player) < 0.7, '119975', NA_Player) --符能转换
 					or NA_Fire(NA_IsSolo and W_TargetCanAttack(), '45477', NA_Target) --冰冷触摸
 

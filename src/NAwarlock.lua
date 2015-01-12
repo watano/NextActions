@@ -184,21 +184,21 @@ function NA9Dps()
     elseif(NA_ProfileNo == 0)then --Demonology
       
       if(false
-					or NA_Fire(not W_HasBuff(NA_Player, 109773, true), '109773', NA_Player) --黑暗意图
+					or NA_Fire(select(3,UnitStat(NA_Player,4))==0, '109773', NA_Player) --黑暗意图
 					or NA_Fire(NA_ProfileNo == 0 and NA_IsSolo and W_TargetCanAttack(), '686', NA_Target) --暗影箭
 
       )then return true; end
     elseif(NA_ProfileNo == 1)then --Destruction
       
       if(false
-					or NA_Fire(not W_HasBuff(NA_Player, 109773, true), '109773', NA_Player) --黑暗意图
+					or NA_Fire(select(3,UnitStat(NA_Player,4))==0, '109773', NA_Player) --黑暗意图
 					or NA_Fire(NA_ProfileNo == 1 and NA_IsSolo and W_TargetCanAttack(), '348', NA_Target) --献祭
 
       )then return true; end
     elseif(NA_ProfileNo == 2)then --Affliction
       
       if(false
-					or NA_Fire(not W_HasBuff(NA_Player, 109773, true), '109773', NA_Player) --黑暗意图
+					or NA_Fire(select(3,UnitStat(NA_Player,4))==0, '109773', NA_Player) --黑暗意图
 					or NA_Fire(NA_ProfileNo == 2 and NA_IsSolo and W_TargetCanAttack(), '980', NA_Target) --痛楚
 
       )then return true; end

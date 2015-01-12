@@ -1,11 +1,11 @@
 function getNA5Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'123040','14914','585','47540','15487','528','33206','596','120517','132157','17','527','81700','33076','2061','2060','586','19236','21562'};
+    return {'15487','528','123040','34433','129250','14914','585','527','33206','596','120517','121135','110744','2061','81700','17','152118','152116','10060','33076','47540','2060','132157','586','19236','112833','21562'};
   elseif(no == 1)then
-    return {'123040','14914','585','528','47788','17','527','139','34861','33076','2061','2060','596','120517','32546','586','19236','21562'};
+    return {'沉默','528','123040','34433','129250','14914','585','47788','17','527','139','34861','33076','155245','596','152116','10060','120517','121135','110744','32546','2061','2060','586','19236','112833','21562'};
   elseif(no == 2)then
-    return {'2944','8092','589','34914','120644','73510','15407','32379','34433','123040','139139','15286','47585','586','19236','17','21562','15473'};
+    return {'10060','2944','8092','34433','123040','589','34914','139139','120644','122121','127632','73510','15407','32379','48045','15286','47585','586','19236','17','21562','15473'};
   end
   return {};
 end
@@ -26,7 +26,8 @@ function NA5Dps()
         
         if(false
 					or NA_Fire(NA_checkHP(0), '586', NA_Player) --渐隐术
-					or NA_Fire(NA_checkHP(1), '19236', NA_Player) --绝望祷言
+					or NA_Fire(NA_checkHP(1) and NA_isUsableTalentSpell(1,1), '19236', NA_Player) --绝望祷言
+					or NA_Fire(NA_checkHP(1) and NA_isUsableTalentSpell(1,2), '112833', NA_Player) --幽灵伪装
 					or NA_Fire(NA_checkHP(1), '17', NA_Player) --真言术：盾
 
         )then return true; end
@@ -34,7 +35,8 @@ function NA5Dps()
         
         if(false
 					or NA_Fire(NA_checkHP(0), '586', NA_Player) --渐隐术
-					or NA_Fire(NA_checkHP(1), '19236', NA_Player) --绝望祷言
+					or NA_Fire(NA_checkHP(1) and NA_isUsableTalentSpell(1,1), '19236', NA_Player) --绝望祷言
+					or NA_Fire(NA_checkHP(1) and NA_isUsableTalentSpell(1,2), '112833', NA_Player) --幽灵伪装
 					or NA_Fire(NA_checkHP(1), '17', NA_Player) --真言术：盾
 
         )then return true; end
@@ -56,12 +58,13 @@ function NA5Dps()
 				
         
         if(not NA_IsAOE and (false
-					or NA_Fire(true, '123040', NA_Target) --摧心魔
-					or NA_Fire(true, '14914', NA_Target) --神圣之火
-					or NA_Fire(true, '585', NA_Target) --惩击
-					or NA_Fire(true, '47540', NA_Target) --苦修
 					or NA_Fire(NA_SpellInterrupt(NA_Target), '15487', NA_Target) --沉默
-					or NA_Fire(true, '528', NA_Target) --驱散魔法
+					or NA_Fire(NA_CheckBuff(NA_Target)==1, '528', NA_Target) --驱散魔法
+					or NA_Fire(NA_isUsableTalentSpell(3,2), '123040', NA_Target) --摧心魔
+					or NA_Fire(not NA_isUsableTalentSpell(3,2), '34433', NA_Target) --暗影魔
+					or NA_Fire(NA_isUsableTalentSpell(3,3), '129250', NA_Target) --真言术：慰
+					or NA_Fire(not NA_isUsableTalentSpell(3,3), '14914', NA_Target) --神圣之火
+					or NA_Fire(true, '585', NA_Target) --惩击
 
         ))then return true; end
   
@@ -73,10 +76,13 @@ function NA5Dps()
 				
         
         if(not NA_IsAOE and (false
-					or NA_Fire(true, '123040', NA_Target) --摧心魔
-					or NA_Fire(true, '14914', NA_Target) --神圣之火
+					or NA_Fire(NA_SpellInterrupt(NA_Target), '沉默', NA_Target) --沉默
+					or NA_Fire(NA_CheckBuff(NA_Target)==1, '528', NA_Target) --驱散魔法
+					or NA_Fire(NA_isUsableTalentSpell(3,2), '123040', NA_Target) --摧心魔
+					or NA_Fire(not NA_isUsableTalentSpell(3,2), '34433', NA_Target) --暗影魔
+					or NA_Fire(NA_isUsableTalentSpell(3,3), '129250', NA_Target) --真言术：慰
+					or NA_Fire(not NA_isUsableTalentSpell(3,3), '14914', NA_Target) --神圣之火
 					or NA_Fire(true, '585', NA_Target) --惩击
-					or NA_Fire(true, '528', NA_Target) --驱散魔法
 
         ))then return true; end
   
@@ -87,57 +93,87 @@ function NA5Dps()
         local ayst = W_RetainBuff(NA_Target, -589, true);   --暗言术：痛
 				local xxgzc = W_RetainBuff(NA_Target, -34914, true);   --吸血鬼之触
 				local countShadowOrbs = UnitPower(NA_Player, 13);  --暗影宝珠
-				local copdotwave = GetTalentRowSelectionInfo(19) and GetTalentRowSelectionInfo(9) and W_HPlevel(NA_Target)>0.2;
-				local copmfi = GetTalentRowSelectionInfo(19) and GetTalentRowSelectionInfo(9) and W_HPlevel(NA_Target)<=0.2;
+				local copdotwave = NA_isUsableTalentSpell(7,1) and NA_isUsableTalentSpell(3,3) and W_HPlevel(NA_Target)>0.2;
+				local copmfi = NA_isUsableTalentSpell(7,1) and NA_isUsableTalentSpell(3,3) and W_HPlevel(NA_Target)<=0.2;
+				local cop = NA_isUsableTalentSpell(7,1)
+				local vent = NA_isUsableTalentSpell(7,2)
 				
 				
         
         if(not NA_IsAOE and (false
-					or NA_Fire(copdotwave and (W_RetainBuff(NA_Target, -34914, true) and W_RetainBuff(NA_Target, -589, true) and UnitPower(NA_Player,13)==5), '2944', NA_Target) --噬灵疫病
-					or NA_Fire(copdotwave and UnitPower(NA_Player,13)<=4, '8092', NA_Target) --心灵震爆
-					or NA_Fire(copdotwave and UnitPower(NA_Player,13)==4 and not W_RetainBuff(NA_Target, -589, true) and not W_RetainBuff(NA_Target, -2944, true) and W_GetSpellCooldown(8092)<2 and W_GetSpellCooldown(8092)>0.2, '589', NA_Target) --暗言术：痛
-					or NA_Fire(copdotwave and UnitPower(NA_Player,13)==5 and not W_RetainBuff(NA_Target, -2944, true) and not W_RetainBuff(NA_Target, -589, true), '589', NA_Target) --暗言术：痛
-					or NA_Fire(copdotwave and UnitPower(NA_Player,13)==5 and not W_RetainBuff(NA_Target, -2944, true) and not W_RetainBuff(NA_Target, -34914, true), '34914', NA_Target) --吸血鬼之触
-					or NA_Fire(copdotwave and UnitPower(NA_Player,13)>=2 and W_BuffTime(NA_Target, -589)>=6 and W_GetSpellCooldown(8092)>1 and W_BuffTime(NA_Target, -34914)>0, '589', NA_Target) --暗言术：痛
-					or NA_Fire(copdotwave and UnitPower(NA_Player,13)>=2 and W_BuffTime(NA_Target, -34914)>=5 and W_GetSpellCooldown(8092)>1, '589', NA_Target) --暗言术：痛
-					or NA_Fire(copdotwave and W_GetSpellCooldown(8092)>1 and GetTalentRowSelectionInfo(18), '120644', NA_Target) --光晕
-					or NA_Fire(copdotwave and not W_RetainBuff(NA_Target, -589, true) or W_BuffTime(NA_Target, -589)<6, '589', NA_Target) --暗言术：痛
-					or NA_Fire(copdotwave and not W_RetainBuff(NA_Target, -34914, true) or W_BuffTime(NA_Target, -34914)<5, '34914', NA_Target) --吸血鬼之触
-					or NA_Fire(copdotwave and ((W_RetainBuff(NA_Target, -589, true) and not W_RetainBuff(NA_Target, -34914, true)) or (not W_RetainBuff(NA_Target, -589, true) and W_RetainBuff(NA_Target, -34914, true))) and UnitPower(NA_Player,13)<=2 and W_GetSpellCooldown(8092)>1, '73510', NA_Target) --心灵尖刺
-					or NA_Fire(copdotwave and W_RetainBuff(NA_Target, -589, true) and W_RetainBuff(NA_Target, -34914, true) and W_GetSpellCooldown(8092)>1 and not W_GetSpellCooldown(32379)<=0.1, '15407', NA_Target) --精神鞭笞
-					or NA_Fire(copdotwave and true, '73510', NA_Target) --心灵尖刺
-					or NA_Fire(copdotwave and true, '32379', NA_Target) --暗言术：灭
-					or NA_Fire(copdotwave and GetTalentRowSelectionInfo(18), '120644', NA_Target) --光晕
-					or NA_Fire(copdotwave and true, '589', NA_Target) --暗言术：痛
+					or NA_Fire(NA_isUsableTalentSpell(5,2), '10060', NA_Player) --能量灌注
+					or NA_Fire(copdotwave and W_RetainBuff(NA_Target, -34914, true) and W_RetainBuff(NA_Target, -589, true) and UnitPower(NA_Player,13)==5 and W_GetSpellCooldown(2944)==0, '2944', NA_Target) --噬灵疫病
+					or NA_Fire(copdotwave and W_RetainBuff(NA_Target, -34914, true) and W_RetainBuff(NA_Target, -589, true) and not W_RetainBuff(NA_Player, 132573, true) and W_GetSpellCooldown(8092)>0.5, '2944', NA_Target) --噬灵疫病
+					or NA_Fire(copdotwave and UnitPower(NA_Player,13)<=4 and W_GetSpellCooldown(8092)==0, '8092', NA_Target) --心灵震爆
+					or NA_Fire(copdotwave and not NA_isUsableTalentSpell(3,2) and not W_RetainBuff(NA_Player,132573, true), '34433', NA_Target) --暗影魔
+					or NA_Fire(copdotwave and NA_isUsableTalentSpell(3,2) and not W_RetainBuff(NA_Player,132573, true), '123040', NA_Target) --摧心魔
+					or NA_Fire(copdotwave and UnitPower(NA_Player,13)==4 and not W_RetainBuff(NA_Target, -589, true) and not W_RetainBuff(NA_Target, -2944, true) and W_GetSpellCooldown(8092)<1.44 and W_GetSpellCooldown(8092)>0.24, '589', NA_Target) --暗言术：痛
+					or NA_Fire(copdotwave and UnitPower(NA_Player,13)==5 and not W_RetainBuff(NA_Target, -158831, true) and not W_RetainBuff(NA_Target, -589, true), '589', NA_Target) --暗言术：痛
+					or NA_Fire(copdotwave and UnitPower(NA_Player,13)==5 and not W_RetainBuff(NA_Target, -158831, true) and not W_RetainBuff(NA_Target, -34914, true), '34914', NA_Target) --吸血鬼之触
+					or NA_Fire(copdotwave and W_RetainBuff(NA_Player, 132573, true) and W_GetSpellCooldown(8092)>0.1, '139139', NA_Player) --疯狂
+					or NA_Fire(copdotwave and W_GetSpellCooldown(8092)>0.7 and NA_isUsableTalentSpell(6,3), '120644', NA_Target) --光晕
+					or NA_Fire(copdotwave and NA_isUsableTalentSpell(6,2) and W_GetSpellCooldown(8092)>0.7, '122121', NA_Target) --神圣之星
+					or NA_Fire(copdotwave and NA_isUsableTalentSpell(6,1) and W_GetSpellCooldown(8092)>0.7, '127632', NA_Target) --瀑流
+					or NA_Fire(copdotwave and not W_RetainBuff(NA_Target, -589, true) or W_BuffTime(NA_Target, -589)<5.4, '589', NA_Target) --暗言术：痛
+					or NA_Fire(copdotwave and not W_RetainBuff(NA_Target, -34914, true) or W_BuffTime(NA_Target, -34914)<4.5, '34914', NA_Target) --吸血鬼之触
+					or NA_Fire(copdotwave and ((W_RetainBuff(NA_Target, -589, true) and not W_RetainBuff(NA_Target, -34914, true)) or (not W_RetainBuff(NA_Target, -589, true) and W_RetainBuff(NA_Target, -34914, true))) and UnitPower(NA_Player,13)<=2 and W_GetSpellCooldown(8092)>0.7, '73510', NA_Target) --心灵尖刺
+					or NA_Fire(copdotwave and W_RetainBuff(NA_Target, -589, true) and W_RetainBuff(NA_Target, -34914, true) and W_GetSpellCooldown(8092)>1.2 and not (W_GetSpellCooldown(8092)<=0.1 or W_GetSpellCooldown(32379)<=0.1), '15407', NA_Target) --精神鞭笞
+					or NA_Fire(copdotwave, '73510', NA_Target) --心灵尖刺
+					or NA_Fire(copdotwave, '32379', NA_Target) --暗言术：灭
+					or NA_Fire(copdotwave and NA_isUsableTalentSpell(6,3), '120644', NA_Target) --光晕
+					or NA_Fire(copdotwave and NA_isUsableTalentSpell(6,2), '122121', NA_Target) --神圣之星
+					or NA_Fire(copdotwave and NA_isUsableTalentSpell(6,1), '127632', NA_Target) --瀑流
+					or NA_Fire(copdotwave, '589', NA_Target) --暗言术：痛
 					or NA_Fire(copmfi and UnitPower(NA_Player,13)==5, '2944', NA_Target) --噬灵疫病
-					or NA_Fire(copmfi and true, '8092', NA_Target) --心灵震爆
+					or NA_Fire(copmfi and W_GetSpellCooldown(8092)==0, '8092', NA_Target) --心灵震爆
 					or NA_Fire(copmfi and W_HPlevel(NA_Target)<0.2, '32379', NA_Target) --暗言术：灭
 					or NA_Fire(copmfi and UnitPower(NA_Player,13)>=3 and (W_GetSpellCooldown(8092)<1.5 or W_HPlevel(NA_Target)<0.2 and W_GetSpellCooldown(32379)<1.5), '2944', NA_Target) --噬灵疫病
-					or NA_Fire(copmfi and not GetTalentRowSelectionInfo(8), '34433', NA_Target) --暗影魔
-					or NA_Fire(copmfi and GetTalentRowSelectionInfo(8), '123040', NA_Target) --摧心魔
-					or NA_Fire(copmfi and W_BuffTime(NA_Target, -589)<6 or not W_RetainBuff(NA_Target, -589, true), '589', NA_Target) --暗言术：痛
-					or NA_Fire(copmfi and W_BuffTime(NA_Target, -34914)<5 or not W_RetainBuff(NA_Target, -34914, true), '34914', NA_Target) --吸血鬼之触
+					or NA_Fire(copmfi and NA_isUsableTalentSpell(3,2), '123040', NA_Target) --摧心魔
+					or NA_Fire(copmfi and not NA_isUsableTalentSpell(3,2), '34433', NA_Target) --暗影魔
+					or NA_Fire(copmfi and W_BuffTime(NA_Target, -589)<5.4 or not W_RetainBuff(NA_Target, -589, true), '589', NA_Target) --暗言术：痛
+					or NA_Fire(copmfi and W_BuffTime(NA_Target, -34914)<6 or not W_RetainBuff(NA_Target, -34914, true), '34914', NA_Target) --吸血鬼之触
 					or NA_Fire(copmfi and (W_GetSpellCooldown(8092)>0.1 or (W_GetSpellCooldown(32379)>0.1 and W_HPlevel(NA_Target)<0.2)), '139139', NA_Player) --疯狂
-					or NA_Fire(copmfi and true, '120644', NA_Target) --光晕
-					or NA_Fire(copmfi and true, '73510', NA_Target) --心灵尖刺
-					or NA_Fire(copmfi and true, '32379', NA_Target) --暗言术：灭
-					or NA_Fire(copmfi and W_RetainBuff(NA_Player, 162452, true), '8092', NA_Target) --心灵震爆
-					or NA_Fire(copmfi and true, '589', NA_Target) --暗言术：痛
-					or NA_Fire(true, '123040', NA_Target) --摧心魔
+					or NA_Fire(copmfi and NA_isUsableTalentSpell(6,3), '120644', NA_Target) --光晕
+					or NA_Fire(copmfi and NA_isUsableTalentSpell(6,1), '127632', NA_Target) --瀑流
+					or NA_Fire(copmfi and NA_isUsableTalentSpell(6,2), '122121', NA_Target) --神圣之星
+					or NA_Fire(copmfi and (W_GetSpellCooldown(8092)>0.1 or W_GetSpellCooldown(32379)>0.1), '48045', NA_Target) --精神灼烧
+					or NA_Fire(copmfi, '73510', NA_Target) --心灵尖刺
+					or NA_Fire(copmfi, '32379', NA_Target) --暗言术：灭
+					or NA_Fire(copmfi and NA_isUsableTalentSpell(5,3) and W_RetainBuff(NA_Player, 124430, true), '8092', NA_Target) --心灵震爆
+					or NA_Fire(copmfi and NA_isUsableTalentSpell(6,3), '120644', NA_Target) --光晕
+					or NA_Fire(copmfi and NA_isUsableTalentSpell(6,1), '127632', NA_Target) --瀑流
+					or NA_Fire(copmfi and NA_isUsableTalentSpell(6,2), '122121', NA_Target) --神圣之星
+					or NA_Fire(copmfi, '589', NA_Target) --暗言术：痛
+					or NA_Fire(NA_isUsableTalentSpell(3,2), '123040', NA_Target) --摧心魔
+					or NA_Fire(not NA_isUsableTalentSpell(3,2), '34433', NA_Target) --暗影魔
 					or NA_Fire(W_HPlevel(NA_Target)<0.2 and UnitPower(NA_Player,13)<=4, '32379', NA_Target) --暗言术：灭
-					or NA_Fire(UnitPower(NA_Player,13)<=2, '8092', NA_Target) --心灵震爆
+					or NA_Fire(NA_CheckGlyph(1202) and UnitPower(NA_Player,13)<=2 and W_GetSpellCooldown(8092)==0, '8092', NA_Target) --心灵震爆
+					or NA_Fire(UnitPower(NA_Player,13)==5 and NA_isUsableTalentSpell(3,1), '2944', NA_Target) --噬灵疫病
 					or NA_Fire(UnitPower(NA_Player,13)==5, '2944', NA_Target) --噬灵疫病
-					or NA_Fire(UnitPower(NA_Player,13)>=3 and (W_GetSpellCooldown(8092)<1.5 or W_HPlevel(NA_Target)<0.2 and W_GetSpellCooldown(32379)<1.5) and not W_RetainBuff(NA_Target, -2944, true), '2944', NA_Target) --噬灵疫病
-					or NA_Fire(true, '8092', NA_Target) --心灵震爆
-					or NA_Fire(true, '120644', NA_Target) --光晕
-					or NA_Fire(GetTalentRowSelectionInfo(21), '589', NA_Target) --暗言术：痛
-					or NA_Fire(not GetTalentRowSelectionInfo(20) and UnitPower(NA_Player,13)>=3 and not xxgzc, '34914', NA_Target) --吸血鬼之触
-					or NA_Fire(GetTalentRowSelectionInfo(21) and W_BuffCount(NA_Player, 162448)==3, '73510', NA_Target) --心灵尖刺
-					or NA_Fire(W_BuffCount(NA_Player, 162448)>0, '73510', NA_Target) --心灵尖刺
-					or NA_Fire(UnitPower(NA_Player,13)>=2 and W_BuffTime(NA_Target, -589)<=3 and GetTalentRowSelectionInfo(21), '589', NA_Target) --暗言术：痛
-					or NA_Fire(UnitPower(NA_Player,13)>=2 and W_BuffTime(NA_Target, -34914)<=3.5 and not xxgzc, '34914', NA_Target) --吸血鬼之触
-					or NA_Fire(not (W_GetSpellCooldown(8092)>0.1 or W_GetSpellCooldown(32379)>0.1 or UnitPower(NA_Player,13)==5), '15407', NA_Target) --精神鞭笞
-					or NA_Fire(W_RetainBuff(NA_Player, 162452, true), '8092', NA_Target) --心灵震爆
+					or NA_Fire(UnitPower(NA_Player,13)>=3 and (W_GetSpellCooldown(8092)<1.5 or W_HPlevel(NA_Target)<0.2 and W_GetSpellCooldown(32379)<1.5) and not W_RetainBuff(NA_Target, -2944, true) and NA_isUsableTalentSpell(3,1), '2944', NA_Target) --噬灵疫病
+					or NA_Fire(W_GetSpellCooldown(8092)==0, '8092', NA_Target) --心灵震爆
+					or NA_Fire(NA_isUsableTalentSpell(3,3) and (W_BuffTime(NA_Player,132573)<1 and (W_GetSpellCooldown(8092)>0.1 or W_GetSpellCooldown(32379)>0.1 or UnitPower(NA_Player,13)<5)), '139139', NA_Player) --疯狂
+					or NA_Fire(NA_isUsableTalentSpell(3,3) and W_GetSpellCooldown(8092)>0.1 or W_GetSpellCooldown(32379)>0.1 or UnitPower(NA_Player,13)<5, '139139', NA_Player) --疯狂
+					or NA_Fire(NA_isUsableTalentSpell(6,3), '120644', NA_Target) --光晕
+					or NA_Fire(NA_isUsableTalentSpell(6,1), '127632', NA_Target) --瀑流
+					or NA_Fire(NA_isUsableTalentSpell(6,2), '122121', NA_Target) --神圣之星
+					or NA_Fire(NA_isUsableTalentSpell(7,3) and W_BuffTime(NA_Target,-589)<5.4 or not ayst, '589', NA_Target) --暗言术：痛
+					or NA_Fire(not NA_isUsableTalentSpell(7,3) and W_BuffTime(NA_Target,-589)<5.4 or not ayst, '589', NA_Target) --暗言术：痛
+					or NA_Fire(W_BuffTime(NA_Target,-34914)<5.5 or not xxgzc, '34914', NA_Target) --吸血鬼之触
+					or NA_Fire(not NA_isUsableTalentSpell(7,2) and UnitPower(NA_Player,13)>=3 and not W_RetainBuff(NA_Target, -158831, true), '2944', NA_Target) --噬灵疫病
+					or NA_Fire(NA_isUsableTalentSpell(3,1) and W_BuffCount(NA_Player, 87160)==3, '73510', NA_Target) --心灵尖刺
+					or NA_Fire(NA_isUsableTalentSpell(6,3), '120644', NA_Target) --光晕
+					or NA_Fire(NA_isUsableTalentSpell(6,1), '127632', NA_Target) --瀑流
+					or NA_Fire(NA_isUsableTalentSpell(6,2), '122121', NA_Target) --神圣之星
+					or NA_Fire(NA_isUsableTalentSpell(3,1), '73510', NA_Target) --心灵尖刺
+					or NA_Fire(NA_isUsableTalentSpell(6,2), '122121', NA_Target) --神圣之星
+					or NA_Fire(W_GetSpellCooldown(8092)>0.1 or W_GetSpellCooldown(32379)>0.1 or UnitPower(NA_Player,13)<5, '48045', NA_Target) --精神灼烧
+					or NA_Fire(UnitPower(NA_Player,13)>=2 and W_BuffTime(NA_Target, -589)<=3 and NA_isUsableTalentSpell(3,3), '589', NA_Target) --暗言术：痛
+					or NA_Fire(UnitPower(NA_Player,13)>=2 and (W_BuffTime(NA_Target, -34914)<=3.5 or not xxgzc) and NA_isUsableTalentSpell(3,3), '34914', NA_Target) --吸血鬼之触
+					or NA_Fire(W_GetSpellCooldown(8092)>0.1 or W_GetSpellCooldown(32379)>0.1 or UnitPower(NA_Player,13)==5, '15407', NA_Target) --精神鞭笞
+					or NA_Fire(NA_isUsableTalentSpell(5,3) and W_RetainBuff(NA_Player, 124430, true) and W_GetSpellCooldown(8092)==0, '8092', NA_Target) --心灵震爆
+					or NA_Fire(NA_isUsableTalentSpell(6,2), '122121', NA_Target) --神圣之星
+					or NA_Fire(NA_isUsableTalentSpell(6,1), '127632', NA_Target) --瀑流
 					or NA_Fire(true, '32379', NA_Target) --暗言术：灭
 					or NA_Fire(true, '589', NA_Target) --暗言术：痛
 
@@ -157,17 +193,24 @@ function NA5Dps()
 				
 				
         if(false
-					or NA_Fire(W_HPlevel(NA_Target)<0.4, '33206', NA_Target) --痛苦压制
-					or NA_Fire(NA_CountLowPlayers(NA_Target,0.8,10)>3, '596', NA_Target) --治疗祷言
-					or NA_Fire(NA_CountLowPlayers(NA_Target,0.7,10)>3, '120517', NA_Player) --光晕
-					or NA_Fire(NA_CountLowPlayers(NA_Target,0.7,10)>3, '132157', NA_Player) --神圣新星
-					or NA_Fire(W_HPlevel(NA_Target)<0.9 and not xrlh, '17', NA_Target) --真言术：盾
 					or NA_Fire(NA_CheckDebuff(NA_Target)==1 or NA_CheckDebuff(NA_Target)==2, '527', NA_Target) --纯净术
-					or NA_Fire((W_HPlevel(NA_Target)<0.6 and fycb>3) or W_BuffTime(NA_Player, 81661, true)<3, '81700', NA_Player) --天使长
-					or NA_Fire(W_HPlevel(NA_Target)<0.6 and tsz, '33076', NA_Target) --愈合祷言
-					or NA_Fire(W_HPlevel(NA_Target)<0.8, '47540', NA_Target) --苦修
-					or NA_Fire(W_HPlevel(NA_Target)<0.7, '2061', NA_Target) --快速治疗
-					or NA_Fire(W_HPlevel(NA_Target)<0.9, '2060', NA_Target) --治疗术
+					or NA_Fire(W_HPlevel(NA_Target)<0.4, '33206', NA_Target) --痛苦压制
+					or NA_Fire(NA_CountLowPlayers(NA_Target,0.8,10)>=3 and tsz, '596', NA_Target) --治疗祷言
+					or NA_Fire(NA_isUsableTalentSpell(6,3) and NA_CountLowPlayers(NA_Player,0.9,30)>=3, '120517', NA_Player) --光晕
+					or NA_Fire(NA_isUsableTalentSpell(6,1) and NA_CountLowPlayers(NA_Target,0.8,30)>=3, '121135', NA_Target) --瀑流
+					or NA_Fire(NA_isUsableTalentSpell(6,2) and W_HPlevel(NA_Target)<=0.8, '110744', NA_Target) --神圣之星
+					or NA_Fire(W_HPlevel(NA_Target)<0.9 and W_RetainBuff(NA_Player, 115255, true), '2061', NA_Target) --快速治疗
+					or NA_Fire((W_HPlevel(NA_Target)<0.7 and fycb>3) or W_BuffTime(NA_Player, 81661, true)<3, '81700', NA_Player) --天使长
+					or NA_Fire(W_HPlevel(NA_Target)<0.9 and not xrlh, '17', NA_Target) --真言术：盾
+					or NA_Fire(NA_isUsableTalentSpell(7,1) and NA_CheckRoles(NA_Target)==1 and W_HPlevel(NA_Target)<0.8 and not W_RetainBuff(NA_Target, 152118, true), '152118', NA_Target) --意志洞悉
+					or NA_Fire(NA_isUsableTalentSpell(7,3) and W_HPlevel(NA_Target)<0.7 and W_BuffCount(NA_Player, 152116)<=3, '152116', NA_Target) --救赎恩惠
+					or NA_Fire(NA_isUsableTalentSpell(5,2) and W_HPlevel(NA_Target)<0.7, '10060', NA_Player) --能量灌注
+					or NA_Fire(W_RetainBuff(NA_Player, 109964, true), '596', NA_Target) --治疗祷言
+					or NA_Fire(W_HPlevel(NA_Target)<=0.8, '33076', NA_Target) --愈合祷言
+					or NA_Fire(W_HPlevel(NA_Target)<=0.8, '47540', NA_Target) --苦修
+					or NA_Fire(W_HPlevel(NA_Target)<=0.8, '2061', NA_Target) --快速治疗
+					or NA_Fire(W_HPlevel(NA_Target)<0.9 and W_HPlevel(NA_Target)>0.8, '2060', NA_Target) --治疗术
+					or NA_Fire(NA_CountLowPlayers(NA_Player,0.8,12)>=3, '132157', NA_Player) --神圣新星
 
         )then return true; end
       elseif(NA_ProfileNo == 1)then --Holy
@@ -185,13 +228,18 @@ function NA5Dps()
 					or NA_Fire(W_HPlevel(NA_Target)<0.9 and not xrlh2, '17', NA_Target) --真言术：盾
 					or NA_Fire(NA_CheckDebuff(NA_Target)==1 or NA_CheckDebuff(NA_Target)==2, '527', NA_Target) --纯净术
 					or NA_Fire(W_HPlevel(NA_Target)<0.9 and not hf, '139', NA_Player) --恢复
-					or NA_Fire(W_HPlevel(NA_Target)<0.8, '34861', NA_Target) --治疗之环
+					or NA_Fire(NA_CountLowPlayers(NA_Target,0.8,30)>=3, '34861', NA_Target) --治疗之环
 					or NA_Fire(W_HPlevel(NA_Target)<0.8 and mshc>0, '33076', NA_Target) --愈合祷言
-					or NA_Fire(W_HPlevel(NA_Target)<0.7, '2061', NA_Target) --快速治疗
-					or NA_Fire(W_HPlevel(NA_Target)<0.9 and mshc>0, '2060', NA_Target) --治疗术
-					or NA_Fire(W_HPlevel(NA_Target)<0.8, '596', NA_Target) --治疗祷言
-					or NA_Fire(W_HPlevel(NA_Target)<0.7, '120517', NA_Player) --光晕
+					or NA_Fire(NA_isUsableTalentSpell(7,1) and NA_CountLowPlayers(NA_Target,0.8,30)>=3, '155245', NA_Target) --清晰使命
+					or NA_Fire(not NA_isUsableTalentSpell(7,1) and NA_CountLowPlayers(NA_Target,0.8,30)>=3, '596', NA_Target) --治疗祷言
+					or NA_Fire(NA_isUsableTalentSpell(7,3) and W_HPlevel(NA_Target)<0.7 and W_BuffCount(NA_Player, 152116)<=3, '152116', NA_Target) --救赎恩惠
+					or NA_Fire(NA_isUsableTalentSpell(5,2) and W_HPlevel(NA_Target)<0.7, '10060', NA_Player) --能量灌注
+					or NA_Fire(NA_isUsableTalentSpell(6,3) and NA_CountLowPlayers(NA_Player,0.9,30)>=3, '120517', NA_Player) --光晕
+					or NA_Fire(NA_isUsableTalentSpell(6,1) and W_HPlevel(NA_Target)<=0.8, '121135', NA_Target) --瀑流
+					or NA_Fire(NA_isUsableTalentSpell(6,2) and W_HPlevel(NA_Target)<=0.8, '110744', NA_Target) --神圣之星
 					or NA_Fire(W_HPlevel(NA_Target)<0.7, '32546', NA_Target) --联结治疗
+					or NA_Fire(W_HPlevel(NA_Target)<0.7, '2061', NA_Target) --快速治疗
+					or NA_Fire(W_HPlevel(NA_Target)<0.9 and W_HPlevel(NA_Target)>0.7 and mshc>0, '2060', NA_Target) --治疗术
 
         )then return true; end
       elseif(NA_ProfileNo == 2)then --Shadow
@@ -210,21 +258,21 @@ function NA5Dps()
     elseif(NA_ProfileNo == 0)then --Discipline
       
       if(false
-					or NA_Fire(not W_HasBuff(NA_Player, 21562, true), '21562', NA_Player) --真言术：韧
+					or NA_Fire(select(3,UnitStat(NA_Player,3))==0, '21562', NA_Player) --真言术：韧
 					or NA_Fire(W_HPlevel(NA_Target)<0.9, '2060', NA_Target) --治疗术
 
       )then return true; end
     elseif(NA_ProfileNo == 1)then --Holy
       
       if(false
-					or NA_Fire(not W_HasBuff(NA_Player, 21562, true), '21562', NA_Player) --真言术：韧
-					or NA_Fire(W_HPlevel(NA_Target)<0.9, '2060', NA_Target) --治疗术
+					or NA_Fire(select(3,UnitStat(NA_Player,3))==0, '21562', NA_Player) --真言术：韧
+					or NA_Fire(W_HPlevel(NA_Target)<0.9, '139', NA_Target) --恢复
 
       )then return true; end
     elseif(NA_ProfileNo == 2)then --Shadow
       
       if(false
-					or NA_Fire(not W_HasBuff(NA_Player, 21562, true), '21562', NA_Player) --真言术：韧
+					or NA_Fire(select(3,UnitStat(NA_Player,3))==0, '21562', NA_Player) --真言术：韧
 					or NA_Fire(not W_FormInfo(1), '15473', NA_Player) --暗影形态
 					or NA_Fire(not ayst, '589', NA_Target) --暗言术：痛
 

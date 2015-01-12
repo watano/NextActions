@@ -136,7 +136,7 @@ function NA8Dps()
     elseif(NA_ProfileNo == 0)then --Arcane
       
       if(false
-					or NA_Fire(not W_HasBuff(NA_Player, 1459, true), '1459', NA_Player) --奥术光辉
+					or NA_Fire(select(3,UnitStat(NA_Player,4))==0, '1459', NA_Player) --奥术光辉
 					or NA_Fire(NA_IsSolo and W_TargetCanAttack(), '2136', NA_Target) --火焰冲击
 					or NA_Fire(NA_IsSolo and W_TargetCanAttack(), '44425', NA_Target) --奥术弹幕
 
@@ -146,13 +146,13 @@ function NA8Dps()
       if(false
 					or NA_Fire(UnitHealth(NA_Pet)<=0, '31687', NA_Player) --召唤水元素
 					or NA_Fire(NA_IsSolo and W_TargetCanAttack(), '116', NA_Target) --寒冰箭
-					or NA_Fire(not W_HasBuff(NA_Player, 1459, true), '1459', NA_Player) --奥术光辉
+					or NA_Fire(select(3,UnitStat(NA_Player,4))==0, '1459', NA_Player) --奥术光辉
 
       )then return true; end
     elseif(NA_ProfileNo == 2)then --Fire
       
       if(false
-					or NA_Fire(not W_HasBuff(NA_Player, 1459, true), '1459', NA_Player) --奥术光辉
+					or NA_Fire(select(3,UnitStat(NA_Player,4))==0, '1459', NA_Player) --奥术光辉
 
       )then return true; end
     end

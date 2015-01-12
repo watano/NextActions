@@ -25,10 +25,6 @@ function NA_init()
 	SLASH_NEXTACTIONS1 = "/nextactions"
 	SLASH_NEXTACTIONS2 = "/na"
 	SlashCmdList["NEXTACTIONS"] = NA_SlashHandler;
-	
-	if(not W_IsInCombat() and NA_Config.NA_MyUI == true)then 
-		NA_MyUI();
-	end
 end
 
 function NA_initClassData(className, profileNo)
@@ -120,12 +116,12 @@ function NA_InitClass()
 	local no=0;
 	for k,v in pairs(NA_Actions) do
 		no = no + 1;
-		if(v ~= nil and NA_SpellInfoType(v) == 1) then
+		if(v ~= nil and v~= 'NA_ChagetTarget' and NA_SpellInfoType(v) == 1) then
 			local name, rank, icon, cost, isFunnel, powerType, castTime, minRange, maxRange;
 			name, rank, icon, cost, isFunnel, powerType, castTime, minRange, maxRange = GetSpellInfo(tonumber(v));
 			if(name ~= nil) then
 				NA_ClassInfo[v] = {};
-            NA_ClassInfo[v]['spellID'] = tonumber(v);
+        NA_ClassInfo[v]['spellID'] = tonumber(v);
 				NA_ClassInfo[v]['name'] = name;
 				NA_ClassInfo[v]['rank'] = rank;
 				NA_ClassInfo[v]['icon'] = icon;
@@ -235,6 +231,11 @@ function NA_OnEvent(event,...)
 		local unit, spellname, spellrank = ...;
 		if(unit == NA_Player)then
 			NA_UpdateSpellTime(spellname, spellrank);
+		end
+	end
+	if(event == "ADDON_LOADED")then
+		if(not W_IsInCombat() and NA_Config.NA_MyUI == true)then 
+			NA_MyUI();
 		end
 	end
 
