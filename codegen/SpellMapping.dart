@@ -1,5 +1,7 @@
-List AllEnglishSpells = [{
-    'classID': 1,
+
+
+List<Object> AllEnglishSpells = [
+  {'classID': 1,
     'spells': {//战士
       'devastate': '毁灭打击',
       'shield_slam': '盾牌猛击',
@@ -366,7 +368,7 @@ List AllEnglishSpells = [{
     }
   },];
 
-Map AllSpells = {
+Map<String,String> AllSpells = {
   'bloodlust': '嗜血', //（英勇）
   'blood_fury': '狂怒',//（兽人）
   'arcane_torrent': '奥术洪流',//（血精灵）
@@ -374,7 +376,7 @@ Map AllSpells = {
   'potion': '合剂',
 };
 
-Map AllBuffs = {
+Map<String,int> AllBuffs = {
   'focus_fire': 82692,
   'bloodlust': 2825,
   'pre_steady_focus': 2825,

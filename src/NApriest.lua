@@ -1,11 +1,11 @@
 function getNA5Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'15487','528','123040','34433','129250','14914','585','527','33206','596','120517','121135','110744','2061','81700','17','152118','152116','10060','33076','47540','2060','132157','586','19236','112833','21562'};
+    return {'585','589','10060','14914','15487','21562','34433','47540','123040','129250','528','527','33206','596','120517','121135','110744','2061','81700','17','152118','152116','33076','2060','132157','586','19236','112833'};
   elseif(no == 1)then
-    return {'沉默','528','123040','34433','129250','14914','585','47788','17','527','139','34861','33076','155245','596','152116','10060','120517','121135','110744','32546','2061','2060','586','19236','112833','21562'};
+    return {'585','589','10060','14914','15487','21562','34433','48045','81209','88625','123040','129250','沉默','528','47788','17','527','139','34861','33076','155245','596','152116','120517','121135','110744','32546','2061','2060','586','19236','112833'};
   elseif(no == 2)then
-    return {'10060','2944','8092','34433','123040','589','34914','139139','120644','122121','127632','73510','15407','32379','48045','15286','47585','586','19236','17','21562','15473'};
+    return {'589','2944','8092','10060','15407','15473','15487','21562','32379','34433','34914','47585','48045','73510','110744','120644','121135','123040','129197','155361','139139','122121','127632','15286','586','19236','17'};
   end
   return {};
 end
@@ -66,10 +66,12 @@ function NA5Dps()
 					or NA_Fire(not NA_isUsableTalentSpell(3,3), '14914', NA_Target) --神圣之火
 					or NA_Fire(true, '585', NA_Target) --惩击
 
+          or NA_fireByOvale()
         ))then return true; end
   
         if(NA_IsAOE and (false
 
+          or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 1)then --Holy
         
@@ -84,10 +86,12 @@ function NA5Dps()
 					or NA_Fire(not NA_isUsableTalentSpell(3,3), '14914', NA_Target) --神圣之火
 					or NA_Fire(true, '585', NA_Target) --惩击
 
+          or NA_fireByOvale()
         ))then return true; end
   
         if(NA_IsAOE and (false
 
+          or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 2)then --Shadow
         local ayst = W_RetainBuff(NA_Target, -589, true);   --暗言术：痛
@@ -177,10 +181,12 @@ function NA5Dps()
 					or NA_Fire(true, '32379', NA_Target) --暗言术：灭
 					or NA_Fire(true, '589', NA_Target) --暗言术：痛
 
+          or NA_fireByOvale()
         ))then return true; end
   
         if(NA_IsAOE and (false
 
+          or NA_fireByOvale()
         ))then return true; end
       end
     elseif(UnitCanAssist(NA_Player, NA_Target))then

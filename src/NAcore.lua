@@ -115,43 +115,46 @@ function NA_InitClass()
 
 	local no=0;
 	for k,v in pairs(NA_Actions) do
-		no = no + 1;
-		if(v ~= nil and v~= 'NA_ChagetTarget' and NA_SpellInfoType(v) == 1) then
-			local name, rank, icon, cost, isFunnel, powerType, castTime, minRange, maxRange;
-			name, rank, icon, cost, isFunnel, powerType, castTime, minRange, maxRange = GetSpellInfo(tonumber(v));
-			if(name ~= nil) then
+		if(v ~= nil)then
+			local spellInfoType = NA_SpellInfoType(v);
+			no = no + 1;
+			if(spellInfoType == 1) then
+				local name, rank, icon, cost, isFunnel, powerType, castTime, minRange, maxRange;
+				name, rank, icon, cost, isFunnel, powerType, castTime, minRange, maxRange = GetSpellInfo(tonumber(v));
+				if(name ~= nil) then
+					NA_ClassInfo[v] = {};
+					NA_ClassInfo[v]['spellID'] = tonumber(v);
+					NA_ClassInfo[v]['name'] = name;
+					NA_ClassInfo[v]['rank'] = rank;
+					NA_ClassInfo[v]['icon'] = icon;
+					NA_ClassInfo[v]['cost'] = cost;
+					NA_ClassInfo[v]['isFunnel'] = isFunnel;
+					NA_ClassInfo[v]['powerType'] = powerType;
+					NA_ClassInfo[v]['castTime'] = castTime;
+					NA_ClassInfo[v]['minRange'] = minRange;
+					NA_ClassInfo[v]['maxRange'] = maxRange;
+					W_Log(1,"NA_ClassInfo["..k.."]: ".. name);
+					NA_ClassInfo[v]['keyNo'] = no;
+					W_SetBinding(no, NA_ClassInfo[v].name, 1);
+				else
+					W_Log(3,"GetSpellInfo error: ".. k);
+				end
+			elseif(spellInfoType == 2)then --Item
+				local name = strsub(v,1,strlen(v))
 				NA_ClassInfo[v] = {};
-        NA_ClassInfo[v]['spellID'] = tonumber(v);
-				NA_ClassInfo[v]['name'] = name;
-				NA_ClassInfo[v]['rank'] = rank;
-				NA_ClassInfo[v]['icon'] = icon;
-				NA_ClassInfo[v]['cost'] = cost;
-				NA_ClassInfo[v]['isFunnel'] = isFunnel;
-				NA_ClassInfo[v]['powerType'] = powerType;
-				NA_ClassInfo[v]['castTime'] = castTime;
-				NA_ClassInfo[v]['minRange'] = minRange;
-				NA_ClassInfo[v]['maxRange'] = maxRange;
-				W_Log(1,"NA_ClassInfo["..k.."]: ".. name);
+				NA_ClassInfo[v]['spellID'] = name;
 				NA_ClassInfo[v]['keyNo'] = no;
-				W_SetBinding(no, NA_ClassInfo[v].name, 1);
+				W_SetBinding(no, name, 2);
+			elseif(spellInfoType == 3)then --Macro
+				local name = strsub(spellID,1,strlen(v))
+				NA_ClassInfo[v] = {};
+				NA_ClassInfo[v]['spellID'] = name;
+				NA_ClassInfo[v]['keyNo'] = no;
+				W_SetBinding(no, name, 3);
 			else
-				W_Log(3,"GetSpellInfo error: ".. k);
-			end
-	  elseif(v ~= nil and NA_SpellInfoType(v) == 2)then --Item
-			local name = strsub(v,1,strlen(v))
-			NA_ClassInfo[v] = {};
-      NA_ClassInfo[v]['spellID'] = name;
-			NA_ClassInfo[v]['keyNo'] = no;
-			W_SetBinding(no, name, 2);
-		elseif(v ~= nil and NA_SpellInfoType(v) == 3)then --Macro
-			local name = strsub(spellID,1,strlen(v))
-			NA_ClassInfo[v] = {};
-      NA_ClassInfo[v]['spellID'] = name;
-			NA_ClassInfo[v]['keyNo'] = no;
-			W_SetBinding(no, name, 3);
-		else
-			W_Log(4,"unkonw action: ".. v);
-		end	
+				W_Log(4,"unkonw action: ".. v);
+			end	
+		end		
 	end
 
 	--W_Log(1, W_toString(NA_ClassInfo))
@@ -236,6 +239,9 @@ function NA_OnEvent(event,...)
 	if(event == "ADDON_LOADED")then
 		if(not W_IsInCombat() and NA_Config.NA_MyUI == true)then 
 			NA_MyUI();
+			if(DGV ~= nil)then
+				DGV:ClearModule(DGV.Modules["MapPreview"]);
+			end			
 		end
 	end
 
@@ -277,6 +283,8 @@ function NA_SpellInfoType(spellID)
 		return 2;
 	elseif(strlen(spellID) > 1 and strsub(spellID,0,1) == 'M')then --Macro
 		return 3;
+	elseif(strlen(spellID) > 3 and strsub(spellID,0,3) == 'NA_')then --Function
+		return 4;
 	end
 	return 1;
 end

@@ -35,6 +35,12 @@ function W_toString(var)
 	end
 end
 
+function W_printAllKeys(var)
+	for k in pairs(var) do
+    print(k);
+	end
+end
+
 function W_SetBinding(no, text, f)
 	local key;
 	if(no >0 and no<10) then
@@ -161,7 +167,7 @@ end
 
 function W_TargetCanAttack()
 	if(not UnitIsDead(NA_Target) and UnitCanAttack(NA_Player,NA_Target) and
-	(UnitIsEnemy(NA_Player,NA_Target) or UnitIsTapped(NA_Target) or UnitIsPlayer(NA_Target))) then
+	(UnitIsTapped(NA_Target) or UnitIsPlayer(NA_Target))) then
 		return true;
 	else
 		return false
@@ -203,16 +209,19 @@ function W_isTanking()
 end
 
 function NA_Fire(cond, spellID, UnitId, interval)
-	if(interval == nil)then
-		interval = 0;
-		NA_SpellTimes[spellID] = nil;
-	end
-
-	if(NA_SpellTimes[spellID] ~= nil and (GetTime() - NA_SpellTimes[spellID]) < interval)then
-		return false;
-	end
+--	if(interval == nil)then
+--		interval = 0;
+--		NA_SpellTimes[spellID] = nil;
+--	end
+--
+--	if(NA_SpellTimes[spellID] ~= nil and (GetTime() - NA_SpellTimes[spellID]) < interval)then
+--		return false;
+--	end
 	if(spellID == 'NA_ChagetTarget')then
 		return NA_ChagetTarget();
+	end
+	if(spellID == 'NA_fireByOvale')then
+		return NA_fireByOvale();
 	end
 
 	local spellType = NA_SpellInfoType(spellID)
@@ -765,4 +774,26 @@ function W_CheckRange(UnitId,UnitId2)
 	return range;
     end
    return 9999;
+end
+
+function NA_getOvaleActions()
+	local NA_OvaleActions = {[1]=nil,[2]=nil,[3]=nil,[4]=nil};
+	if(Ovale ~= nil and Ovale.frame ~= nil and Ovale.frame.actions ~= nil)then
+		for i=1,4 do 
+			if(Ovale.frame.actions[i] ~= nil and Ovale.frame.actions[i].spellId ~= nil)then
+				NA_OvaleActions[i] = Ovale.frame.actions[i].spellId..'';
+			end
+		end					
+	end
+	return NA_OvaleActions;
+end
+
+function NA_fireByOvale()
+	local NA_OvaleActions = NA_getOvaleActions();
+	return (false
+					or NA_Fire(NA_OvaleActions[1] ~= nil, NA_OvaleActions[1], NA_Target)
+					or NA_Fire(not NA_IsAOE and NA_OvaleActions[2] ~= nil, NA_OvaleActions[2], NA_Target)
+					or NA_Fire(NA_IsAOE and NA_OvaleActions[3] ~= nil, NA_OvaleActions[3], NA_Target)
+					or NA_Fire(NA_IsMaxDps and NA_OvaleActions[4] ~= nil, NA_OvaleActions[4], NA_Target)
+        );
 end

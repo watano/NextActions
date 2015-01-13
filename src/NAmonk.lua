@@ -1,11 +1,11 @@
 function getNA10Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'115080','115399','122783','122278','115203','115176','115072','115308','123904','152173','100784','119582','157676','115295','116705','119381','121253','123986','115098','124081','100780','100787','115181','116847','101546','115450','116781'};
+    return {'100780','100784','100787','115069','115072','115078','115080','115098','115181','115203','115295','115308','115399','116705','116781','116847','119582','121253','122278','122783','123904','123986','124081','137562','152173','157676','115176','119381','101546','115450'};
   elseif(no == 1)then
     return {'154436','115080','115072','100780','107428','100787','100784','157675','116694','116680','115098','124081','123986','123904','119381','115294','115070','116849','115151','124682','116670','115175','101546','115460','115203','115921'};
   elseif(no == 2)then
-    return {'115080','116705','115072','123904','115399','100787','116740','107428','152173','113656','152175','115288','115098','123986','124081','100784','152174','100780','116847','101546','116781'};
+    return {'100780','100784','100787','101546','103985','107428','113656','115078','115080','115098','115203','115288','115399','116705','116740','116781','116847','123904','123986','124081','137562','152173','152174','152175','115072'};
   end
   return {};
 end
@@ -85,6 +85,7 @@ function NA10Dps()
 					or NA_Fire(W_GetSpellCooldown(121253)>=1.25, '100787', NA_Target) --猛虎掌
 					or NA_Fire(true, '100787', NA_Target) --猛虎掌
 
+          or NA_fireByOvale()
         ))then return true; end
   
         if(NA_IsAOE and (false
@@ -109,6 +110,7 @@ function NA10Dps()
 					or NA_Fire(NA_isUsableTalentSpell(4,2), '119381', NA_Target) --扫堂腿
 					or NA_Fire(true, '100787', NA_Target) --猛虎掌
 
+          or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 1)then --Mistweaver
         local xrdst2 = W_RetainBuff(NA_Target, -130320, true);   --贯日击的易伤
@@ -136,10 +138,12 @@ function NA10Dps()
 					or NA_Fire(shs and NA_isUsableTalentSpell(4,3), '119381', NA_Target) --扫堂腿
 					or NA_Fire(shs and true, '115294', NA_Player) --法力茶
 
+          or NA_fireByOvale()
         ))then return true; end
   
         if(NA_IsAOE and (false
 
+          or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 2)then --Battledancer
         local xrdst3 = W_RetainBuff(NA_Target, -107428, true);   --贯日击的易伤
@@ -177,6 +181,7 @@ function NA10Dps()
 					or NA_Fire(NA_isUsableTalentSpell(7,2) and UnitPower(NA_Player,12)>=3, '152174', NA_Target) --真气破
 					or NA_Fire((UnitPowerMax(NA_Player,12)-UnitPower(NA_Player,12))>=2, '100780', NA_Target) --贯日击
 
+          or NA_fireByOvale()
         ))then return true; end
   
         if(NA_IsAOE and (false
@@ -208,6 +213,7 @@ function NA10Dps()
 					or NA_Fire(not NA_isUsableTalentSpell(6,1), '101546', NA_Target) --神鹤引项踢
 					or NA_Fire(NA_isUsableTalentSpell(6,1) and (UnitPowerMax(NA_Player, 12)-UnitPower(NA_Player, 12))>=2, '100780', NA_Target) --贯日击
 
+          or NA_fireByOvale()
         ))then return true; end
       end
     elseif(UnitCanAssist(NA_Player, NA_Target))then

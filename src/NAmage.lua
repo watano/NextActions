@@ -1,11 +1,11 @@
 function getNA8Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'45438','11426','5143','30451','2136','44425','120','1459'};
+    return {'120','1449','1459','1953','2139','5143','11958','12042','12043','12051','30451','44425','55342','80353','108839','108843','114923','116011','152087','153626','157980','45438','11426','2136'};
   elseif(no == 1)then
-    return {'45438','11426','12472','30455','55342','44614','84714','112948','108839','116','120','31687','1459'};
+    return {'10','116','1459','1953','2139','12472','30455','31687','44614','55342','80353','84714','108839','108843','112948','116011','135029','152087','153595','157997','45438','11426','120'};
   elseif(no == 2)then
-    return {'108839','116011','152087','1459'};
+    return {'133','1459','1953','2120','2139','2948','11129','11366','11958','31661','44457','55342','80353','108839','108843','108853','116011','152087','153561','157981'};
   end
   return {};
 end
@@ -57,11 +57,13 @@ function NA8Dps()
 					or NA_Fire(not NA_IsMaxDps and NA_IsSolo, '2136', NA_Target) --火焰冲击
 					or NA_Fire(not NA_IsMaxDps and NA_IsSolo, '44425', NA_Target) --奥术弹幕
 
+          or NA_fireByOvale()
         ))then return true; end
   
         if(NA_IsAOE and (false
 					or NA_Fire(not NA_IsMaxDps and NA_IsSolo, '120', NA_Target) --冰锥术
 
+          or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 1)then --Frost
         local counthbz = W_BuffCount(NA_Player, 44544); --寒冰指
@@ -82,12 +84,14 @@ function NA8Dps()
 					or NA_Fire(true, '108839', NA_Player) --浮冰
 					or NA_Fire(true, '116', NA_Target) --寒冰箭
 
+          or NA_fireByOvale()
         ))then return true; end
   
         if(NA_IsAOE and (false
 					or NA_Fire(not NA_IsMaxDps and NA_IsSolo, '120', NA_Target) --冰锥术
 					or NA_Fire(true, '84714', NA_Target) --寒冰宝珠
 
+          or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 2)then --Fire
         local hasfb = W_RetainBuff(NA_Player, 108839, true); --浮冰
@@ -100,10 +104,12 @@ function NA8Dps()
 					or NA_Fire(W_BuffTime(NA_Player,116011)<5, '116011', NA_Player) --能量符文
 					or NA_Fire(true, '152087', NA_Target) --幻灵晶体
 
+          or NA_fireByOvale()
         ))then return true; end
   
         if(NA_IsAOE and (false
 
+          or NA_fireByOvale()
         ))then return true; end
       end
     elseif(UnitCanAssist(NA_Player, NA_Target))then

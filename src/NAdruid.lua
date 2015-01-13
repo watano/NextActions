@@ -1,13 +1,13 @@
 function getNA11Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'5487','106839','770','132469','99','62606','2908','2782','22812','155835','6807','106952','22842','102351','108238','108293','774','124974','5185','80313','33745','102558','106832','33917','102401','61336','1126'};
+    return {'774','1126','5185','5211','5487','6807','22570','22812','22842','33745','33917','50334','62606','77758','80313','102351','102401','102558','106839','108238','108293','124974','132469','155835','770','99','2908','2782','106952','106832','61336'};
   elseif(no == 1)then
-    return {'768','102401','1822','106839','132469','2908','2782','99','102703','5217','102543','106952','22568','5185','52610','106832','1079','8921','106785','5221','61336','1126','5215'};
+    return {'768','1079','1126','1822','1850','5185','5211','5215','5217','5221','22568','22570','52610','102280','102401','102543','102703','106785','106830','106839','106951','132469','155625','2908','2782','99','106952','106832','8921','61336'};
   elseif(no == 2)then
     return {'5176','2908','132158','5185','8936','102342','124974','88423','18562','774','48438','145205','145518','33763','22812','1126'};
   elseif(no == 3)then
-    return {'78675','124974','2908','33831','78674','112071','102560','48505','93402','152221','8921','5176','2912','2782','22812','1126'};
+    return {'1126','2912','5176','8921','24858','33831','48505','78674','93402','102560','112071','152221','78675','124974','2908','2782','22812'};
   end
   return {};
 end
@@ -94,10 +94,12 @@ function NA11Dps()
 					or NA_Fire(inBear, '33745', NA_Target) --割伤
 					or NA_Fire(inBear and W_TargetCanAttack(), '102401', NA_Target) --野性冲锋
 
+          or NA_fireByOvale()
         ))then return true; end
   
         if(NA_IsAOE and (false
 
+          or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 1)then --Cat
         local hasympx = W_RetainBuff(NA_Player, 174544, true);   --野蛮咆哮
@@ -141,10 +143,12 @@ function NA11Dps()
 					or NA_Fire(UnitPower(NA_Player,4)<5, '106785', NA_Target) --横扫
 					or NA_Fire(UnitPower(NA_Player,4)<5, '5221', NA_Target) --撕碎
 
+          or NA_fireByOvale()
         ))then return true; end
   
         if(NA_IsAOE and (false
 
+          or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 2)then --Restoration
         
@@ -154,10 +158,12 @@ function NA11Dps()
 					or NA_Fire(NA_isUsableTalentSpell(7,2), '5176', NA_Target) --愤怒
 					or NA_Fire(NA_CheckBuff(NA_Target)==2, '2908', NA_Target) --安抚
 
+          or NA_fireByOvale()
         ))then return true; end
   
         if(NA_IsAOE and (false
 
+          or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 3)then --Balance
         local yhsdot = W_RetainBuff(NA_Target, -164812, true);   --月火术dot
@@ -188,10 +194,12 @@ function NA11Dps()
 					or NA_Fire(UnitPower(NA_Player,8)>=25 and UnitPower(NA_Player,8)<=100, '5176', NA_Target) --愤怒
 					or NA_Fire(UnitPower(NA_Player,8)<=25 and UnitPower(NA_Player,8)>=-100, '2912', NA_Target) --星火术
 
+          or NA_fireByOvale()
         ))then return true; end
   
         if(NA_IsAOE and (false
 
+          or NA_fireByOvale()
         ))then return true; end
       end
     elseif(UnitCanAssist(NA_Player, NA_Target))then

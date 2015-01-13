@@ -1,11 +1,11 @@
 function getNA4Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'111240','1766','5938','32645','1943','14185','1856','5171','8676','79140','1329','1784','2823','108211'};
+    return {'408','1329','1766','1784','1833','1856','1943','2823','5171','14185','26679','32645','36554','51723','79140','111240','121411','137619','152151','5938','8676','108211'};
   elseif(no == 1)then
-    return {'14185','152151','8676','5938','1856','36554','13750','5171','137619','2098','84617','1752','121411','1784','2823','108211'};
+    return {'408','1752','1766','1784','1833','1856','2098','2823','5171','8676','13750','13877','14185','26679','36554','51690','84617','137619','152150','152151','5938','121411','108211'};
   elseif(no == 2)then
-    return {'8676','1766','14183','5938','16511','53','51713','2098','14185','1856','152151','5171','1943','1784','2823','108211'};
+    return {'53','408','703','1766','1784','1833','1856','1943','2098','2823','5171','8676','14183','14185','16511','26679','36554','51713','51723','114014','121411','137619','152150','152151','5938','108211'};
   end
   return {};
 end
@@ -68,10 +68,12 @@ function NA4Dps()
 					or NA_Fire(true, '79140', NA_Target) --宿敌
 					or NA_Fire(true, '1329', NA_Target) --毁伤
 
+          or NA_fireByOvale()
         ))then return true; end
   
         if(NA_IsAOE and (false
 
+          or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 1)then --Combat
         local hasys = W_RetainBuff(NA_Player, 11327, true);   --隐身
@@ -106,6 +108,7 @@ function NA4Dps()
 					or NA_Fire(countyhdj<2 and (UnitPower(NA_Player,4)<5 or (talentyg and countyg<=4 and not hasmd)), '84617', NA_Target) --要害打击
 					or NA_Fire(UnitPower(NA_Player,4)<5 or (talentyg and countyg<=4 and not hasmd), '1752', NA_Player) --影袭
 
+          or NA_fireByOvale()
         ))then return true; end
   
         if(NA_IsAOE and (false
@@ -123,6 +126,7 @@ function NA4Dps()
 					or NA_Fire(countyhdj<2 and (UnitPower(NA_Player,4)<5 or (talentyg and countyg<=4 and not hasmd)), '84617', NA_Target) --要害打击
 					or NA_Fire(UnitPower(NA_Player,4)<5 or (talentyg and countyg<=4 and not hasmd), '1752', NA_Player) --影袭
 
+          or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 2)then --Subtlety
         local countyg = W_BuffCount(NA_Player, 114015);   --预感
@@ -148,10 +152,12 @@ function NA4Dps()
 					or NA_Fire(UnitPower(NA_Player,4)==5 and W_BuffTime(NA_player, 1943)<4, '5171', NA_Player) --切割
 					or NA_Fire(W_BuffTime(NA_Target, 1943)<7, '1943', NA_Target) --割裂
 
+          or NA_fireByOvale()
         ))then return true; end
   
         if(NA_IsAOE and (false
 
+          or NA_fireByOvale()
         ))then return true; end
       end
     elseif(UnitCanAssist(NA_Player, NA_Target))then

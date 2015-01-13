@@ -1,11 +1,11 @@
 function getNA1Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'112048','12975','871','1160','34428','55694','103840','355','5308','2565','6572','78','23922','20243','156321','100','57755','107570','6552','114029','6673'};
+    return {'71','78','100','469','871','1160','2565','5308','6343','6544','6552','6572','6673','12292','12975','18499','20243','23922','34428','46924','46968','55694','57755','103840','107570','107574','112048','118000','152277','355','156321','114029'};
   elseif(no == 1)then
-    return {'34428','103840','5308','23881','107570','100130','85288','100','57755','6552','46924','1680','6673'};
+    return {'100','469','1680','1719','2457','5308','6544','6552','6673','12292','18499','23881','46924','46968','57755','85288','100130','103840','107570','107574','118000','152277','176289','34428'};
   elseif(no == 2)then
-    return {'34428','103840','772','6552','152277','167105','12294','107570','176289','118000','163201','1464','100','57755','6673'};
+    return {'100','469','772','1464','1680','1719','2457','6544','6552','6673','12292','12294','12328','46924','46968','57755','103840','107570','107574','118000','152277','163201','167105','176289','34428'};
   end
   return {};
 end
@@ -67,6 +67,7 @@ function NA1Dps()
 					or NA_Fire(true, '57755', NA_Target) --英勇投掷
 					or NA_Fire(true, '107570', NA_Target) --风暴之锤
 
+          or NA_fireByOvale()
         ))then return true; end
   
         if(NA_IsAOE and (false
@@ -88,6 +89,7 @@ function NA1Dps()
 					or NA_Fire(true, '57755', NA_Target) --英勇投掷
 					or NA_Fire(true, '107570', NA_Target) --风暴之锤
 
+          or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 1)then --Fury
         local hascs = W_RetainBuff(NA_Player, 29725, true);   --猝死
@@ -110,6 +112,7 @@ function NA1Dps()
 					or NA_Fire(true, '57755', NA_Target) --英勇投掷
 					or NA_Fire(NA_IsSolo, '107570', NA_Target) --风暴之锤
 
+          or NA_fireByOvale()
         ))then return true; end
   
         if(NA_IsAOE and (false
@@ -125,6 +128,7 @@ function NA1Dps()
 					or NA_Fire(true, '57755', NA_Target) --英勇投掷
 					or NA_Fire(true, '107570', NA_Target) --风暴之锤
 
+          or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 2)then --Arms
         local hassl = W_RetainBuff(NA_Target, -772, true);   --撕裂
@@ -136,24 +140,15 @@ function NA1Dps()
         if(not NA_IsAOE and (false
 					or NA_Fire(not NA_IsMaxDps and W_HPlevel(NA_Player)<0.8, '34428', NA_Player) --乘胜追击
 					or NA_Fire(NA_IsSolo and W_HPlevel(NA_Player)<0.2, '103840', NA_Player) --胜利在望
-					or NA_Fire(not hassl and not hasjrdj, '772', NA_Target) --撕裂
-					or NA_Fire(NA_SpellInterrupt(NA_Target), '6552', NA_Target) --拳击
-					or NA_Fire(W_GetSpellCooldown(167105)<4, '152277', NA_Target) --破坏者
-					or NA_Fire(true, '167105', NA_Target) --巨人打击
-					or NA_Fire(true, '12294', NA_Target) --致死打击
-					or NA_Fire(hasjrdj or W_GetSpellCooldown(167105)>4, '107570', NA_Target) --风暴之锤
-					or NA_Fire(true, '176289', NA_Target) --破城者
-					or NA_Fire(not hasjrdj, '118000', NA_Target) --巨龙怒吼
-					or NA_Fire(W_BuffTime(NA_Target,-772)<5, '772', NA_Target) --撕裂
-					or NA_Fire(hasjrdj or hascs or UnitPower(NA_Player,2)>60 or W_HPlevel(NA_Target)<0.2, '163201', NA_Target) --斩杀
-					or NA_Fire(W_HPlevel(NA_Target)>0.2, '1464', NA_Target) --猛击
 
+          or NA_fireByOvale()
         ))then return true; end
   
         if(NA_IsAOE and (false
 					or NA_Fire(not NA_IsMaxDps and W_HPlevel(NA_Player)<0.8, '34428', NA_Player) --乘胜追击
 					or NA_Fire(NA_IsSolo and W_HPlevel(NA_Player)<0.2, '103840', NA_Player) --胜利在望
 
+          or NA_fireByOvale()
         ))then return true; end
       end
     elseif(UnitCanAssist(NA_Player, NA_Target))then

@@ -1,11 +1,11 @@
 function getNA2Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'105809','498','96231','152262','86659','633','31850','642','62124','4987','114163','53600','31935','119072','53595','20271','35395','20925','114157','31801','20154','114158','114165','26573','24275','19750','6940','1022','1038','25780','20217','19740'};
+    return {'498','853','19740','19750','20154','20165','20217','20271','20925','24275','25780','26573','31801','31850','31935','35395','53595','53600','85499','86659','96231','105593','105809','114157','114158','114163','114165','115750','119072','136494','152262','633','642','62124','4987','6940','1022','1038'};
   elseif(no == 1)then
-    return {'498','633','642','96231','19750','20925','85499','4987','20271','114157','114158','105809','31884','152262','53385','85256','157048','24275','879','31801','20154','35395','114165','53595','6940','1022','85673','20217','19740'};
+    return {'853','879','19740','20154','20217','20271','24275','31801','31884','35395','53385','53595','85256','85499','96231','105593','105809','114157','114158','114165','115750','152262','157048','498','633','642','19750','20925','4987','6940','1022','85673'};
   elseif(no == 2)then
-    return {'96231','24275','20271','20473','105593','853','53563','156910','498','642','633','4987','6940','1022','85222','114163','85673','19750','82327','82326','114165','31842','20217','19740'};
+    return {'633','853','19740','19750','20165','20217','20271','20473','31842','82326','85499','85673','96231','105593','115750','24275','53563','156910','498','642','4987','6940','1022','85222','114163','82327','114165'};
   end
   return {};
 end
@@ -93,6 +93,7 @@ function NA2Dps()
 					or NA_Fire(NA_isUsableTalentSpell(3,3), '20925', NA_Player) --圣洁护盾
 					or NA_Fire(NA_isUsableTalentSpell(3,1) and W_BuffCount(NA_Player, 85804)>=3, '19750', NA_Player) --圣光闪现
 
+          or NA_fireByOvale()
         ))then return true; end
   
         if(NA_IsAOE and (false
@@ -105,6 +106,7 @@ function NA2Dps()
 					or NA_Fire(true, '53595', NA_Target) --正义之锤
 					or NA_Fire(true, '20271', NA_Target) --审判
 
+          or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 1)then --Retribution
         
@@ -159,6 +161,7 @@ function NA2Dps()
 					or NA_Fire(W_PaladinPower(NA_Player)>=3 and (not NA_isUsableTalentSpell(7,3) or W_GetSpellCooldown(152262)>9), '85256', NA_Target) --圣殿骑士的裁决
 					or NA_Fire(NA_isUsableTalentSpell(6,1), '114165', NA_Target) --神圣棱镜
 
+          or NA_fireByOvale()
         ))then return true; end
   
         if(NA_IsAOE and (false
@@ -170,6 +173,7 @@ function NA2Dps()
 					or NA_Fire(true, '20271', NA_Target) --审判
 					or NA_Fire(true, '114165', NA_Target) --神圣棱镜
 
+          or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 2)then --Holy
         
@@ -184,10 +188,12 @@ function NA2Dps()
 					or NA_Fire(NA_isUsableTalentSpell(2,1) and NA_SpellInterrupt(NA_Target), '105593', NA_Target) --制裁之拳
 					or NA_Fire(not NA_isUsableTalentSpell(2,1) and NA_SpellInterrupt(NA_Target), '853', NA_Target) --制裁之锤
 
+          or NA_fireByOvale()
         ))then return true; end
   
         if(NA_IsAOE and (false
 
+          or NA_fireByOvale()
         ))then return true; end
       end
     elseif(UnitCanAssist(NA_Player, NA_Target))then

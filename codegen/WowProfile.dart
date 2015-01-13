@@ -10,6 +10,7 @@ class Profile {
   String name;
   String specName;
   String commonCodes = '';
+  Set<String> actions = new Set();
 
   String keepHPCodes = '';
   List<CmdInfo> keepHPCmds = [];
@@ -98,6 +99,7 @@ String classProfilesCodes() {
       continue;
     }
     actions.clear();
+    actions.addAll(p.actions);
 
     profileAtkCodes += '''
       elseif(NA_ProfileNo == ${p.profileID})then --${p.name}
@@ -105,10 +107,12 @@ String classProfilesCodes() {
         ${p.attackAOECodes.replaceAll('\n', '\n\t\t\t\t')}
         if(not NA_IsAOE and (false
 ${cmdCodes(p.attackCmds)}
+          or NA_fireByOvale()
         ))then return true; end
   
         if(NA_IsAOE and (false
 ${cmdCodes(p.attackAOECmds)}
+          or NA_fireByOvale()
         ))then return true; end
 ''';
     profileAssistCodes += '''
@@ -133,9 +137,11 @@ ${cmdCodes(p.keepBuffCmds)}
       )then return true; end
 ''';
 
+    List<String> actionlist = actions.toList();
+    actionlist.sort();
     codeActions += '''
   elseif(no == ${p.profileID})then
-    return {${joinText2(actions, "'", "',", ",")}};
+    return {${joinText2(actions.toList(), "'", "',", ",")}};
 ''';
     codeProfileNames += '[${p.profileID}]=\'${p.name}\',';
     commonCodes += p.commonCodes;
@@ -145,7 +151,7 @@ ${cmdCodes(p.keepBuffCmds)}
     assistCodes += p.assistCodes;
     keepBuffCodes += p.keepBuffCodes;
 
-	if(actions.length>35){
+	if(actions.length>36){
 		print(p.name + '==' + actions.length.toString());
 	}
   }
@@ -268,6 +274,9 @@ Profile readProfileIni(String path){
         }
         if(name == 'specName'){
           p.specName = value;
+        }
+        if(name == 'actions' && value.trim().length>0){
+          p.actions.addAll(value.split(','));
         }
       }else if(section == 'attackCmds'.toLowerCase()){
         p.addattackCmd(value, name.substring(0, name.indexOf('@')), name.substring(name.indexOf('@')+1));

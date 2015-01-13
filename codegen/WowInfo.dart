@@ -19,56 +19,6 @@ List<WOWClassInfo> AllClassInfo = [
   new WOWClassInfo()..classID=10 ..name='MONK' ..cnName='武僧' ..enName='monk',
   new WOWClassInfo()..classID=11 ..name='DRUID' ..cnName='德鲁伊' ..enName='druid',
 ];
-var AllSpells = {
-  'horn_of_winter': [57330, NA_Player],
-  'unholy_blight': [115989, NA_Target],
-  'blood_plague': [55078, NA_Target],
-  'pestilence': [50842, NA_Target],
-  'plague_leech': [123693, NA_Target],
-  'howling_blast': [49184, NA_Target],
-  'blood_tap': [45529, NA_Target],
-  'frost_strike': [49143, NA_Target],
-  'death_and_decay': [43265, NA_Target],
-  'plague_strike': [45462, NA_Target],
-  'empower_rune_weapon': [47568, NA_Target],
-  'outbreak': [77575, NA_Target],
-  'soul_reaper:Unholy': [130736, NA_Target],
-  'soul_reaper:Frost': [130735, NA_Target],
-  'soul_reaper:Blood': [114866, NA_Target],
-  'frost_fever': [55095, NA_Target],//55095, 59921
-  'obliterate': [49020, NA_Target],
-
-  'explosive_trap': [13813, NA_Target],
-  'focus_fire': [82692, NA_Target],
-  'serpent_sting': [1978, NA_Target],
-//                 'blood_fury':[123693, NA_Target],
-  'fervor': [82726, NA_Target],
-  'bestial_wrath': [19574, NA_Target],
-  'multi_shot': [2643, NA_Target],
-  'cobra_shot': [77767, NA_Target],
-  'rapid_fire': [3045, NA_Target],
-  'stampede': [121818, NA_Target],
-  'kill_shot': [53351, NA_Target],
-  'kill_command': [34026, NA_Target],
-  'a_murder_of_crows': [131894, NA_Target],
-  'glaive_toss': [117050, NA_Target],
-  'lynx_rush': [120697, NA_Target],
-  'dire_beast': [120679, NA_Target],
-  'barrage': [120360, NA_Target],
-  'powershot': [109259, NA_Target],
-  'arcane_shot': [3044, NA_Target],
-  'thrill_of_the_hunt': [109306, NA_Target],
-};
-
-var AllBuffs = {
-  'blood_charge': [114851, NA_Target],
-  'frost_fever': [55095, NA_Target],
-  'killing_machine': [51124, NA_Target],
-  'blood_plague': [55078, NA_Target],
-  'rime': [59057, NA_Player],
-  'runic_empowerment': [81229, NA_Player],
-};
-
 
 class WOWClassInfo {
   int classID = 0;
@@ -187,15 +137,6 @@ WOWSpellInfo buildSpellInfo(dynamic info, String minLevel, String filter) {
   spellInfo.spellID = spell['id'] as int;
   spellInfo.name = (spell['name']).toString();
   spellInfo.filter = filter;
-
-  for (String k in AllSpells.keys) {
-    List info = AllSpells[k];
-    if (spellInfo.spellID == (info[0] as int)) {
-      spellInfo.no = k;
-      spellInfo.target = info[1] as String;
-    }
-  }
-
   spellInfo.htmlDescription = (spell['htmlDescription']).toString();
   spellInfo.minLevel = int.parse(minLevel);
   return spellInfo;

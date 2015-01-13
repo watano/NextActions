@@ -1,9 +1,9 @@
 function getNA7Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'8050','57994','165477','51505','117014','30823','2894','165462','108281','8004','8042','3599','108285','165339','403','421','79206','108271','108270','2062'};
+    return {'324','403','421','2825','2894','3599','8042','8050','16166','16188','32182','51490','51505','57994','61882','79206','114074','117014','152255','152256','165339','165462','165477','30823','108281','8004','108285','108271','108270','2062'};
   elseif(no == 1)then
-    return {'324','57994','403','17364','60103','8050','73680','8056','3599','51533','165341','2894'};
+    return {'324','403','421','1535','2825','2894','3599','8050','8056','8190','16166','16188','17364','32182','51533','57994','60103','73680','115356','117014','152255','152256','165341'};
   elseif(no == 2)then
     return {'57994','117014','77130','16188','8004','16166','5394','974','52127','73685','61295','1064','77472','108280','152256','157153','108281','165344','79206','108270','108271','2062','I5512','2645'};
   end
@@ -75,10 +75,12 @@ function NA7Dps()
 					or NA_Fire(true, '421', NA_Target) --闪电链
 					or NA_Fire(true, '79206', NA_Player) --灵魂行者的恩赐
 
+          or NA_fireByOvale()
         ))then return true; end
   
         if(NA_IsAOE and (false
 
+          or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 1)then --Enhancement
         local sdzd2 = W_BuffCount(NA_Player, 324);   --闪电之盾
@@ -102,10 +104,12 @@ function NA7Dps()
 					or NA_Fire(true, '165341', NA_Player) --升腾
 					or NA_Fire(true, '2894', NA_Player) --火元素图腾
 
+          or NA_fireByOvale()
         ))then return true; end
   
         if(NA_IsAOE and (false
 
+          or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 2)then --Restoration
         
@@ -115,10 +119,12 @@ function NA7Dps()
 					or NA_Fire(NA_SpellInterrupt(NA_Target), '57994', NA_Target) --风剪
 					or NA_Fire(NA_isUsableTalentSpell(6,3), '117014', NA_Target) --元素冲击
 
+          or NA_fireByOvale()
         ))then return true; end
   
         if(NA_IsAOE and (false
 
+          or NA_fireByOvale()
         ))then return true; end
       end
     elseif(UnitCanAssist(NA_Player, NA_Target))then
@@ -148,7 +154,7 @@ function NA7Dps()
 					or NA_Fire(NA_CheckDebuff(NA_Target)==1 or NA_CheckDebuff(NA_Target)==4, '77130', NA_Target) --净化灵魂
 					or NA_Fire(NA_isUsableTalentSpell(4,2) and not hasxzxj and W_HPlevel(NA_Target)<0.6, '16188', NA_Player) --先祖迅捷
 					or NA_Fire(hasxzxj and W_HPlevel(NA_Target)<0.6, '8004', NA_Target) --治疗之涌
-					or NA_Fire(NA_isUsableTalentSpell(4,2) and W_HPlevel(NA_Target)<0.5, '16166', NA_Player) --元素掌握
+					or NA_Fire(NA_isUsableTalentSpell(4,1) and W_HPlevel(NA_Target)<0.5, '16166', NA_Player) --元素掌握
 					or NA_Fire(true, '5394', NA_Player) --治疗之泉图腾
 					or NA_Fire(NA_CheckRoles(NA_Target)==1 and not ddzd, '974', NA_Target) --大地之盾
 					or NA_Fire(not szhd, '52127', NA_Player) --水之护盾

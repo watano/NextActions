@@ -1,11 +1,11 @@
 function getNA3Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'136','982','19574','53351','82692','34026','120679','120360','131894','117050','121818','109259','3044','77767','2643','5118'};
+    return {'982','2643','3044','13813','19574','34026','53351','77767','82692','109259','117050','120360','120679','121818','131894','147362','152245','162536','162537','136','5118'};
   elseif(no == 1)then
-    return {'53209','131894','19434','120360','121818','56641','3045','109260','136'};
+    return {'982','2643','3045','13813','19434','53209','53351','56641','109259','117050','120360','120679','121818','131894','147362','162536','162537','163485','109260','136'};
   elseif(no == 2)then
-    return {'136','982','19801','53301','3044','3674','131894','120679','120360','117050','109259','121818','77767','2643','13813','5118'};
+    return {'982','2643','3044','3674','13813','53301','77767','109259','117050','120360','120679','121818','131894','147362','152245','162536','162537','136','19801','5118'};
   end
   return {};
 end
@@ -60,6 +60,7 @@ function NA3Dps()
 					or NA_Fire(true, '3044', NA_Target) --奥术射击
 					or NA_Fire(true, '77767', NA_Target) --眼镜蛇射击
 
+          or NA_fireByOvale()
         ))then return true; end
   
         if(NA_IsAOE and (false
@@ -78,6 +79,7 @@ function NA3Dps()
 					or NA_Fire(NA_IsMaxDps, '109259', NA_Target) --强风射击
 					or NA_Fire(true, '77767', NA_Target) --眼镜蛇射击
 
+          or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 1)then --Marksman
         
@@ -94,6 +96,7 @@ function NA3Dps()
 					or NA_Fire(true, '56641', NA_Target) --稳固射击
 					or NA_Fire(true, '3045', NA_Target) --急速射击
 
+          or NA_fireByOvale()
         ))then return true; end
   
         if(NA_IsAOE and (false
@@ -102,6 +105,7 @@ function NA3Dps()
 					or NA_Fire(NA_isUsableTalentSpell(5,1), '131894', NA_Target) --夺命黑鸦
 					or NA_Fire(NA_IsMaxDps and NA_isUsableTalentSpell(5,3), '121818', NA_Target) --群兽奔腾
 
+          or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 2)then --Survival
         
@@ -125,6 +129,7 @@ function NA3Dps()
 					or NA_Fire(true, '3044', NA_Target) --奥术射击
 					or NA_Fire(true, '77767', NA_Target) --眼镜蛇射击
 
+          or NA_fireByOvale()
         ))then return true; end
   
         if(NA_IsAOE and (false
@@ -144,6 +149,7 @@ function NA3Dps()
 					or NA_Fire(NA_isUsableTalentSpell(6,2), '109259', NA_Target) --强风射击
 					or NA_Fire(true, '77767', NA_Target) --眼镜蛇射击
 
+          or NA_fireByOvale()
         ))then return true; end
       end
     elseif(UnitCanAssist(NA_Player, NA_Target))then
