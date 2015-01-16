@@ -1,11 +1,11 @@
 function getNA9Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'172','603','686','1122','1454','1949','6353','18540','30146','89751','103958','103964','104025','104316','105174','108508','109773','111898','113861','115831','124916','137587','152108','157695','119898','755','104773','29858','689','6789'};
+    return {'172','603','686','1122','1454','1949','6353','18540','30146','89751','103958','103964','104025','104316','105174','108508','109773','111898','113861','115831','124916','137587','152108','157695','NA_ChagetTarget','755','104773','29858','689','6789','I5512'};
   elseif(no == 1)then
-    return {'348','691','1122','17877','17962','18540','29722','104232','108503','108508','108683','109773','111897','113858','116858','137587','152108','114635'};
+    return {'348','691','1122','17877','17962','18540','29722','104232','108503','108508','108683','109773','111897','113858','116858','137587','152108','NA_ChagetTarget','114635','I5512'};
   elseif(no == 2)then
-    return {'172','691','980','1122','1454','18540','30108','48181','74434','103103','108503','108508','109773','111897','113860','137587','152108','755','689','6789','86121','27243'};
+    return {'172','691','980','1122','1454','18540','30108','48181','74434','103103','108503','108508','109773','111897','113860','137587','152108','NA_ChagetTarget','755','689','6789','I5512'};
   end
   return {};
 end
@@ -32,17 +32,23 @@ function NA9Dps()
 					or NA_Fire(NA_IsSolo and W_HPlevel(NA_Player)<0.5, '6789', NA_Target) --死亡缠绕
 					or NA_Fire(NA_IsSolo and W_HPlevel(NA_Player)<0.5, '689', NA_Target) --吸取生命
 					or NA_Fire(W_PowerLevel(NA_Player) < 0.2 and W_HPlevel(NA_Player)>0.5, '1454', NA_Player) --生命分流
+					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
         )then return true; end
       elseif(NA_ProfileNo == 1)then --Destruction
         
         if(false
-					or NA_Fire(NA_ProfileNo == 1 and NA_IsSolo and W_HPlevel(NA_Player)<0.2, '114635', NA_Player) --灰烬转换
+					or NA_Fire(W_HPlevel(NA_Player)<0.2, '114635', NA_Player) --灰烬转换
+					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
         )then return true; end
       elseif(NA_ProfileNo == 2)then --Affliction
         
         if(false
+					or NA_Fire(not NA_IsMaxDps and W_HPlevel(NA_Player)<0.2, '755', NA_Pet) --生命通道
+					or NA_Fire(NA_checkHP(0), '689', NA_Target) --吸取生命
+					or NA_Fire(NA_checkHP(0), '6789', NA_Target) --死亡缠绕
+					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
         )then return true; end
       end
@@ -55,31 +61,12 @@ function NA9Dps()
 				
         
         if(not NA_IsAOE and (false
-					or NA_Fire(true, '105174', NA_Target) --古尔丹之手
-					or NA_Fire(not isDemonform and not W_RetainBuff(NA_Target, -146739, true), '172', NA_Target) --腐蚀术
-					or NA_Fire(true, '113861', NA_Player) --黑暗灵魂：学识
-					or NA_Fire(W_GetSpellCooldown(119915)<=0 or W_GetSpellCooldown(119914)<=0, '119898', NA_Target) --恶魔掌控
-					or NA_Fire(NA_IsMaxDps, '18540', NA_Player) --召唤末日守卫
-					or NA_Fire(not isDemonform and not W_RetainBuff(NA_Target, -603, true), '103958', NA_Player) --恶魔变形
-					or NA_Fire(not isDemonform and UnitPower(NA_Player, SPELL_POWER_DEMONIC_FURY)>=1000, '103958', NA_Player) --恶魔变形
-					or NA_Fire(isDemonform and not W_RetainBuff(NA_Target, -603, true), '172', NA_Target) --腐蚀术
-					or NA_Fire(isDemonform, '686', NA_Target) --暗影箭
-					or NA_Fire(moltencore>0, '6353', NA_Target) --灵魂之火
-					or NA_Fire(true, '686', NA_Target) --暗影箭
+					or NA_Fire(W_HPlevel(NA_Target)<=0 or UnitName(NA_Target)==nil, 'NA_ChagetTarget', NA_Target) --NA_ChagetTarget
 
           or NA_fireByOvale()
         ))then return true; end
   
         if(NA_IsAOE and (false
-					or NA_Fire(true, '105174', NA_Target) --古尔丹之手
-					or NA_Fire(not isDemonform and not W_RetainBuff(NA_Target, -146739, true), '172', NA_Target) --腐蚀术
-					or NA_Fire(NA_IsMaxDps, '113861', NA_Player) --黑暗灵魂：学识
-					or NA_Fire(NA_IsMaxDps, '1122', NA_Player) --召唤地狱火
-					or NA_Fire(NA_IsMaxDps and W_GetSpellCooldown(119914)<=0, '119898', NA_Target) --恶魔掌控
-					or NA_Fire(not isDemonform and UnitPower(NA_Player, SPELL_POWER_DEMONIC_FURY)>=1000, '103958', NA_Player) --恶魔变形
-					or NA_Fire(isDemonform and not W_RetainBuff(NA_Target, -603, true), '172', NA_Target) --腐蚀术
-					or NA_Fire(moltencore>0, '6353', NA_Target) --灵魂之火
-					or NA_Fire(true, '1949', NA_Target) --地狱烈焰
 
           or NA_fireByOvale()
         ))then return true; end
@@ -88,6 +75,7 @@ function NA9Dps()
 				
         
         if(not NA_IsAOE and (false
+					or NA_Fire(W_HPlevel(NA_Target)<=0 or UnitName(NA_Target)==nil, 'NA_ChagetTarget', NA_Target) --NA_ChagetTarget
 
           or NA_fireByOvale()
         ))then return true; end
@@ -105,43 +93,12 @@ function NA9Dps()
 				
         
         if(not NA_IsAOE and (false
-					or NA_Fire(not NA_IsMaxDps and W_HPlevel(NA_Player)<0.2, '755', NA_Pet) --生命通道
-					or NA_Fire(NA_checkHP(0), '689', NA_Target) --吸取生命
-					or NA_Fire(NA_checkHP(0), '6789', NA_Target) --死亡缠绕
-					or NA_Fire(NA_IsMaxDps, '18540', NA_Player) --召唤末日守卫
-					or NA_Fire(NA_IsMaxDps, '74434', NA_Player) --灵魂燃烧
-					or NA_Fire(not retain48181, '48181', NA_Target) --鬼影缠身
-					or NA_Fire(NA_IsSolo and not retain146739, '172', NA_Target) --腐蚀术
-					or NA_Fire(W_HPlevel(NA_Target)<0.2, '103103', NA_Target) --吸取灵魂
-					or NA_Fire(W_HasBuff(NA_Player, 74434, true), '689', NA_Target) --吸取生命
-					or NA_Fire(W_HasBuff(NA_Player, 17941, true), '48181', NA_Target) --鬼影缠身
-					or NA_Fire(not W_HasBuff(NA_Player, 113860, true), '113860', NA_Player) --黑暗灵魂：哀难
-					or NA_Fire(count980<10 or not W_RetainBuff(NA_Target, -980, true), '980', NA_Target) --痛楚
-					or NA_Fire(not retain146739, '172', NA_Target) --腐蚀术
-					or NA_Fire(not retain30108, '30108', NA_Target) --痛苦无常
-					or NA_Fire(not W_RetainBuff(NA_Target, -48181, true) and UnitPower(NA_Player, SPELL_POWER_SOUL_SHARDS)>0, '48181', NA_Target) --鬼影缠身
-					or NA_Fire(W_HPlevel(NA_Target)<0.2, '103103', NA_Target) --吸取灵魂
-					or NA_Fire(true, '30108', NA_Target) --痛苦无常
+					or NA_Fire(W_HPlevel(NA_Target)<=0 or UnitName(NA_Target)==nil, 'NA_ChagetTarget', NA_Target) --NA_ChagetTarget
 
           or NA_fireByOvale()
         ))then return true; end
   
         if(NA_IsAOE and (false
-					or NA_Fire(not NA_IsMaxDps and W_HPlevel(NA_Player)<0.2, '755', NA_Pet) --生命通道
-					or NA_Fire(NA_checkHP(0), '689', NA_Target) --吸取生命
-					or NA_Fire(NA_checkHP(0), '6789', NA_Target) --死亡缠绕
-					or NA_Fire(NA_IsMaxDps, '18540', NA_Player) --召唤末日守卫
-					or NA_Fire(NA_IsMaxDps, '1122', NA_Player) --召唤地狱火
-					or NA_Fire(NA_IsMaxDps, '74434', NA_Player) --灵魂燃烧
-					or NA_Fire(count980<5 and W_HasBuff(NA_Player, 86211, true), '86121', NA_Target) --灵魂交换
-					or NA_Fire(not W_HasBuff(NA_Player, 113860, true), '113860', NA_Player) --黑暗灵魂：哀难
-					or NA_Fire(not W_RetainBuff(NA_Target, -27243, true), '27243', NA_Target) --腐蚀之种
-					or NA_Fire(count980<10, '980', NA_Target) --痛楚
-					or NA_Fire(not retain146739, '172', NA_Target) --腐蚀术
-					or NA_Fire(not retain30108, '30108', NA_Target) --痛苦无常
-					or NA_Fire(not W_RetainBuff(NA_Target, -48181, true) and UnitPower(NA_Player, SPELL_POWER_SOUL_SHARDS)>0, '48181', NA_Target) --鬼影缠身
-					or NA_Fire(not W_RetainBuff(NA_Target, -27243, true), '27243', NA_Target) --腐蚀之种
-					or NA_Fire(W_HPlevel(NA_Target)<0.2, '103103', NA_Target) --吸取灵魂
 
           or NA_fireByOvale()
         ))then return true; end
@@ -177,21 +134,21 @@ function NA9Dps()
       
       if(false
 					or NA_Fire(select(3,UnitStat(NA_Player,4))==0, '109773', NA_Player) --黑暗意图
-					or NA_Fire(NA_ProfileNo == 0 and NA_IsSolo and W_TargetCanAttack(), '686', NA_Target) --暗影箭
+					or NA_Fire(W_TargetCanAttack(), '686', NA_Target) --暗影箭
 
       )then return true; end
     elseif(NA_ProfileNo == 1)then --Destruction
       
       if(false
 					or NA_Fire(select(3,UnitStat(NA_Player,4))==0, '109773', NA_Player) --黑暗意图
-					or NA_Fire(NA_ProfileNo == 1 and NA_IsSolo and W_TargetCanAttack(), '348', NA_Target) --献祭
+					or NA_Fire(W_TargetCanAttack(), '348', NA_Target) --献祭
 
       )then return true; end
     elseif(NA_ProfileNo == 2)then --Affliction
       
       if(false
 					or NA_Fire(select(3,UnitStat(NA_Player,4))==0, '109773', NA_Player) --黑暗意图
-					or NA_Fire(NA_ProfileNo == 2 and NA_IsSolo and W_TargetCanAttack(), '980', NA_Target) --痛楚
+					or NA_Fire(W_TargetCanAttack(), '980', NA_Target) --痛楚
 
       )then return true; end
     end

@@ -1,11 +1,11 @@
 function getNA4Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'408','1329','1766','1784','1833','1856','1943','2823','5171','14185','26679','32645','36554','51723','79140','111240','121411','137619','152151','5938','8676','108211'};
+    return {'408','1329','1766','1784','1833','1856','1943','2823','5171','14185','26679','32645','36554','51723','79140','111240','121411','137619','152151','NA_ChagetTarget','57934','5938','I5512','8676','108211'};
   elseif(no == 1)then
-    return {'408','1752','1766','1784','1833','1856','2098','2823','5171','8676','13750','13877','14185','26679','36554','51690','84617','137619','152150','152151','5938','121411','108211'};
+    return {'408','1752','1766','1784','1833','1856','2098','2823','5171','8676','13750','13877','14185','26679','36554','51690','84617','137619','152150','152151','NA_ChagetTarget','57934','5938','I5512','108211'};
   elseif(no == 2)then
-    return {'53','408','703','1766','1784','1833','1856','1943','2098','2823','5171','8676','14183','14185','16511','26679','36554','51713','51723','114014','121411','137619','152150','152151','5938','108211'};
+    return {'53','408','703','1766','1784','1833','1856','1943','2098','2823','5171','8676','14183','14185','16511','26679','36554','51713','51723','114014','121411','137619','152150','152151','NA_ChagetTarget','57934','5938','I5512','108211'};
   end
   return {};
 end
@@ -27,16 +27,25 @@ function NA4Dps()
       elseif(NA_ProfileNo == 0)then --Assassination
         
         if(false
+					or NA_Fire(NA_SpellInterrupt(NA_Target), '1766', NA_Target) --脚踢
+					or NA_Fire(NA_CheckBuff(NA_Target)==2, '5938', NA_Target) --毒刃
+					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
         )then return true; end
       elseif(NA_ProfileNo == 1)then --Combat
         
         if(false
+					or NA_Fire(NA_SpellInterrupt(NA_Target), '1766', NA_Target) --脚踢
+					or NA_Fire(NA_CheckBuff(NA_Target)==2, '5938', NA_Target) --毒刃
+					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
         )then return true; end
       elseif(NA_ProfileNo == 2)then --Subtlety
         
         if(false
+					or NA_Fire(NA_SpellInterrupt(NA_Target), '1766', NA_Target) --脚踢
+					or NA_Fire(NA_CheckBuff(NA_Target)==2, '5938', NA_Target) --毒刃
+					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
         )then return true; end
       end
@@ -55,18 +64,7 @@ function NA4Dps()
 				
         
         if(not NA_IsAOE and (false
-					or NA_Fire(W_HPlevel(NA_Target)<0.35 or hasmd, '111240', NA_Target) --斩击
-					or NA_Fire(NA_SpellInterrupt(NA_Target), '1766', NA_Target) --脚踢
-					or NA_Fire(NA_CheckBuff(NA_Target), '5938', NA_Target) --毒刃
-					or NA_Fire(hasgl and UnitPower(NA_Player,4)==5, '32645', NA_Target) --毒伤
-					or NA_Fire(not hasgl and UnitPower(NA_Player,4)>0, '1943', NA_Target) --割裂
-					or NA_Fire(not hasys and W_GetSpellCooldown(1856)>60, '14185', NA_Player) --伺机待发
-					or NA_Fire(true, '1856', NA_Player) --消失
-					or NA_Fire(not hasqg and UnitPower(NA_Player,4)>0, '5171', NA_Player) --切割
-					or NA_Fire(hasys or hasqx, '8676', NA_Target) --伏击
-					or NA_Fire(hasqg and UnitPower(NA_Player,4)>0, '32645', NA_Target) --毒伤
-					or NA_Fire(true, '79140', NA_Target) --宿敌
-					or NA_Fire(true, '1329', NA_Target) --毁伤
+					or NA_Fire(W_HPlevel(NA_Target)<=0 or UnitName(NA_Target)==nil, 'NA_ChagetTarget', NA_Target) --NA_ChagetTarget
 
           or NA_fireByOvale()
         ))then return true; end
@@ -95,36 +93,12 @@ function NA4Dps()
 				
         
         if(not NA_IsAOE and (false
-					or NA_Fire(not hasys and W_GetSpellCooldown(1856)>60, '14185', NA_Player) --伺机待发
-					or NA_Fire(W_GetSpellCooldown(51690)<10 and UnitPower(NA_Player,4)>3 or hascd, '152151', NA_Player) --暗影反射
-					or NA_Fire(hasys or hasqx, '8676', NA_Target) --伏击
-					or NA_Fire(NA_CheckBuff(NA_Target), '5938', NA_Target) --毒刃
-					or NA_Fire((UnitPower(NA_Player,4)<3 or (talentyg and countyg<3) or (UnitPower(NA_Player,4)<4 or (talentyg and countyg<4))) and ((talentayjz and not hascd and UnitPower(NA_Player)<20) or (talentgz and UnitPower(NA_Player)>=90) or (not talentayjz and not talentgz and UnitPower(NA_Player)>=60)), '1856', NA_Player) --消失
-					or NA_Fire(UnitPower(NA_Player,3)<50 and (not talentzyfs or W_GetSpellCooldown(152151)>30 or W_BuffTime(NA_Player, 152151)>3), '36554', NA_Target) --暗影步
-					or NA_Fire(UnitPower(NA_Player,3)<35, '13750', NA_Player) --冲动
-					or NA_Fire(W_BuffTime(NA_Player, 5171)<2 or (W_BuffTime(NA_Player, 5171)<15 and countckdjz==11 and UnitPower(NA_Player,4)>=4), '5171', NA_Target) --切割
-					or NA_Fire(UnitPower(NA_Player,4)<=1 and hasyhdj and (not talentayfs or hasayfs or W_GetSpellCooldown(152151)>30), '137619', NA_Target) --死亡标记
-					or NA_Fire(UnitPower(NA_Player,4)==5 and (hasmd or not talentyg or (talentyg and countyg>=4)), '2098', NA_Target) --刺骨
-					or NA_Fire(countyhdj<2 and (UnitPower(NA_Player,4)<5 or (talentyg and countyg<=4 and not hasmd)), '84617', NA_Target) --要害打击
-					or NA_Fire(UnitPower(NA_Player,4)<5 or (talentyg and countyg<=4 and not hasmd), '1752', NA_Player) --影袭
+					or NA_Fire(W_HPlevel(NA_Target)<=0 or UnitName(NA_Target)==nil, 'NA_ChagetTarget', NA_Target) --NA_ChagetTarget
 
           or NA_fireByOvale()
         ))then return true; end
   
         if(NA_IsAOE and (false
-					or NA_Fire(not hasys and W_GetSpellCooldown(1856)>60, '14185', NA_Player) --伺机待发
-					or NA_Fire(W_GetSpellCooldown(51690)<10 and UnitPower(NA_Player,4)>3 or hascd, '152151', NA_Player) --暗影反射
-					or NA_Fire(hasys or hasqx, '8676', NA_Target) --伏击
-					or NA_Fire(NA_CheckBuff(NA_Target), '5938', NA_Target) --毒刃
-					or NA_Fire((UnitPower(NA_Player,4)<3 or (talentyg and countyg<3) or (UnitPower(NA_Player,4)<4 or (talentyg and countyg<4))) and ((talentayjz and not hascd and UnitPower(NA_Player)<20) or (talentgz and UnitPower(NA_Player)>=90) or (not talentayjz and not talentgz and UnitPower(NA_Player)>=60)), '1856', NA_Player) --消失
-					or NA_Fire(UnitPower(NA_Player,3)<50 and (not talentzyfs or W_GetSpellCooldown(152151)>30 or W_BuffTime(NA_Player, 152151)>3), '36554', NA_Target) --暗影步
-					or NA_Fire(UnitPower(NA_Player,3)<35, '13750', NA_Player) --冲动
-					or NA_Fire(W_BuffTime(NA_Player, 5171)<2 or (W_BuffTime(NA_Player, 5171)<15 and countckdjz==11 and UnitPower(NA_Player,4)>=4), '5171', NA_Target) --切割
-					or NA_Fire(UnitPower(NA_Player,4)<=1 and hasyhdj and (not talentayfs or hasayfs or W_GetSpellCooldown(152151)>30), '137619', NA_Target) --死亡标记
-					or NA_Fire(W_BuffTime(NA_Target, -121411)<=1 and (UnitPower(NA_Player,4)==5 and (hasmd or not talentyg or (talentyg and countyg>=4))), '121411', NA_Target) --猩红风暴
-					or NA_Fire(UnitPower(NA_Player,4)==5 and (hasmd or not talentyg or (talentyg and countyg>=4)), '2098', NA_Target) --刺骨
-					or NA_Fire(countyhdj<2 and (UnitPower(NA_Player,4)<5 or (talentyg and countyg<=4 and not hasmd)), '84617', NA_Target) --要害打击
-					or NA_Fire(UnitPower(NA_Player,4)<5 or (talentyg and countyg<=4 and not hasmd), '1752', NA_Player) --影袭
 
           or NA_fireByOvale()
         ))then return true; end
@@ -138,19 +112,7 @@ function NA4Dps()
 				
         
         if(not NA_IsAOE and (false
-					or NA_Fire(UnitPower(NA_Player,4)<=4 or countyg<3, '8676', NA_Target) --伏击
-					or NA_Fire(NA_SpellInterrupt(NA_Target), '1766', NA_Target) --脚踢
-					or NA_Fire(UnitPower(NA_Player,4)<=4, '14183', NA_Player) --预谋
-					or NA_Fire(NA_CheckBuff(NA_Target), '5938', NA_Target) --毒刃
-					or NA_Fire(W_BuffTime(NA_Target, -16511, true)<8 and  countyg<4 and hasqg and hasgl and W_BuffTime(NA_Target, -1943, true)>2, '16511', NA_Target) --出血
-					or NA_Fire(countyg<4 and hasqg and hasgl and W_BuffTime(NA_Target, -1943, true)>2, '53', NA_Target) --背刺
-					or NA_Fire(UnitPower(NA_Player,3)>=75 and not hasys and not hasqx and not hasdxrd, '51713', NA_Player) --暗影之舞
-					or NA_Fire(UnitPower(NA_Player,4)>4, '2098', NA_Target) --刺骨
-					or NA_Fire(not hasyhdj and W_GetSpellCooldown(1856)>60 and W_GetSpellCooldown(14185)<=0, '14185', NA_Player) --伺机待发
-					or NA_Fire(UnitPower(NA_Player,3)<=75 and UnitPower(NA_Player,3)>=45 and UnitPower(NA_Player,4)<=3 and not hasayzw and not hasmrds and not hasdxrd, '1856', NA_Player) --消失
-					or NA_Fire(hasayzw, '152151', NA_Player) --暗影反射
-					or NA_Fire(UnitPower(NA_Player,4)==5 and W_BuffTime(NA_player, 1943)<4, '5171', NA_Player) --切割
-					or NA_Fire(W_BuffTime(NA_Target, 1943)<7, '1943', NA_Target) --割裂
+					or NA_Fire(W_HPlevel(NA_Target)<=0 or UnitName(NA_Target)==nil, 'NA_ChagetTarget', NA_Target) --NA_ChagetTarget
 
           or NA_fireByOvale()
         ))then return true; end
@@ -166,18 +128,21 @@ function NA4Dps()
         
 				
         if(false
+					or NA_Fire(NA_CheckRoles(NA_Target)==1, '57934', NA_Target) --嫁祸诀窍
 
         )then return true; end
       elseif(NA_ProfileNo == 1)then --Combat
         
 				
         if(false
+					or NA_Fire(NA_CheckRoles(NA_Target)==1, '57934', NA_Target) --嫁祸诀窍
 
         )then return true; end
       elseif(NA_ProfileNo == 2)then --Subtlety
         
 				
         if(false
+					or NA_Fire(NA_CheckRoles(NA_Target)==1, '57934', NA_Target) --嫁祸诀窍
 
         )then return true; end
       end

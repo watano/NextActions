@@ -662,7 +662,9 @@ function NA_CountLowPlayers(UnitId,minHPLevel,Range)
 				if (targetName2 ~= targetName) then 
 					local posX2, posY2 = UnitPosition(UnitId2);
 					local hpLevel = W_HPlevel(UnitId2);
-					local range2 = W_CheckRange(UnitId,UnitId2);
+                                        local xx = posX-posX2;
+	                                local yy = posY-posY2;
+	                                local range2 = xx*xx+yy*yy;
 					if (hpLevel < minHPLevel and range2<Range) then
 						count = count +1;
 					end
@@ -770,7 +772,9 @@ function W_CheckRange(UnitId,UnitId2)
     if (UnitExists(UnitId) and UnitExists(UnitId2)) then
 	local posX3, posY3 = UnitPosition(UnitId);
         local posX4, posY4 = UnitPosition(UnitId2);
-	local range = ((posX3-posX4)^2+(posY3-posY4)^2)^0.5;
+        local intx = posX3-posX4;
+	local inty = posY3-posY4;
+	local range =intx*intx+inty*inty;
 	return range;
     end
    return 9999;

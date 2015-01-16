@@ -13,6 +13,7 @@ NA_IsAOE = false;
 NA_IsMaxDps = false;
 NA_IsSolo = false;
 NA_SpellTimes = {};
+NA_LastActionTime = GetTime();
 
 function NA_init()
 	if(NA_Config == nil)then		
@@ -239,13 +240,10 @@ function NA_OnEvent(event,...)
 	if(event == "ADDON_LOADED")then
 		if(not W_IsInCombat() and NA_Config.NA_MyUI == true)then 
 			NA_MyUI();
-			if(DGV ~= nil)then
-				DGV:ClearModule(DGV.Modules["MapPreview"]);
-			end			
 		end
 	end
-
-	if(NA_IsRunning ~= nil and NA_IsRunning == true and not NA_DoAction()) then
+	
+	if(NA_IsRunning ~= nil and NA_IsRunning == true and (GetTime() - NA_LastActionTime > 0.1)  and not NA_DoAction()) then
 		NA_ClearAction();
 	end
 end

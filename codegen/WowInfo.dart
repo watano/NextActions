@@ -65,7 +65,7 @@ class WOWClassInfo {
         return s;
       }
     }
-	if(spell != 'NA_ChagetTarget'){
+	if(!spell.startsWith('NA_') && !spell.startsWith('I') && !spell.startsWith('M')){
 		print('[警告]不能找到法术:${spell}@${spec}');
 	}
     return null;
