@@ -1,16 +1,16 @@
 function getNA1Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'71','78','100','469','871','1160','2565','5308','6343','6544','6552','6572','6673','12292','12975','18499','20243','23922','34428','46924','46968','55694','57755','103840','107570','107574','112048','118000','152277','NA_ChagetTarget','114029','3411','114030','64382','I5512','156321'};
+    return {'71','78','100','469','871','1160','2565','5308','6343','6544','6552','6572','6673','12292','12975','18499','20243','23922','34428','46924','46968','55694','57755','103840','107570','107574','112048','118000','152277','355','114029','3411','114030','64382','I5512','156321'};
   elseif(no == 1)then
-    return {'100','469','1680','1719','2457','5308','6544','6552','6673','12292','18499','23881','46924','46968','57755','85288','100130','103840','107570','107574','118000','152277','176289','NA_ChagetTarget','114029','3411','114030','64382','34428','I5512'};
+    return {'100','469','1680','1719','2457','5308','6544','6552','6673','12292','18499','23881','46924','46968','57755','85288','100130','103840','107570','107574','118000','152277','176289','114029','3411','114030','64382','34428','I5512'};
   elseif(no == 2)then
-    return {'100','469','772','1464','1680','1719','2457','6544','6552','6673','12292','12294','12328','46924','46968','57755','103840','107570','107574','118000','152277','163201','167105','176289','NA_ChagetTarget','114029','3411','114030','64382','34428','I5512'};
+    return {'100','469','772','1464','1680','1719','2457','6544','6552','6673','12292','12294','12328','46924','46968','57755','103840','107570','107574','118000','152277','163201','167105','176289','114029','3411','114030','64382','34428','I5512'};
   end
   return {};
 end
 
-NA1ProfileNames = {[0]='Protection',[1]='Fury',[2]='Arms',};
+NA1ProfileNames = {[0]='防战',[1]='狂暴战',[2]='武器战',};
 
 function NA1Dps()
   W_Log(1,"战士 dps");
@@ -22,7 +22,7 @@ function NA1Dps()
     if(W_TargetCanAttack()) then
       -- 保命施法
       if(NA_ProfileNo < 0)then return false;
-      elseif(NA_ProfileNo == 0)then --Protection
+      elseif(NA_ProfileNo == 0)then --防战
         
         if(false
 					or NA_Fire(NA_SpellInterrupt(NA_Target), '6552', NA_Target) --拳击
@@ -38,7 +38,7 @@ function NA1Dps()
 					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
         )then return true; end
-      elseif(NA_ProfileNo == 1)then --Fury
+      elseif(NA_ProfileNo == 1)then --狂暴战
         
         if(false
 					or NA_Fire(NA_SpellInterrupt(NA_Target), '6552', NA_Target) --拳击
@@ -48,7 +48,7 @@ function NA1Dps()
 					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
         )then return true; end
-      elseif(NA_ProfileNo == 2)then --Arms
+      elseif(NA_ProfileNo == 2)then --武器战
         
         if(false
 					or NA_Fire(NA_SpellInterrupt(NA_Target), '6552', NA_Target) --拳击
@@ -61,14 +61,27 @@ function NA1Dps()
       end
 
       if(NA_ProfileNo < 0)then return false;
-      elseif(NA_ProfileNo == 0)then --Protection
-        local dpgd = W_RetainBuff(NA_Player, 132404, true);   --盾牌格挡
-				local notTanking = not NA_IsSolo and not W_isTanking();
+      elseif(NA_ProfileNo == 0)then --防战
+        local notTanking = not NA_IsSolo and not W_isTanking();
 				
 				
         
         if(not NA_IsAOE and (false
-					or NA_Fire(W_HPlevel(NA_Target)<=0 or UnitName(NA_Target)==nil, 'NA_ChagetTarget', NA_Target) --NA_ChagetTarget
+					or NA_Fire(notTanking, '355', NA_Target) --嘲讽
+
+          or NA_fireByOvale()
+        ))then return true; end
+  
+        if(NA_IsAOE and (false
+					or NA_Fire(notTanking, '355', NA_Target) --嘲讽
+
+          or NA_fireByOvale()
+        ))then return true; end
+      elseif(NA_ProfileNo == 1)then --狂暴战
+        
+				
+        
+        if(not NA_IsAOE and (false
 
           or NA_fireByOvale()
         ))then return true; end
@@ -77,31 +90,11 @@ function NA1Dps()
 
           or NA_fireByOvale()
         ))then return true; end
-      elseif(NA_ProfileNo == 1)then --Fury
-        local hascs = W_RetainBuff(NA_Player, 29725, true);   --猝死
-				local hasjn = W_RetainBuff(NA_Player, 13046, true);   --激怒
-				
+      elseif(NA_ProfileNo == 2)then --武器战
+        
 				
         
         if(not NA_IsAOE and (false
-					or NA_Fire(W_HPlevel(NA_Target)<=0 or UnitName(NA_Target)==nil, 'NA_ChagetTarget', NA_Target) --NA_ChagetTarget
-
-          or NA_fireByOvale()
-        ))then return true; end
-  
-        if(NA_IsAOE and (false
-
-          or NA_fireByOvale()
-        ))then return true; end
-      elseif(NA_ProfileNo == 2)then --Arms
-        local hassl = W_RetainBuff(NA_Target, -772, true);   --撕裂
-				local hasjrdj = W_RetainBuff(NA_Target, -167105, true);   --巨人打击
-				local hascs = W_RetainBuff(NA_Player, 29725, true);   --猝死
-				
-				
-        
-        if(not NA_IsAOE and (false
-					or NA_Fire(W_HPlevel(NA_Target)<=0 or UnitName(NA_Target)==nil, 'NA_ChagetTarget', NA_Target) --NA_ChagetTarget
 
           or NA_fireByOvale()
         ))then return true; end
@@ -113,7 +106,7 @@ function NA1Dps()
       end
     elseif(UnitCanAssist(NA_Player, NA_Target))then
       if(NA_ProfileNo < 0)then return false;
-      elseif(NA_ProfileNo == 0)then --Protection
+      elseif(NA_ProfileNo == 0)then --防战
         
 				
         if(false
@@ -122,7 +115,7 @@ function NA1Dps()
 					or NA_Fire(NA_isUsableTalentSpell(5,3), '114030', NA_Target) --警戒
 
         )then return true; end
-      elseif(NA_ProfileNo == 1)then --Fury
+      elseif(NA_ProfileNo == 1)then --狂暴战
         
 				
         if(false
@@ -131,7 +124,7 @@ function NA1Dps()
 					or NA_Fire(NA_isUsableTalentSpell(5,3), '114030', NA_Target) --警戒
 
         )then return true; end
-      elseif(NA_ProfileNo == 2)then --Arms
+      elseif(NA_ProfileNo == 2)then --武器战
         
 				
         if(false
@@ -147,7 +140,7 @@ function NA1Dps()
     end
   else    
     if(NA_ProfileNo < 0)then return false;
-    elseif(NA_ProfileNo == 0)then --Protection
+    elseif(NA_ProfileNo == 0)then --防战
       
       if(false
 					or NA_Fire(NA_IsSolo and W_TargetCanAttack(), '156321', NA_Target) --盾牌冲锋
@@ -156,7 +149,7 @@ function NA1Dps()
 					or NA_Fire(NA_IsSolo and not W_HasBuff(NA_Player, 6673, true), '6673', NA_Player) --战斗怒吼
 
       )then return true; end
-    elseif(NA_ProfileNo == 1)then --Fury
+    elseif(NA_ProfileNo == 1)then --狂暴战
       
       if(false
 					or NA_Fire(NA_IsSolo and W_TargetCanAttack(), '100', NA_Target) --冲锋
@@ -164,7 +157,7 @@ function NA1Dps()
 					or NA_Fire(NA_IsSolo and not W_HasBuff(NA_Player, 6673, true), '6673', NA_Player) --战斗怒吼
 
       )then return true; end
-    elseif(NA_ProfileNo == 2)then --Arms
+    elseif(NA_ProfileNo == 2)then --武器战
       
       if(false
 					or NA_Fire(NA_IsSolo and W_TargetCanAttack(), '100', NA_Target) --冲锋

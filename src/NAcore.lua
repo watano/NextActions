@@ -152,6 +152,7 @@ function NA_InitClass()
 				NA_ClassInfo[v]['spellID'] = name;
 				NA_ClassInfo[v]['keyNo'] = no;
 				W_SetBinding(no, name, 3);
+			elseif(spellInfoType == 4)then --Function
 			else
 				W_Log(4,"unkonw action: ".. v);
 			end	
