@@ -437,7 +437,7 @@ end
 
 function NA_FireItem(spellID, UnitId)
 	local spellInfo = NA_getSpellInfo(spellID);
-	if(spellInfo ~= nil and spellInfo.keyNo ~= nil) then
+	if(spellInfo ~= nil and spellInfo.keyNo ~= nil and W_IsUsableItem(spellID, UnitId)) then
 		W_Log(2,"NA_FireItem:" .. spellID .."->"..spellInfo.keyNo);
 		W_UpdateLabelText('NA_SpellLabel', spellInfo.name);
 		NA_ShowVars(spellInfo.keyNo);
@@ -498,10 +498,8 @@ function W_IsUsableItem(spellID, UnitId)
 		return false;
 	end
 	local isUsable, nomana = IsUsableItem(spellInfo.spellID);
-	if (isUsable == true and nomana == false and W_GetCooldown(2, spellID) <= 1) then
-		if(ItemHasRange(spellInfo.name) ~=true or IsItemInRange(spellInfo.name, UnitId) == 1) then
-			return true;
-		end
+	if (isUsable == true and nomana == false) then
+		return true;
 	end
 	return false;
 end
