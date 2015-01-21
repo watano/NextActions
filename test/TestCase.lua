@@ -89,7 +89,6 @@ function testAllSpellInfo()
 	end
 end
 
-print(NA6ProfileNames[1]);
 NA_ClassName="DEATHKNIGHT";
 NA_init()
 NA_InitProfile(1);

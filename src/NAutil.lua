@@ -3,6 +3,172 @@ NA_Player = 'player';
 NA_Pet = 'pet';
 NA_Focus = 'focus';
 
+NA_SpellTarget4Player = {
+'10060', --能量灌注
+'102351', --塞纳里奥结界
+'102543', --化身：丛林之王
+'102558', --化身：乌索克之子
+'102560', --化身：艾露恩之眷
+'102703', --自然之力
+'103840', --胜利在望
+'103958', --恶魔变形
+'104773', --不灭决心
+'105809', --神圣复仇者
+'106952', --狂暴
+'108196', --死亡虹吸
+'108211', --吸血药膏
+'108238', --新生
+'108270', --石壁图腾
+'108271', --星界转移
+'108280', --治疗之潮图腾
+'108281', --先祖指引
+'108285', --元素的召唤
+'108293', --野性之心
+'108839', --浮冰
+'109260', --铁鹰守护
+'109773', --黑暗意图
+'112048', --盾牌屏障
+'112071', --超凡之盟
+'1122', --召唤地狱火
+'1126', --野性印记
+'112833', --幽灵伪装
+'113858', --黑暗灵魂：易爆
+'113860', --黑暗灵魂：哀难
+'113861', --黑暗灵魂：学识
+'114163', --永恒之火
+'114165', --神圣棱镜
+'11426', --寒冰护体
+'114635', --灰烬转换
+'115070', --灵龙式
+'115072', --移花接木
+'115098', --真气波
+'115176', --禅悟冥想
+'115203', --壮胆酒
+'115288', --豪能酒
+'115294', --法力茶
+'115295', --金钟罩
+'115308', --飘渺酒
+'115399', --真气酒
+'115450', --清创生血
+'115460', --引爆真气
+'115921', --帝王传承
+'1160', --挫志怒吼
+'116011', --能量符文
+'116670', --振魂引
+'116680', --雷光聚神茶
+'116740', --虎眼酒
+'116781', --白虎传承
+'119582', --活血酒
+'119975', --符能转换
+'120517', --光晕
+'122278', --躯不坏
+'122783', --散魔功
+'124081', --禅意珠
+'12472', --冰冷血脉
+'124974', --自然的守护
+'12975', --破釜沉舟
+'132157', --神圣新星
+'132158', --自然迅捷
+'13750', --冲动
+'139', --恢复
+'139139', --疯狂
+'14183', --预谋
+'14185', --伺机待发
+'1454', --生命分流
+'1459', --奥术光辉
+'152151', --暗影反射
+'152173', --屏气凝神
+'152256', --风暴元素图腾
+'152262', --炽天使
+'15286', --吸血鬼的拥抱
+'154436', --神鹤式
+'15473', --暗影形态
+'155835', --鬃毛倒竖
+'157153', --暴雨图腾
+'16166', --元素掌握
+'16188', --先祖迅捷
+'165339', --升腾
+'165341', --升腾
+'165344', --升腾
+'165462', --火焰释放
+'165477', --怒火释放
+'17', --真言术：盾
+'1752', --影袭
+'1784', --潜行
+'18540', --召唤末日守卫
+'1856', --消失
+'19236', --绝望祷言
+'19740', --力量祝福
+'19750', --圣光闪现
+'20154', --正义圣印
+'20217', --王者祝福
+'2062', --土元素图腾
+'20925', --圣洁护盾
+'21562', --真言术：韧
+'22812', --树皮术
+'22842', --狂暴回复
+'2565', --盾牌格挡
+'25780', --正义之怒
+'2645', --幽魂之狼
+'26573', --奉献
+'2782', --净化腐蚀
+'2823', --致命药膏
+'2894', --火元素图腾
+'30823', --萨满之怒
+'31687', --召唤水元素
+'31801', --真理圣印
+'31850', --炽热防御者
+'31884', --复仇之怒
+'324', --闪电之盾
+'33831', --自然之力
+'34428', --乘胜追击
+'3599', --灼热图腾
+'45438', --寒冰屏障
+'47568', --符文武器增效
+'47585', --消散
+'48505', --星辰坠落
+'48707', --反魔法护罩
+'48743', --天灾契约
+'48792', --冰封之韧
+'49222', --白骨之盾
+'498', --圣佑术
+'4987', --清洁术
+'5118', --猎豹守护
+'51271', --冰霜之柱
+'51533', --野性狼魂
+'5171', --切割
+'51713', --暗影之舞
+'5185', --治疗之触
+'52127', --水之护盾
+'5215', --潜行
+'5217', --猛虎之怒
+'52610', --野蛮咆哮
+'5394', --治疗之泉图腾
+'5487', --熊形态
+'55233', --吸血鬼之血
+'55342', --镜像
+'55694', --狂怒回复
+'57330', --寒冬号角
+'586', --渐隐术
+'61336', --生存本能
+'62606', --野蛮防御
+'633', --圣疗术
+'642', --圣盾术
+'6673', --战斗怒吼
+'73680', --元素释放
+'73685', --生命释放
+'74434', --灵魂燃烧
+'768', --猎豹形态
+'774', --回春术
+'79206', --灵魂行者的恩赐
+'8004', --治疗之涌
+'8042', --大地震击
+'81700', --天使长
+'85499', --圣光之速
+'86659', --远古列王守卫
+'871', --盾墙
+};
+
 function W_Log(level, msg)
 	if(level >= NA_LogLevel and not NA_IsTest) then
 		if(level > 3)then
@@ -594,8 +760,6 @@ function NA_GetSpellChargesTime(spellID)
         return 999;
 end
 
-
-
 function NA_checkHP(index)
 	if(index == 0)then
 		return W_HPlevel(NA_Player) < 0.3 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.5);
@@ -690,11 +854,11 @@ end
 
 --进攻驱散
 function NA_CheckBuff(UnitId)
-        local name, _, _, _, debuffType= UnitBuff(UnitId,1,1); 
-	    if name then
-		if debuffType=="Magic" then --魔法
+		local name, _, _, _, debuffType= UnitBuff(UnitId,1,1); 
+	  if name then
+			if debuffType=="Magic" then --魔法
 		    return 1;
-		elseif debuffType=="Enrage" then --激怒
+			elseif debuffType=="Enrage" then --激怒
 		    return 2;
 	    end
 	end
@@ -801,11 +965,21 @@ end
 function NA_fireByOvale()
 	local NA_OvaleActions = NA_getOvaleActions();
 	return (false
-					or NA_Fire(NA_IsMaxDps and NA_OvaleActions[4] ~= nil, NA_OvaleActions[4], NA_Target)
-					or NA_Fire(NA_OvaleActions[1] ~= nil, NA_OvaleActions[1], NA_Target)
---					or NA_Fire(not NA_IsAOE and NA_OvaleActions[2] ~= nil, NA_OvaleActions[2], NA_Target)
-					or NA_Fire(NA_OvaleActions[3] ~= nil, NA_OvaleActions[3], NA_Target)
+					or NA_Fire(NA_IsMaxDps and NA_OvaleActions[4] ~= nil, NA_OvaleActions[4], NA_getSpellTarget(NA_OvaleActions[4]))
+					or NA_Fire(NA_OvaleActions[1] ~= nil, NA_OvaleActions[1], NA_getSpellTarget(NA_OvaleActions[1]))
+--					or NA_Fire(not NA_IsAOE and NA_OvaleActions[2] ~= nil, NA_OvaleActions[2], NA_getSpellTarget(NA_OvaleActions[2]))
+					or NA_Fire(NA_OvaleActions[3] ~= nil, NA_OvaleActions[3], NA_getSpellTarget(NA_OvaleActions[3]))
         );
+end
+
+function NA_getSpellTarget(spellID)
+	--for k in pairs(NA_SpellTarget4Player) do
+	for k=1,#NA_SpellTarget4Player do 
+		if(tostring(NA_SpellTarget4Player[k]) == spellID)then 
+			return NA_Player; 
+		end
+	end
+	return NA_Target;
 end
 
 function MistCounts(num1,num2,types,aura) 
