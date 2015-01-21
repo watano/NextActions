@@ -239,8 +239,9 @@ function NA_Fire(cond, spellID, UnitId, interval)
 end
 
 function NA_ChagetTarget()
-	NA_ShowVars(101);
-	return true;
+--	NA_ShowVars(101);
+--	W_UpdateLabelText('NA_SpellLabel', 'NA_ChagetTarget');
+	return false;
 end
 
 function NA_FireSpell(spellID, UnitId)
@@ -649,31 +650,36 @@ function NA_CheckBuffStealable(UnitId)
 	return false;
 end
 
-function NA_CountLowPlayers(UnitId,minHPLevel,Range)
-    if (UnitExists(UnitId)) then
-	local posX, posY = UnitPosition(UnitId);
-	local targetName = UnitName(UnitId);
-	local count = 0;
-	local maxPlayer = GetNumGroupMembers();
-		for i=1,maxPlayer do 
-			local UnitId2 = GetRaidRosterInfo(i);
-			if (UnitExists(UnitId2)) then
-				local targetName2 = UnitName(UnitId2);
-				if (targetName2 ~= targetName) then 
-					local posX2, posY2 = UnitPosition(UnitId2);
-					local hpLevel = W_HPlevel(UnitId2);
-                                        local xx = posX-posX2;
-	                                local yy = posY-posY2;
-	                                local range2 = xx*xx+yy*yy;
-					if (hpLevel < minHPLevel and range2<Range) then
-						count = count +1;
-					end
-				end		
-			end
-		end
-	return count;
+function NA_CountLowPlayers(UnitId,minHPLevel,dist)
+      local prefix = "raid";
+      local numPlayers = GetNumGroupMembers();
+      local count = 0;
+      if not IsInRaid() then
+	 prefix = "party";
+	 numPlayers = numPlayers-1;
+         local perc = UnitHealth("player") / UnitHealthMax("player")
+	 if perc < minHPLevel then
+            count = count +1;
+	 end
+     else
+      for i=1,numPlayers do
+      	        local targetName = UnitName(UnitId);
+		local posX, posY = UnitPosition(UnitId);
+	        local unit = prefix..i ;
+		local targetName2 = UnitName(unit);
+			if (targetName2 ~= targetName) then 
+				local posX2, posY2 = UnitPosition(unit);
+				local perc = UnitHealth(unit) / UnitHealthMax(unit);
+                                local xx = posX-posX2;
+	                        local yy = posY-posY2;
+	                        local dist2 = xx*xx+yy*yy;
+				if (perc < minHPLevel and dist2<dist) then
+					count = count +1;
+				end
+			end		
+     end;
    end
-  return 0;
+return count;
 end
 
 function NA_Autofollow()
@@ -801,3 +807,50 @@ function NA_fireByOvale()
 					or NA_Fire(NA_IsMaxDps and NA_OvaleActions[4] ~= nil, NA_OvaleActions[4], NA_Target)
         );
 end
+
+function MistCounts(num1,num2,types,aura) 
+         local prefix = "raid" 
+         local numPlayers = GetNumGroupMembers() 
+         local numAuras1 = 0 
+         local numAuras2 = 0 
+         if not IsInRaid() then 
+             prefix = "party" 
+             numPlayers = numPlayers-1 
+              local perc = UnitHealth("player") / UnitHealthMax("player") 
+             if types == 1 then  
+                 local _, _, _, _, _, _, expirationTime, _, _, _, _ = UnitAura("player", aura, nil, "PLAYER|HELPFUL") 
+                 if expirationTime ~= nil and perc <= num1 then 
+                     numAuras1 = numAuras1 + 1 
+                 end 
+             else 
+                 if perc <= num1 then 
+                     numAuras2 = numAuras2 + 1 
+                 end 
+             end 
+         end 
+      
+         for i=1,numPlayers do 
+             local unit = prefix..i 
+             local perc = UnitHealth(unit) / UnitHealthMax(unit) 
+             if types == 1 then  
+                 local _, _, _, _, _, _, expirationTime, _, _, _, _ = UnitAura(unit, aura, nil, "PLAYER|HELPFUL") 
+                 if expirationTime ~= nil and perc <= num1 then 
+                     numAuras1 = numAuras1 + 1 
+                 end 
+             else 
+                 if perc <= num1 then 
+                     numAuras2 = numAuras2 + 1 
+                 end 
+             end 
+         end 
+         if types == 1 then 
+             return numAuras1 >= num2 
+         else 
+             return numAuras2 >= num2 
+         end 
+ end
+--MistCounts(0.8,6,1,"复苏之雾")
+--0.8是血量百分比,运算是<=
+--6是符合的团队成员数量,运算是>=
+--1是需要不需要检测buff
+--最后一个就是buff名称,不能用法术ID,只能用名称.

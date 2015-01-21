@@ -1,7 +1,7 @@
 function getNA6Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'42650','43265','45462','45529','47476','47528','47568','48266','48707','49020','49143','49184','50842','51271','57330','77575','96268','108194','115989','123693','130735','152279','152280','61999','49998','48792','119975','108196','48743','I5512','45477'};
+    return {'42650','43265','45462','45529','47476','47528','47568','48266','48707','49020','49143','49184','49998','50842','51271','57330','77575','96268','108194','115989','123693','130735','152279','152280','61999','48792','119975','108196','48743','I5512','45477'};
   elseif(no == 1)then
     return {'42650','45462','45477','45529','47476','47528','47541','47568','48263','48707','48743','48792','48982','49028','49039','49222','49998','50842','55233','57330','77575','108194','114866','119975','152280','56222','61999','108196','108200','I5512'};
   elseif(no == 2)then
@@ -29,7 +29,6 @@ function NA6Dps()
       elseif(NA_ProfileNo == 0)then --Two-Handed Frost
         
         if(false
-					or NA_Fire(NA_SpellInterrupt(NA_Target), '47528', NA_Target) --心灵冰冻
 					or NA_Fire(NA_checkHP(2), '49998', NA_Target) --灵界打击
 					or NA_Fire(NA_checkHP(2), '48707', NA_Player) --反魔法护罩
 					or NA_Fire(NA_checkHP(0), '48792', NA_Player) --冰封之韧
@@ -42,8 +41,6 @@ function NA6Dps()
       elseif(NA_ProfileNo == 1)then --Blood
         
         if(false
-					or NA_Fire(NA_SpellInterrupt(NA_Target), '47528', NA_Target) --心灵冰冻
-					or NA_Fire(NA_SpellInterrupt(NA_Target), '47476', NA_Target) --绞袭
 					or NA_Fire(NA_checkHP(2), '49998', NA_Target) --灵界打击
 					or NA_Fire(NA_checkHP(2), '48707', NA_Player) --反魔法护罩
 					or NA_Fire(NA_checkHP(0), '48792', NA_Player) --冰封之韧
@@ -61,7 +58,6 @@ function NA6Dps()
       elseif(NA_ProfileNo == 2)then --Dual-Wield Frost
         
         if(false
-					or NA_Fire(NA_SpellInterrupt(NA_Target), '47528', NA_Target) --心灵冰冻
 					or NA_Fire(NA_checkHP(2), '49998', NA_Target) --灵界打击
 					or NA_Fire(NA_checkHP(2), '48707', NA_Player) --反魔法护罩
 					or NA_Fire(NA_checkHP(0), '48792', NA_Player) --冰封之韧
@@ -74,7 +70,6 @@ function NA6Dps()
       elseif(NA_ProfileNo == 3)then --Unholy
         
         if(false
-					or NA_Fire(NA_SpellInterrupt(NA_Target), '47528', NA_Target) --心灵冰冻
 
         )then return true; end
       end

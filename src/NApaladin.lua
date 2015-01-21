@@ -5,7 +5,7 @@ function getNA2Actions(no)
   elseif(no == 1)then
     return {'853','879','19740','20154','20217','20271','24275','31801','31884','35395','53385','53595','85256','85499','96231','105593','105809','114157','114158','114165','115750','152262','157048','4987','6940','1022','85673','633','498','642','19750','20925','I5512'};
   elseif(no == 2)then
-    return {'633','853','19740','19750','20165','20217','20271','20473','31842','82326','85499','85673','96231','105593','115750','24275','53563','156910','498','642','4987','6940','1022','85222','114163','82327','114165','I5512'};
+    return {'633','853','19740','19750','20165','20217','20271','20473','31842','82326','85499','85673','96231','105593','115750','53563','156910','498','642','4987','6940','1022','85222','114163','82327','114165','I5512'};
   end
   return {};
 end
@@ -29,7 +29,6 @@ function NA2Dps()
         if(false
 					or NA_Fire(NA_isUsableTalentSpell(5,1) and NA_checkHP(1), '105809', NA_Player) --神圣复仇者
 					or NA_Fire(NA_checkHP(2) or not NA_isUsableTalentSpell(7,2) or (not W_RetainBuff(NA_Player, 152262, true) and W_GetSpellCooldown(152262)>5 and W_GetSpellCooldown(152262)<9), '498', NA_Player) --圣佑术
-					or NA_Fire(NA_SpellInterrupt(NA_Target), '96231', NA_Target) --责难
 					or NA_Fire(NA_checkHP(1) and NA_isUsableTalentSpell(7,2) and not W_RetainBuff(NA_Player, 498, true) and W_GetSpellCooldown(498)>0, '152262', NA_Player) --炽天使
 					or NA_Fire(NA_checkHP(1) and not W_RetainBuff(NA_Player, 105809, true) and not W_RetainBuff(NA_Player, 53600, true) and not W_RetainBuff(NA_Player, 498, true), '86659', NA_Player) --远古列王守卫
 					or NA_Fire(NA_checkHP(0), '633', NA_Player) --圣疗术
@@ -53,7 +52,6 @@ function NA2Dps()
 					or NA_Fire(NA_checkHP(1), '498', NA_Player) --圣佑术
 					or NA_Fire(NA_checkHP(0), '633', NA_Player) --圣疗术
 					or NA_Fire(W_HPlevel(NA_Player)<0.1, '642', NA_Player) --圣盾术
-					or NA_Fire(NA_SpellInterrupt(NA_Target), '96231', NA_Target) --责难
 					or NA_Fire(NA_checkHP(1) and NA_isUsableTalentSpell(3,1) and W_BuffCount(NA_Player, 114250)==3, '19750', NA_Player) --圣光闪现
 					or NA_Fire(NA_checkHP(1) and NA_isUsableTalentSpell(3,3), '20925', NA_Player) --圣洁护盾
 					or NA_Fire(NA_CheckDebuff(NA_Player)==1 or NA_CheckDebuff(NA_Player)==2 or NA_CheckDebuff(NA_Player)==3, '4987', NA_Player) --清洁术
@@ -107,13 +105,10 @@ function NA2Dps()
 				
         
         if(not NA_IsAOE and (false
-					or NA_Fire(NA_SpellInterrupt(NA_Target), '96231', NA_Target) --责难
-					or NA_Fire(W_HPlevel(NA_Target)<0.2, '24275', NA_Target) --愤怒之锤
 					or NA_Fire(NA_isUsableTalentSpell(3,1) and W_BuffCount(NA_Player, 85804)<3, '20271', NA_Target) --审判
 					or NA_Fire(W_PaladinPower(NA_Player)<=3, '20473', NA_Target) --神圣震击
 					or NA_Fire(W_PaladinPower(NA_Player)<3, '20271', NA_Target) --审判
 					or NA_Fire(NA_isUsableTalentSpell(2,1) and NA_SpellInterrupt(NA_Target), '105593', NA_Target) --制裁之拳
-					or NA_Fire(not NA_isUsableTalentSpell(2,1) and NA_SpellInterrupt(NA_Target), '853', NA_Target) --制裁之锤
 
           or NA_fireByOvale()
         ))then return true; end

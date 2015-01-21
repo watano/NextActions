@@ -147,7 +147,7 @@ function NA_InitClass()
 				NA_ClassInfo[v]['keyNo'] = no;
 				W_SetBinding(no, name, 2);
 			elseif(spellInfoType == 3)then --Macro
-				local name = strsub(spellID,1,strlen(v))
+				local name = strsub(v,1,strlen(v))
 				NA_ClassInfo[v] = {};
 				NA_ClassInfo[v]['spellID'] = name;
 				NA_ClassInfo[v]['keyNo'] = no;
@@ -268,7 +268,8 @@ function NA_DoAction()
 		return false;
 	end
 
-	if(NA_MaxDps())then
+	if(NA_MaxDps())then	
+		NA_LastActionTime = GetTime();
 		UIErrorsFrame:Clear();
 		return true;
 	end

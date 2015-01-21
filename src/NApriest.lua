@@ -62,7 +62,6 @@ function NA5Dps()
 				
         
         if(not NA_IsAOE and (false
-					or NA_Fire(NA_SpellInterrupt(NA_Target), '15487', NA_Target) --沉默
 					or NA_Fire(NA_CheckBuff(NA_Target)==1, '528', NA_Target) --驱散魔法
 					or NA_Fire(NA_isUsableTalentSpell(3,2), '123040', NA_Target) --摧心魔
 					or NA_Fire(not NA_isUsableTalentSpell(3,2), '34433', NA_Target) --暗影魔

@@ -25,7 +25,6 @@ function NA8Dps()
       elseif(NA_ProfileNo == 0)then --Arcane
         
         if(false
-					or NA_Fire(NA_SpellInterrupt(NA_Target), '2139', NA_Target) --法术反制
 					or NA_Fire(NA_CheckBuffStealable(NA_Target), '30449', NA_Target) --法术吸取
 					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
@@ -33,7 +32,6 @@ function NA8Dps()
       elseif(NA_ProfileNo == 1)then --Frost
         
         if(false
-					or NA_Fire(NA_SpellInterrupt(NA_Target), '2139', NA_Target) --法术反制
 					or NA_Fire(NA_CheckBuffStealable(NA_Target), '30449', NA_Target) --法术吸取
 					or NA_Fire(W_HPlevel(NA_Player) < 0.2, '45438', NA_Player) --寒冰屏障
 					or NA_Fire(W_HPlevel(NA_Player) < 0.9, '11426', NA_Player) --寒冰护体
@@ -43,7 +41,6 @@ function NA8Dps()
       elseif(NA_ProfileNo == 2)then --Fire
         
         if(false
-					or NA_Fire(NA_SpellInterrupt(NA_Target), '2139', NA_Target) --法术反制
 					or NA_Fire(NA_CheckBuffStealable(NA_Target), '30449', NA_Target) --法术吸取
 					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 

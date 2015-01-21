@@ -9,7 +9,7 @@ Global Const $box_x = 0, $box_y = 0, $box_w = 16, $box_h = 16, $box_count = 1
 While 1
 	;WinWaitActive("Untitled - Notepad")
 	NAExecute();
-	sleep(200);
+	sleep(100);
 WEnd
 
 Func TogglePause()

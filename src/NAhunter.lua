@@ -25,7 +25,6 @@ function NA3Dps()
       elseif(NA_ProfileNo == 0)then --Beastmaster
         
         if(false
-					or NA_Fire(NA_SpellInterrupt(NA_Target), '147362', NA_Target) --反制射击
 					or NA_Fire(NA_checkHP(1), '19263', NA_Player) --威慑
 					or NA_Fire(W_HPlevel(NA_Pet)>0 and W_HPlevel(NA_Pet) < 0.5 and not W_HasBuff(NA_Pet, 136, true), '136', NA_Pet) --治疗宠物
 					or NA_Fire(W_HPlevel(NA_Pet)<=0, '982', NA_Pet) --复活宠物
@@ -36,7 +35,6 @@ function NA3Dps()
       elseif(NA_ProfileNo == 1)then --Marksman
         
         if(false
-					or NA_Fire(NA_SpellInterrupt(NA_Target), '147362', NA_Target) --反制射击
 					or NA_Fire(NA_checkHP(1), '19263', NA_Player) --威慑
 					or NA_Fire(W_HPlevel(NA_Pet)>0 and W_HPlevel(NA_Pet) < 0.5 and not W_HasBuff(NA_Pet, 136, true), '136', NA_Pet) --治疗宠物
 					or NA_Fire(W_HPlevel(NA_Pet)<=0, '982', NA_Pet) --复活宠物
@@ -47,7 +45,6 @@ function NA3Dps()
       elseif(NA_ProfileNo == 2)then --Survival
         
         if(false
-					or NA_Fire(NA_SpellInterrupt(NA_Target), '147362', NA_Target) --反制射击
 					or NA_Fire(W_HPlevel(NA_Pet)>0 and W_HPlevel(NA_Pet) < 0.5 and not W_HasBuff(NA_Pet, 136, true), '136', NA_Pet) --治疗宠物
 					or NA_Fire(W_HPlevel(NA_Pet)<=0, '982', NA_Pet) --复活宠物
 					or NA_Fire(NA_IsSolo and NA_CheckBuff(NA_Target)~=0, '19801', NA_Target) --宁神射击

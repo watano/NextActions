@@ -27,7 +27,6 @@ function NA4Dps()
       elseif(NA_ProfileNo == 0)then --Assassination
         
         if(false
-					or NA_Fire(NA_SpellInterrupt(NA_Target), '1766', NA_Target) --脚踢
 					or NA_Fire(NA_CheckBuff(NA_Target)==2, '5938', NA_Target) --毒刃
 					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
@@ -35,7 +34,6 @@ function NA4Dps()
       elseif(NA_ProfileNo == 1)then --Combat
         
         if(false
-					or NA_Fire(NA_SpellInterrupt(NA_Target), '1766', NA_Target) --脚踢
 					or NA_Fire(NA_CheckBuff(NA_Target)==2, '5938', NA_Target) --毒刃
 					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
@@ -43,7 +41,6 @@ function NA4Dps()
       elseif(NA_ProfileNo == 2)then --Subtlety
         
         if(false
-					or NA_Fire(NA_SpellInterrupt(NA_Target), '1766', NA_Target) --脚踢
 					or NA_Fire(NA_CheckBuff(NA_Target)==2, '5938', NA_Target) --毒刃
 					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 

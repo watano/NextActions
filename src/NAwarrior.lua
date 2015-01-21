@@ -25,7 +25,6 @@ function NA1Dps()
       elseif(NA_ProfileNo == 0)then --防战
         
         if(false
-					or NA_Fire(NA_SpellInterrupt(NA_Target), '6552', NA_Target) --拳击
 					or NA_Fire(W_RetainBuff(NA_Target, 642, true) or W_RetainBuff(NA_Target, 45438, true), '64382', NA_Target) --碎裂投掷
 					or NA_Fire(W_HPlevel(NA_Player)<0.8, '112048', NA_Player) --盾牌屏障
 					or NA_Fire(W_HPlevel(NA_Player)<0.2, '12975', NA_Player) --破釜沉舟
@@ -41,7 +40,6 @@ function NA1Dps()
       elseif(NA_ProfileNo == 1)then --狂暴战
         
         if(false
-					or NA_Fire(NA_SpellInterrupt(NA_Target), '6552', NA_Target) --拳击
 					or NA_Fire(W_RetainBuff(NA_Target, 642, true) or W_RetainBuff(NA_Target, 45438, true), '64382', NA_Target) --碎裂投掷
 					or NA_Fire(not NA_IsMaxDps and W_HPlevel(NA_Player)<0.8, '34428', NA_Player) --乘胜追击
 					or NA_Fire(NA_IsSolo and W_HPlevel(NA_Player)<0.2, '103840', NA_Player) --胜利在望
@@ -51,7 +49,6 @@ function NA1Dps()
       elseif(NA_ProfileNo == 2)then --武器战
         
         if(false
-					or NA_Fire(NA_SpellInterrupt(NA_Target), '6552', NA_Target) --拳击
 					or NA_Fire(W_RetainBuff(NA_Target, 642, true) or W_RetainBuff(NA_Target, 45438, true), '64382', NA_Target) --碎裂投掷
 					or NA_Fire(not NA_IsMaxDps and W_HPlevel(NA_Player)<0.8, '34428', NA_Player) --乘胜追击
 					or NA_Fire(NA_IsSolo and W_HPlevel(NA_Player)<0.2, '103840', NA_Player) --胜利在望

@@ -5,7 +5,7 @@ function getNA7Actions(no)
   elseif(no == 1)then
     return {'324','403','421','1535','2825','2894','3599','8050','8056','8190','16166','16188','17364','32182','51533','57994','60103','73680','115356','117014','152255','152256','165341','NA_ChagetTarget','370','108270','108271','2062','8004','I5512'};
   elseif(no == 2)then
-    return {'370','57994','117014','NA_ChagetTarget','77130','16188','8004','16166','5394','974','52127','73685','61295','165344','1064','77472','108280','152256','157153','108281','79206','108270','108271','2062','I5512','2645'};
+    return {'370','117014','NA_ChagetTarget','77130','16188','8004','16166','5394','974','52127','73685','61295','165344','1064','77472','108280','152256','157153','108281','79206','108270','108271','2062','I5512','2645'};
   end
   return {};
 end
@@ -31,7 +31,6 @@ function NA7Dps()
 					or NA_Fire(NA_checkHP(1), '2062', NA_Player) --土元素图腾
 					or NA_Fire(NA_checkHP(1), '8004', NA_Player) --治疗之涌
 					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
-					or NA_Fire(NA_SpellInterrupt(NA_Target), '57994', NA_Target) --风剪
 
         )then return true; end
       elseif(NA_ProfileNo == 1)then --Enhancement
@@ -43,7 +42,6 @@ function NA7Dps()
 					or NA_Fire(NA_checkHP(1), '2062', NA_Player) --土元素图腾
 					or NA_Fire(NA_checkHP(1), '8004', NA_Player) --治疗之涌
 					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
-					or NA_Fire(NA_SpellInterrupt(NA_Target), '57994', NA_Target) --风剪
 
         )then return true; end
       elseif(NA_ProfileNo == 2)then --Restoration
@@ -100,7 +98,6 @@ function NA7Dps()
         
         if(not NA_IsAOE and (false
 					or NA_Fire(NA_CheckBuff(NA_Target)==1, '370', NA_Target) --净化术
-					or NA_Fire(NA_SpellInterrupt(NA_Target), '57994', NA_Target) --风剪
 					or NA_Fire(NA_isUsableTalentSpell(6,3), '117014', NA_Target) --元素冲击
 					or NA_Fire(W_HPlevel(NA_Target)<=0 or UnitName(NA_Target)==nil, 'NA_ChagetTarget', NA_Target) --NA_ChagetTarget
 

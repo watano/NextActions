@@ -3,7 +3,7 @@ function getNA10Actions(no)
   elseif(no == 0)then
     return {'100780','100784','100787','115069','115072','115078','115080','115098','115181','115203','115295','115308','115399','116705','116781','116847','119582','121253','122278','122783','123904','123986','124081','137562','152173','157676','NA_ChagetTarget','115450','115176','119381','I5512'};
   elseif(no == 1)then
-    return {'154436','115080','115072','100780','107428','100787','100784','157675','116694','116680','115098','124081','123986','123904','119381','115294','NA_ChagetTarget','115070','116849','115151','124682','116670','115175','101546','115460','116705','115203','I5512','115921'};
+    return {'154436','115080','115072','100780','107428','100787','100784','157675','116694','116680','115098','124081','123986','123904','119381','115294','NA_ChagetTarget','115070','116849','115151','124682','116670','115175','101546','115460','115203','I5512','115921'};
   elseif(no == 2)then
     return {'100780','100784','100787','101546','103985','107428','113656','115078','115080','115098','115203','115288','115399','116705','116740','116781','116847','123904','123986','124081','137562','152173','152174','152175','NA_ChagetTarget','115072','I5512'};
   end
@@ -42,7 +42,6 @@ function NA10Dps()
 					or NA_Fire(NA_isUsableTalentSpell(7,2) and UnitPower(NA_Player,12)>=3, '157676', NA_Target) --真气破
 					or NA_Fire(W_RetainBuff(NA_Player, 152173, true) and not W_RetainBuff(NA_Player, 115295, true), '115295', NA_Player) --金钟罩
 					or NA_Fire(NA_checkHP(1) and not W_RetainBuff(NA_Player, 115295, true), '115295', NA_Player) --金钟罩
-					or NA_Fire(NA_SpellInterrupt(NA_Target), '116705', NA_Target) --切喉手
 					or NA_Fire(NA_isUsableTalentSpell(4,3), '119381', NA_Target) --扫堂腿
 					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
@@ -50,7 +49,6 @@ function NA10Dps()
       elseif(NA_ProfileNo == 1)then --Mistweaver
         
         if(false
-					or NA_Fire(NA_SpellInterrupt(NA_Target), '116705', NA_Target) --切喉手
 					or NA_Fire(NA_checkHP(1), '115203', NA_Player) --壮胆酒
 					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
@@ -59,7 +57,6 @@ function NA10Dps()
         
         if(false
 					or NA_Fire((UnitHealth(NA_Target)<UnitHealthMax(NA_Player) or W_HPlevel(NA_Target)<0.1) and UnitPower(NA_Player, 12)>2, '115080', NA_Target) --轮回之触
-					or NA_Fire(NA_SpellInterrupt(NA_Target), '116705', NA_Target) --切喉手
 					or NA_Fire(NA_checkHP(2) or UnitPower(NA_Player, 12)<3, '115072', NA_Player) --移花接木
 					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
