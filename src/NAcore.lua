@@ -120,17 +120,14 @@ function NA_InitClass()
 			local spellInfoType = NA_SpellInfoType(v);
 			no = no + 1;
 			if(spellInfoType == 1) then
-				local name, rank, icon, cost, isFunnel, powerType, castTime, minRange, maxRange;
-				name, rank, icon, cost, isFunnel, powerType, castTime, minRange, maxRange = GetSpellInfo(tonumber(v));
+				local name, rank, icon, castTime, minRange, maxRange;
+				name, rank, icon, castTime, minRange, maxRange, _ = GetSpellInfo(tonumber(v));
 				if(name ~= nil) then
 					NA_ClassInfo[v] = {};
 					NA_ClassInfo[v]['spellID'] = tonumber(v);
 					NA_ClassInfo[v]['name'] = name;
 					NA_ClassInfo[v]['rank'] = rank;
 					NA_ClassInfo[v]['icon'] = icon;
-					NA_ClassInfo[v]['cost'] = cost;
-					NA_ClassInfo[v]['isFunnel'] = isFunnel;
-					NA_ClassInfo[v]['powerType'] = powerType;
 					NA_ClassInfo[v]['castTime'] = castTime;
 					NA_ClassInfo[v]['minRange'] = minRange;
 					NA_ClassInfo[v]['maxRange'] = maxRange;
@@ -243,7 +240,11 @@ function NA_OnEvent(event,...)
 			NA_MyUI();
 		end
 	end
-	
+
+	if(UnitExists(NA_Target) == 1)then
+		NA_ShowVars(0);
+	end
+
 	if(NA_IsRunning ~= nil and NA_IsRunning == true and (GetTime() - NA_LastActionTime > 0.1)  and not NA_DoAction()) then
 		NA_ClearAction();
 	end

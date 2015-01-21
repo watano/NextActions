@@ -322,6 +322,18 @@ function W_BuffTime(UnitId, buffID, onlyMine)
 	return 0;
 end
 
+--/run print(W_HasStealableBuff(NA_Target));
+function W_HasStealableBuff(UnitId)
+	for i=1,40 do
+		local name, rank, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate, spellId, canApplyAura, isBossDebuff = UnitBuff(UnitId, i);
+		if(isStealable == 1 or shouldConsolidate == 1 or canApplyAura == true or  isBossDebuff == true)then
+			print(UnitBuff(UnitId, i));
+			return true;
+		end
+	end
+	return false;
+end
+
 function W_IsDeadTarget()
 	if(UnitIsDead(NA_Target) and UnitCanAttack(NA_Player,NA_Target) and
 	(UnitIsEnemy(NA_Player,NA_Target) or UnitIsTapped(NA_Target) or UnitIsPlayer(NA_Target))) then
@@ -405,9 +417,9 @@ function NA_Fire(cond, spellID, UnitId, interval)
 end
 
 function NA_ChagetTarget()
---	NA_ShowVars(101);
---	W_UpdateLabelText('NA_SpellLabel', 'NA_ChagetTarget');
-	return false;
+	NA_ShowVars(101);
+	W_UpdateLabelText('NA_SpellLabel', 'NA_ChagetTarget');
+	return true;
 end
 
 function NA_FireSpell(spellID, UnitId)
@@ -674,7 +686,7 @@ function NA_testBuff(UnitId, buffID, onlyMine)
 end
 --/run NA_testBuff(NA_Player, 19615, true);
 
-
+--/run W_printBuffInfo(NA_Target)
 function W_printBuffInfo(UnitId)
 	local buffs, i = { }, 1;
 	local buff = UnitBuff(UnitId, i);
@@ -692,6 +704,7 @@ function W_printBuffInfo(UnitId)
 	print(buffs);
 end
 
+--/run W_printDeBuffInfo(NA_Player)
 function W_printDeBuffInfo(UnitId)
 	local buffs, i = { }, 1;
 	local buff = UnitDebuff(UnitId, i);
@@ -952,13 +965,16 @@ end
 
 function NA_getOvaleActions()
 	local NA_OvaleActions = {[1]=nil,[2]=nil,[3]=nil,[4]=nil};
+	local Ovale_spells = '';
 	if(Ovale ~= nil and Ovale.frame ~= nil and Ovale.frame.actions ~= nil)then
 		for i=1,4 do 
 			if(Ovale.frame.actions[i] ~= nil and Ovale.frame.actions[i].spellId ~= nil)then
 				NA_OvaleActions[i] = Ovale.frame.actions[i].spellId..'';
+				Ovale_spells = Ovale_spells .. ' '..i..'='..NA_OvaleActions[i];
 			end
 		end					
 	end
+	W_Log(3,"Ovale_spells: ".. Ovale_spells);
 	return NA_OvaleActions;
 end
 

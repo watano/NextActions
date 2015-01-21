@@ -3,9 +3,9 @@ function getNA9Actions(no)
   elseif(no == 0)then
     return {'172','603','686','1122','1454','1949','6353','18540','30146','89751','103958','103964','104025','104316','105174','108508','109773','111898','113861','115831','124916','137587','152108','157695','755','104773','29858','689','6789','I5512'};
   elseif(no == 1)then
-    return {'348','691','1122','17877','17962','18540','29722','104232','108503','108508','108683','109773','111897','113858','116858','137587','152108','114635','6789','108359','I5512'};
+    return {'348','691','1122','17877','17962','18540','29722','104232','108503','108508','108683','109773','111897','113858','116858','137587','152108','NA_ChagetTarget','114635','6789','108359','I5512'};
   elseif(no == 2)then
-    return {'172','691','980','1122','1454','18540','30108','48181','74434','103103','108503','108508','109773','111897','113860','137587','152108','755','689','6789','I5512'};
+    return {'172','691','980','1122','1454','18540','30108','48181','74434','103103','108503','108508','109773','111897','113860','137587','152108','NA_ChagetTarget','755','689','6789','I5512'};
   end
   return {};
 end
@@ -74,6 +74,7 @@ function NA9Dps()
 				
         
         if(not NA_IsAOE and (false
+					or NA_Fire(not UnitExists(NA_Target) or W_HPlevel(NA_Target)<=0 or UnitIsDead(NA_Target), 'NA_ChagetTarget', NA_Player) --NA_ChagetTarget
 
           or NA_fireByOvale()
         ))then return true; end
@@ -87,6 +88,7 @@ function NA9Dps()
 				
         
         if(not NA_IsAOE and (false
+					or NA_Fire(not UnitExists(NA_Target) or W_HPlevel(NA_Target)<=0 or UnitIsDead(NA_Target), 'NA_ChagetTarget', NA_Player) --NA_ChagetTarget
 
           or NA_fireByOvale()
         ))then return true; end
