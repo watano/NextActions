@@ -109,12 +109,7 @@ function NA6Dps()
           or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 2)then --Dual-Wield Frost
-        local hasKillingMachine = W_HasBuff(NA_Player, 51124, true);  --杀戮机器
-				local hasFreezingFog = W_HasBuff(NA_Player, 59052, true);   --冰冻之雾
-				local hasRime = W_HasBuff(NA_Player, 59057, true);   --白霜
-				local retainFrostFever = W_RetainBuff(NA_Target, -55095, true);   --冰霜疫病
-				local retainBloodPlague = W_RetainBuff(NA_Target, -55078, true);    --血之疫病
-				
+        
 				
         
         if(not NA_IsAOE and (false

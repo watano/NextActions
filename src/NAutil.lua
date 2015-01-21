@@ -80,7 +80,7 @@ function W_SetBinding(no, text, f)
 			W_Log(4,"SetBindingSpell error : ".. key .."->"..text);
 		end
 	elseif(f==2) then --item
-		if(not SetBindingItem(key, text) == 1)then
+		if(not SetBindingItem(key, 'item:'..text) == 1)then
 			W_Log(4,"SetBindingItem error : ".. key .."->"..text);
 		end
 	elseif(f==3) then --macro
@@ -801,10 +801,10 @@ end
 function NA_fireByOvale()
 	local NA_OvaleActions = NA_getOvaleActions();
 	return (false
-					or NA_Fire(NA_OvaleActions[1] ~= nil, NA_OvaleActions[1], NA_Target)
-					or NA_Fire(not NA_IsAOE and NA_OvaleActions[2] ~= nil, NA_OvaleActions[2], NA_Target)
-					or NA_Fire(NA_IsAOE and NA_OvaleActions[3] ~= nil, NA_OvaleActions[3], NA_Target)
 					or NA_Fire(NA_IsMaxDps and NA_OvaleActions[4] ~= nil, NA_OvaleActions[4], NA_Target)
+					or NA_Fire(NA_OvaleActions[1] ~= nil, NA_OvaleActions[1], NA_Target)
+--					or NA_Fire(not NA_IsAOE and NA_OvaleActions[2] ~= nil, NA_OvaleActions[2], NA_Target)
+					or NA_Fire(NA_OvaleActions[3] ~= nil, NA_OvaleActions[3], NA_Target)
         );
 end
 

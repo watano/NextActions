@@ -3,7 +3,7 @@ function getNA9Actions(no)
   elseif(no == 0)then
     return {'172','603','686','1122','1454','1949','6353','18540','30146','89751','103958','103964','104025','104316','105174','108508','109773','111898','113861','115831','124916','137587','152108','157695','755','104773','29858','689','6789','I5512'};
   elseif(no == 1)then
-    return {'348','691','1122','17877','17962','18540','29722','104232','108503','108508','108683','109773','111897','113858','116858','137587','152108','114635','I5512'};
+    return {'348','691','1122','17877','17962','18540','29722','104232','108503','108508','108683','109773','111897','113858','116858','137587','152108','114635','6789','108359','I5512'};
   elseif(no == 2)then
     return {'172','691','980','1122','1454','18540','30108','48181','74434','103103','108503','108508','109773','111897','113860','137587','152108','755','689','6789','I5512'};
   end
@@ -32,14 +32,16 @@ function NA9Dps()
 					or NA_Fire(NA_IsSolo and W_HPlevel(NA_Player)<0.5, '6789', NA_Target) --死亡缠绕
 					or NA_Fire(NA_IsSolo and W_HPlevel(NA_Player)<0.5, '689', NA_Target) --吸取生命
 					or NA_Fire(W_PowerLevel(NA_Player) < 0.2 and W_HPlevel(NA_Player)>0.5, '1454', NA_Player) --生命分流
-					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
+					or NA_Fire(NA_checkHP(0), 'I5512', NA_Player) --I5512
 
         )then return true; end
       elseif(NA_ProfileNo == 1)then --毁灭术
         
         if(false
 					or NA_Fire(W_HPlevel(NA_Player)<0.2, '114635', NA_Player) --灰烬转换
-					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
+					or NA_Fire(W_HPlevel(NA_Player)<0.9, '6789', NA_Target) --死亡缠绕
+					or NA_Fire(W_HPlevel(NA_Player)<0.9, '108359', NA_Target) --黑暗再生
+					or NA_Fire(NA_checkHP(0), 'I5512', NA_Player) --I5512
 
         )then return true; end
       elseif(NA_ProfileNo == 2)then --痛苦术
@@ -48,7 +50,7 @@ function NA9Dps()
 					or NA_Fire(not NA_IsMaxDps and W_HPlevel(NA_Player)<0.2, '755', NA_Pet) --生命通道
 					or NA_Fire(NA_checkHP(0), '689', NA_Target) --吸取生命
 					or NA_Fire(NA_checkHP(0), '6789', NA_Target) --死亡缠绕
-					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
+					or NA_Fire(NA_checkHP(0), 'I5512', NA_Player) --I5512
 
         )then return true; end
       end
