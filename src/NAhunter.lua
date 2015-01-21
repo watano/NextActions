@@ -19,40 +19,39 @@ function NA3Dps()
 	
 	
   if(W_IsInCombat())then
-    if(W_TargetCanAttack()) then
-      -- 保命施法
-      if(NA_ProfileNo < 0)then return false;
-      elseif(NA_ProfileNo == 0)then --Beastmaster
-        
-        if(false
+    if(NA_ProfileNo < 0)then return false; --保命施法
+    elseif(NA_ProfileNo == 0)then --Beastmaster
+      
+      if(false
 					or NA_Fire(NA_checkHP(1), '19263', NA_Player) --威慑
 					or NA_Fire(W_HPlevel(NA_Pet)>0 and W_HPlevel(NA_Pet) < 0.5 and not W_HasBuff(NA_Pet, 136, true), '136', NA_Pet) --治疗宠物
 					or NA_Fire(W_HPlevel(NA_Pet)<=0, '982', NA_Pet) --复活宠物
 					or NA_Fire(NA_IsSolo and NA_CheckBuff(NA_Target)~=0, '19801', NA_Target) --宁神射击
 					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
-        )then return true; end
-      elseif(NA_ProfileNo == 1)then --Marksman
-        
-        if(false
+      )then return true; end
+    elseif(NA_ProfileNo == 1)then --Marksman
+      
+      if(false
 					or NA_Fire(NA_checkHP(1), '19263', NA_Player) --威慑
 					or NA_Fire(W_HPlevel(NA_Pet)>0 and W_HPlevel(NA_Pet) < 0.5 and not W_HasBuff(NA_Pet, 136, true), '136', NA_Pet) --治疗宠物
 					or NA_Fire(W_HPlevel(NA_Pet)<=0, '982', NA_Pet) --复活宠物
 					or NA_Fire(NA_IsSolo and NA_CheckBuff(NA_Target)~=0, '19801', NA_Target) --宁神射击
 					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
-        )then return true; end
-      elseif(NA_ProfileNo == 2)then --Survival
-        
-        if(false
+      )then return true; end
+    elseif(NA_ProfileNo == 2)then --Survival
+      
+      if(false
 					or NA_Fire(W_HPlevel(NA_Pet)>0 and W_HPlevel(NA_Pet) < 0.5 and not W_HasBuff(NA_Pet, 136, true), '136', NA_Pet) --治疗宠物
 					or NA_Fire(W_HPlevel(NA_Pet)<=0, '982', NA_Pet) --复活宠物
 					or NA_Fire(NA_IsSolo and NA_CheckBuff(NA_Target)~=0, '19801', NA_Target) --宁神射击
 					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
-        )then return true; end
-      end
-
+      )then return true; end
+      
+    end
+    if(W_TargetCanAttack()) then  --攻击施法
       if(NA_ProfileNo < 0)then return false;
       elseif(NA_ProfileNo == 0)then --Beastmaster
         
@@ -94,7 +93,7 @@ function NA3Dps()
           or NA_fireByOvale()
         ))then return true; end
       end
-    elseif(UnitCanAssist(NA_Player, NA_Target))then
+    elseif(UnitCanAssist(NA_Player, NA_Target))then --辅助施法
       if(NA_ProfileNo < 0)then return false;
       elseif(NA_ProfileNo == 0)then --Beastmaster
         
@@ -118,12 +117,11 @@ function NA3Dps()
 
         )then return true; end
       end
-      return false;
-    elseif(NA_IsSolo)then
+    elseif(NA_IsSolo)then --solo时切换目标
       return NA_ChagetTarget();      
     end
-  else    
-    if(NA_ProfileNo < 0)then return false;
+  else  --不在战斗中  
+    if(NA_ProfileNo < 0)then return false; --脱战后补buff，开怪等
     elseif(NA_ProfileNo == 0)then --Beastmaster
       
       if(false

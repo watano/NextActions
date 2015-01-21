@@ -26,12 +26,10 @@ function NA11Dps()
 	
 	
   if(W_IsInCombat())then
-    if(W_TargetCanAttack()) then
-      -- 保命施法
-      if(NA_ProfileNo < 0)then return false;
-      elseif(NA_ProfileNo == 0)then --Bear
-        
-        if(false
+    if(NA_ProfileNo < 0)then return false; --保命施法
+    elseif(NA_ProfileNo == 0)then --Bear
+      
+      if(false
 					or NA_Fire(not inBear, '5487', NA_Player) --熊形态
 					or NA_Fire(NA_checkHP(0), '61336', NA_Player) --生存本能
 					or NA_Fire(inBear and NA_isUsableTalentSpell(5,1), '99', NA_Target) --夺魂咆哮
@@ -50,10 +48,10 @@ function NA11Dps()
 					or NA_Fire(NA_checkHP(2) and NA_isUsableTalentSpell(6,2) and W_RetainBuff(NA_Player, 158501, true), '5185', NA_Player) --治疗之触
 					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
-        )then return true; end
-      elseif(NA_ProfileNo == 1)then --Cat
-        
-        if(false
+      )then return true; end
+    elseif(NA_ProfileNo == 1)then --Cat
+      
+      if(false
 					or NA_Fire(not inCat, '768', NA_Player) --猎豹形态
 					or NA_Fire(NA_checkHP(0), '61336', NA_Player) --生存本能
 					or NA_Fire(inCat and NA_isUsableTalentSpell(1,3), '102401', NA_Target) --野性冲锋
@@ -62,24 +60,25 @@ function NA11Dps()
 					or NA_Fire(inCat and NA_SpellInterrupt(NA_Target) and NA_isUsableTalentSpell(5,1), '99', NA_Target) --夺魂咆哮
 					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
-        )then return true; end
-      elseif(NA_ProfileNo == 2)then --Restoration
-        
-        if(false
+      )then return true; end
+    elseif(NA_ProfileNo == 2)then --Restoration
+      
+      if(false
 					or NA_Fire(NA_checkHP(1), '22812', NA_Player) --树皮术
 					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
-        )then return true; end
-      elseif(NA_ProfileNo == 3)then --Balance
-        
-        if(false
+      )then return true; end
+    elseif(NA_ProfileNo == 3)then --Balance
+      
+      if(false
 					or NA_Fire(NA_checkHP(1), '22812', NA_Player) --树皮术
 					or NA_Fire(NA_CheckBuff(NA_Target)==2, '2908', NA_Target) --安抚
 					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
-        )then return true; end
-      end
-
+      )then return true; end
+      
+    end
+    if(W_TargetCanAttack()) then  --攻击施法
       if(NA_ProfileNo < 0)then return false;
       elseif(NA_ProfileNo == 0)then --Bear
         local hasThrash = W_RetainBuff(NA_Target, -77758, true);   --痛击dot
@@ -158,7 +157,7 @@ function NA11Dps()
           or NA_fireByOvale()
         ))then return true; end
       end
-    elseif(UnitCanAssist(NA_Player, NA_Target))then
+    elseif(UnitCanAssist(NA_Player, NA_Target))then --辅助施法
       if(NA_ProfileNo < 0)then return false;
       elseif(NA_ProfileNo == 0)then --Bear
         
@@ -214,12 +213,11 @@ function NA11Dps()
 
         )then return true; end
       end
-      return false;
-    elseif(NA_IsSolo)then
+    elseif(NA_IsSolo)then --solo时切换目标
       return NA_ChagetTarget();      
     end
-  else    
-    if(NA_ProfileNo < 0)then return false;
+  else  --不在战斗中  
+    if(NA_ProfileNo < 0)then return false; --脱战后补buff，开怪等
     elseif(NA_ProfileNo == 0)then --Bear
       
       if(false

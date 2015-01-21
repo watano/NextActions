@@ -19,12 +19,10 @@ function NA1Dps()
 	
 	
   if(W_IsInCombat())then
-    if(W_TargetCanAttack()) then
-      -- 保命施法
-      if(NA_ProfileNo < 0)then return false;
-      elseif(NA_ProfileNo == 0)then --防战
-        
-        if(false
+    if(NA_ProfileNo < 0)then return false; --保命施法
+    elseif(NA_ProfileNo == 0)then --防战
+      
+      if(false
 					or NA_Fire(W_RetainBuff(NA_Target, 642, true) or W_RetainBuff(NA_Target, 45438, true), '64382', NA_Target) --碎裂投掷
 					or NA_Fire(W_HPlevel(NA_Player)<0.8, '112048', NA_Player) --盾牌屏障
 					or NA_Fire(W_HPlevel(NA_Player)<0.2, '12975', NA_Player) --破釜沉舟
@@ -36,27 +34,28 @@ function NA1Dps()
 					or NA_Fire(NA_IsSolo and W_HPlevel(NA_Player)<0.2, '103840', NA_Player) --胜利在望
 					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
-        )then return true; end
-      elseif(NA_ProfileNo == 1)then --狂暴战
-        
-        if(false
+      )then return true; end
+    elseif(NA_ProfileNo == 1)then --狂暴战
+      
+      if(false
 					or NA_Fire(W_RetainBuff(NA_Target, 642, true) or W_RetainBuff(NA_Target, 45438, true), '64382', NA_Target) --碎裂投掷
 					or NA_Fire(not NA_IsMaxDps and W_HPlevel(NA_Player)<0.8, '34428', NA_Player) --乘胜追击
 					or NA_Fire(NA_IsSolo and W_HPlevel(NA_Player)<0.2, '103840', NA_Player) --胜利在望
 					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
-        )then return true; end
-      elseif(NA_ProfileNo == 2)then --武器战
-        
-        if(false
+      )then return true; end
+    elseif(NA_ProfileNo == 2)then --武器战
+      
+      if(false
 					or NA_Fire(W_RetainBuff(NA_Target, 642, true) or W_RetainBuff(NA_Target, 45438, true), '64382', NA_Target) --碎裂投掷
 					or NA_Fire(not NA_IsMaxDps and W_HPlevel(NA_Player)<0.8, '34428', NA_Player) --乘胜追击
 					or NA_Fire(NA_IsSolo and W_HPlevel(NA_Player)<0.2, '103840', NA_Player) --胜利在望
 					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
-        )then return true; end
-      end
-
+      )then return true; end
+      
+    end
+    if(W_TargetCanAttack()) then  --攻击施法
       if(NA_ProfileNo < 0)then return false;
       elseif(NA_ProfileNo == 0)then --防战
         local notTanking = not NA_IsSolo and not W_isTanking();
@@ -101,7 +100,7 @@ function NA1Dps()
           or NA_fireByOvale()
         ))then return true; end
       end
-    elseif(UnitCanAssist(NA_Player, NA_Target))then
+    elseif(UnitCanAssist(NA_Player, NA_Target))then --辅助施法
       if(NA_ProfileNo < 0)then return false;
       elseif(NA_ProfileNo == 0)then --防战
         
@@ -131,12 +130,11 @@ function NA1Dps()
 
         )then return true; end
       end
-      return false;
-    elseif(NA_IsSolo)then
+    elseif(NA_IsSolo)then --solo时切换目标
       return NA_ChagetTarget();      
     end
-  else    
-    if(NA_ProfileNo < 0)then return false;
+  else  --不在战斗中  
+    if(NA_ProfileNo < 0)then return false; --脱战后补buff，开怪等
     elseif(NA_ProfileNo == 0)then --防战
       
       if(false

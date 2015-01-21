@@ -23,12 +23,10 @@ function NA6Dps()
 	
 	
   if(W_IsInCombat())then
-    if(W_TargetCanAttack()) then
-      -- 保命施法
-      if(NA_ProfileNo < 0)then return false;
-      elseif(NA_ProfileNo == 0)then --Two-Handed Frost
-        
-        if(false
+    if(NA_ProfileNo < 0)then return false; --保命施法
+    elseif(NA_ProfileNo == 0)then --Two-Handed Frost
+      
+      if(false
 					or NA_Fire(NA_checkHP(2), '49998', NA_Target) --灵界打击
 					or NA_Fire(NA_checkHP(2), '48707', NA_Player) --反魔法护罩
 					or NA_Fire(NA_checkHP(0), '48792', NA_Player) --冰封之韧
@@ -37,10 +35,10 @@ function NA6Dps()
 					or NA_Fire(NA_isUsableTalentSpell(5,1) and NA_checkHP(0), '48743', NA_Player) --天灾契约
 					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
-        )then return true; end
-      elseif(NA_ProfileNo == 1)then --Blood
-        
-        if(false
+      )then return true; end
+    elseif(NA_ProfileNo == 1)then --Blood
+      
+      if(false
 					or NA_Fire(NA_checkHP(2), '49998', NA_Target) --灵界打击
 					or NA_Fire(NA_checkHP(2), '48707', NA_Player) --反魔法护罩
 					or NA_Fire(NA_checkHP(0), '48792', NA_Player) --冰封之韧
@@ -54,10 +52,10 @@ function NA6Dps()
 					or NA_Fire(NA_isUsableTalentSpell(6,2), '108200', NA_Player) --冷酷严冬
 					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
-        )then return true; end
-      elseif(NA_ProfileNo == 2)then --Dual-Wield Frost
-        
-        if(false
+      )then return true; end
+    elseif(NA_ProfileNo == 2)then --Dual-Wield Frost
+      
+      if(false
 					or NA_Fire(NA_checkHP(2), '49998', NA_Target) --灵界打击
 					or NA_Fire(NA_checkHP(2), '48707', NA_Player) --反魔法护罩
 					or NA_Fire(NA_checkHP(0), '48792', NA_Player) --冰封之韧
@@ -66,14 +64,15 @@ function NA6Dps()
 					or NA_Fire(NA_isUsableTalentSpell(5,1) and NA_checkHP(0), '48743', NA_Player) --天灾契约
 					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
-        )then return true; end
-      elseif(NA_ProfileNo == 3)then --Unholy
-        
-        if(false
+      )then return true; end
+    elseif(NA_ProfileNo == 3)then --Unholy
+      
+      if(false
 
-        )then return true; end
-      end
-
+      )then return true; end
+      
+    end
+    if(W_TargetCanAttack()) then  --攻击施法
       if(NA_ProfileNo < 0)then return false;
       elseif(NA_ProfileNo == 0)then --Two-Handed Frost
         
@@ -138,7 +137,7 @@ function NA6Dps()
           or NA_fireByOvale()
         ))then return true; end
       end
-    elseif(UnitCanAssist(NA_Player, NA_Target))then
+    elseif(UnitCanAssist(NA_Player, NA_Target))then --辅助施法
       if(NA_ProfileNo < 0)then return false;
       elseif(NA_ProfileNo == 0)then --Two-Handed Frost
         
@@ -169,12 +168,11 @@ function NA6Dps()
 
         )then return true; end
       end
-      return false;
-    elseif(NA_IsSolo)then
+    elseif(NA_IsSolo)then --solo时切换目标
       return NA_ChagetTarget();      
     end
-  else    
-    if(NA_ProfileNo < 0)then return false;
+  else  --不在战斗中  
+    if(NA_ProfileNo < 0)then return false; --脱战后补buff，开怪等
     elseif(NA_ProfileNo == 0)then --Two-Handed Frost
       
       if(false

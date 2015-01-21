@@ -19,12 +19,10 @@ function NA10Dps()
 	
 	
   if(W_IsInCombat())then
-    if(W_TargetCanAttack()) then
-      -- 保命施法
-      if(NA_ProfileNo < 0)then return false;
-      elseif(NA_ProfileNo == 0)then --Brewmaster
-        
-        if(false
+    if(NA_ProfileNo < 0)then return false; --保命施法
+    elseif(NA_ProfileNo == 0)then --Brewmaster
+      
+      if(false
 					or NA_Fire(NA_CheckDebuff(NA_Player)==2 or NA_CheckDebuff(NA_Player)==3, '115450', NA_Player) --清创生血
 					or NA_Fire((UnitHealth(NA_Target)<UnitHealthMax(NA_Player) or W_HPlevel(NA_Target)<0.1) and UnitPower(NA_Player, 12)>2, '115080', NA_Target) --轮回之触
 					or NA_Fire(NA_isUsableTalentSpell(3,3) and UnitPower(NA_palyer,12)>=2 and W_BuffCount(NA_Player, 115308)<=10, '115399', NA_Player) --真气酒
@@ -45,24 +43,25 @@ function NA10Dps()
 					or NA_Fire(NA_isUsableTalentSpell(4,3), '119381', NA_Target) --扫堂腿
 					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
-        )then return true; end
-      elseif(NA_ProfileNo == 1)then --Mistweaver
-        
-        if(false
+      )then return true; end
+    elseif(NA_ProfileNo == 1)then --Mistweaver
+      
+      if(false
 					or NA_Fire(NA_checkHP(1), '115203', NA_Player) --壮胆酒
 					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
-        )then return true; end
-      elseif(NA_ProfileNo == 2)then --Battledancer
-        
-        if(false
+      )then return true; end
+    elseif(NA_ProfileNo == 2)then --Battledancer
+      
+      if(false
 					or NA_Fire((UnitHealth(NA_Target)<UnitHealthMax(NA_Player) or W_HPlevel(NA_Target)<0.1) and UnitPower(NA_Player, 12)>2, '115080', NA_Target) --轮回之触
 					or NA_Fire(NA_checkHP(2) or UnitPower(NA_Player, 12)<3, '115072', NA_Player) --移花接木
 					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
-        )then return true; end
-      end
-
+      )then return true; end
+      
+    end
+    if(W_TargetCanAttack()) then  --攻击施法
       if(NA_ProfileNo < 0)then return false;
       elseif(NA_ProfileNo == 0)then --Brewmaster
         local zdzq = W_RetainBuff(NA_Player, 124274, true);   --中度醉拳dot
@@ -136,7 +135,7 @@ function NA10Dps()
           or NA_fireByOvale()
         ))then return true; end
       end
-    elseif(UnitCanAssist(NA_Player, NA_Target))then
+    elseif(UnitCanAssist(NA_Player, NA_Target))then --辅助施法
       if(NA_ProfileNo < 0)then return false;
       elseif(NA_ProfileNo == 0)then --Brewmaster
         
@@ -179,12 +178,11 @@ function NA10Dps()
 
         )then return true; end
       end
-      return false;
-    elseif(NA_IsSolo)then
+    elseif(NA_IsSolo)then --solo时切换目标
       return NA_ChagetTarget();      
     end
-  else    
-    if(NA_ProfileNo < 0)then return false;
+  else  --不在战斗中  
+    if(NA_ProfileNo < 0)then return false; --脱战后补buff，开怪等
     elseif(NA_ProfileNo == 0)then --Brewmaster
       
       if(false

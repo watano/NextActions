@@ -123,11 +123,11 @@ ${cmdCodes(p.assistCmds)}
         )then return true; end
 ''';
     profileKeepHPCodes += '''
-      elseif(NA_ProfileNo == ${p.profileID})then --${p.name}
-        ${p.keepHPCodes.replaceAll('\n', '\n\t\t\t\t')}
-        if(false
+    elseif(NA_ProfileNo == ${p.profileID})then --${p.name}
+      ${p.keepHPCodes.replaceAll('\n', '\n\t\t\t\t')}
+      if(false
 ${cmdCodes(p.keepHPCmds)}
-        )then return true; end
+      )then return true; end
 ''';
     profileKeepBuffCodes += '''
     elseif(NA_ProfileNo == ${p.profileID})then --${p.name}
@@ -169,22 +169,20 @@ function NA${classInfo.classID}Dps()
   W_Log(1,"${classInfo.cnName} dps");
   ${commonCodes.replaceAll('\n', '\n\t')}
   if(W_IsInCombat())then
-    if(W_TargetCanAttack()) then
-      -- 保命施法
-      if(NA_ProfileNo < 0)then return false;
-${profileKeepHPCodes}      end
-
+    if(NA_ProfileNo < 0)then return false; --保命施法
+${profileKeepHPCodes}      
+    end
+    if(W_TargetCanAttack()) then  --攻击施法
       if(NA_ProfileNo < 0)then return false;
 ${profileAtkCodes}      end
-    elseif(UnitCanAssist(NA_Player, NA_Target))then
+    elseif(UnitCanAssist(NA_Player, NA_Target))then --辅助施法
       if(NA_ProfileNo < 0)then return false;
 ${profileAssistCodes}      end
-      return false;
-    elseif(NA_IsSolo)then
+    elseif(NA_IsSolo)then --solo时切换目标
       return NA_ChagetTarget();      
     end
-  else    
-    if(NA_ProfileNo < 0)then return false;
+  else  --不在战斗中  
+    if(NA_ProfileNo < 0)then return false; --脱战后补buff，开怪等
 ${profileKeepBuffCodes}    end
   end
   return false;

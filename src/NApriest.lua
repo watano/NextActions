@@ -19,32 +19,30 @@ function NA5Dps()
 	
 	
   if(W_IsInCombat())then
-    if(W_TargetCanAttack()) then
-      -- 保命施法
-      if(NA_ProfileNo < 0)then return false;
-      elseif(NA_ProfileNo == 0)then --Discipline
-        
-        if(false
+    if(NA_ProfileNo < 0)then return false; --保命施法
+    elseif(NA_ProfileNo == 0)then --Discipline
+      
+      if(false
 					or NA_Fire(NA_checkHP(0), '586', NA_Player) --渐隐术
 					or NA_Fire(NA_checkHP(1) and NA_isUsableTalentSpell(1,1), '19236', NA_Player) --绝望祷言
 					or NA_Fire(NA_checkHP(1) and NA_isUsableTalentSpell(1,2), '112833', NA_Player) --幽灵伪装
 					or NA_Fire(NA_checkHP(1), '17', NA_Player) --真言术：盾
 					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
-        )then return true; end
-      elseif(NA_ProfileNo == 1)then --Holy
-        
-        if(false
+      )then return true; end
+    elseif(NA_ProfileNo == 1)then --Holy
+      
+      if(false
 					or NA_Fire(NA_checkHP(0), '586', NA_Player) --渐隐术
 					or NA_Fire(NA_checkHP(1) and NA_isUsableTalentSpell(1,1), '19236', NA_Player) --绝望祷言
 					or NA_Fire(NA_checkHP(1) and NA_isUsableTalentSpell(1,2), '112833', NA_Player) --幽灵伪装
 					or NA_Fire(NA_checkHP(1), '17', NA_Player) --真言术：盾
 					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
-        )then return true; end
-      elseif(NA_ProfileNo == 2)then --Shadow
-        
-        if(false
+      )then return true; end
+    elseif(NA_ProfileNo == 2)then --Shadow
+      
+      if(false
 					or NA_Fire(NA_CheckBuff(NA_Target)==1, '528', NA_Target) --驱散魔法
 					or NA_Fire(NA_checkHP(1), '15286', NA_Player) --吸血鬼的拥抱
 					or NA_Fire(NA_checkHP(0), '47585', NA_Player) --消散
@@ -53,9 +51,10 @@ function NA5Dps()
 					or NA_Fire(NA_checkHP(1), '17', NA_Player) --真言术：盾
 					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
-        )then return true; end
-      end
-
+      )then return true; end
+      
+    end
+    if(W_TargetCanAttack()) then  --攻击施法
       if(NA_ProfileNo < 0)then return false;
       elseif(NA_ProfileNo == 0)then --Discipline
         
@@ -119,7 +118,7 @@ function NA5Dps()
           or NA_fireByOvale()
         ))then return true; end
       end
-    elseif(UnitCanAssist(NA_Player, NA_Target))then
+    elseif(UnitCanAssist(NA_Player, NA_Target))then --辅助施法
       if(NA_ProfileNo < 0)then return false;
       elseif(NA_ProfileNo == 0)then --Discipline
         local zysd = W_RetainBuff(NA_Target, -17, true);   --真言术：盾
@@ -187,12 +186,11 @@ function NA5Dps()
 
         )then return true; end
       end
-      return false;
-    elseif(NA_IsSolo)then
+    elseif(NA_IsSolo)then --solo时切换目标
       return NA_ChagetTarget();      
     end
-  else    
-    if(NA_ProfileNo < 0)then return false;
+  else  --不在战斗中  
+    if(NA_ProfileNo < 0)then return false; --脱战后补buff，开怪等
     elseif(NA_ProfileNo == 0)then --Discipline
       
       if(false

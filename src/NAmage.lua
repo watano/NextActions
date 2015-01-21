@@ -19,34 +19,33 @@ function NA8Dps()
 	
 	
   if(W_IsInCombat())then
-    if(W_TargetCanAttack()) then
-      -- 保命施法
-      if(NA_ProfileNo < 0)then return false;
-      elseif(NA_ProfileNo == 0)then --Arcane
-        
-        if(false
+    if(NA_ProfileNo < 0)then return false; --保命施法
+    elseif(NA_ProfileNo == 0)then --Arcane
+      
+      if(false
 					or NA_Fire(NA_CheckBuffStealable(NA_Target), '30449', NA_Target) --法术吸取
 					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
-        )then return true; end
-      elseif(NA_ProfileNo == 1)then --Frost
-        
-        if(false
+      )then return true; end
+    elseif(NA_ProfileNo == 1)then --Frost
+      
+      if(false
 					or NA_Fire(NA_CheckBuffStealable(NA_Target), '30449', NA_Target) --法术吸取
 					or NA_Fire(W_HPlevel(NA_Player) < 0.2, '45438', NA_Player) --寒冰屏障
 					or NA_Fire(W_HPlevel(NA_Player) < 0.9, '11426', NA_Player) --寒冰护体
 					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
-        )then return true; end
-      elseif(NA_ProfileNo == 2)then --Fire
-        
-        if(false
+      )then return true; end
+    elseif(NA_ProfileNo == 2)then --Fire
+      
+      if(false
 					or NA_Fire(NA_CheckBuffStealable(NA_Target), '30449', NA_Target) --法术吸取
 					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
-        )then return true; end
-      end
-
+      )then return true; end
+      
+    end
+    if(W_TargetCanAttack()) then  --攻击施法
       if(NA_ProfileNo < 0)then return false;
       elseif(NA_ProfileNo == 0)then --Arcane
         local countArcaneCharge = W_BuffCount(NA_Player, -36032); --奥术充能
@@ -98,7 +97,7 @@ function NA8Dps()
           or NA_fireByOvale()
         ))then return true; end
       end
-    elseif(UnitCanAssist(NA_Player, NA_Target))then
+    elseif(UnitCanAssist(NA_Player, NA_Target))then --辅助施法
       if(NA_ProfileNo < 0)then return false;
       elseif(NA_ProfileNo == 0)then --Arcane
         
@@ -122,12 +121,11 @@ function NA8Dps()
 
         )then return true; end
       end
-      return false;
-    elseif(NA_IsSolo)then
+    elseif(NA_IsSolo)then --solo时切换目标
       return NA_ChagetTarget();      
     end
-  else    
-    if(NA_ProfileNo < 0)then return false;
+  else  --不在战斗中  
+    if(NA_ProfileNo < 0)then return false; --脱战后补buff，开怪等
     elseif(NA_ProfileNo == 0)then --Arcane
       
       if(false

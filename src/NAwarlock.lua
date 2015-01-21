@@ -19,12 +19,10 @@ function NA9Dps()
 	
 	
   if(W_IsInCombat())then
-    if(W_TargetCanAttack()) then
-      -- 保命施法
-      if(NA_ProfileNo < 0)then return false;
-      elseif(NA_ProfileNo == 0)then --恶魔术
-        
-        if(false
+    if(NA_ProfileNo < 0)then return false; --保命施法
+    elseif(NA_ProfileNo == 0)then --恶魔术
+      
+      if(false
 					or NA_Fire(W_HPlevel(NA_Pet) < 0.35 and not UnitIsDead(NA_Pet) and W_HPlevel(NA_Player)>0.5, '755', NA_Pet) --生命通道
 					or NA_Fire(W_HPlevel(NA_Player)<0.1, '104773', NA_Player) --不灭决心
 					or NA_Fire(W_HPlevel(NA_Player)<0.2, '29858', NA_Target) --灵魂碎裂
@@ -34,27 +32,28 @@ function NA9Dps()
 					or NA_Fire(W_PowerLevel(NA_Player) < 0.2 and W_HPlevel(NA_Player)>0.5, '1454', NA_Player) --生命分流
 					or NA_Fire(NA_checkHP(0), 'I5512', NA_Player) --I5512
 
-        )then return true; end
-      elseif(NA_ProfileNo == 1)then --毁灭术
-        
-        if(false
+      )then return true; end
+    elseif(NA_ProfileNo == 1)then --毁灭术
+      
+      if(false
 					or NA_Fire(W_HPlevel(NA_Player)<0.2, '114635', NA_Player) --灰烬转换
 					or NA_Fire(W_HPlevel(NA_Player)<0.9, '6789', NA_Target) --死亡缠绕
 					or NA_Fire(W_HPlevel(NA_Player)<0.9, '108359', NA_Target) --黑暗再生
 					or NA_Fire(NA_checkHP(0), 'I5512', NA_Player) --I5512
 
-        )then return true; end
-      elseif(NA_ProfileNo == 2)then --痛苦术
-        
-        if(false
+      )then return true; end
+    elseif(NA_ProfileNo == 2)then --痛苦术
+      
+      if(false
 					or NA_Fire(not NA_IsMaxDps and W_HPlevel(NA_Player)<0.2, '755', NA_Pet) --生命通道
 					or NA_Fire(NA_checkHP(0), '689', NA_Target) --吸取生命
 					or NA_Fire(NA_checkHP(0), '6789', NA_Target) --死亡缠绕
 					or NA_Fire(NA_checkHP(0), 'I5512', NA_Player) --I5512
 
-        )then return true; end
-      end
-
+      )then return true; end
+      
+    end
+    if(W_TargetCanAttack()) then  --攻击施法
       if(NA_ProfileNo < 0)then return false;
       elseif(NA_ProfileNo == 0)then --恶魔术
         
@@ -98,7 +97,7 @@ function NA9Dps()
           or NA_fireByOvale()
         ))then return true; end
       end
-    elseif(UnitCanAssist(NA_Player, NA_Target))then
+    elseif(UnitCanAssist(NA_Player, NA_Target))then --辅助施法
       if(NA_ProfileNo < 0)then return false;
       elseif(NA_ProfileNo == 0)then --恶魔术
         
@@ -119,12 +118,11 @@ function NA9Dps()
 
         )then return true; end
       end
-      return false;
-    elseif(NA_IsSolo)then
+    elseif(NA_IsSolo)then --solo时切换目标
       return NA_ChagetTarget();      
     end
-  else    
-    if(NA_ProfileNo < 0)then return false;
+  else  --不在战斗中  
+    if(NA_ProfileNo < 0)then return false; --脱战后补buff，开怪等
     elseif(NA_ProfileNo == 0)then --恶魔术
       
       if(false

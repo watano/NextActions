@@ -963,16 +963,16 @@ end
 
 function NA_getOvaleActions()
 	local NA_OvaleActions = {[1]=nil,[2]=nil,[3]=nil,[4]=nil};
-	local Ovale_spells = '';
+	local OvaleSpellsText = '';
 	if(Ovale ~= nil and Ovale.frame ~= nil and Ovale.frame.actions ~= nil)then
 		for i=1,4 do 
 			if(Ovale.frame.actions[i] ~= nil and Ovale.frame.actions[i].spellId ~= nil)then
 				NA_OvaleActions[i] = Ovale.frame.actions[i].spellId..'';
-				Ovale_spells = Ovale_spells .. ' '..i..'='..NA_OvaleActions[i];
+				OvaleSpellsText = Ovale_spells..i..'='..NA_OvaleActions[i]..';';
 			end
 		end					
 	end
-	W_Log(3,"Ovale_spells: ".. Ovale_spells);
+	W_Log(2,"OvaleSpellsText: ".. OvaleSpellsText);
 	return NA_OvaleActions;
 end
 

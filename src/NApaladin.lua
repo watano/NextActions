@@ -21,12 +21,10 @@ function NA2Dps()
 	
 	
   if(W_IsInCombat())then
-    if(W_TargetCanAttack()) then
-      -- 保命施法
-      if(NA_ProfileNo < 0)then return false;
-      elseif(NA_ProfileNo == 0)then --防骑
-        
-        if(false
+    if(NA_ProfileNo < 0)then return false; --保命施法
+    elseif(NA_ProfileNo == 0)then --防骑
+      
+      if(false
 					or NA_Fire(NA_isUsableTalentSpell(5,1) and NA_checkHP(1), '105809', NA_Player) --神圣复仇者
 					or NA_Fire(NA_checkHP(2) or not NA_isUsableTalentSpell(7,2) or (not W_RetainBuff(NA_Player, 152262, true) and W_GetSpellCooldown(152262)>5 and W_GetSpellCooldown(152262)<9), '498', NA_Player) --圣佑术
 					or NA_Fire(NA_checkHP(1) and NA_isUsableTalentSpell(7,2) and not W_RetainBuff(NA_Player, 498, true) and W_GetSpellCooldown(498)>0, '152262', NA_Player) --炽天使
@@ -43,10 +41,10 @@ function NA2Dps()
 					or NA_Fire(NA_isUsableTalentSpell(3,1) and W_BuffCount(NA_Player, 85804)>=3, '19750', NA_Player) --圣光闪现
 					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
-        )then return true; end
-      elseif(NA_ProfileNo == 1)then --惩戒骑
-        
-        if(false
+      )then return true; end
+    elseif(NA_ProfileNo == 1)then --惩戒骑
+      
+      if(false
 					or NA_Fire(W_HPlevel(NA_Player) < 0.7 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.8), '85673', NA_Target) --荣耀圣令
 					or NA_Fire(W_HPlevel(NA_Player) < 0.1 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.2), '633', NA_Target) --圣疗术
 					or NA_Fire(NA_checkHP(1), '498', NA_Player) --圣佑术
@@ -57,15 +55,16 @@ function NA2Dps()
 					or NA_Fire(NA_CheckDebuff(NA_Player)==1 or NA_CheckDebuff(NA_Player)==2 or NA_CheckDebuff(NA_Player)==3, '4987', NA_Player) --清洁术
 					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
-        )then return true; end
-      elseif(NA_ProfileNo == 2)then --奶骑
-        
-        if(false
+      )then return true; end
+    elseif(NA_ProfileNo == 2)then --奶骑
+      
+      if(false
 					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
-        )then return true; end
-      end
-
+      )then return true; end
+      
+    end
+    if(W_TargetCanAttack()) then  --攻击施法
       if(NA_ProfileNo < 0)then return false;
       elseif(NA_ProfileNo == 0)then --防骑
         local notTanking = not W_isTanking();
@@ -118,7 +117,7 @@ function NA2Dps()
           or NA_fireByOvale()
         ))then return true; end
       end
-    elseif(UnitCanAssist(NA_Player, NA_Target))then
+    elseif(UnitCanAssist(NA_Player, NA_Target))then --辅助施法
       if(NA_ProfileNo < 0)then return false;
       elseif(NA_ProfileNo == 0)then --防骑
         
@@ -165,12 +164,11 @@ function NA2Dps()
 
         )then return true; end
       end
-      return false;
-    elseif(NA_IsSolo)then
+    elseif(NA_IsSolo)then --solo时切换目标
       return NA_ChagetTarget();      
     end
-  else    
-    if(NA_ProfileNo < 0)then return false;
+  else  --不在战斗中  
+    if(NA_ProfileNo < 0)then return false; --脱战后补buff，开怪等
     elseif(NA_ProfileNo == 0)then --防骑
       
       if(false

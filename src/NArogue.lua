@@ -3,7 +3,7 @@ function getNA4Actions(no)
   elseif(no == 0)then
     return {'408','1329','1766','1784','1833','1856','1943','2823','5171','14185','26679','32645','36554','51723','79140','111240','121411','137619','152151','NA_ChagetTarget','57934','5938','I5512','8676','108211'};
   elseif(no == 1)then
-    return {'408','1752','1766','1784','1833','1856','2098','2823','5171','8676','13750','13877','14185','26679','36554','51690','84617','137619','152150','152151','NA_ChagetTarget','57934','5938','I5512','108211'};
+    return {'408','1752','1766','1784','1833','1856','2098','2823','5171','8676','13750','13877','14185','26679','36554','51690','84617','121411','137619','152150','152151','NA_ChagetTarget','57934','5938','I5512','108211'};
   elseif(no == 2)then
     return {'53','408','703','1766','1784','1833','1856','1943','2098','2823','5171','8676','14183','14185','16511','26679','36554','51713','51723','114014','121411','137619','152150','152151','NA_ChagetTarget','57934','5938','I5512','108211'};
   end
@@ -21,32 +21,31 @@ function NA4Dps()
 	
 	
   if(W_IsInCombat())then
-    if(W_TargetCanAttack()) then
-      -- 保命施法
-      if(NA_ProfileNo < 0)then return false;
-      elseif(NA_ProfileNo == 0)then --Assassination
-        
-        if(false
+    if(NA_ProfileNo < 0)then return false; --保命施法
+    elseif(NA_ProfileNo == 0)then --Assassination
+      
+      if(false
 					or NA_Fire(NA_CheckBuff(NA_Target)==2, '5938', NA_Target) --毒刃
 					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
-        )then return true; end
-      elseif(NA_ProfileNo == 1)then --Combat
-        
-        if(false
+      )then return true; end
+    elseif(NA_ProfileNo == 1)then --Combat
+      
+      if(false
 					or NA_Fire(NA_CheckBuff(NA_Target)==2, '5938', NA_Target) --毒刃
 					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
-        )then return true; end
-      elseif(NA_ProfileNo == 2)then --Subtlety
-        
-        if(false
+      )then return true; end
+    elseif(NA_ProfileNo == 2)then --Subtlety
+      
+      if(false
 					or NA_Fire(NA_CheckBuff(NA_Target)==2, '5938', NA_Target) --毒刃
 					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
-        )then return true; end
-      end
-
+      )then return true; end
+      
+    end
+    if(W_TargetCanAttack()) then  --攻击施法
       if(NA_ProfileNo < 0)then return false;
       elseif(NA_ProfileNo == 0)then --Assassination
         local hasys = W_RetainBuff(NA_Player, 11327, true);   --隐身
@@ -119,7 +118,7 @@ function NA4Dps()
           or NA_fireByOvale()
         ))then return true; end
       end
-    elseif(UnitCanAssist(NA_Player, NA_Target))then
+    elseif(UnitCanAssist(NA_Player, NA_Target))then --辅助施法
       if(NA_ProfileNo < 0)then return false;
       elseif(NA_ProfileNo == 0)then --Assassination
         
@@ -143,12 +142,11 @@ function NA4Dps()
 
         )then return true; end
       end
-      return false;
-    elseif(NA_IsSolo)then
+    elseif(NA_IsSolo)then --solo时切换目标
       return NA_ChagetTarget();      
     end
-  else    
-    if(NA_ProfileNo < 0)then return false;
+  else  --不在战斗中  
+    if(NA_ProfileNo < 0)then return false; --脱战后补buff，开怪等
     elseif(NA_ProfileNo == 0)then --Assassination
       
       if(false
