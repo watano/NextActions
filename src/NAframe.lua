@@ -151,4 +151,4 @@ function NAParseValue2Color(value)
 	return "0x" .. b .. '8' .. s .. '8' .. g .. '8';
 end
 
--- NA_ShowVars(2);
+-- /script NA_ShowVars(2);

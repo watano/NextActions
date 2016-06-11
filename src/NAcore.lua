@@ -13,7 +13,6 @@ NA_IsAOE = false;
 NA_IsMaxDps = false;
 NA_IsSolo = false;
 NA_SpellTimes = {};
-NA_LastActionTime = GetTime();
 
 function NA_init()
 	if(NA_Config == nil)then		
@@ -241,11 +240,7 @@ function NA_OnEvent(event,...)
 		end
 	end
 
-	if(UnitExists(NA_Target) == 1)then
-		NA_ShowVars(0);
-	end
-
-	if(NA_IsRunning ~= nil and NA_IsRunning == true and (GetTime() - NA_LastActionTime > 0.1)  and not NA_DoAction()) then
+	if(NA_IsRunning ~= nil and NA_IsRunning == true and not NA_DoAction()) then
 		NA_ClearAction();
 	end
 end
@@ -270,7 +265,6 @@ function NA_DoAction()
 	end
 
 	if(NA_MaxDps())then	
-		NA_LastActionTime = GetTime();
 		UIErrorsFrame:Clear();
 		return true;
 	end
