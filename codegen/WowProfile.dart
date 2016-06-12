@@ -101,6 +101,10 @@ String classProfilesCodes() {
     actions.clear();
     actions.addAll(p.actions);
 
+    //FIXME
+    p.attackCmds.clear();
+    p.attackAOECmds.clear();
+
     profileAtkCodes += '''
       elseif(NA_ProfileNo == ${p.profileID})then --${p.name}
         ${p.attackCodes.replaceAll('\n', '\n\t\t\t\t')}
@@ -109,7 +113,7 @@ String classProfilesCodes() {
 ${cmdCodes(p.attackCmds)}
           or NA_fireByOvale()
         ))then return true; end
-  
+
         if(NA_IsAOE and (false
 ${cmdCodes(p.attackAOECmds)}
           or NA_fireByOvale()
@@ -170,7 +174,7 @@ function NA${classInfo.classID}Dps()
   ${commonCodes.replaceAll('\n', '\n\t')}
   if(W_IsInCombat())then
     if(NA_ProfileNo < 0)then return false; --保命施法
-${profileKeepHPCodes}      
+${profileKeepHPCodes}
     end
     if(W_TargetCanAttack()) then  --攻击施法
       if(NA_ProfileNo < 0)then return false;
@@ -178,10 +182,8 @@ ${profileAtkCodes}      end
     elseif(UnitCanAssist(NA_Player, NA_Target))then --辅助施法
       if(NA_ProfileNo < 0)then return false;
 ${profileAssistCodes}      end
-    elseif(NA_IsSolo)then --solo时切换目标
-      return NA_ChagetTarget();      
     end
-  else  --不在战斗中  
+  else  --不在战斗中
     if(NA_ProfileNo < 0)then return false; --脱战后补buff，开怪等
 ${profileKeepBuffCodes}    end
   end
@@ -358,7 +360,7 @@ main() {
 
   genLuaCodes();
 
-  genIniProfileCodeFromLua('''                                                      
+  genIniProfileCodeFromLua('''
 
 ''');
 }

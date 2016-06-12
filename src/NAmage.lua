@@ -1,11 +1,11 @@
 function getNA8Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'120','1449','1459','1953','2139','5143','11958','12042','12043','12051','30451','44425','55342','80353','108839','108843','114923','116011','152087','153626','157980','NA_ChagetTarget','475','30449','I5512'};
+    return {'120','1449','1459','1953','2139','5143','11958','12042','12043','12051','30451','44425','55342','80353','108839','108843','114923','116011','152087','153626','157980','475','30449','2136'};
   elseif(no == 1)then
-    return {'10','116','1459','1953','2139','12472','30455','31687','44614','55342','80353','84714','108839','108843','112948','116011','135029','152087','153595','157997','NA_ChagetTarget','475','30449','45438','11426','I5512'};
+    return {'10','116','1459','1953','2139','12472','30455','31687','44614','55342','80353','84714','108839','108843','112948','116011','135029','152087','153595','157997','475','30449','45438','11426'};
   elseif(no == 2)then
-    return {'133','1459','1953','2120','2139','2948','11129','11366','11958','31661','44457','55342','80353','108839','108843','108853','116011','152087','153561','157981','NA_ChagetTarget','475','30449','I5512'};
+    return {'133','1459','1953','2120','2139','2948','11129','11366','11958','31661','44457','55342','80353','108839','108843','108853','116011','152087','153561','157981','475','30449'};
   end
   return {};
 end
@@ -24,7 +24,6 @@ function NA8Dps()
       
       if(false
 					or NA_Fire(NA_CheckBuffStealable(NA_Target), '30449', NA_Target) --法术吸取
-					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
       )then return true; end
     elseif(NA_ProfileNo == 1)then --Frost
@@ -33,17 +32,15 @@ function NA8Dps()
 					or NA_Fire(NA_CheckBuffStealable(NA_Target), '30449', NA_Target) --法术吸取
 					or NA_Fire(W_HPlevel(NA_Player) < 0.2, '45438', NA_Player) --寒冰屏障
 					or NA_Fire(W_HPlevel(NA_Player) < 0.9, '11426', NA_Player) --寒冰护体
-					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
       )then return true; end
     elseif(NA_ProfileNo == 2)then --Fire
       
       if(false
 					or NA_Fire(NA_CheckBuffStealable(NA_Target), '30449', NA_Target) --法术吸取
-					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
       )then return true; end
-      
+
     end
     if(W_TargetCanAttack()) then  --攻击施法
       if(NA_ProfileNo < 0)then return false;
@@ -54,11 +51,10 @@ function NA8Dps()
 				
         
         if(not NA_IsAOE and (false
-					or NA_Fire(W_HPlevel(NA_Target)<=0 or UnitName(NA_Target)==nil, 'NA_ChagetTarget', NA_Target) --NA_ChagetTarget
 
           or NA_fireByOvale()
         ))then return true; end
-  
+
         if(NA_IsAOE and (false
 
           or NA_fireByOvale()
@@ -71,11 +67,10 @@ function NA8Dps()
 				
         
         if(not NA_IsAOE and (false
-					or NA_Fire(W_HPlevel(NA_Target)<=0 or UnitName(NA_Target)==nil, 'NA_ChagetTarget', NA_Target) --NA_ChagetTarget
 
           or NA_fireByOvale()
         ))then return true; end
-  
+
         if(NA_IsAOE and (false
 
           or NA_fireByOvale()
@@ -87,11 +82,10 @@ function NA8Dps()
 				
         
         if(not NA_IsAOE and (false
-					or NA_Fire(W_HPlevel(NA_Target)<=0 or UnitName(NA_Target)==nil, 'NA_ChagetTarget', NA_Target) --NA_ChagetTarget
 
           or NA_fireByOvale()
         ))then return true; end
-  
+
         if(NA_IsAOE and (false
 
           or NA_fireByOvale()
@@ -121,15 +115,15 @@ function NA8Dps()
 
         )then return true; end
       end
-    elseif(NA_IsSolo)then --solo时切换目标
-      return NA_ChagetTarget();      
     end
-  else  --不在战斗中  
+  else  --不在战斗中
     if(NA_ProfileNo < 0)then return false; --脱战后补buff，开怪等
     elseif(NA_ProfileNo == 0)then --Arcane
       
       if(false
 					or NA_Fire(select(3,UnitStat(NA_Player,4))==0, '1459', NA_Player) --奥术光辉
+					or NA_Fire(NA_IsSolo and W_TargetCanAttack(), '2136', NA_Target) --火焰冲击
+					or NA_Fire(NA_IsSolo and W_TargetCanAttack(), '44425', NA_Target) --奥术弹幕
 
       )then return true; end
     elseif(NA_ProfileNo == 1)then --Frost

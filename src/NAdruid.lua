@@ -1,13 +1,13 @@
 function getNA11Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'774','1126','5185','5211','5487','6807','22570','22812','22842','33745','33917','50334','62606','77758','80313','102351','102401','102558','106839','108238','108293','124974','132469','155835','NA_ChagetTarget','2782','61336','99','2908','106952','I5512'};
+    return {'774','1126','5185','5211','5487','6807','22570','22812','22842','33745','33917','50334','62606','77758','80313','102351','102401','102558','106839','108238','108293','124974','132469','155835','2782','61336','99','2908','106952'};
   elseif(no == 1)then
-    return {'768','1079','1126','1822','1850','5185','5211','5215','5217','5221','22568','22570','52610','102280','102401','102543','102703','106785','106830','106839','106951','132469','155625','NA_ChagetTarget','2782','61336','2908','99','I5512'};
+    return {'768','1079','1126','1822','1850','5185','5211','5215','5217','5221','22568','22570','52610','102280','102401','102543','102703','106785','106830','106839','106951','132469','155625','2782','61336','2908','99'};
   elseif(no == 2)then
-    return {'5176','2908','NA_ChagetTarget','132158','5185','8936','102342','124974','88423','18562','145205','774','48438','33763','145518','22812','I5512','1126'};
+    return {'132158','5185','8936','102342','124974','88423','18562','774','33763','22812','1126'};
   elseif(no == 3)then
-    return {'1126','2912','5176','8921','24858','33831','48505','78674','93402','102560','112071','152221','NA_ChagetTarget','2782','22812','2908','I5512'};
+    return {'1126','2912','5176','8921','24858','33831','48505','78674','102560','112071','152221','2782','22812','2908'};
   end
   return {};
 end
@@ -46,7 +46,6 @@ function NA11Dps()
 					or NA_Fire(yxhc and W_BuffTime(NA_Player, 774, true)<=3.6, '774', NA_Player) --回春术
 					or NA_Fire(NA_checkHP(2) and NA_isUsableTalentSpell(6,3), '124974', NA_Player) --自然的守护
 					or NA_Fire(NA_checkHP(2) and NA_isUsableTalentSpell(6,2) and W_RetainBuff(NA_Player, 158501, true), '5185', NA_Player) --治疗之触
-					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
       )then return true; end
     elseif(NA_ProfileNo == 1)then --Cat
@@ -58,14 +57,12 @@ function NA11Dps()
 					or NA_Fire(NA_CheckBuff(NA_Target)==2, '2908', NA_Target) --安抚
 					or NA_Fire(NA_CheckDebuff(NA_Player)==3 or NA_CheckDebuff(NA_Player)==4, '2782', NA_Player) --净化腐蚀
 					or NA_Fire(inCat and NA_SpellInterrupt(NA_Target) and NA_isUsableTalentSpell(5,1), '99', NA_Target) --夺魂咆哮
-					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
       )then return true; end
     elseif(NA_ProfileNo == 2)then --Restoration
       
       if(false
 					or NA_Fire(NA_checkHP(1), '22812', NA_Player) --树皮术
-					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
       )then return true; end
     elseif(NA_ProfileNo == 3)then --Balance
@@ -73,10 +70,9 @@ function NA11Dps()
       if(false
 					or NA_Fire(NA_checkHP(1), '22812', NA_Player) --树皮术
 					or NA_Fire(NA_CheckBuff(NA_Target)==2, '2908', NA_Target) --安抚
-					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
       )then return true; end
-      
+
     end
     if(W_TargetCanAttack()) then  --攻击施法
       if(NA_ProfileNo < 0)then return false;
@@ -89,11 +85,10 @@ function NA11Dps()
 				
         
         if(not NA_IsAOE and (false
-					or NA_Fire(W_HPlevel(NA_Target)<=0 or UnitName(NA_Target)==nil, 'NA_ChagetTarget', NA_Target) --NA_ChagetTarget
 
           or NA_fireByOvale()
         ))then return true; end
-  
+
         if(NA_IsAOE and (false
 
           or NA_fireByOvale()
@@ -109,11 +104,10 @@ function NA11Dps()
 				
         
         if(not NA_IsAOE and (false
-					or NA_Fire(W_HPlevel(NA_Target)<=0 or UnitName(NA_Target)==nil, 'NA_ChagetTarget', NA_Target) --NA_ChagetTarget
 
           or NA_fireByOvale()
         ))then return true; end
-  
+
         if(NA_IsAOE and (false
 
           or NA_fireByOvale()
@@ -123,13 +117,10 @@ function NA11Dps()
 				
         
         if(not NA_IsAOE and (false
-					or NA_Fire(NA_isUsableTalentSpell(7,2), '5176', NA_Target) --愤怒
-					or NA_Fire(NA_CheckBuff(NA_Target)==2, '2908', NA_Target) --安抚
-					or NA_Fire(W_HPlevel(NA_Target)<=0 or UnitName(NA_Target)==nil, 'NA_ChagetTarget', NA_Target) --NA_ChagetTarget
 
           or NA_fireByOvale()
         ))then return true; end
-  
+
         if(NA_IsAOE and (false
 
           or NA_fireByOvale()
@@ -147,11 +138,10 @@ function NA11Dps()
 				
         
         if(not NA_IsAOE and (false
-					or NA_Fire(W_HPlevel(NA_Target)<=0 or UnitName(NA_Target)==nil, 'NA_ChagetTarget', NA_Target) --NA_ChagetTarget
 
           or NA_fireByOvale()
         ))then return true; end
-  
+
         if(NA_IsAOE and (false
 
           or NA_fireByOvale()
@@ -191,18 +181,13 @@ function NA11Dps()
 					or NA_Fire(W_HPlevel(NA_Target)<0.8 and NA_isUsableTalentSpell(6,3), '124974', NA_Player) --自然的守护
 					or NA_Fire(NA_CheckDebuff(NA_Target)==1 or NA_CheckDebuff(NA_Target)==3 or NA_CheckDebuff(NA_Target)==4, '88423', NA_Target) --自然之愈
 					or NA_Fire(W_HPlevel(NA_Target)<0.9 and (hcs or yh), '18562', NA_Target) --迅捷治愈
-					or NA_Fire(W_GetSpellRemain(145205,30)<=10 and NA_CountLowPlayers(NA_Target,0.9,100)>=3, '145205', NA_Target) --野性蘑菇
 					or NA_Fire(W_HPlevel(NA_Target)<0.9 and qxyz, '8936', NA_Target) --愈合
 					or NA_Fire(W_HPlevel(NA_Target)<0.9 and jnsf, '8936', NA_Target) --愈合
 					or NA_Fire(W_HPlevel(NA_Target)<0.8 and hcs and not W_RetainBuff(NA_Target, 155777, true), '774', NA_Target) --回春术
 					or NA_Fire(W_HPlevel(NA_Target)<0.8 and smzf, '5185', NA_Target) --治疗之触
-					or NA_Fire(W_RetainBuff(NA_Player, 158478, true) and NA_CountLowPlayers(NA_Target,0.9,900)>=5, '48438', NA_Target) --野性成长
 					or NA_Fire(NA_CheckRoles(NA_Target)==1 and W_HPlevel(NA_Target)<1 and not smzf, '33763', NA_Target) --生命绽放
-					or NA_Fire(hcs and NA_CountLowPlayers(NA_Target,0.6,3600)>=3, '145518', NA_Target) --源生
 					or NA_Fire(W_HPlevel(NA_Target)<0.6, '5185', NA_Target) --治疗之触
-					or NA_Fire(not yxcz and NA_CountLowPlayers(NA_Target,0.9,900)>=5, '48438', NA_Target) --野性成长
 					or NA_Fire(W_HPlevel(NA_Target)<1 and not hcs, '774', NA_Target) --回春术
-					or NA_Fire(W_HPlevel(NA_Target)>=0.9 or UnitName(NA_Target)==nil, 'NA_ChagetTarget', NA_Target) --NA_ChagetTarget
 
         )then return true; end
       elseif(NA_ProfileNo == 3)then --Balance
@@ -213,10 +198,8 @@ function NA11Dps()
 
         )then return true; end
       end
-    elseif(NA_IsSolo)then --solo时切换目标
-      return NA_ChagetTarget();      
     end
-  else  --不在战斗中  
+  else  --不在战斗中
     if(NA_ProfileNo < 0)then return false; --脱战后补buff，开怪等
     elseif(NA_ProfileNo == 0)then --Bear
       

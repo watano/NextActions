@@ -1,11 +1,11 @@
 function getNA1Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'71','78','100','469','871','1160','2565','5308','6343','6544','6552','6572','6673','12292','12975','18499','20243','23922','34428','46924','46968','55694','57755','103840','107570','107574','112048','118000','152277','355','114029','3411','114030','64382','I5512','156321'};
+    return {'71','78','100','469','871','1160','2565','5308','6343','6544','6552','6572','6673','12292','12975','18499','20243','23922','34428','46924','46968','55694','57755','103840','107570','107574','112048','118000','152277','114029','3411','114030','64382','156321'};
   elseif(no == 1)then
-    return {'100','469','1680','1719','2457','5308','6544','6552','6673','12292','18499','23881','46924','46968','57755','85288','100130','103840','107570','107574','118000','152277','176289','114029','3411','114030','64382','34428','I5512'};
+    return {'100','469','1680','1719','2457','5308','6544','6552','6673','12292','18499','23881','46924','46968','57755','85288','100130','103840','107570','107574','118000','152277','176289','114029','3411','114030','64382','34428'};
   elseif(no == 2)then
-    return {'100','469','772','1464','1680','1719','2457','6544','6552','6673','12292','12294','12328','46924','46968','57755','103840','107570','107574','118000','152277','163201','167105','176289','114029','3411','114030','64382','34428','I5512'};
+    return {'100','469','772','1464','1680','1719','2457','6544','6552','6673','12292','12294','12328','46924','46968','57755','103840','107570','107574','118000','152277','163201','167105','176289','114029','3411','114030','64382','34428'};
   end
   return {};
 end
@@ -32,7 +32,6 @@ function NA1Dps()
 					or NA_Fire(W_HPlevel(NA_Player)<0.5, '55694', NA_Player) --狂怒回复
 					or NA_Fire(not NA_IsMaxDps and W_HPlevel(NA_Player)<0.8, '34428', NA_Player) --乘胜追击
 					or NA_Fire(NA_IsSolo and W_HPlevel(NA_Player)<0.2, '103840', NA_Player) --胜利在望
-					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
       )then return true; end
     elseif(NA_ProfileNo == 1)then --狂暴战
@@ -41,7 +40,6 @@ function NA1Dps()
 					or NA_Fire(W_RetainBuff(NA_Target, 642, true) or W_RetainBuff(NA_Target, 45438, true), '64382', NA_Target) --碎裂投掷
 					or NA_Fire(not NA_IsMaxDps and W_HPlevel(NA_Player)<0.8, '34428', NA_Player) --乘胜追击
 					or NA_Fire(NA_IsSolo and W_HPlevel(NA_Player)<0.2, '103840', NA_Player) --胜利在望
-					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
       )then return true; end
     elseif(NA_ProfileNo == 2)then --武器战
@@ -50,51 +48,54 @@ function NA1Dps()
 					or NA_Fire(W_RetainBuff(NA_Target, 642, true) or W_RetainBuff(NA_Target, 45438, true), '64382', NA_Target) --碎裂投掷
 					or NA_Fire(not NA_IsMaxDps and W_HPlevel(NA_Player)<0.8, '34428', NA_Player) --乘胜追击
 					or NA_Fire(NA_IsSolo and W_HPlevel(NA_Player)<0.2, '103840', NA_Player) --胜利在望
-					or NA_Fire(NA_checkHP(1), 'I5512', NA_Player) --I5512
 
       )then return true; end
-      
+
     end
     if(W_TargetCanAttack()) then  --攻击施法
       if(NA_ProfileNo < 0)then return false;
       elseif(NA_ProfileNo == 0)then --防战
-        local notTanking = not NA_IsSolo and not W_isTanking();
+        local dpgd = W_RetainBuff(NA_Player, 132404, true);   --盾牌格挡
+				local notTanking = not NA_IsSolo and not W_isTanking();
 				
 				
         
         if(not NA_IsAOE and (false
-					or NA_Fire(notTanking, '355', NA_Target) --嘲讽
 
           or NA_fireByOvale()
         ))then return true; end
-  
+
         if(NA_IsAOE and (false
-					or NA_Fire(notTanking, '355', NA_Target) --嘲讽
 
           or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 1)then --狂暴战
-        
+        local hascs = W_RetainBuff(NA_Player, 29725, true);   --猝死
+				local hasjn = W_RetainBuff(NA_Player, 13046, true);   --激怒
+				
 				
         
         if(not NA_IsAOE and (false
 
           or NA_fireByOvale()
         ))then return true; end
-  
+
         if(NA_IsAOE and (false
 
           or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 2)then --武器战
-        
+        local hassl = W_RetainBuff(NA_Target, -772, true);   --撕裂
+				local hasjrdj = W_RetainBuff(NA_Target, -167105, true);   --巨人打击
+				local hascs = W_RetainBuff(NA_Player, 29725, true);   --猝死
+				
 				
         
         if(not NA_IsAOE and (false
 
           or NA_fireByOvale()
         ))then return true; end
-  
+
         if(NA_IsAOE and (false
 
           or NA_fireByOvale()
@@ -130,10 +131,8 @@ function NA1Dps()
 
         )then return true; end
       end
-    elseif(NA_IsSolo)then --solo时切换目标
-      return NA_ChagetTarget();      
     end
-  else  --不在战斗中  
+  else  --不在战斗中
     if(NA_ProfileNo < 0)then return false; --脱战后补buff，开怪等
     elseif(NA_ProfileNo == 0)then --防战
       

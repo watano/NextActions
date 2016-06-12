@@ -223,9 +223,6 @@ function NA_Fire(cond, spellID, UnitId, interval)
 --	if(NA_SpellTimes[spellID] ~= nil and (GetTime() - NA_SpellTimes[spellID]) < interval)then
 --		return false;
 --	end
-	if(spellID == 'NA_ChagetTarget')then
-		return NA_ChagetTarget();
-	end
 	if(spellID == 'NA_fireByOvale')then
 		return NA_fireByOvale();
 	end
@@ -244,15 +241,9 @@ function NA_Fire(cond, spellID, UnitId, interval)
 	return false;
 end
 
-function NA_ChagetTarget()
-	NA_ShowVars(101);
-	W_UpdateLabelText('NA_SpellLabel', 'NA_ChagetTarget');
-	return true;
-end
-
 function NA_FireSpell(spellID, UnitId)
 	local spellInfo = NA_getSpellInfo(spellID);
-	if(spellInfo ~= nil and spellInfo.keyNo ~= nil and W_IsUsableSpell(spellID, UnitId) and UnitIsVisible(UnitId)) then
+	if(spellInfo ~= nil and spellInfo.keyNo ~= nil and (UnitId == nil or (W_IsUsableSpell(spellID, UnitId) and UnitIsVisible(UnitId)))) then
 		W_Log(2,"NA_FireSpell:" .. spellID .."->"..spellInfo.name..spellInfo.keyNo);
 		W_UpdateLabelText('NA_SpellLabel', spellInfo.name);
 		NA_ShowVars(spellInfo.keyNo);
@@ -460,7 +451,7 @@ end
 function NA_testSpell(spellID, UnitId)
 	local spellInfo = NA_getSpellInfo(spellID);
 	if(spellInfo == nil or spellInfo.keyNo == nil)then return; end
-	print("1-spellInfo.keyNo="..spellInfo.keyNo);	
+	print("1-spellInfo.keyNo="..spellInfo.keyNo);
 	print("1.1-NA_SpellInfoType("..spellID..")="..NA_SpellInfoType(spellID));
 
 	local spellInfo = NA_getSpellInfo(spellID);
@@ -500,7 +491,7 @@ function NA_printTable(t)
 end
 
 function NA_testBuff(UnitId, buffID, onlyMine)
-	if(W_getBuff(UnitId, buffID, onlyMine) ~= nil)then 
+	if(W_getBuff(UnitId, buffID, onlyMine) ~= nil)then
 		print("W_getBuff("..UnitId..", "..buffID..", "..onlyMine..")="..W_getBuff(UnitId, buffID, onlyMine));
 		if(W_BuffTime(UnitId, buffID, onlyMine) ~= nil)then
 			print("W_BuffTime("..UnitId..", "..buffID..", "..onlyMine..")="..W_BuffTime(UnitId, buffID, onlyMine));
@@ -570,7 +561,7 @@ end
 
 --日月能能量检测
 function W_EclipsePower()
-   local power = UnitPower(NA_Player,8) 
+   local power = UnitPower(NA_Player,8)
    --power = power < 0 and -power or power
       if power<0 then
          return -1;
@@ -626,7 +617,7 @@ end
 
 --debuff驱散确认
 function NA_CheckDebuff(UnitId)
-	  local name, _, _, _, debuffType= UnitDebuff(UnitId,1,1); 
+	  local name, _, _, _, debuffType= UnitDebuff(UnitId,1,1);
 	    if name then
 		if debuffType=="Magic" then --魔法
 		return 1;
@@ -643,7 +634,7 @@ end
 
 --buff偷取确认
 function NA_CheckBuffStealable(UnitId)
-	for i=1,40 do local name, _, _, _, _, _, _, _, isStealable= UnitBuff(UnitId,i); 
+	for i=1,40 do local name, _, _, _, _, _, _, _, isStealable= UnitBuff(UnitId,i);
 		if name then
 		   if isStealable==1 then
 			return true;
@@ -655,7 +646,7 @@ end
 
 --进攻驱散
 function NA_CheckBuff(UnitId)
-		local name, _, _, _, debuffType= UnitBuff(UnitId,1,1); 
+		local name, _, _, _, debuffType= UnitBuff(UnitId,1,1);
 	  if name then
 			if debuffType=="Magic" then --魔法
 		    return 1;
@@ -696,7 +687,7 @@ end
 function NA_CheckGlyph(GlyphId)
 	for i=1,3 do
 	local n=i*2;
-	local enabled,_,_,_,_,glyphID2 = GetGlyphSocketInfo(n); 
+	local enabled,_,_,_,_,glyphID2 = GetGlyphSocketInfo(n);
 	   if enabled then
 		if GlyphId==glyphID2 then
 		  return true;
@@ -713,7 +704,7 @@ function NA_isUsableTalentSpell(tier,column)
 	       return true;
 	    end
 	end
-	return false;	
+	return false;
 end
 
 function W_GetSpellRemain(spellID,remaintime)
@@ -732,12 +723,12 @@ function NA_getOvaleActions()
 	local NA_OvaleActions = {[1]=nil,[2]=nil,[3]=nil,[4]=nil};
 	local OvaleSpellsText = '';
 	if(Ovale ~= nil and Ovale.frame ~= nil and Ovale.frame.actions ~= nil)then
-		for i=1,4 do 
+		for i=1,4 do
 			if(Ovale.frame.actions[i] ~= nil and Ovale.frame.actions[i].spellId ~= nil)then
 				NA_OvaleActions[i] = Ovale.frame.actions[i].spellId..'';
 				OvaleSpellsText = OvaleSpellsText..i..'='..NA_OvaleActions[i]..';';
 			end
-		end					
+		end
 	end
 	W_Log(2,"OvaleSpellsText: ".. OvaleSpellsText);
 	return NA_OvaleActions;
@@ -746,19 +737,9 @@ end
 function NA_fireByOvale()
 	local NA_OvaleActions = NA_getOvaleActions();
 	return (false
-					or NA_Fire(NA_IsMaxDps and NA_OvaleActions[4] ~= nil, NA_OvaleActions[4], NA_getSpellTarget(NA_OvaleActions[4]))
-					or NA_Fire(NA_OvaleActions[1] ~= nil, NA_OvaleActions[1], NA_getSpellTarget(NA_OvaleActions[1]))
---					or NA_Fire(not NA_IsAOE and NA_OvaleActions[2] ~= nil, NA_OvaleActions[2], NA_getSpellTarget(NA_OvaleActions[2]))
-					or NA_Fire(NA_OvaleActions[3] ~= nil, NA_OvaleActions[3], NA_getSpellTarget(NA_OvaleActions[3]))
+					or (NA_IsMaxDps and NA_OvaleActions[4] ~= nil and NA_FireSpell(NA_OvaleActions[4], nil)) --maxdps时施放第4格法术
+					or (NA_OvaleActions[1] ~= nil and NA_FireSpell(NA_OvaleActions[1], nil)) --施放第一格法术
+					-- or (not NA_IsAOE and NA_OvaleActions[2] ~= nil and NA_FireSpell(NA_OvaleActions[2], nil)) --aoe时施放第二个法术
+					or (NA_OvaleActions[3] ~= nil and NA_FireSpell(NA_OvaleActions[3], nil)) -- 施放第三格法术
         );
-end
-
-function NA_getSpellTarget(spellID)
-	--for k in pairs(NA_SpellTarget4Player) do
-	for k=1,#NA_SpellTarget4Player do 
-		if(tostring(NA_SpellTarget4Player[k]) == spellID)then 
-			return NA_Player; 
-		end
-	end
-	return NA_Target;
 end
