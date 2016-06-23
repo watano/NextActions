@@ -250,6 +250,7 @@ function NA_FireSpell(spellID, UnitId)
 		return true;
 	else
 		W_UpdateLabelText('NA_SpellLabel', '');
+		-- W_Log(3,"NA_FireSpell:" .. spellID..'-'..UnitId);
 		return false;
 	end
 end
@@ -483,13 +484,6 @@ function NA_testSpell(spellID, UnitId)
 end
 --/run NA_testSpell('82692', NA_Target)
 
---/run NA_printTable(NA_ClassInfo);
-function NA_printTable(t)
-	for k in pairs(t) do
-		print(k.."="..t[k]);
-	end
-end
-
 function NA_testBuff(UnitId, buffID, onlyMine)
 	if(W_getBuff(UnitId, buffID, onlyMine) ~= nil)then
 		print("W_getBuff("..UnitId..", "..buffID..", "..onlyMine..")="..W_getBuff(UnitId, buffID, onlyMine));
@@ -550,46 +544,6 @@ function W_FormInfo(Num)
     return false;
 end
 
---日月能方向检测
-function W_SunPowerDir()
-    local direction = GetEclipseDirection();
-      if direction == "sun" then
-         return true;
-      end
-    return false;
-end
-
---日月能能量检测
-function W_EclipsePower()
-   local power = UnitPower(NA_Player,8)
-   --power = power < 0 and -power or power
-      if power<0 then
-         return -1;
-      elseif power>0 then
-         return 1;
-      elseif power==0 then
-         return 0;
-      end
-end
-
---统计技能可用数量
-function NA_GetSpellCharges(spellID)
-	local currentCharges, maxCharges, cooldownStart, cooldownDuration = GetSpellCharges(spellID);
-	if(currentCharges ~= nil)then
-		return currentCharges;
-	end
-	return 0;
-	end
-
-function NA_GetSpellChargesTime(spellID)
-	local currentCharges, maxCharges, cooldownStart, cooldownDuration = GetSpellCharges(spellID);
-	if (currentCharges ~= nil) then
-	     local chargetime = cooldownStart+cooldownDuration-GetTime();
-				return chargetime;
-	end
-        return 999;
-end
-
 function NA_checkHP(index)
 	if(index == 0)then
 		return W_HPlevel(NA_Player) < 0.3 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.5);
@@ -604,29 +558,21 @@ end
 
 --技能打断确认
 function NA_SpellInterrupt(UnitId)
---	return false;
-	local spell, _, _, _, _, endTime, _, _, notinterrupt= UnitCastingInfo(NA_Target);
-	if (spell and not notinterrupt) then
-	    local finish = endTime/1000 - GetTime();
-	    if (finish~=0) then
-		return true;
-	    end
-        end
 	return false;
 end
 
 --debuff驱散确认
 function NA_CheckDebuff(UnitId)
-	  local name, _, _, _, debuffType= UnitDebuff(UnitId,1,1);
-	    if name then
+	local name, _, _, _, debuffType= UnitDebuff(UnitId,1,1);
+	if name then
 		if debuffType=="Magic" then --魔法
-		return 1;
+			return 1;
 		elseif debuffType=="Disease" then --疾病
-		return 2;
+			return 2;
 		elseif debuffType=="Poison" then --毒药
-		return 3;
+			return 3;
 		elseif debuffType=="Curse" then  --诅咒
-		return 4;
+			return 4;
 		end
 	end
 	return 0;
@@ -655,12 +601,6 @@ function NA_CheckBuff(UnitId)
 	    end
 	end
 	return 0;
-end
-
---AOE技能测试
-function NA_AOE()
-	NA_ShowVars(201);
-	return true;
 end
 
 --职责测试
@@ -719,27 +659,27 @@ function W_GetSpellRemain(spellID,remaintime)
 	end
 end
 
-function NA_getOvaleActions()
-	local NA_OvaleActions = {[1]=nil,[2]=nil,[3]=nil,[4]=nil};
-	local OvaleSpellsText = '';
-	if(Ovale ~= nil and Ovale.frame ~= nil and Ovale.frame.actions ~= nil)then
-		for i=1,4 do
-			if(Ovale.frame.actions[i] ~= nil and Ovale.frame.actions[i].spellId ~= nil)then
-				NA_OvaleActions[i] = Ovale.frame.actions[i].spellId..'';
-				OvaleSpellsText = OvaleSpellsText..i..'='..NA_OvaleActions[i]..';';
-			end
-		end
-	end
-	W_Log(2,"OvaleSpellsText: ".. OvaleSpellsText);
-	return NA_OvaleActions;
+function NA_fireByOvale()
+	return (false
+					or (NA_IsMaxDps and OV_fireAction(4)) --施放第4格法术,爆发技能
+					or (NA_IsAOE and OV_fireAction(3)) -- 施放第3格法术,AOE法术
+					or (not NA_IsAOE and OV_fireAction(2)) --施放第2个法术
+					or (OV_fireAction(1)) --施放第1格法术,短技能卡CD
+        );
 end
 
-function NA_fireByOvale()
-	local NA_OvaleActions = NA_getOvaleActions();
-	return (false
-					or (NA_IsMaxDps and NA_OvaleActions[4] ~= nil and NA_FireSpell(NA_OvaleActions[4], nil)) --maxdps时施放第4格法术
-					or (NA_OvaleActions[1] ~= nil and NA_FireSpell(NA_OvaleActions[1], nil)) --施放第一格法术
-					-- or (not NA_IsAOE and NA_OvaleActions[2] ~= nil and NA_FireSpell(NA_OvaleActions[2], nil)) --aoe时施放第二个法术
-					or (NA_OvaleActions[3] ~= nil and NA_FireSpell(NA_OvaleActions[3], nil)) -- 施放第三格法术
-        );
+-- actionTexture, actionInRange, actionCooldownStart, actionCooldownDuration,
+--		actionUsable, actionShortcut, actionIsCurrent, actionEnable, actionType, actionId, actionTarget
+-- /script print(OV_fireAction(2));
+function OV_fireAction(index)
+	local OvAction = Ovale["OvaleCompile"].GetIconNodes()[index]["child"][1]["result"];
+	if(OvAction ~= nil and OvAction.actionUsable and OvAction.actionEnable == 1)then
+		if(OvAction.actionType == 'spell')then
+			--print(OvAction.actionId.."---"..OvAction.actionTarget);
+			return NA_FireSpell(OvAction.actionId..'', OvAction.actionTarget..'');
+		elseif(OvAction.actionType == "item") then
+			return NA_FireItem(OvAction.actionId, OvAction.actionTarget);
+		end
+	end
+	return false;
 end

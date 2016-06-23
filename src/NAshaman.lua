@@ -1,11 +1,11 @@
 function getNA7Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'324','403','421','2825','2894','3599','8042','8050','16166','16188','32182','51490','51505','57994','61882','79206','114074','117014','152255','152256','165339','165462','370','108270','108271','2062','8004'};
+    return {'324','403','421','2825','2894','3599','8042','8050','16166','16188','32182','51490','51505','57994','61882','79206','114074','117014','152255','152256','165339','165462','165477','30823','108281','8004','108285','114050','370','108270','108271','2062'};
   elseif(no == 1)then
-    return {'324','403','421','1535','2825','2894','3599','8050','8056','8190','16166','16188','17364','32182','51533','57994','60103','73680','115356','117014','152255','152256','165341','370','108270','108271','2062','8004'};
+    return {'324','403','421','1535','2825','2894','3599','8050','8056','8190','16166','16188','17364','32182','51533','57994','60103','73680','115356','117014','152255','152256','165341','114051','370','108270','108271','2062','8004'};
   elseif(no == 2)then
-    return {'77130','16188','8004','16166','5394','974','52127','73685','61295','77472','157153','79206','108270','108271','2062','2645'};
+    return {'370','117014','77130','16188','8004','16166','5394','974','52127','73685','61295','77472','157153','79206','108270','108271','2062','2645'};
   end
   return {};
 end
@@ -61,6 +61,23 @@ function NA7Dps()
 				
         
         if(not NA_IsAOE and (false
+					or NA_Fire(not lyzj or W_BuffTime(NA_Target,-8050)<9, '8050', NA_Target) --烈焰震击
+					or NA_Fire(NA_SpellInterrupt(NA_Target), '57994', NA_Target) --风剪
+					or NA_Fire(true, '165477', NA_Player) --怒火释放
+					or NA_Fire(true, '51505', NA_Target) --熔岩爆裂
+					or NA_Fire(true, '117014', NA_Target) --元素冲击
+					or NA_Fire(NA_checkHP(1), '30823', NA_Player) --萨满之怒
+					or NA_Fire(true, '2894', NA_Player) --火元素图腾
+					or NA_Fire(qhsf, '165462', NA_Player) --火焰释放
+					or NA_Fire(NA_checkHP(1), '108281', NA_Player) --先祖指引
+					or NA_Fire(NA_checkHP(1), '8004', NA_Player) --治疗之涌
+					or NA_Fire(sdzd>14 and W_BuffTime(NA_Target,-8050)<6, '8042', NA_Player) --大地震击
+					or NA_Fire(W_GetSpellCooldown(2894)<240, '3599', NA_Player) --灼热图腾
+					or NA_Fire(W_GetSpellCooldown(2894)<180, '108285', NA_Player) --元素的召唤
+					or NA_Fire(true, '114050', NA_Player) --升腾
+					or NA_Fire(true, '403', NA_Target) --闪电箭
+					or NA_Fire(true, '421', NA_Target) --闪电链
+					or NA_Fire(true, '79206', NA_Player) --灵魂行者的恩赐
 
           or NA_fireByOvale()
         ))then return true; end
@@ -78,6 +95,18 @@ function NA7Dps()
 				
         
         if(not NA_IsAOE and (false
+					or NA_Fire(not sdzd, '324', NA_Player) --闪电之盾
+					or NA_Fire(NA_SpellInterrupt(NA_Target), '57994', NA_Target) --风剪
+					or NA_Fire(xwwq==5, '403', NA_Target) --闪电箭
+					or NA_Fire(true, '17364', NA_Target) --风暴打击
+					or NA_Fire(true, '60103', NA_Target) --熔岩猛击
+					or NA_Fire(yssf and W_BuffTime(NA_Target,-8050)<4, '8050', NA_Target) --烈焰震击
+					or NA_Fire(true, '73680', NA_Player) --元素释放
+					or NA_Fire(true, '8056', NA_Target) --冰霜震击
+					or NA_Fire(W_GetSpellCooldown(2894)<240 or W_GetSpellCooldown(3599)<4, '3599', NA_Player) --灼热图腾
+					or NA_Fire(true, '51533', NA_Player) --野性狼魂
+					or NA_Fire(true, '114051', NA_Player) --升腾
+					or NA_Fire(true, '2894', NA_Player) --火元素图腾
 
           or NA_fireByOvale()
         ))then return true; end
@@ -91,6 +120,8 @@ function NA7Dps()
 				
         
         if(not NA_IsAOE and (false
+					or NA_Fire(NA_CheckBuff(NA_Target)==1, '370', NA_Target) --净化术
+					or NA_Fire(NA_isUsableTalentSpell(6,3), '117014', NA_Target) --元素冲击
 
           or NA_fireByOvale()
         ))then return true; end

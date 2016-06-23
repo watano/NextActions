@@ -3,11 +3,11 @@ function getNA11Actions(no)
   elseif(no == 0)then
     return {'774','1126','5185','5211','5487','6807','22570','22812','22842','33745','33917','50334','62606','77758','80313','102351','102401','102558','106839','108238','108293','124974','132469','155835','2782','61336','99','2908','106952'};
   elseif(no == 1)then
-    return {'768','1079','1126','1822','1850','5185','5211','5215','5217','5221','22568','22570','52610','102280','102401','102543','102703','106785','106830','106839','106951','132469','155625','2782','61336','2908','99'};
+    return {'768','1079','1126','1822','1850','5185','5211','5215','5217','5221','22568','22570','52610','102280','102401','102543','102703','106785','106830','106839','106951','132469','155625','2908','2782','99','106952','106832','8921','61336'};
   elseif(no == 2)then
-    return {'132158','5185','8936','102342','124974','88423','18562','774','33763','22812','1126'};
+    return {'5176','2908','132158','5185','8936','774','33763','18562','102342','48438','145518','740','108294','22812','1126'};
   elseif(no == 3)then
-    return {'1126','2912','5176','8921','24858','33831','48505','78674','102560','112071','152221','2782','22812','2908'};
+    return {'1126','2912','5176','8921','24858','33831','48505','78674','102560','112071','152221','124974','2782','22812','2908'};
   end
   return {};
 end
@@ -54,8 +54,7 @@ function NA11Dps()
 					or NA_Fire(not inCat, '768', NA_Player) --猎豹形态
 					or NA_Fire(NA_checkHP(0), '61336', NA_Player) --生存本能
 					or NA_Fire(inCat and NA_isUsableTalentSpell(1,3), '102401', NA_Target) --野性冲锋
-					or NA_Fire(NA_CheckBuff(NA_Target)==2, '2908', NA_Target) --安抚
-					or NA_Fire(NA_CheckDebuff(NA_Player)==3 or NA_CheckDebuff(NA_Player)==4, '2782', NA_Player) --净化腐蚀
+					or NA_Fire(true, '2782', NA_Player) --净化腐蚀
 					or NA_Fire(inCat and NA_SpellInterrupt(NA_Target) and NA_isUsableTalentSpell(5,1), '99', NA_Target) --夺魂咆哮
 
       )then return true; end
@@ -104,6 +103,36 @@ function NA11Dps()
 				
         
         if(not NA_IsAOE and (false
+					or NA_Fire(not inCat, '768', NA_Player) --猎豹形态
+					or NA_Fire(inCat and NA_isUsableTalentSpell(1,3), '102401', NA_Target) --野性冲锋
+					or NA_Fire(inCat and W_RetainBuff(NA_Player, 5215, true) or W_RetainBuff(NA_Player, 58984, true), '1822', NA_Target) --斜掠
+					or NA_Fire(inCat and NA_SpellInterrupt(NA_Target), '106839', NA_Target) --迎头痛击
+					or NA_Fire(inCat and NA_SpellInterrupt(NA_Target) and NA_isUsableTalentSpell(7,3), '132469', NA_Target) --台风
+					or NA_Fire(NA_CheckBuff(NA_Target)==2, '2908', NA_Target) --安抚
+					or NA_Fire(NA_CheckDebuff(NA_Player)==3 or NA_CheckDebuff(NA_Player)==4, '2782', NA_Player) --净化腐蚀
+					or NA_Fire(inCat and NA_SpellInterrupt(NA_Target) and NA_isUsableTalentSpell(5,1), '99', NA_Target) --夺魂咆哮
+					or NA_Fire(inCat and NA_isUsableTalentSpell(4,3), '102703', NA_Player) --自然之力
+					or NA_Fire(inCat and (not hasqxyz and UnitPower(NA_Player,3)>=60) or (UnitPowerMax(NA_Player,3)-UnitPower(NA_Player,3))>=80, '5217', NA_Player) --猛虎之怒
+					or NA_Fire(inCat and NA_isUsableTalentSpell(4,2) and W_GetSpellCooldown(106952)<10 and UnitPower(NA_Player,3)<=90, '102543', NA_Player) --化身：丛林之王
+					or NA_Fire(inCat and W_RetainBuff(NA_Player, 5217, true), '106952', NA_Player) --狂暴
+					or NA_Fire(W_RetainBuff(NA_Target, -1079, true) and W_BuffTime(NA_Target,-1079)<3 and W_HPlevel(NA_Target)<0.25, '22568', NA_Target) --凶猛撕咬
+					or NA_Fire(NA_isUsableTalentSpell(7,2) and W_RetainBuff(NA_Player, 69369, true) and (UnitPower(NA_Player,4)>=4 or W_BuffTime(NA_Player,16974)<1.5), '5185', NA_Player) --治疗之触
+					or NA_Fire(not hasympx or W_BuffTime(NA_Player,174544)<3, '52610', NA_Player) --野蛮咆哮
+					or NA_Fire(hasqxyz and W_BuffTime(NA_Target,-106832)<4.5, '106832', NA_Target) --痛击
+					or NA_Fire(not NA_isUsableTalentSpell(7,2) and UnitPower(NA_Player,4)==5 and hasqxyz and W_BuffTime(NA_Target,-106832)<4.5, '106832', NA_Target) --痛击
+					or NA_Fire(W_BuffTime(NA_Target,-106832)<4.5, '106832', NA_Target) --痛击
+					or NA_Fire(UnitPower(NA_Player,4)==5 and W_HPlevel(NA_Target)<0.25 and W_RetainBuff(NA_Target, -1079, true), '22568', NA_Target) --凶猛撕咬
+					or NA_Fire(UnitPower(NA_Player,4)==5 and W_BuffTime(NA_Target,-1079)<3, '1079', NA_Target) --割裂
+					or NA_Fire(UnitPower(NA_Player,4)==5 and W_BuffTime(NA_Target,-1079)<7.2, '1079', NA_Target) --割裂
+					or NA_Fire(UnitPower(NA_Player,4)==5 and (UnitPower(NA_Player,3)<=90 or W_RetainBuff(NA_Player, 106952, true) or W_GetSpellCooldown(5217)<3) and W_BuffTime(NA_Player,174544)<12.6, '52610', NA_Player) --野蛮咆哮
+					or NA_Fire(UnitPower(NA_Player,4)==5 and (UnitPower(NA_Player,3)<=90 or W_RetainBuff(NA_Player, 106952, true) or W_GetSpellCooldown(5217)<3), '22568', NA_Target) --凶猛撕咬
+					or NA_Fire(not NA_isUsableTalentSpell(7,2) and W_BuffTime(NA_Target,-1822)<3 and UnitPower(NA_Player,4)<5, '1822', NA_Target) --斜掠
+					or NA_Fire(NA_isUsableTalentSpell(7,2) and W_BuffTime(NA_Target,-1822)<4.5 and UnitPower(NA_Player,4)<5 and (not haslszdxj or hasxxzj), '1822', NA_Target) --斜掠
+					or NA_Fire(NA_isUsableTalentSpell(7,2) and UnitPower(NA_Player,4)==5 and hasqxyz and W_BuffTime(NA_Target,-106832)<4.5, '106832', NA_Target) --痛击
+					or NA_Fire(NA_isUsableTalentSpell(7,2) and UnitPower(NA_Player,4)==5 and hasqxyz and W_BuffTime(NA_Target,-106832)<4.5, '8921', NA_Target) --月火术
+					or NA_Fire(UnitPower(NA_Player,4)<5, '1822', NA_Target) --斜掠
+					or NA_Fire(UnitPower(NA_Player,4)<5, '106785', NA_Target) --横扫
+					or NA_Fire(UnitPower(NA_Player,4)<5, '5221', NA_Target) --撕碎
 
           or NA_fireByOvale()
         ))then return true; end
@@ -117,6 +146,8 @@ function NA11Dps()
 				
         
         if(not NA_IsAOE and (false
+					or NA_Fire(NA_isUsableTalentSpell(7,2), '5176', NA_Target) --愤怒
+					or NA_Fire(NA_CheckBuff(NA_Target)==2, '2908', NA_Target) --安抚
 
           or NA_fireByOvale()
         ))then return true; end
@@ -138,6 +169,18 @@ function NA11Dps()
 				
         
         if(not NA_IsAOE and (false
+					or NA_Fire(NA_isUsableTalentSpell(6,3), '124974', NA_Player) --自然的守护
+					or NA_Fire(NA_isUsableTalentSpell(4,3), '33831', NA_Player) --自然之力
+					or NA_Fire(not rgzx and UnitPower(NA_Player,8)>20, '78674', NA_Target) --星涌术
+					or NA_Fire(not ygzx and UnitPower(NA_Player,8)<-40, '78674', NA_Target) --星涌术
+					or NA_Fire(true, '78674', NA_Target) --星涌术
+					or NA_Fire(UnitPower(NA_Player,8)>40, '112071', NA_Player) --超凡之盟
+					or NA_Fire(NA_isUsableTalentSpell(4,2) and UnitPower(NA_Player,8)>0, '102560', NA_Player) --化身：艾露恩之眷
+					or NA_Fire(not W_RetainBuff(NA_player, 48505, true), '48505', NA_Player) --星辰坠落
+					or NA_Fire(NA_isUsableTalentSpell(7,2) and W_BuffTime(NA_Target,-152221)<7, '152221', NA_Target) --星辰耀斑
+					or NA_Fire(UnitPower(NA_Player,8)<=0 and (yzd and W_BuffTime(NA_Target,-164812)<24) or W_BuffTime(NA_Target,-164812)<4 or (cfzm and W_BuffTime(NA_Player,112071)<=2 and W_BuffTime(NA_Target,-164812)<24) or not yhsdot, '8921', NA_Target) --月火术
+					or NA_Fire(UnitPower(NA_Player,8)>=25 and UnitPower(NA_Player,8)<=100, '5176', NA_Target) --愤怒
+					or NA_Fire(UnitPower(NA_Player,8)<=25 and UnitPower(NA_Player,8)>=-100, '2912', NA_Target) --星火术
 
           or NA_fireByOvale()
         ))then return true; end
@@ -164,7 +207,7 @@ function NA11Dps()
 
         )then return true; end
       elseif(NA_ProfileNo == 2)then --Restoration
-        local hcs = W_RetainBuff(NA_Target, 774, true);   --回春术
+        local hcs = W_RetainBuff(NA_Target, 774, true) or (NA_isUsableTalentSpell(7,2) and W_BuffCount(NA_Target, 774, true)<2);   --回春术 萌芽
 				local yh = W_RetainBuff(NA_Target, 8936, true);   --愈合
 				local smzf = W_RetainBuff(NA_Target, 33763, true);   --生命绽放
 				local yxcz = W_RetainBuff(NA_Target, 48438, true);   --野性成长
@@ -174,20 +217,19 @@ function NA11Dps()
 				
 				
         if(false
-					or NA_Fire(W_HPlevel(NA_Target)<0.7 and W_GetSpellCooldown(132158)==0, '132158', NA_Player) --自然迅捷
-					or NA_Fire(W_HPlevel(NA_Target)<0.7 and zrxj and NA_CheckRoles(NA_Target)~=1, '5185', NA_Target) --治疗之触
-					or NA_Fire(W_HPlevel(NA_Target)<0.7 and zrxj and NA_CheckRoles(NA_Target)==1, '8936', NA_Target) --愈合
-					or NA_Fire(W_HPlevel(NA_Target)<0.5, '102342', NA_Target) --铁木树皮
-					or NA_Fire(W_HPlevel(NA_Target)<0.8 and NA_isUsableTalentSpell(6,3), '124974', NA_Player) --自然的守护
-					or NA_Fire(NA_CheckDebuff(NA_Target)==1 or NA_CheckDebuff(NA_Target)==3 or NA_CheckDebuff(NA_Target)==4, '88423', NA_Target) --自然之愈
-					or NA_Fire(W_HPlevel(NA_Target)<0.9 and (hcs or yh), '18562', NA_Target) --迅捷治愈
-					or NA_Fire(W_HPlevel(NA_Target)<0.9 and qxyz, '8936', NA_Target) --愈合
-					or NA_Fire(W_HPlevel(NA_Target)<0.9 and jnsf, '8936', NA_Target) --愈合
-					or NA_Fire(W_HPlevel(NA_Target)<0.8 and hcs and not W_RetainBuff(NA_Target, 155777, true), '774', NA_Target) --回春术
-					or NA_Fire(W_HPlevel(NA_Target)<0.8 and smzf, '5185', NA_Target) --治疗之触
-					or NA_Fire(NA_CheckRoles(NA_Target)==1 and W_HPlevel(NA_Target)<1 and not smzf, '33763', NA_Target) --生命绽放
-					or NA_Fire(W_HPlevel(NA_Target)<0.6, '5185', NA_Target) --治疗之触
+					or NA_Fire(W_HPlevel(NA_Target)<0.7, '132158', NA_Player) --自然迅捷
+					or NA_Fire(W_HPlevel(NA_Target)<0.7 and zrxj, '5185', NA_Target) --治疗之触
+					or NA_Fire(W_HPlevel(NA_Target)<0.7 and zrxj, '8936', NA_Target) --愈合
 					or NA_Fire(W_HPlevel(NA_Target)<1 and not hcs, '774', NA_Target) --回春术
+					or NA_Fire(W_HPlevel(NA_Target)<1 and not smzf, '33763', NA_Target) --生命绽放
+					or NA_Fire(W_HPlevel(NA_Target)<1 and not yh, '8936', NA_Target) --愈合
+					or NA_Fire(W_HPlevel(NA_Target)<0.7 and (hcs or yh), '18562', NA_Target) --迅捷治愈
+					or NA_Fire(W_HPlevel(NA_Target)<0.7, '5185', NA_Target) --治疗之触
+					or NA_Fire(W_HPlevel(NA_Target)<0.5, '102342', NA_Target) --铁木树皮
+					or NA_Fire(W_HPlevel(NA_Target)<0.5, '48438', NA_Target) --野性成长
+					or NA_Fire(W_HPlevel(NA_Target)<0.5, '145518', NA_Target) --源生
+					or NA_Fire(NA_IsMaxDps and W_HPlevel(NA_Target)<0.5, '740', NA_Player) --宁静
+					or NA_Fire(NA_IsMaxDps and W_HPlevel(NA_Target)<0.5 and NA_isUsableTalentSpell(6,1), '108294', NA_Player) --野性之心
 
         )then return true; end
       elseif(NA_ProfileNo == 3)then --Balance

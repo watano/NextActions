@@ -102,8 +102,8 @@ String classProfilesCodes() {
     actions.addAll(p.actions);
 
     //FIXME
-    p.attackCmds.clear();
-    p.attackAOECmds.clear();
+    //p.attackCmds.clear();
+    //p.attackAOECmds.clear();
 
     profileAtkCodes += '''
       elseif(NA_ProfileNo == ${p.profileID})then --${p.name}

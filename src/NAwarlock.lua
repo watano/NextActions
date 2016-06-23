@@ -1,11 +1,11 @@
 function getNA9Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'172','603','686','1122','1454','1949','6353','18540','30146','89751','103958','103964','104025','104316','105174','108508','109773','111898','113861','115831','124916','137587','152108','157695','755','104773','29858','689','6789'};
+    return {'172','603','686','1122','1454','1949','6353','18540','30146','89751','103958','103964','104025','104316','105174','108508','109773','111898','113861','115831','124916','137587','152108','157695','119898','755','104773','29858','689','6789'};
   elseif(no == 1)then
-    return {'348','691','1122','17877','17962','18540','29722','104232','108503','108508','108683','109773','111897','113858','116858','137587','152108','114635','6789','108359'};
+    return {'348','691','1122','17877','17962','18540','29722','104232','108503','108508','108683','109773','111897','113858','116858','137587','152108','119898','80240','114635','6789','108359'};
   elseif(no == 2)then
-    return {'172','691','980','1122','1454','18540','30108','48181','74434','103103','108503','108508','109773','111897','113860','137587','152108','755','689','6789'};
+    return {'172','691','980','1122','1454','18540','30108','48181','74434','103103','108503','108508','109773','111897','113860','137587','152108','755','689','6789','86121','27243'};
   end
   return {};
 end
@@ -59,11 +59,31 @@ function NA9Dps()
 				
         
         if(not NA_IsAOE and (false
+					or NA_Fire(true, '105174', NA_Target) --古尔丹之手
+					or NA_Fire(not isDemonform and not W_RetainBuff(NA_Target, -146739, true), '172', NA_Target) --腐蚀术
+					or NA_Fire(true, '113861', NA_Player) --黑暗灵魂：学识
+					or NA_Fire(W_GetSpellCooldown(119915)<=0 or W_GetSpellCooldown(119914)<=0, '119898', NA_Target) --恶魔掌控
+					or NA_Fire(NA_IsMaxDps, '18540', NA_Player) --召唤末日守卫
+					or NA_Fire(not isDemonform and not W_RetainBuff(NA_Target, -603, true), '103958', NA_Player) --恶魔变形
+					or NA_Fire(not isDemonform and UnitPower(NA_Player, SPELL_POWER_DEMONIC_FURY)>=1000, '103958', NA_Player) --恶魔变形
+					or NA_Fire(isDemonform and not W_RetainBuff(NA_Target, -603, true), '172', NA_Target) --腐蚀术
+					or NA_Fire(isDemonform, '686', NA_Target) --暗影箭
+					or NA_Fire(moltencore>0, '6353', NA_Target) --灵魂之火
+					or NA_Fire(true, '686', NA_Target) --暗影箭
 
           or NA_fireByOvale()
         ))then return true; end
 
         if(NA_IsAOE and (false
+					or NA_Fire(true, '105174', NA_Target) --古尔丹之手
+					or NA_Fire(not isDemonform and not W_RetainBuff(NA_Target, -146739, true), '172', NA_Target) --腐蚀术
+					or NA_Fire(NA_IsMaxDps, '113861', NA_Player) --黑暗灵魂：学识
+					or NA_Fire(NA_IsMaxDps, '1122', NA_Player) --召唤地狱火
+					or NA_Fire(NA_IsMaxDps and W_GetSpellCooldown(119914)<=0, '119898', NA_Target) --恶魔掌控
+					or NA_Fire(not isDemonform and UnitPower(NA_Player, SPELL_POWER_DEMONIC_FURY)>=1000, '103958', NA_Player) --恶魔变形
+					or NA_Fire(isDemonform and not W_RetainBuff(NA_Target, -603, true), '172', NA_Target) --腐蚀术
+					or NA_Fire(moltencore>0, '6353', NA_Target) --灵魂之火
+					or NA_Fire(true, '1949', NA_Target) --地狱烈焰
 
           or NA_fireByOvale()
         ))then return true; end
@@ -72,11 +92,25 @@ function NA9Dps()
 				
         
         if(not NA_IsAOE and (false
+					or NA_Fire(true, '113858', NA_Player) --黑暗灵魂：易爆
+					or NA_Fire(UnitName(NA_Pet)=='菲兹托克' and W_GetSpellCooldown(119899)<=0, '119898', NA_Target) --恶魔掌控
+					or NA_Fire(UnitName(NA_Pet)=='克丽欧拉' and W_GetSpellCooldown(115770)<=0, '119898', NA_Target) --恶魔掌控
+					or NA_Fire(UnitName(NA_Pet)=='科尔拉克' and W_GetSpellCooldown(115781)<=0, '119898', NA_Target) --恶魔掌控
+					or NA_Fire(NA_IsMaxDps, '18540', NA_Player) --召唤末日守卫
+					or NA_Fire(W_HPlevel(NA_Target)<0.2 and UnitPower(NA_Player, SPELL_POWER_BURNING_EMBERS)>0, '17877', NA_Target) --暗影灼烧
+					or NA_Fire(UnitPower(NA_Player, SPELL_POWER_BURNING_EMBERS)>3, '80240', NA_Target) --浩劫
+					or NA_Fire(GetUnitSpeed(NA_Player)<1 and (W_HasBuff(NA_Player, 80240, true) or UnitPower(NA_Player, SPELL_POWER_BURNING_EMBERS)>3), '116858', NA_Target) --混乱之箭
+					or NA_Fire(NA_IsSolo and GetUnitSpeed(NA_Player)<1 and UnitPower(NA_Player, SPELL_POWER_BURNING_EMBERS)>1, '116858', NA_Target) --混乱之箭
+					or NA_Fire(GetUnitSpeed(NA_Player)<1 and not W_RetainBuff(NA_Target, -348, true), '348', NA_Target) --献祭
+					or NA_Fire(true, '17962', NA_Target) --燃烧
+					or NA_Fire(true, '29722', NA_Target) --烧尽
 
           or NA_fireByOvale()
         ))then return true; end
 
         if(NA_IsAOE and (false
+					or NA_Fire(W_HasBuff(NA_Player, 108683, true), '17962', NA_Target) --燃烧
+					or NA_Fire(true, '29722', NA_Target) --烧尽
 
           or NA_fireByOvale()
         ))then return true; end
@@ -89,11 +123,43 @@ function NA9Dps()
 				
         
         if(not NA_IsAOE and (false
+					or NA_Fire(not NA_IsMaxDps and W_HPlevel(NA_Player)<0.2, '755', NA_Pet) --生命通道
+					or NA_Fire(NA_checkHP(0), '689', NA_Target) --吸取生命
+					or NA_Fire(NA_checkHP(0), '6789', NA_Target) --死亡缠绕
+					or NA_Fire(NA_IsMaxDps, '18540', NA_Player) --召唤末日守卫
+					or NA_Fire(NA_IsMaxDps, '74434', NA_Player) --灵魂燃烧
+					or NA_Fire(not retain48181, '48181', NA_Target) --鬼影缠身
+					or NA_Fire(NA_IsSolo and not retain146739, '172', NA_Target) --腐蚀术
+					or NA_Fire(W_HPlevel(NA_Target)<0.2, '103103', NA_Target) --吸取灵魂
+					or NA_Fire(W_HasBuff(NA_Player, 74434, true), '689', NA_Target) --吸取生命
+					or NA_Fire(W_HasBuff(NA_Player, 17941, true), '48181', NA_Target) --鬼影缠身
+					or NA_Fire(not W_HasBuff(NA_Player, 113860, true), '113860', NA_Player) --黑暗灵魂：哀难
+					or NA_Fire(count980<10 or not W_RetainBuff(NA_Target, -980, true), '980', NA_Target) --痛楚
+					or NA_Fire(not retain146739, '172', NA_Target) --腐蚀术
+					or NA_Fire(not retain30108, '30108', NA_Target) --痛苦无常
+					or NA_Fire(not W_RetainBuff(NA_Target, -48181, true) and UnitPower(NA_Player, SPELL_POWER_SOUL_SHARDS)>0, '48181', NA_Target) --鬼影缠身
+					or NA_Fire(W_HPlevel(NA_Target)<0.2, '103103', NA_Target) --吸取灵魂
+					or NA_Fire(true, '30108', NA_Target) --痛苦无常
 
           or NA_fireByOvale()
         ))then return true; end
 
         if(NA_IsAOE and (false
+					or NA_Fire(not NA_IsMaxDps and W_HPlevel(NA_Player)<0.2, '755', NA_Pet) --生命通道
+					or NA_Fire(NA_checkHP(0), '689', NA_Target) --吸取生命
+					or NA_Fire(NA_checkHP(0), '6789', NA_Target) --死亡缠绕
+					or NA_Fire(NA_IsMaxDps, '18540', NA_Player) --召唤末日守卫
+					or NA_Fire(NA_IsMaxDps, '1122', NA_Player) --召唤地狱火
+					or NA_Fire(NA_IsMaxDps, '74434', NA_Player) --灵魂燃烧
+					or NA_Fire(count980<5 and W_HasBuff(NA_Player, 86211, true), '86121', NA_Target) --灵魂交换
+					or NA_Fire(not W_HasBuff(NA_Player, 113860, true), '113860', NA_Player) --黑暗灵魂：哀难
+					or NA_Fire(not W_RetainBuff(NA_Target, -27243, true), '27243', NA_Target) --腐蚀之种
+					or NA_Fire(count980<10, '980', NA_Target) --痛楚
+					or NA_Fire(not retain146739, '172', NA_Target) --腐蚀术
+					or NA_Fire(not retain30108, '30108', NA_Target) --痛苦无常
+					or NA_Fire(not W_RetainBuff(NA_Target, -48181, true) and UnitPower(NA_Player, SPELL_POWER_SOUL_SHARDS)>0, '48181', NA_Target) --鬼影缠身
+					or NA_Fire(not W_RetainBuff(NA_Target, -27243, true), '27243', NA_Target) --腐蚀之种
+					or NA_Fire(W_HPlevel(NA_Target)<0.2, '103103', NA_Target) --吸取灵魂
 
           or NA_fireByOvale()
         ))then return true; end
