@@ -557,6 +557,14 @@ end
 
 --技能打断确认
 function NA_SpellInterrupt(UnitId)
+--	local name, subText, text, texture, startTime, endTime, isTradeSkill, castID, notInterruptible = UnitCastingInfo(UnitId);
+--	if(name ~= nill and notInterruptible ~= 1 and startTime > 0)then
+--		return true;
+--	end 
+--	local name2, subText2, text2, texture2, startTime2, endTime2, isTradeSkill2, notInterruptible2 = UnitChannelInfo(UnitId);
+--	if(name2 ~= nill and notInterruptible2 ~= 1 and startTime > 0)then
+--		return true;
+--	end
   return false;
 end
 

@@ -1,11 +1,11 @@
 function getNA5Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'585','589','10060','14914','15487','21562','34433','47540','123040','129250','528','527','33206','110744','2061','81700','17','152118','152116','596','33076','2060','586','19236','112833'};
+    return {'585','589','10060','14914','15487','21562','34433','47540','123040','129250','33206','110744','2061','81700','17','152118','152116','596','33076','2060','586','19236','112833'};
   elseif(no == 1)then
-    return {'585','589','10060','14914','15487','21562','34433','48045','81209','88625','123040','129250','528','47788','17','527','139','33076','152116','121135','110744','32546','2061','2060','586','19236','112833'};
+    return {'585','589','10060','14914','15487','21562','34433','48045','81209','88625','123040','129250','47788','17','139','33076','152116','121135','110744','32546','2061','2060','586','19236','112833'};
   elseif(no == 2)then
-    return {'589','2944','8092','10060','15407','15473','15487','21562','32379','34433','34914','47585','48045','73510','110744','120644','121135','123040','129197','155361','139139','122121','127632','528','15286','586','19236','17'};
+    return {'589','2944','8092','10060','15407','15473','15487','21562','32379','34433','34914','47585','48045','73510','110744','120644','121135','123040','129197','155361','139139','122121','127632','15286','586','19236','17'};
   end
   return {};
 end
@@ -41,7 +41,6 @@ function NA5Dps()
     elseif(NA_ProfileNo == 2)then --Shadow
       
       if(false
-					or NA_Fire(NA_CheckBuff(NA_Target)==1, '528', NA_Target) --驱散魔法
 					or NA_Fire(NA_checkHP(1), '15286', NA_Player) --吸血鬼的拥抱
 					or NA_Fire(NA_checkHP(0), '47585', NA_Player) --消散
 					or NA_Fire(NA_checkHP(0), '586', NA_Player) --渐隐术
@@ -58,7 +57,6 @@ function NA5Dps()
 				
         
         if(not NA_IsAOE and (false
-					or NA_Fire(NA_CheckBuff(NA_Target)==1, '528', NA_Target) --驱散魔法
 					or NA_Fire(NA_isUsableTalentSpell(3,2), '123040', NA_Target) --摧心魔
 					or NA_Fire(not NA_isUsableTalentSpell(3,2), '34433', NA_Target) --暗影魔
 					or NA_Fire(NA_isUsableTalentSpell(3,3), '129250', NA_Target) --真言术：慰
@@ -77,7 +75,6 @@ function NA5Dps()
 				
         
         if(not NA_IsAOE and (false
-					or NA_Fire(NA_CheckBuff(NA_Target)==1, '528', NA_Target) --驱散魔法
 					or NA_Fire(NA_isUsableTalentSpell(3,2), '123040', NA_Target) --摧心魔
 					or NA_Fire(not NA_isUsableTalentSpell(3,2), '34433', NA_Target) --暗影魔
 					or NA_Fire(NA_isUsableTalentSpell(3,3), '129250', NA_Target) --真言术：慰
@@ -197,7 +194,6 @@ function NA5Dps()
 				
 				
         if(false
-					or NA_Fire(NA_CheckDebuff(NA_Player)==1 or NA_CheckDebuff(NA_Player)==5, '527', NA_Target) --纯净术
 					or NA_Fire(W_HPlevel(NA_Target)<0.4, '33206', NA_Target) --痛苦压制
 					or NA_Fire(NA_isUsableTalentSpell(6,2) and W_HPlevel(NA_Target)<=0.8, '110744', NA_Target) --神圣之星
 					or NA_Fire(W_HPlevel(NA_Target)<0.9 and W_RetainBuff(NA_Player, 115255, true), '2061', NA_Target) --快速治疗
@@ -226,7 +222,6 @@ function NA5Dps()
         if(false
 					or NA_Fire(W_HPlevel(NA_Target)<0.4, '47788', NA_Target) --守护之魂
 					or NA_Fire(W_HPlevel(NA_Target)<0.9 and not xrlh2, '17', NA_Target) --真言术：盾
-					or NA_Fire(NA_CheckDebuff(NA_Player)==1 or NA_CheckDebuff(NA_Player)==5, '527', NA_Target) --纯净术
 					or NA_Fire(W_HPlevel(NA_Target)<0.9 and not hf, '139', NA_Player) --恢复
 					or NA_Fire(W_HPlevel(NA_Target)<0.8 and mshc>0, '33076', NA_Target) --愈合祷言
 					or NA_Fire(NA_isUsableTalentSpell(5,2) and W_HPlevel(NA_Target)<0.7, '10060', NA_Player) --能量灌注

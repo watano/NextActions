@@ -1,7 +1,7 @@
 function getNA10Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'100780','100784','100787','115069','115072','115078','115080','115098','115181','115203','115295','115308','115399','116705','116781','116847','119582','121253','122278','122783','123904','123986','124081','137562','152173','157676','115176','119381','101546','115450'};
+    return {'100780','100784','100787','115069','115072','115078','115080','115098','115181','115203','115295','115308','115399','116705','116781','116847','119582','121253','122278','122783','123904','123986','124081','137562','152173','157676','115176','119381','101546'};
   elseif(no == 1)then
     return {'154436','115080','115072','100780','107428','100787','100784','157675','116694','115098','124081','123986','119381','115294','115070','116849','115151','124682','115175','115203','115921'};
   elseif(no == 2)then
@@ -23,7 +23,6 @@ function NA10Dps()
     elseif(NA_ProfileNo == 0)then --Brewmaster
       
       if(false
-					or NA_Fire(NA_CheckDebuff(NA_Player)==3 or NA_CheckDebuff(NA_Player)==5, '115450', NA_Player) --清创生血
 					or NA_Fire((UnitHealth(NA_Target)<UnitHealthMax(NA_Player) or W_HPlevel(NA_Target)<0.1) and UnitPower(NA_Player, 12)>2, '115080', NA_Target) --轮回之触
 					or NA_Fire(NA_isUsableTalentSpell(3,3) and UnitPower(NA_palyer,12)>=2 and W_BuffCount(NA_Player, 115308)<=10, '115399', NA_Player) --真气酒
 					or NA_Fire(NA_isUsableTalentSpell(5,3) and NA_checkHP(1) and not W_RetainBuff(NA_Player, 115203, true), '122783', NA_Player) --散魔功
@@ -87,7 +86,6 @@ function NA10Dps()
 					or NA_Fire(NA_isUsableTalentSpell(7,2) and UnitPower(NA_Player,12)>=3, '157676', NA_Target) --真气破
 					or NA_Fire(W_RetainBuff(NA_Player, 152173, true) and not W_RetainBuff(NA_Player, 115295, true), '115295', NA_Player) --金钟罩
 					or NA_Fire(NA_checkHP(1) and not W_RetainBuff(NA_Player, 115295, true), '115295', NA_Player) --金钟罩
-					or NA_Fire(NA_SpellInterrupt(NA_Target), '116705', NA_Target) --切喉手
 					or NA_Fire(NA_isUsableTalentSpell(4,3), '119381', NA_Target) --扫堂腿
 					or NA_Fire((UnitPowerMax(NA_Player,12)-UnitPower(NA_Player,12))>=2 and not W_RetainBuff(NA_Player, 152173, true), '121253', NA_Target) --醉酿投
 					or NA_Fire(NA_isUsableTalentSpell(2,3) and UnitPower(NA_Player,3)<=70, '123986', NA_Target) --真气爆裂
@@ -170,7 +168,6 @@ function NA10Dps()
         
         if(not NA_IsAOE and (false
 					or NA_Fire((UnitHealth(NA_Target)<UnitHealthMax(NA_Player) or W_HPlevel(NA_Target)<0.1) and UnitPower(NA_Player, 12)>2, '115080', NA_Target) --轮回之触
-					or NA_Fire(NA_SpellInterrupt(NA_Target), '116705', NA_Target) --切喉手
 					or NA_Fire(NA_checkHP(2) or UnitPower(NA_Player, 12)<3, '115072', NA_Player) --移花接木
 					or NA_Fire(NA_isUsableTalentSpell(6,2), '123904', NA_Target) --白虎下凡
 					or NA_Fire((UnitPowerMax(NA_Player,12)-UnitPower(NA_Player,12))>=2 and W_BuffCount(NA_Player, 116740)<=16, '115399', NA_Player) --真气酒
@@ -202,7 +199,6 @@ function NA10Dps()
 
         if(NA_IsAOE and (false
 					or NA_Fire((UnitHealth(NA_Target)<UnitHealthMax(NA_Player) or W_HPlevel(NA_Target)<0.1) and UnitPower(NA_Player, 12)>2, '115080', NA_Target) --轮回之触
-					or NA_Fire(NA_SpellInterrupt(NA_Target), '116705', NA_Target) --切喉手
 					or NA_Fire(NA_checkHP(2) or UnitPower(NA_Player, 12)<3, '115072', NA_Player) --移花接木
 					or NA_Fire(NA_isUsableTalentSpell(6,2), '123904', NA_Target) --白虎下凡
 					or NA_Fire((UnitPowerMax(NA_Player,12)-UnitPower(NA_Player,12))>=2 and W_BuffCount(NA_Player, 116740)<=16, '115399', NA_Player) --真气酒

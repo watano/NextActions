@@ -1,9 +1,9 @@
 function getNA6Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'49998','48707','48792','119975','108196','48743','130736','51271','47568','42650','47528','49020','77575','49184','45462','49143','45477','47541','108199','61999','57330'};
+    return {'49998','48707','48792','119975','108196','48743','130736','51271','47568','42650','49020','77575','49184','45462','49143','45477','47541','108199','61999','57330'};
   elseif(no == 1)then
-    return {'49998','48707','48792','119975','108196','55233','48743','130736','47568','49028','56222','45477','47541','49222','77575','45462','50842','47528','47476','108199','61999','49039','108200','57330'};
+    return {'49998','48707','48792','119975','108196','55233','48743','130736','47568','49028','56222','45477','47541','49222','77575','45462','50842','108199','61999','49039','108200','57330'};
   elseif(no == 2)then
     return {'42650','43265','45462','45529','47476','47528','47568','48266','48707','49020','49143','49184','50842','51271','57330','77575','96268','108194','115989','123693','130735','152279','152280','49998','48792','119975','108196','48743','130736','108199','61999','45477'};
   elseif(no == 3)then
@@ -92,7 +92,6 @@ function NA6Dps()
 					or NA_Fire(NA_IsSolo or NA_IsMaxDps, '51271', NA_Target) --冰霜之柱
 					or NA_Fire(NA_IsMaxDps, '47568', NA_Target) --符文武器增效
 					or NA_Fire(NA_IsMaxDps, '42650', NA_Target) --亡者大军
-					or NA_Fire(NA_SpellInterrupt(NA_Target), '47528', NA_Target) --心灵冰冻
 					or NA_Fire(NA_checkHP(2) and W_HasBuff(NA_Player, 178819, true), '49998', NA_Target) --灵界打击
 					or NA_Fire(hasKillingMachine and retainFrostFever and retainBloodPlague, '49020', NA_Target) --湮没
 					or NA_Fire(not retainFrostFever and not retainBloodPlague, '77575', NA_Target) --爆发
@@ -180,8 +179,6 @@ function NA6Dps()
 					or NA_Fire(NA_isUsableTalentSpell(5,2) and NA_checkHP(0), '108196', NA_Player) --死亡虹吸
 					or NA_Fire(NA_checkHP(0), '55233', NA_Player) --吸血鬼之血
 					or NA_Fire(NA_isUsableTalentSpell(5,1) and NA_checkHP(0), '48743', NA_Player) --天灾契约
-					or NA_Fire(NA_SpellInterrupt(NA_Target), '47528', NA_Target) --心灵冰冻
-					or NA_Fire(NA_SpellInterrupt(NA_Target), '47476', NA_Target) --绞袭
 					or NA_Fire(W_HPlevel(NA_Target) < 0.35, '130736', NA_Target) --灵魂收割
 					or NA_Fire(NA_IsSolo, '108199', NA_Target) --血魔之握
 					or NA_Fire(NA_IsMaxDps, '47568', NA_Target) --符文武器增效

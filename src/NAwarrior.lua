@@ -94,7 +94,6 @@ function NA1Dps()
 					or NA_Fire(not NA_IsMaxDps and W_HPlevel(NA_Player)<0.8, '34428', NA_Player) --乘胜追击
 					or NA_Fire(NA_IsSolo and W_HPlevel(NA_Player)<0.2, '103840', NA_Player) --胜利在望
 					or NA_Fire(notTanking, '355', NA_Target) --嘲讽
-					or NA_Fire(NA_SpellInterrupt(NA_Target), '6552', NA_Target) --拳击
 					or NA_Fire(W_PowerLevel(NA_Player) < 0.5, '6572', NA_Target) --复仇
 					or NA_Fire(true, '23922', NA_Target) --盾牌猛击
 					or NA_Fire(W_BuffCount(NA_Target, -113746, true)<3, '20243', NA_Target) --毁灭打击
@@ -133,7 +132,6 @@ function NA1Dps()
 					or NA_Fire(not NA_IsMaxDps and W_HPlevel(NA_Player)<0.8, '34428', NA_Player) --乘胜追击
 					or NA_Fire(NA_IsSolo and W_HPlevel(NA_Player)<0.2, '103840', NA_Player) --胜利在望
 					or NA_Fire(true, '5308', NA_Target) --斩杀
-					or NA_Fire(NA_SpellInterrupt(NA_Target), '6552', NA_Target) --拳击
 					or NA_Fire(NA_IsMaxDps, '46924', NA_Target) --剑刃风暴
 					or NA_Fire(true, '1680', NA_Target) --旋风斩
 					or NA_Fire(W_PowerLevel(NA_Player) < 0.7, '23881', NA_Target) --嗜血
@@ -155,7 +153,6 @@ function NA1Dps()
 					or NA_Fire(not NA_IsMaxDps and W_HPlevel(NA_Player)<0.8, '34428', NA_Player) --乘胜追击
 					or NA_Fire(NA_IsSolo and W_HPlevel(NA_Player)<0.2, '103840', NA_Player) --胜利在望
 					or NA_Fire(not hassl and not hasjrdj, '772', NA_Target) --撕裂
-					or NA_Fire(NA_SpellInterrupt(NA_Target), '6552', NA_Target) --拳击
 					or NA_Fire(W_GetSpellCooldown(167105)<4, '152277', NA_Target) --破坏者
 					or NA_Fire(true, '167105', NA_Target) --巨人打击
 					or NA_Fire(true, '12294', NA_Target) --致死打击

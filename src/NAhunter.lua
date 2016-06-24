@@ -1,9 +1,9 @@
 function getNA3Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'136','982','19574','53351','82692','34026','120679','120360','131894','117050','121818','109259','3044','77767','2643','34477','19801','5118'};
+    return {'136','982','19574','53351','82692','34026','120679','120360','131894','117050','121818','109259','3044','77767','2643','34477','5118'};
   elseif(no == 1)then
-    return {'53209','131894','19434','120360','121818','56641','3045','109260','136','34477','982','19801','5118'};
+    return {'53209','131894','19434','120360','121818','56641','3045','109260','136','34477','982','5118'};
   elseif(no == 2)then
     return {'136','982','19801','53301','3044','3674','131894','120679','120360','117050','109259','121818','77767','2643','13813','34477','5118'};
   end
@@ -25,7 +25,6 @@ function NA3Dps()
       if(false
 					or NA_Fire(W_HPlevel(NA_Pet)>0 and W_HPlevel(NA_Pet) < 0.5 and not W_HasBuff(NA_Pet, 136, true), '136', NA_Pet) --治疗宠物
 					or NA_Fire(W_HPlevel(NA_Pet)<=0, '982', NA_Pet) --复活宠物
-					or NA_Fire(NA_IsSolo and (NA_CheckBuff(NA_Target)==1 and NA_CheckBuff(NA_Target)==2), '19801', NA_Target) --宁神射击
 
       )then return true; end
     elseif(NA_ProfileNo == 1)then --Marksman
@@ -33,7 +32,6 @@ function NA3Dps()
       if(false
 					or NA_Fire(W_HPlevel(NA_Pet)>0 and W_HPlevel(NA_Pet) < 0.5 and not W_HasBuff(NA_Pet, 136, true), '136', NA_Pet) --治疗宠物
 					or NA_Fire(W_HPlevel(NA_Pet)<=0, '982', NA_Pet) --复活宠物
-					or NA_Fire(NA_IsSolo and (NA_CheckBuff(NA_Target)==1 and NA_CheckBuff(NA_Target)==2), '19801', NA_Target) --宁神射击
 
       )then return true; end
     elseif(NA_ProfileNo == 2)then --Survival
@@ -41,7 +39,6 @@ function NA3Dps()
       if(false
 					or NA_Fire(W_HPlevel(NA_Pet)>0 and W_HPlevel(NA_Pet) < 0.5 and not W_HasBuff(NA_Pet, 136, true), '136', NA_Pet) --治疗宠物
 					or NA_Fire(W_HPlevel(NA_Pet)<=0, '982', NA_Pet) --复活宠物
-					or NA_Fire(NA_IsSolo and (NA_CheckBuff(NA_Target)==1 and NA_CheckBuff(NA_Target)==2), '19801', NA_Target) --宁神射击
 
       )then return true; end
 

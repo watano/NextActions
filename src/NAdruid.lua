@@ -1,13 +1,13 @@
 function getNA11Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'774','1126','5185','5211','5487','6807','22570','22812','22842','33745','33917','50334','62606','77758','80313','102351','102401','102558','106839','108238','108293','124974','132469','155835','2782','61336','99','2908','106952'};
+    return {'774','1126','5185','5211','5487','6807','22570','22812','22842','33745','33917','50334','62606','77758','80313','102351','102401','102558','106839','108238','108293','124974','132469','155835','61336','99','106952'};
   elseif(no == 1)then
-    return {'768','1079','1126','1822','1850','5185','5211','5215','5217','5221','22568','22570','52610','102280','102401','102543','102703','106785','106830','106839','106951','132469','155625','2908','2782','99','106952','106832','8921','61336'};
+    return {'768','1079','1126','1822','1850','5185','5211','5215','5217','5221','22568','22570','52610','102280','102401','102543','102703','106785','106830','106839','106951','132469','155625','106952','106832','8921','61336','2782'};
   elseif(no == 2)then
-    return {'5176','2908','132158','5185','8936','774','33763','18562','102342','48438','145518','740','108294','22812','1126'};
+    return {'5176','132158','5185','8936','774','33763','18562','102342','48438','145518','740','108294','22812','1126'};
   elseif(no == 3)then
-    return {'1126','2912','5176','8921','24858','33831','48505','78674','102560','112071','152221','124974','2782','22812','2908'};
+    return {'1126','2912','5176','8921','24858','33831','48505','78674','102560','112071','152221','124974','22812'};
   end
   return {};
 end
@@ -34,8 +34,6 @@ function NA11Dps()
 					or NA_Fire(NA_checkHP(0), '61336', NA_Player) --生存本能
 					or NA_Fire(inBear and NA_isUsableTalentSpell(5,1), '99', NA_Target) --夺魂咆哮
 					or NA_Fire(NA_checkHP(2) and not W_RetainBuff(NA_Player, 22812, true), '62606', NA_Player) --野蛮防御
-					or NA_Fire(NA_CheckBuff(NA_Target)==2, '2908', NA_Target) --安抚
-					or NA_Fire(NA_CheckDebuff(NA_Player)==3 or NA_CheckDebuff(NA_Player)==4, '2782', NA_Player) --净化腐蚀
 					or NA_Fire(NA_checkHP(2) and not W_RetainBuff(NA_Player, 155835, true), '22812', NA_Player) --树皮术
 					or NA_Fire(NA_checkHP(2) and not W_RetainBuff(NA_Player, 62606, true) and not W_RetainBuff(NA_Player, 22812, true) and NA_isUsableTalentSpell(7,3), '155835', NA_Player) --鬃毛倒竖
 					or NA_Fire(W_BuffTime(NA_Player,80313)>10, '106952', NA_Player) --狂暴
@@ -55,7 +53,6 @@ function NA11Dps()
 					or NA_Fire(NA_checkHP(0), '61336', NA_Player) --生存本能
 					or NA_Fire(inCat and NA_isUsableTalentSpell(1,3), '102401', NA_Target) --野性冲锋
 					or NA_Fire(true, '2782', NA_Player) --净化腐蚀
-					or NA_Fire(inCat and NA_SpellInterrupt(NA_Target) and NA_isUsableTalentSpell(5,1), '99', NA_Target) --夺魂咆哮
 
       )then return true; end
     elseif(NA_ProfileNo == 2)then --Restoration
@@ -68,7 +65,6 @@ function NA11Dps()
       
       if(false
 					or NA_Fire(NA_checkHP(1), '22812', NA_Player) --树皮术
-					or NA_Fire(NA_CheckBuff(NA_Target)==2, '2908', NA_Target) --安抚
 
       )then return true; end
 
@@ -106,11 +102,6 @@ function NA11Dps()
 					or NA_Fire(not inCat, '768', NA_Player) --猎豹形态
 					or NA_Fire(inCat and NA_isUsableTalentSpell(1,3), '102401', NA_Target) --野性冲锋
 					or NA_Fire(inCat and W_RetainBuff(NA_Player, 5215, true) or W_RetainBuff(NA_Player, 58984, true), '1822', NA_Target) --斜掠
-					or NA_Fire(inCat and NA_SpellInterrupt(NA_Target), '106839', NA_Target) --迎头痛击
-					or NA_Fire(inCat and NA_SpellInterrupt(NA_Target) and NA_isUsableTalentSpell(7,3), '132469', NA_Target) --台风
-					or NA_Fire(NA_CheckBuff(NA_Target)==2, '2908', NA_Target) --安抚
-					or NA_Fire(NA_CheckDebuff(NA_Player)==3 or NA_CheckDebuff(NA_Player)==4, '2782', NA_Player) --净化腐蚀
-					or NA_Fire(inCat and NA_SpellInterrupt(NA_Target) and NA_isUsableTalentSpell(5,1), '99', NA_Target) --夺魂咆哮
 					or NA_Fire(inCat and NA_isUsableTalentSpell(4,3), '102703', NA_Player) --自然之力
 					or NA_Fire(inCat and (not hasqxyz and UnitPower(NA_Player,3)>=60) or (UnitPowerMax(NA_Player,3)-UnitPower(NA_Player,3))>=80, '5217', NA_Player) --猛虎之怒
 					or NA_Fire(inCat and NA_isUsableTalentSpell(4,2) and W_GetSpellCooldown(106952)<10 and UnitPower(NA_Player,3)<=90, '102543', NA_Player) --化身：丛林之王
@@ -147,7 +138,6 @@ function NA11Dps()
         
         if(not NA_IsAOE and (false
 					or NA_Fire(NA_isUsableTalentSpell(7,2), '5176', NA_Target) --愤怒
-					or NA_Fire(NA_CheckBuff(NA_Target)==2, '2908', NA_Target) --安抚
 
           or NA_fireByOvale()
         ))then return true; end
@@ -196,14 +186,12 @@ function NA11Dps()
         
 				
         if(false
-					or NA_Fire(NA_CheckDebuff(NA_Target)==3 or NA_CheckDebuff(NA_Target)==4, '2782', NA_Target) --净化腐蚀
 
         )then return true; end
       elseif(NA_ProfileNo == 1)then --Cat
         
 				
         if(false
-					or NA_Fire(NA_CheckDebuff(NA_Target)==3 or NA_CheckDebuff(NA_Target)==4, '2782', NA_Target) --净化腐蚀
 
         )then return true; end
       elseif(NA_ProfileNo == 2)then --Restoration
@@ -236,7 +224,6 @@ function NA11Dps()
         
 				
         if(false
-					or NA_Fire(NA_CheckDebuff(NA_Target)==3 or NA_CheckDebuff(NA_Target)==4, '2782', NA_Target) --净化腐蚀
 
         )then return true; end
       end
