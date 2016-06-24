@@ -25,7 +25,7 @@ function NA3Dps()
       if(false
 					or NA_Fire(W_HPlevel(NA_Pet)>0 and W_HPlevel(NA_Pet) < 0.5 and not W_HasBuff(NA_Pet, 136, true), '136', NA_Pet) --治疗宠物
 					or NA_Fire(W_HPlevel(NA_Pet)<=0, '982', NA_Pet) --复活宠物
-					or NA_Fire(NA_IsSolo and NA_CheckBuff(NA_Target)~=0, '19801', NA_Target) --宁神射击
+					or NA_Fire(NA_IsSolo and (NA_CheckBuff(NA_Target)==1 and NA_CheckBuff(NA_Target)==2), '19801', NA_Target) --宁神射击
 
       )then return true; end
     elseif(NA_ProfileNo == 1)then --Marksman
@@ -33,7 +33,7 @@ function NA3Dps()
       if(false
 					or NA_Fire(W_HPlevel(NA_Pet)>0 and W_HPlevel(NA_Pet) < 0.5 and not W_HasBuff(NA_Pet, 136, true), '136', NA_Pet) --治疗宠物
 					or NA_Fire(W_HPlevel(NA_Pet)<=0, '982', NA_Pet) --复活宠物
-					or NA_Fire(NA_IsSolo and NA_CheckBuff(NA_Target)~=0, '19801', NA_Target) --宁神射击
+					or NA_Fire(NA_IsSolo and (NA_CheckBuff(NA_Target)==1 and NA_CheckBuff(NA_Target)==2), '19801', NA_Target) --宁神射击
 
       )then return true; end
     elseif(NA_ProfileNo == 2)then --Survival
@@ -41,7 +41,7 @@ function NA3Dps()
       if(false
 					or NA_Fire(W_HPlevel(NA_Pet)>0 and W_HPlevel(NA_Pet) < 0.5 and not W_HasBuff(NA_Pet, 136, true), '136', NA_Pet) --治疗宠物
 					or NA_Fire(W_HPlevel(NA_Pet)<=0, '982', NA_Pet) --复活宠物
-					or NA_Fire(NA_IsSolo and NA_CheckBuff(NA_Target)~=0, '19801', NA_Target) --宁神射击
+					or NA_Fire(NA_IsSolo and (NA_CheckBuff(NA_Target)==1 and NA_CheckBuff(NA_Target)==2), '19801', NA_Target) --宁神射击
 
       )then return true; end
 
@@ -122,7 +122,7 @@ function NA3Dps()
         if(not NA_IsAOE and (false
 					or NA_Fire(W_HPlevel(NA_Pet)>0 and W_HPlevel(NA_Pet) < 0.5 and not W_HasBuff(NA_Pet, 136, true), '136', NA_Pet) --治疗宠物
 					or NA_Fire(W_HPlevel(NA_Pet)<=0, '982', NA_Pet) --复活宠物
-					or NA_Fire(NA_IsSolo and NA_CheckBuffStealable(NA_Target), '19801', NA_Target) --宁神射击
+					or NA_Fire(NA_IsSolo and NA_hasStealableBuff(NA_Target), '19801', NA_Target) --宁神射击
 					or NA_Fire(W_HasBuff(NA_Player, 168980, true), '53301', NA_Target) --爆炸射击
 					or NA_Fire(W_HasBuff(NA_Player, 34720, true), '3044', NA_Target) --奥术射击
 					or NA_Fire(true, '3674', NA_Target) --黑箭

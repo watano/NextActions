@@ -33,7 +33,7 @@ function NA2Dps()
 					or NA_Fire(NA_checkHP(0) and not W_RetainBuff(NA_Player, 105809, true) and not W_RetainBuff(NA_Player, 53600, true) and not W_RetainBuff(NA_Player, 498, true) and not W_RetainBuff(NA_Player, 86659, true), '31850', NA_Player) --炽热防御者
 					or NA_Fire(W_HPlevel(NA_Player)<0.05, '642', NA_Player) --圣盾术
 					or NA_Fire(W_RetainBuff(NA_Player, 642, true), '62124', NA_Target) --清算
-					or NA_Fire(NA_CheckDebuff(NA_Player)==1 or NA_CheckDebuff(NA_Player)==2 or NA_CheckDebuff(NA_Player)==3, '4987', NA_Player) --清洁术
+					or NA_Fire(NA_CheckDebuff(NA_Player)==3 or NA_CheckDebuff(NA_Player)==5, '4987', NA_Player) --清洁术
 					or NA_Fire(NA_isUsableTalentSpell(3,2) and W_BuffTime(NA_Player, 114163)<2 and W_BuffCount(NA_Player, 114637)>2 and (W_PaladinPower(NA_Player)>=3 or W_RetainBuff(NA_Player, 86172, true) or W_RetainBuff(NA_Player, 114637, true)), '114163', NA_Player) --永恒之火
 					or NA_Fire(NA_isUsableTalentSpell(3,2) and W_RetainBuff(NA_Player, 114637, true) and W_BuffCount(NA_Player, 114637)>=5, '114163', NA_Player) --永恒之火
 					or NA_Fire(not NA_isUsableTalentSpell(3,2) and W_RetainBuff(NA_Player, 114637, true) and W_BuffCount(NA_Player, 114637)>=5 and NA_checkHP(1), '85673', NA_Player) --荣耀圣令
@@ -51,7 +51,7 @@ function NA2Dps()
 					or NA_Fire(W_HPlevel(NA_Player)<0.1, '642', NA_Player) --圣盾术
 					or NA_Fire(NA_checkHP(1) and NA_isUsableTalentSpell(3,1) and W_BuffCount(NA_Player, 114250)==3, '19750', NA_Player) --圣光闪现
 					or NA_Fire(NA_checkHP(1) and NA_isUsableTalentSpell(3,3), '20925', NA_Player) --圣洁护盾
-					or NA_Fire(NA_CheckDebuff(NA_Player)==1 or NA_CheckDebuff(NA_Player)==2 or NA_CheckDebuff(NA_Player)==3, '4987', NA_Player) --清洁术
+					or NA_Fire(NA_CheckDebuff(NA_Player)==3 or NA_CheckDebuff(NA_Player)==5, '4987', NA_Player) --清洁术
 
       )then return true; end
     elseif(NA_ProfileNo == 2)then --奶骑
@@ -78,7 +78,7 @@ function NA2Dps()
 					or NA_Fire(NA_checkHP(0) and not W_RetainBuff(NA_Player, 105809, true) and not W_RetainBuff(NA_Player, 53600, true) and not W_RetainBuff(NA_Player, 498, true) and not W_RetainBuff(NA_Player, 86659, true), '31850', NA_Player) --炽热防御者
 					or NA_Fire(W_HPlevel(NA_Player)<0.05, '642', NA_Player) --圣盾术
 					or NA_Fire(W_RetainBuff(NA_Player, 642, true), '62124', NA_Target) --清算
-					or NA_Fire(NA_CheckDebuff(NA_Player)==1 or NA_CheckDebuff(NA_Player)==2 or NA_CheckDebuff(NA_Player)==3, '4987', NA_Player) --清洁术
+					or NA_Fire(NA_CheckDebuff(NA_Player)==3 or NA_CheckDebuff(NA_Player)==5, '4987', NA_Player) --清洁术
 					or NA_Fire(NA_isUsableTalentSpell(3,2) and W_BuffTime(NA_Player, 114163)<2 and W_BuffCount(NA_Player, 114637)>2 and (W_PaladinPower(NA_Player)>=3 or W_RetainBuff(NA_Player, 86172, true) or W_RetainBuff(NA_Player, 114637, true)), '114163', NA_Player) --永恒之火
 					or NA_Fire(NA_isUsableTalentSpell(3,2) and W_RetainBuff(NA_Player, 114637, true) and W_BuffCount(NA_Player, 114637)>=5, '114163', NA_Player) --永恒之火
 					or NA_Fire(W_RetainBuff(NA_Player, 86172, true), '53600', NA_Target) --正义盾击
@@ -137,7 +137,7 @@ function NA2Dps()
 					or NA_Fire(NA_checkHP(1) and NA_isUsableTalentSpell(3,1) and W_BuffCount(NA_Player, 114250)==3, '19750', NA_Player) --圣光闪现
 					or NA_Fire(NA_checkHP(1) and NA_isUsableTalentSpell(3,3), '20925', NA_Player) --圣洁护盾
 					or NA_Fire(NA_isUsableTalentSpell(1,1), '85499', NA_Player) --圣光之速
-					or NA_Fire(NA_CheckDebuff(NA_Player)==1 or NA_CheckDebuff(NA_Player)==2 or NA_CheckDebuff(NA_Player)==3, '4987', NA_Player) --清洁术
+					or NA_Fire(NA_CheckDebuff(NA_Player)==3 or NA_CheckDebuff(NA_Player)==5, '4987', NA_Player) --清洁术
 					or NA_Fire(NA_isUsableTalentSpell(7,1), '20271', NA_Target) --审判
 					or NA_Fire(NA_isUsableTalentSpell(6,3), '114157', NA_Target) --处决宣判
 					or NA_Fire(NA_isUsableTalentSpell(6,2), '114158', NA_Target) --圣光之锤
@@ -214,7 +214,7 @@ function NA2Dps()
         
 				
         if(false
-					or NA_Fire(NA_CheckDebuff(NA_Target)==2 or NA_CheckDebuff(NA_Target)==3, '4987', NA_Target) --清洁术
+					or NA_Fire(NA_CheckDebuff(NA_Player)==3 or NA_CheckDebuff(NA_Player)==5, '4987', NA_Target) --清洁术
 					or NA_Fire(W_HPlevel(NA_Target)<0.6 and W_HPlevel(NA_Player)>0.7 and not UnitIsUnit(NA_Player,NA_Target) and not W_RetainBuff(NA_Target, 6940, true), '6940', NA_Target) --牺牲之手
 					or NA_Fire(NA_CheckRoles(NA_Target)~=1 and W_HPlevel(NA_Target) < 0.6 and not UnitIsUnit(NA_Player,NA_Target) and not W_RetainBuff(NA_Target, 1022, true), '1022', NA_Target) --保护之手
 					or NA_Fire(NA_CheckRoles(NA_Target)~=1 and W_HPlevel(NA_Target) < 0.9 and not UnitIsUnit(NA_Player,NA_Target), '1038', NA_Target) --拯救之手
@@ -224,7 +224,7 @@ function NA2Dps()
         
 				
         if(false
-					or NA_Fire(NA_CheckDebuff(NA_Target)==2 or NA_CheckDebuff(NA_Target)==3, '4987', NA_Target) --清洁术
+					or NA_Fire(NA_CheckDebuff(NA_Player)==3 or NA_CheckDebuff(NA_Player)==5, '4987', NA_Target) --清洁术
 					or NA_Fire(W_HPlevel(NA_Target)<0.6 and W_HPlevel(NA_Player)>0.7 and not UnitIsUnit(NA_Player,NA_Target) and not W_RetainBuff(NA_Target, 6940, true), '6940', NA_Target) --牺牲之手
 					or NA_Fire(NA_CheckRoles(NA_Target)~=1 and W_HPlevel(NA_Target) < 0.6 and not UnitIsUnit(NA_Player,NA_Target) and not W_RetainBuff(NA_Target, 1022, true), '1022', NA_Target) --保护之手
 
@@ -238,7 +238,7 @@ function NA2Dps()
 					or NA_Fire(NA_checkHP(1), '498', NA_Player) --圣佑术
 					or NA_Fire(NA_checkHP(0), '642', NA_Player) --圣盾术
 					or NA_Fire(W_HPlevel(NA_Target)<0.3, '633', NA_Target) --圣疗术
-					or NA_Fire(NA_CheckDebuff(NA_Target)==1 or NA_CheckDebuff(NA_Target)==2 or NA_CheckDebuff(NA_Target)==3, '4987', NA_Target) --清洁术
+					or NA_Fire(NA_CheckDebuff(NA_Player)==3 or NA_CheckDebuff(NA_Player)==5, '4987', NA_Target) --清洁术
 					or NA_Fire(true, '20473', NA_Target) --神圣震击
 					or NA_Fire(NA_CheckGlyph(1068) and W_HPlevel(NA_Target) < 0.4 and not UnitIsUnit(NA_Player,NA_Target) and not W_RetainBuff(NA_Target, 6940, true), '6940', NA_Target) --牺牲之手
 					or NA_Fire(not NA_CheckGlyph(1068) and W_HPlevel(NA_Target) < 0.4 and W_HPlevel(NA_Player)>0.7 and not UnitIsUnit(NA_Player,NA_Target) and not W_RetainBuff(NA_Target, 6940, true), '6940', NA_Target) --牺牲之手

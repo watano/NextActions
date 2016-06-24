@@ -23,7 +23,7 @@ function NA10Dps()
     elseif(NA_ProfileNo == 0)then --Brewmaster
       
       if(false
-					or NA_Fire(NA_CheckDebuff(NA_Player)==2 or NA_CheckDebuff(NA_Player)==3, '115450', NA_Player) --清创生血
+					or NA_Fire(NA_CheckDebuff(NA_Player)==3 or NA_CheckDebuff(NA_Player)==5, '115450', NA_Player) --清创生血
 					or NA_Fire((UnitHealth(NA_Target)<UnitHealthMax(NA_Player) or W_HPlevel(NA_Target)<0.1) and UnitPower(NA_Player, 12)>2, '115080', NA_Target) --轮回之触
 					or NA_Fire(NA_isUsableTalentSpell(3,3) and UnitPower(NA_palyer,12)>=2 and W_BuffCount(NA_Player, 115308)<=10, '115399', NA_Player) --真气酒
 					or NA_Fire(NA_isUsableTalentSpell(5,3) and NA_checkHP(1) and not W_RetainBuff(NA_Player, 115203, true), '122783', NA_Player) --散魔功

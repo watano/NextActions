@@ -15,7 +15,7 @@
 /run for i=1,18 do print(GetTalentRowSelectionInfo(i)) end
 /run for i=1,40 do print(UnitBuff("target",i)) end
 /run print(NA_isUsableTalentSpell(6,1));
-/run print(NA_CheckBuffStealable(NA_Target))
+/run print(NA_hasStealableBuff(NA_Target))
 name, rank, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate, spellId
 
 雙持冰:力量 > 技能命中(黃字)達標 = 熟練達標 > 精通 >= 加速 > 致命

@@ -197,7 +197,7 @@ function NA5Dps()
 				
 				
         if(false
-					or NA_Fire(NA_CheckDebuff(NA_Target)==1 or NA_CheckDebuff(NA_Target)==2, '527', NA_Target) --纯净术
+					or NA_Fire(NA_CheckDebuff(NA_Player)==1 or NA_CheckDebuff(NA_Player)==5, '527', NA_Target) --纯净术
 					or NA_Fire(W_HPlevel(NA_Target)<0.4, '33206', NA_Target) --痛苦压制
 					or NA_Fire(NA_isUsableTalentSpell(6,2) and W_HPlevel(NA_Target)<=0.8, '110744', NA_Target) --神圣之星
 					or NA_Fire(W_HPlevel(NA_Target)<0.9 and W_RetainBuff(NA_Player, 115255, true), '2061', NA_Target) --快速治疗
@@ -226,7 +226,7 @@ function NA5Dps()
         if(false
 					or NA_Fire(W_HPlevel(NA_Target)<0.4, '47788', NA_Target) --守护之魂
 					or NA_Fire(W_HPlevel(NA_Target)<0.9 and not xrlh2, '17', NA_Target) --真言术：盾
-					or NA_Fire(NA_CheckDebuff(NA_Target)==1 or NA_CheckDebuff(NA_Target)==2, '527', NA_Target) --纯净术
+					or NA_Fire(NA_CheckDebuff(NA_Player)==1 or NA_CheckDebuff(NA_Player)==5, '527', NA_Target) --纯净术
 					or NA_Fire(W_HPlevel(NA_Target)<0.9 and not hf, '139', NA_Player) --恢复
 					or NA_Fire(W_HPlevel(NA_Target)<0.8 and mshc>0, '33076', NA_Target) --愈合祷言
 					or NA_Fire(NA_isUsableTalentSpell(5,2) and W_HPlevel(NA_Target)<0.7, '10060', NA_Player) --能量灌注
