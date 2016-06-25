@@ -3,7 +3,7 @@ function getNA11Actions(no)
   elseif(no == 0)then
     return {'5487','61336','99','62606','22812','155835','106952','22842','102351','108238','108293','774','124974','5185','1126','102401'};
   elseif(no == 1)then
-    return {'768','102401','1822','102703','5217','102543','106952','22568','5185','52610','106832','1079','8921','106785','5221','61336','2782','1126','5215'};
+    return {'106952','108292','52610','1079','106832','5217','22568','155625','1822','5221','106785','61336','22842','5185','1126','5215','106839'};
   elseif(no == 2)then
     return {'5176','132158','5185','8936','774','33763','18562','102342','48438','145518','740','108294','22812','1126'};
   elseif(no == 3)then
@@ -49,10 +49,9 @@ function NA11Dps()
     elseif(NA_ProfileNo == 1)then --Cat
       
       if(false
-					or NA_Fire(not inCat, '768', NA_Player) --猎豹形态
 					or NA_Fire(NA_checkHP(0), '61336', NA_Player) --生存本能
-					or NA_Fire(inCat and NA_isUsableTalentSpell(1,3), '102401', NA_Target) --野性冲锋
-					or NA_Fire(true, '2782', NA_Player) --净化腐蚀
+					or NA_Fire(NA_checkHP(0), '22842', NA_Player) --狂暴回复
+					or NA_Fire(NA_checkHP(2) and W_HasBuff(NA_Player, 16974, true), '5185', NA_Player) --治疗之触
 
       )then return true; end
     elseif(NA_ProfileNo == 2)then --Restoration
@@ -89,46 +88,29 @@ function NA11Dps()
           or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 1)then --Cat
-        local hasympx = W_RetainBuff(NA_Player, 174544, true);   --野蛮咆哮
-				local hasgl = W_RetainBuff(NA_Target, -1079, true);   --割裂
-				local haslszdxj = W_RetainBuff(NA_Player, 16974, true);   --掠食者的迅捷
-				local hasxxzj = W_RetainBuff(NA_Player, 155672, true);   --血腥爪击
+        local hasgl = W_RetainBuff(NA_Target, -1079, true);   --割裂
 				local hasqxyz = W_RetainBuff(NA_Player, 16864, true);   --清晰预兆
-				
+				local hasComboPoints = UnitPower(NA_Player,4)==5 or (NA_IsSolo and not NA_IsMaxDps and UnitPower(NA_Player,4)>2)
 				
 				
         
         if(not NA_IsAOE and (false
-					or NA_Fire(not inCat, '768', NA_Player) --猎豹形态
-					or NA_Fire(inCat and NA_isUsableTalentSpell(1,3), '102401', NA_Target) --野性冲锋
-					or NA_Fire(inCat and W_RetainBuff(NA_Player, 5215, true) or W_RetainBuff(NA_Player, 58984, true), '1822', NA_Target) --斜掠
-					or NA_Fire(inCat and NA_isUsableTalentSpell(4,3), '102703', NA_Player) --自然之力
-					or NA_Fire(inCat and (not hasqxyz and UnitPower(NA_Player,3)>=60) or (UnitPowerMax(NA_Player,3)-UnitPower(NA_Player,3))>=80, '5217', NA_Player) --猛虎之怒
-					or NA_Fire(inCat and NA_isUsableTalentSpell(4,2) and W_GetSpellCooldown(106952)<10 and UnitPower(NA_Player,3)<=90, '102543', NA_Player) --化身：丛林之王
-					or NA_Fire(inCat and W_RetainBuff(NA_Player, 5217, true), '106952', NA_Player) --狂暴
-					or NA_Fire(W_RetainBuff(NA_Target, -1079, true) and W_BuffTime(NA_Target,-1079)<3 and W_HPlevel(NA_Target)<0.25, '22568', NA_Target) --凶猛撕咬
-					or NA_Fire(NA_isUsableTalentSpell(7,2) and W_RetainBuff(NA_Player, 69369, true) and (UnitPower(NA_Player,4)>=4 or W_BuffTime(NA_Player,16974)<1.5), '5185', NA_Player) --治疗之触
-					or NA_Fire(not hasympx or W_BuffTime(NA_Player,174544)<3, '52610', NA_Player) --野蛮咆哮
-					or NA_Fire(hasqxyz and W_BuffTime(NA_Target,-106832)<4.5, '106832', NA_Target) --痛击
-					or NA_Fire(not NA_isUsableTalentSpell(7,2) and UnitPower(NA_Player,4)==5 and hasqxyz and W_BuffTime(NA_Target,-106832)<4.5, '106832', NA_Target) --痛击
-					or NA_Fire(W_BuffTime(NA_Target,-106832)<4.5, '106832', NA_Target) --痛击
-					or NA_Fire(UnitPower(NA_Player,4)==5 and W_HPlevel(NA_Target)<0.25 and W_RetainBuff(NA_Target, -1079, true), '22568', NA_Target) --凶猛撕咬
-					or NA_Fire(UnitPower(NA_Player,4)==5 and W_BuffTime(NA_Target,-1079)<3, '1079', NA_Target) --割裂
-					or NA_Fire(UnitPower(NA_Player,4)==5 and W_BuffTime(NA_Target,-1079)<7.2, '1079', NA_Target) --割裂
-					or NA_Fire(UnitPower(NA_Player,4)==5 and (UnitPower(NA_Player,3)<=90 or W_RetainBuff(NA_Player, 106952, true) or W_GetSpellCooldown(5217)<3) and W_BuffTime(NA_Player,174544)<12.6, '52610', NA_Player) --野蛮咆哮
-					or NA_Fire(UnitPower(NA_Player,4)==5 and (UnitPower(NA_Player,3)<=90 or W_RetainBuff(NA_Player, 106952, true) or W_GetSpellCooldown(5217)<3), '22568', NA_Target) --凶猛撕咬
-					or NA_Fire(not NA_isUsableTalentSpell(7,2) and W_BuffTime(NA_Target,-1822)<3 and UnitPower(NA_Player,4)<5, '1822', NA_Target) --斜掠
-					or NA_Fire(NA_isUsableTalentSpell(7,2) and W_BuffTime(NA_Target,-1822)<4.5 and UnitPower(NA_Player,4)<5 and (not haslszdxj or hasxxzj), '1822', NA_Target) --斜掠
-					or NA_Fire(NA_isUsableTalentSpell(7,2) and UnitPower(NA_Player,4)==5 and hasqxyz and W_BuffTime(NA_Target,-106832)<4.5, '106832', NA_Target) --痛击
-					or NA_Fire(NA_isUsableTalentSpell(7,2) and UnitPower(NA_Player,4)==5 and hasqxyz and W_BuffTime(NA_Target,-106832)<4.5, '8921', NA_Target) --月火术
-					or NA_Fire(UnitPower(NA_Player,4)<5, '1822', NA_Target) --斜掠
-					or NA_Fire(UnitPower(NA_Player,4)<5, '106785', NA_Target) --横扫
-					or NA_Fire(UnitPower(NA_Player,4)<5, '5221', NA_Target) --撕碎
+					or NA_Fire(NA_IsMaxDps, '106952', NA_Player) --狂暴
+					or NA_Fire(NA_IsMaxDps, '108292', NA_Player) --野性之心
+					or NA_Fire(not W_HasBuff(NA_Player, 52610, true), '52610', NA_Player) --野蛮咆哮
+					or NA_Fire(not hasgl and hasComboPoints, '1079', NA_Target) --割裂
+					or NA_Fire(hasqxyz, '106832', NA_Target) --痛击
+					or NA_Fire(W_PowerLevel(NA_Player)<0.6, '5217', NA_Player) --猛虎之怒
+					or NA_Fire(hasComboPoints, '22568', NA_Target) --凶猛撕咬
+					or NA_Fire(NA_isUsableTalentSpell(7,1) and not W_RetainBuff(NA_Target, -155625, true), '155625', NA_Target) --月火术
+					or NA_Fire(not W_RetainBuff(NA_Target, -5215, true), '1822', NA_Target) --斜掠
+					or NA_Fire(UnitPower(NA_Player,4)<5 or W_RetainBuff(NA_Player, 58984, true), '5221', NA_Target) --撕碎
 
           or NA_fireByOvale()
         ))then return true; end
 
         if(NA_IsAOE and (false
+					or NA_Fire(UnitPower(NA_Player,4)<5, '106785', NA_Target) --横扫
 
           or NA_fireByOvale()
         ))then return true; end
@@ -240,8 +222,10 @@ function NA11Dps()
     elseif(NA_ProfileNo == 1)then --Cat
       
       if(false
-					or NA_Fire(select(3,UnitStat(NA_Player,1))==0, '1126', NA_Player) --野性印记
-					or NA_Fire(not W_HasBuff(NA_Player, 5215, true), '5215', NA_Player) --潜行
+					or NA_Fire(not W_HasBuff(NA_Player, 1126, true), '1126', NA_Player) --野性印记
+					or NA_Fire(not W_HasBuff(NA_Player, 5215, true) and W_TargetCanAttack(), '5215', NA_Player) --潜行
+					or NA_Fire(true and W_TargetCanAttack(), '106839', NA_Target) --迎头痛击
+					or NA_Fire(true and W_TargetCanAttack(), '1822', NA_Target) --斜掠
 
       )then return true; end
     elseif(NA_ProfileNo == 2)then --Restoration

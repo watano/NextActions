@@ -2,9 +2,14 @@ NA_Target = 'target';
 NA_Player = 'player';
 NA_Pet = 'pet';
 NA_Focus = 'focus';
+NA_lastMsg = '';
 
 function W_Log(level, msg)
   if(level >= NA_LogLevel and not NA_IsTest) then
+		if(NA_lastMsg == msg)then 
+			return;
+		end
+		NA_lastMsg = msg;
     if(level > 3)then
       UIErrorsFrame:AddMessage(msg);
     else
@@ -665,14 +670,16 @@ end
 --		actionUsable, actionShortcut, actionIsCurrent, actionEnable, actionType, actionId, actionTarget
 -- /script print(OV_fireAction(2));
 function OV_fireAction(index)
-  local OvAction = Ovale["OvaleCompile"].GetIconNodes()[index]["child"][1]["result"];
-  if(OvAction ~= nil and OvAction.actionUsable and OvAction.actionEnable == 1)then
-    if(OvAction.actionType == 'spell')then
-      --print(OvAction.actionId.."---"..OvAction.actionTarget);
-      return NA_FireSpell(OvAction.actionId..'', OvAction.actionTarget..'');
-    elseif(OvAction.actionType == "item") then
-      return NA_FireItem(OvAction.actionId, OvAction.actionTarget);
-    end
-  end
+	if(Ovale and Ovale["OvaleCompile"] and Ovale["OvaleCompile"].GetIconNodes() and Ovale["OvaleCompile"].GetIconNodes()[index])then 
+		local OvAction = Ovale["OvaleCompile"].GetIconNodes()[index]["child"][1]["result"];
+		if(OvAction ~= nil and OvAction.actionUsable and OvAction.actionEnable == 1)then
+			if(OvAction.actionType == 'spell')then
+				--print(OvAction.actionId.."---"..OvAction.actionTarget);
+				return NA_FireSpell(OvAction.actionId..'', OvAction.actionTarget..'');
+			elseif(OvAction.actionType == "item") then
+				return NA_FireItem(OvAction.actionId, OvAction.actionTarget);
+			end
+		end	
+	end
   return false;
 end

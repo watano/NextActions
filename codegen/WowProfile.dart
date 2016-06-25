@@ -70,6 +70,10 @@ String cmdCodes(List<CmdInfo> cmds) {
     String spellName = cmd.spell;
     if (spellInfo != null) {
       spellNo = spellInfo.spellID.toString();
+			//FIXME
+			if(spellNo == '8921' && currProfile.specName == 'Cat'){
+				spellNo = '155625';
+			}
       spellName = spellInfo.name;
     }
     actions.add(spellNo);
