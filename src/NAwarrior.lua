@@ -39,7 +39,8 @@ function NA1Dps()
       if(false
 					or NA_Fire(W_RetainBuff(NA_Target, 642, true) or W_RetainBuff(NA_Target, 45438, true), '64382', NA_Target) --碎裂投掷
 					or NA_Fire(not NA_IsMaxDps and W_HPlevel(NA_Player)<0.8, '34428', NA_Player) --乘胜追击
-					or NA_Fire(NA_IsSolo and W_HPlevel(NA_Player)<0.2, '103840', NA_Player) --胜利在望
+					or NA_Fire(NA_IsSolo and W_HPlevel(NA_Player)<0.2 and NA_isUsableTalentSpell(2,3), '103840', NA_Player) --胜利在望
+					or NA_Fire(W_PowerLevel(NA_Player) < 0.8, '23881', NA_Target) --嗜血
 
       )then return true; end
     elseif(NA_ProfileNo == 2)then --武器战
@@ -115,7 +116,7 @@ function NA1Dps()
 					or NA_Fire(NA_IsSolo and W_HPlevel(NA_Player)<0.2, '103840', NA_Player) --胜利在望
 					or NA_Fire(W_HPlevel(NA_Target)<0.2, '5308', NA_Target) --斩杀
 					or NA_Fire(W_PowerLevel(NA_Player) < 0.7, '23881', NA_Target) --嗜血
-					or NA_Fire(NA_IsMaxDps, '107570', NA_Target) --风暴之锤
+					or NA_Fire(NA_isUsableTalentSpell(4,1), '107570', NA_Target) --风暴之锤
 					or NA_Fire(W_HasBuff(NA_Player, 46916, true), '100130', NA_Target) --狂风打击
 					or NA_Fire(W_HPlevel(NA_Target)>0.2 and W_HasBuff(NA_Player, 131116, true), '85288', NA_Target) --怒击
 					or NA_Fire(W_HasBuff(NA_Player, 32216, true), '34428', NA_Target) --乘胜追击
@@ -123,7 +124,7 @@ function NA1Dps()
 					or NA_Fire(true, '100130', NA_Target) --狂风打击
 					or NA_Fire(true, '100', NA_Target) --冲锋
 					or NA_Fire(true, '57755', NA_Target) --英勇投掷
-					or NA_Fire(NA_IsSolo, '107570', NA_Target) --风暴之锤
+					or NA_Fire(true, '23881', NA_Target) --嗜血
 
           or NA_fireByOvale()
         ))then return true; end
@@ -132,13 +133,13 @@ function NA1Dps()
 					or NA_Fire(not NA_IsMaxDps and W_HPlevel(NA_Player)<0.8, '34428', NA_Player) --乘胜追击
 					or NA_Fire(NA_IsSolo and W_HPlevel(NA_Player)<0.2, '103840', NA_Player) --胜利在望
 					or NA_Fire(true, '5308', NA_Target) --斩杀
+					or NA_Fire(NA_isUsableTalentSpell(4,1), '107570', NA_Target) --风暴之锤
 					or NA_Fire(NA_IsMaxDps, '46924', NA_Target) --剑刃风暴
 					or NA_Fire(true, '1680', NA_Target) --旋风斩
 					or NA_Fire(W_PowerLevel(NA_Player) < 0.7, '23881', NA_Target) --嗜血
 					or NA_Fire(true, '100130', NA_Target) --狂风打击
 					or NA_Fire(true, '100', NA_Target) --冲锋
 					or NA_Fire(true, '57755', NA_Target) --英勇投掷
-					or NA_Fire(true, '107570', NA_Target) --风暴之锤
 
           or NA_fireByOvale()
         ))then return true; end

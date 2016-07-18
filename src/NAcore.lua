@@ -34,7 +34,6 @@ function NA_initClassData(className, profileNo)
     NA_Actions = getNA1Actions(profileNo);
     NA_ProfileName = NA1ProfileNames[profileNo];
     NA_MaxDps = NA1Dps;
-    NA_ProfileSize = 4;
   elseif(className == "PALADIN") then
     NA_Actions = getNA2Actions(profileNo);
     NA_ProfileName = NA2ProfileNames[profileNo];

@@ -5,7 +5,7 @@ function getNA11Actions(no)
   elseif(no == 1)then
     return {'106952','108292','52610','1079','106832','5217','22568','155625','1822','5221','106785','61336','22842','5185','1126','5215','106839'};
   elseif(no == 2)then
-    return {'5176','132158','5185','8936','774','33763','18562','102342','48438','145518','740','108294','22812','1126'};
+    return {'8921','5176','132158','5185','8936','774','33763','18562','102342','48438','145518','740','108294','22812','1126'};
   elseif(no == 3)then
     return {'124974','33831','78674','112071','102560','48505','152221','8921','5176','2912','22812','1126'};
   end
@@ -51,7 +51,7 @@ function NA11Dps()
       if(false
 					or NA_Fire(NA_checkHP(0), '61336', NA_Player) --生存本能
 					or NA_Fire(NA_checkHP(0), '22842', NA_Player) --狂暴回复
-					or NA_Fire(NA_checkHP(2) and W_HasBuff(NA_Player, 16974, true), '5185', NA_Player) --治疗之触
+					or NA_Fire(NA_checkHP(2) and W_HasBuff(NA_Player, 69369, true), '5185', NA_Player) --治疗之触
 
       )then return true; end
     elseif(NA_ProfileNo == 2)then --Restoration
@@ -97,7 +97,7 @@ function NA11Dps()
         if(not NA_IsAOE and (false
 					or NA_Fire(NA_IsMaxDps, '106952', NA_Player) --狂暴
 					or NA_Fire(NA_IsMaxDps, '108292', NA_Player) --野性之心
-					or NA_Fire(not W_HasBuff(NA_Player, 52610, true), '52610', NA_Player) --野蛮咆哮
+					or NA_Fire(not W_HasBuff(NA_Player, 52610, true), '52610', NA_Target) --野蛮咆哮
 					or NA_Fire(not hasgl and hasComboPoints, '1079', NA_Target) --割裂
 					or NA_Fire(hasqxyz, '106832', NA_Target) --痛击
 					or NA_Fire(W_PowerLevel(NA_Player)<0.6, '5217', NA_Player) --猛虎之怒
@@ -111,6 +111,11 @@ function NA11Dps()
 
         if(NA_IsAOE and (false
 					or NA_Fire(UnitPower(NA_Player,4)<5, '106785', NA_Target) --横扫
+					or NA_Fire(not hasgl and hasComboPoints, '1079', NA_Target) --割裂
+					or NA_Fire(hasComboPoints, '22568', NA_Target) --凶猛撕咬
+					or NA_Fire(NA_isUsableTalentSpell(7,1) and not W_RetainBuff(NA_Target, -155625, true), '155625', NA_Target) --月火术
+					or NA_Fire(not W_RetainBuff(NA_Target, -5215, true), '1822', NA_Target) --斜掠
+					or NA_Fire(UnitPower(NA_Player,4)<5 or W_RetainBuff(NA_Player, 58984, true), '5221', NA_Target) --撕碎
 
           or NA_fireByOvale()
         ))then return true; end
@@ -119,6 +124,7 @@ function NA11Dps()
 				
         
         if(not NA_IsAOE and (false
+					or NA_Fire(not W_RetainBuff(NA_Target, -164812, true), '8921', NA_Target) --月火术
 					or NA_Fire(NA_isUsableTalentSpell(7,2), '5176', NA_Target) --愤怒
 
           or NA_fireByOvale()
