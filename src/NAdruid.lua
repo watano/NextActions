@@ -1,13 +1,13 @@
 function getNA11Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'5487','61336','99','62606','22812','155835','106952','22842','102351','108238','108293','774','124974','5185','1126','102401'};
+    return {'5487','61336','99','野蛮防御','22812','155835','狂暴','22842','塞纳里奥结界','108238','野性之心','回春术','自然的守护','5185','野性印记','102401'};
   elseif(no == 1)then
-    return {'106952','108292','52610','1079','106832','5217','22568','155625','1822','5221','106785','61336','22842','5185','1126','5215','106839'};
+    return {'106951','野性之心','52610','1079','106832','5217','22568','164812','1822','5221','213764','61336','狂暴回复','5185','野性印记','5215','106839'};
   elseif(no == 2)then
-    return {'8921','5176','132158','5185','8936','774','33763','18562','102342','48438','145518','740','108294','22812','1126'};
+    return {'164812','愤怒','自然迅捷','5185','8936','774','33763','18562','102342','48438','源生','740','野性之心','22812','野性印记'};
   elseif(no == 3)then
-    return {'124974','33831','78674','112071','102560','48505','152221','8921','5176','2912','22812','1126'};
+    return {'自然的守护','205636','78674','194223','102560','191034','202347','164812','愤怒','星火术','22812','野性印记'};
   end
   return {};
 end
@@ -33,16 +33,16 @@ function NA11Dps()
 					or NA_Fire(not inBear, '5487', NA_Player) --熊形态
 					or NA_Fire(NA_checkHP(0), '61336', NA_Player) --生存本能
 					or NA_Fire(inBear and NA_isUsableTalentSpell(5,1), '99', NA_Target) --夺魂咆哮
-					or NA_Fire(NA_checkHP(2) and not W_RetainBuff(NA_Player, 22812, true), '62606', NA_Player) --野蛮防御
+					or NA_Fire(NA_checkHP(2) and not W_RetainBuff(NA_Player, 22812, true), '野蛮防御', NA_Player) --野蛮防御
 					or NA_Fire(NA_checkHP(2) and not W_RetainBuff(NA_Player, 155835, true), '22812', NA_Player) --树皮术
 					or NA_Fire(NA_checkHP(2) and not W_RetainBuff(NA_Player, 62606, true) and not W_RetainBuff(NA_Player, 22812, true) and NA_isUsableTalentSpell(7,3), '155835', NA_Player) --鬃毛倒竖
-					or NA_Fire(W_BuffTime(NA_Player,80313)>10, '106952', NA_Player) --狂暴
+					or NA_Fire(W_BuffTime(NA_Player,80313)>10, '狂暴', NA_Player) --狂暴
 					or NA_Fire(NA_checkHP(2) and UnitPower(NA_Player,1)>=80, '22842', NA_Player) --狂暴回复
-					or NA_Fire(NA_checkHP(2) and NA_isUsableTalentSpell(2,3), '102351', NA_Player) --塞纳里奥结界
+					or NA_Fire(NA_checkHP(2) and NA_isUsableTalentSpell(2,3), '塞纳里奥结界', NA_Player) --塞纳里奥结界
 					or NA_Fire(NA_checkHP(0) and NA_isUsableTalentSpell(2,2), '108238', NA_Player) --新生
-					or NA_Fire(NA_checkHP(2) and NA_isUsableTalentSpell(6,1), '108293', NA_Player) --野性之心
-					or NA_Fire(yxhc and W_BuffTime(NA_Player, 774, true)<=3.6, '774', NA_Player) --回春术
-					or NA_Fire(NA_checkHP(2) and NA_isUsableTalentSpell(6,3), '124974', NA_Player) --自然的守护
+					or NA_Fire(NA_checkHP(2) and NA_isUsableTalentSpell(6,1), '野性之心', NA_Player) --野性之心
+					or NA_Fire(yxhc and W_BuffTime(NA_Player, 774, true)<=3.6, '回春术', NA_Player) --回春术
+					or NA_Fire(NA_checkHP(2) and NA_isUsableTalentSpell(6,3), '自然的守护', NA_Player) --自然的守护
 					or NA_Fire(NA_checkHP(2) and NA_isUsableTalentSpell(6,2) and W_RetainBuff(NA_Player, 158501, true), '5185', NA_Player) --治疗之触
 
       )then return true; end
@@ -50,7 +50,7 @@ function NA11Dps()
       
       if(false
 					or NA_Fire(NA_checkHP(0), '61336', NA_Player) --生存本能
-					or NA_Fire(NA_checkHP(0), '22842', NA_Player) --狂暴回复
+					or NA_Fire(NA_checkHP(0), '狂暴回复', NA_Player) --狂暴回复
 					or NA_Fire(NA_checkHP(2) and W_HasBuff(NA_Player, 69369, true), '5185', NA_Player) --治疗之触
 
       )then return true; end
@@ -95,14 +95,14 @@ function NA11Dps()
 				
         
         if(not NA_IsAOE and (false
-					or NA_Fire(NA_IsMaxDps, '106952', NA_Player) --狂暴
-					or NA_Fire(NA_IsMaxDps, '108292', NA_Player) --野性之心
+					or NA_Fire(NA_IsMaxDps, '106951', NA_Player) --狂暴
+					or NA_Fire(NA_IsMaxDps, '野性之心', NA_Player) --野性之心
 					or NA_Fire(not W_HasBuff(NA_Player, 52610, true), '52610', NA_Target) --野蛮咆哮
 					or NA_Fire(not hasgl and hasComboPoints, '1079', NA_Target) --割裂
 					or NA_Fire(hasqxyz, '106832', NA_Target) --痛击
 					or NA_Fire(W_PowerLevel(NA_Player)<0.6, '5217', NA_Player) --猛虎之怒
 					or NA_Fire(hasComboPoints, '22568', NA_Target) --凶猛撕咬
-					or NA_Fire(NA_isUsableTalentSpell(7,1) and not W_RetainBuff(NA_Target, -155625, true), '155625', NA_Target) --月火术
+					or NA_Fire(NA_isUsableTalentSpell(7,1) and not W_RetainBuff(NA_Target, -155625, true), '164812', NA_Target) --月火术
 					or NA_Fire(not W_RetainBuff(NA_Target, -5215, true), '1822', NA_Target) --斜掠
 					or NA_Fire(UnitPower(NA_Player,4)<5 or W_RetainBuff(NA_Player, 58984, true), '5221', NA_Target) --撕碎
 
@@ -110,10 +110,10 @@ function NA11Dps()
         ))then return true; end
 
         if(NA_IsAOE and (false
-					or NA_Fire(UnitPower(NA_Player,4)<5, '106785', NA_Target) --横扫
+					or NA_Fire(UnitPower(NA_Player,4)<5, '213764', NA_Target) --横扫
 					or NA_Fire(not hasgl and hasComboPoints, '1079', NA_Target) --割裂
 					or NA_Fire(hasComboPoints, '22568', NA_Target) --凶猛撕咬
-					or NA_Fire(NA_isUsableTalentSpell(7,1) and not W_RetainBuff(NA_Target, -155625, true), '155625', NA_Target) --月火术
+					or NA_Fire(NA_isUsableTalentSpell(7,1) and not W_RetainBuff(NA_Target, -155625, true), '164812', NA_Target) --月火术
 					or NA_Fire(not W_RetainBuff(NA_Target, -5215, true), '1822', NA_Target) --斜掠
 					or NA_Fire(UnitPower(NA_Player,4)<5 or W_RetainBuff(NA_Player, 58984, true), '5221', NA_Target) --撕碎
 
@@ -124,8 +124,8 @@ function NA11Dps()
 				
         
         if(not NA_IsAOE and (false
-					or NA_Fire(not W_RetainBuff(NA_Target, -164812, true), '8921', NA_Target) --月火术
-					or NA_Fire(NA_isUsableTalentSpell(7,2), '5176', NA_Target) --愤怒
+					or NA_Fire(not W_RetainBuff(NA_Target, -164812, true), '164812', NA_Target) --月火术
+					or NA_Fire(NA_isUsableTalentSpell(7,2), '愤怒', NA_Target) --愤怒
 
           or NA_fireByOvale()
         ))then return true; end
@@ -147,18 +147,18 @@ function NA11Dps()
 				
         
         if(not NA_IsAOE and (false
-					or NA_Fire(NA_isUsableTalentSpell(6,3), '124974', NA_Player) --自然的守护
-					or NA_Fire(NA_isUsableTalentSpell(4,3), '33831', NA_Player) --自然之力
+					or NA_Fire(NA_isUsableTalentSpell(6,3), '自然的守护', NA_Player) --自然的守护
+					or NA_Fire(NA_isUsableTalentSpell(4,3), '205636', NA_Player) --自然之力
 					or NA_Fire(not rgzx and UnitPower(NA_Player,8)>20, '78674', NA_Target) --星涌术
 					or NA_Fire(not ygzx and UnitPower(NA_Player,8)<-40, '78674', NA_Target) --星涌术
 					or NA_Fire(true, '78674', NA_Target) --星涌术
-					or NA_Fire(UnitPower(NA_Player,8)>40, '112071', NA_Player) --超凡之盟
+					or NA_Fire(UnitPower(NA_Player,8)>40, '194223', NA_Player) --超凡之盟
 					or NA_Fire(NA_isUsableTalentSpell(4,2) and UnitPower(NA_Player,8)>0, '102560', NA_Player) --化身：艾露恩之眷
-					or NA_Fire(not W_RetainBuff(NA_player, 48505, true), '48505', NA_Player) --星辰坠落
-					or NA_Fire(NA_isUsableTalentSpell(7,2) and W_BuffTime(NA_Target,-152221)<7, '152221', NA_Target) --星辰耀斑
-					or NA_Fire(UnitPower(NA_Player,8)<=0 and (yzd and W_BuffTime(NA_Target,-164812)<24) or W_BuffTime(NA_Target,-164812)<4 or (cfzm and W_BuffTime(NA_Player,112071)<=2 and W_BuffTime(NA_Target,-164812)<24) or not yhsdot, '8921', NA_Target) --月火术
-					or NA_Fire(UnitPower(NA_Player,8)>=25 and UnitPower(NA_Player,8)<=100, '5176', NA_Target) --愤怒
-					or NA_Fire(UnitPower(NA_Player,8)<=25 and UnitPower(NA_Player,8)>=-100, '2912', NA_Target) --星火术
+					or NA_Fire(not W_RetainBuff(NA_player, 48505, true), '191034', NA_Player) --星辰坠落
+					or NA_Fire(NA_isUsableTalentSpell(7,2) and W_BuffTime(NA_Target,-152221)<7, '202347', NA_Target) --星辰耀斑
+					or NA_Fire(UnitPower(NA_Player,8)<=0 and (yzd and W_BuffTime(NA_Target,-164812)<24) or W_BuffTime(NA_Target,-164812)<4 or (cfzm and W_BuffTime(NA_Player,112071)<=2 and W_BuffTime(NA_Target,-164812)<24) or not yhsdot, '164812', NA_Target) --月火术
+					or NA_Fire(UnitPower(NA_Player,8)>=25 and UnitPower(NA_Player,8)<=100, '愤怒', NA_Target) --愤怒
+					or NA_Fire(UnitPower(NA_Player,8)<=25 and UnitPower(NA_Player,8)>=-100, '星火术', NA_Target) --星火术
 
           or NA_fireByOvale()
         ))then return true; end
@@ -193,7 +193,7 @@ function NA11Dps()
 				
 				
         if(false
-					or NA_Fire(W_HPlevel(NA_Target)<0.7, '132158', NA_Player) --自然迅捷
+					or NA_Fire(W_HPlevel(NA_Target)<0.7, '自然迅捷', NA_Player) --自然迅捷
 					or NA_Fire(W_HPlevel(NA_Target)<0.7 and zrxj, '5185', NA_Target) --治疗之触
 					or NA_Fire(W_HPlevel(NA_Target)<0.7 and zrxj, '8936', NA_Target) --愈合
 					or NA_Fire(W_HPlevel(NA_Target)<1 and not hcs, '774', NA_Target) --回春术
@@ -203,9 +203,9 @@ function NA11Dps()
 					or NA_Fire(W_HPlevel(NA_Target)<0.7, '5185', NA_Target) --治疗之触
 					or NA_Fire(W_HPlevel(NA_Target)<0.5, '102342', NA_Target) --铁木树皮
 					or NA_Fire(W_HPlevel(NA_Target)<0.5, '48438', NA_Target) --野性成长
-					or NA_Fire(W_HPlevel(NA_Target)<0.5, '145518', NA_Target) --源生
+					or NA_Fire(W_HPlevel(NA_Target)<0.5, '源生', NA_Target) --源生
 					or NA_Fire(NA_IsMaxDps and W_HPlevel(NA_Target)<0.5, '740', NA_Player) --宁静
-					or NA_Fire(NA_IsMaxDps and W_HPlevel(NA_Target)<0.5 and NA_isUsableTalentSpell(6,1), '108294', NA_Player) --野性之心
+					or NA_Fire(NA_IsMaxDps and W_HPlevel(NA_Target)<0.5 and NA_isUsableTalentSpell(6,1), '野性之心', NA_Player) --野性之心
 
         )then return true; end
       elseif(NA_ProfileNo == 3)then --Balance
@@ -221,14 +221,14 @@ function NA11Dps()
     elseif(NA_ProfileNo == 0)then --Bear
       
       if(false
-					or NA_Fire(select(3,UnitStat(NA_Player,1))==0, '1126', NA_Player) --野性印记
+					or NA_Fire(select(3,UnitStat(NA_Player,1))==0, '野性印记', NA_Player) --野性印记
 					or NA_Fire(W_TargetCanAttack(), '102401', NA_Target) --野性冲锋
 
       )then return true; end
     elseif(NA_ProfileNo == 1)then --Cat
       
       if(false
-					or NA_Fire(not W_HasBuff(NA_Player, 1126, true), '1126', NA_Player) --野性印记
+					or NA_Fire(not W_HasBuff(NA_Player, 1126, true), '野性印记', NA_Player) --野性印记
 					or NA_Fire(not W_HasBuff(NA_Player, 5215, true) and W_TargetCanAttack(), '5215', NA_Player) --潜行
 					or NA_Fire(true and W_TargetCanAttack(), '106839', NA_Target) --迎头痛击
 					or NA_Fire(true and W_TargetCanAttack(), '1822', NA_Target) --斜掠
@@ -237,14 +237,14 @@ function NA11Dps()
     elseif(NA_ProfileNo == 2)then --Restoration
       
       if(false
-					or NA_Fire(select(3,UnitStat(NA_Player,1))==0, '1126', NA_Player) --野性印记
+					or NA_Fire(select(3,UnitStat(NA_Player,1))==0, '野性印记', NA_Player) --野性印记
 
       )then return true; end
     elseif(NA_ProfileNo == 3)then --Balance
       
       if(false
-					or NA_Fire(select(3,UnitStat(NA_Player,1))==0, '1126', NA_Player) --野性印记
-					or NA_Fire(W_TargetCanAttack(), '8921', NA_Target) --月火术
+					or NA_Fire(select(3,UnitStat(NA_Player,1))==0, '野性印记', NA_Player) --野性印记
+					or NA_Fire(W_TargetCanAttack(), '164812', NA_Target) --月火术
 
       )then return true; end
     end
