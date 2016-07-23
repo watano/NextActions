@@ -54,7 +54,6 @@ function NA_initClassData(className, profileNo)
     NA_Actions = getNA6Actions(profileNo);
     NA_ProfileName = NA6ProfileNames[profileNo];
     NA_MaxDps = NA6Dps;
-    NA_ProfileSize = 4;
   elseif(className == "SHAMAN") then
     NA_Actions = getNA7Actions(profileNo);
     NA_ProfileName = NA7ProfileNames[profileNo];

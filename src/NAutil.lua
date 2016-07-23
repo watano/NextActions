@@ -1,5 +1,6 @@
 NA_Target = 'target';
 NA_Player = 'player';
+NA_Nil = nil;
 NA_Pet = 'pet';
 NA_Focus = 'focus';
 NA_lastMsg = '';
@@ -563,6 +564,8 @@ function NA_checkHP(index)
     return W_HPlevel(NA_Player) < 0.6 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.7);
   elseif(index == 2)then --一般伤
     return W_HPlevel(NA_Player) < 0.9 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.9);
+  elseif(index == 3)then --伤
+    return W_HPlevel(NA_Player) < 1 or (NA_IsSolo and not NA_IsMaxDps and W_HPlevel(NA_Player) < 0.9);
   else
     return false;
   end
