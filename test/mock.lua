@@ -12,6 +12,7 @@ MockUserInfo={
 			{"熔岩护甲", 2, "", 0, 0, 0},
 			{"杀戮机器", 2, "", 0, 0, 0},
 		},
+		specialization=1,
 		debuff={
 			{"火球!", 2, "", 0, 0, 0, 0, 0, 0},
 		},
@@ -84,7 +85,7 @@ function UnitExists(UnitId)
 	return true;
 end
 
-function UnitCanAttack(UnitId)
+function UnitCanAttack(UnitId, u2)
 	return 1;
 end
 
@@ -96,7 +97,7 @@ function UnitInVehicle(UnitId)
 	return false;
 end
 
-function UnitPower(UnitId)
+function UnitPower(UnitId, u)
 	return 1000;
 end
 
@@ -231,4 +232,8 @@ end
 
 function GetTalentInfo(tier,column,activeSpecGroup)
 	return 1111, 'name', 'texture', true, true;
+end
+
+function GetSpecialization()
+	return MockUserInfo.player.specialization;
 end

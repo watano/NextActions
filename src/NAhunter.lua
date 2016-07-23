@@ -52,7 +52,7 @@ function NA3Dps()
         if(not NA_IsAOE and (false
 					or NA_Fire(W_HPlevel(NA_Pet)>0 and W_HPlevel(NA_Pet) < 0.5 and not W_HasBuff(NA_Pet, 136, true), '136', NA_Pet) --治疗宠物
 					or NA_Fire(W_HPlevel(NA_Pet)<=0, '982', NA_Pet) --复活宠物
-					or NA_Fire(true, '193530', NA_Target) --野性守护
+					or NA_Fire(true, '193530', NA_Player) --野性守护
 					or NA_Fire(W_PowerLevel(NA_Player)>0.7 and W_HPlevel(NA_Pet) > 0, '19574', NA_Pet) --狂野怒火
 					or NA_Fire(true, '34026', NA_Target) --杀戮命令
 					or NA_Fire(true, '120679', NA_Target) --凶暴野兽

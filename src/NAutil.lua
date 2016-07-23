@@ -101,6 +101,14 @@ function NA_ClearAction()
   NA_ShowVars(0);
 end
 
+function NA_test(cnd, yes, no)
+  if(NA_IsRunning == true)then
+  	return yes;
+  else
+  	return no;
+  end
+end
+
 function W_UnitBuff(isBuff, UnitId, i)
   if(isBuff)then
     return UnitBuff(UnitId, i);
@@ -177,8 +185,7 @@ function W_IsDeadTarget()
 end
 
 function W_TargetCanAttack()
-  if(not UnitIsDead(NA_Target) and UnitCanAttack(NA_Player,NA_Target) and
-    (UnitIsTapped(NA_Target) or UnitIsPlayer(NA_Target))) then
+  if(not UnitIsDead(NA_Target) and UnitCanAttack(NA_Player,NA_Target)) then
     return true;
   else
     return false
@@ -416,6 +423,7 @@ function w_GetComboPoints(unit)
   --return GetComboPoints(unit, 'target');
   return UnitPower(unit,4);
 end
+
 function W_SpellEnabled(spellID, UnitId)
   local spellInfo = NA_getSpellInfo(spellID);
   return (spellInfo ~= nil and spellInfo.keyNo ~= nil and W_IsUsableSpell(spellID, UnitId) and UnitIsVisible(UnitId));

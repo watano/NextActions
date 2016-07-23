@@ -1,8 +1,8 @@
 ## Author: watano(watano@qq.com)
-## Interface: 60000
+## Interface: 70000
 ## Title: NextActions
 ## Notes: wow自动施法按键助手 
-## Version: 6.0.3
+## Version: 7.0
 ## SavedVariablesPerCharacter: NA_Config
 NAutil.lua
 NAUIutil.lua

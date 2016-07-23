@@ -120,7 +120,9 @@ function NA_InitClass()
       if(spellInfoType == 1) then
         local name, rank, icon, castTime, minRange, maxRange;
         name, rank, icon, castTime, minRange, maxRange, _ = GetSpellInfo(tonumber(v));
-        if(name ~= nil) then
+        if(name == nil) then
+          W_Log(3,"GetSpellInfo error: ".. k);
+        elseif(name ~= nil and IsPlayerSpell(tonumber(v))) then
           NA_ClassInfo[v] = {};
           NA_ClassInfo[v]['spellID'] = tonumber(v);
           NA_ClassInfo[v]['name'] = name;
@@ -132,8 +134,6 @@ function NA_InitClass()
           W_Log(1,"NA_ClassInfo["..k.."]: ".. name);
           NA_ClassInfo[v]['keyNo'] = no;
           W_SetBinding(no, NA_ClassInfo[v].name, 1);
-        else
-          W_Log(3,"GetSpellInfo error: ".. k);
         end
       elseif(spellInfoType == 2)then --Item
         local name = strsub(v,1,strlen(v))
