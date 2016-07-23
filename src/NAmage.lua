@@ -11,6 +11,7 @@ function getNA8Actions(no)
 end
 
 NA8ProfileNames = {[0]='Arcane',[1]='Frost',[2]='Fire',};
+NA8ProfileDescriptions = {[0]='天赋:--属性:',[1]='天赋:--属性:',[2]='天赋:--属性:',};
 
 function NA8Dps()
   W_Log(1,"法师 dps");

@@ -11,6 +11,7 @@ function getNA4Actions(no)
 end
 
 NA4ProfileNames = {[0]='Assassination',[1]='Combat',[2]='Subtlety',};
+NA4ProfileDescriptions = {[0]='天赋:--属性:',[1]='天赋:--属性:',[2]='天赋:--属性:',};
 
 function NA4Dps()
   W_Log(1,"盗贼 dps");

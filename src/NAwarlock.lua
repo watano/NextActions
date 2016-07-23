@@ -11,6 +11,7 @@ function getNA9Actions(no)
 end
 
 NA9ProfileNames = {[0]='恶魔术',[1]='毁灭术',[2]='痛苦术',};
+NA9ProfileDescriptions = {[0]='天赋:--属性:',[1]='天赋:--属性:',[2]='天赋:--属性:',};
 
 function NA9Dps()
   W_Log(1,"术士 dps");

@@ -42,11 +42,13 @@ function NA_Option_Frame_OnLoad(self)
   local frameProfile = W_createNCBtn("cbtnNA_Profile", NA_ProfileSize, self,"P:", top, left);
 
   for i=0,NA_ProfileSize-1 do
-    getglobal("cbtnNA_Profile"..i):SetScript("OnClick",
+		local btnProfile = getglobal("cbtnNA_Profile"..i);
+    btnProfile:SetScript("OnClick",
       function(self, button, down)
         NA_Option_Frame_Update();
       end
     );
+		W_SetTooltip(btnProfile, NA_ProfileName, NA_ProfileDescriptions[i]);
   end
   NA_Option_Frame_Update();
   top = top - frameProfile:GetHeight();
@@ -59,7 +61,9 @@ function NA_Option_Frame_OnLoad(self)
         W_Log(3, "AOE mode enable!");
       end
     end
-  );
+  );	
+	W_SetTooltip(getglobal("cbtnNA_Flag"..0), "AOE", "A怪模式");
+
   getglobal("cbtnNA_Flag"..1):SetScript("OnClick",
     function(self, button, down)
       NA_IsMaxDps = self:GetChecked();
@@ -68,6 +72,8 @@ function NA_Option_Frame_OnLoad(self)
       end
     end
   );
+	W_SetTooltip(getglobal("cbtnNA_Flag"..1), "Max DPS", "最大化输出,使用长CD技能");
+
   getglobal("cbtnNA_Flag"..2):SetScript("OnClick",
     function(self, button, down)
       NA_IsSolo = self:GetChecked();
@@ -76,16 +82,17 @@ function NA_Option_Frame_OnLoad(self)
       end
     end
   );
+	W_SetTooltip(getglobal("cbtnNA_Flag"..2), "SOLO", "单刷模式,使用短CD技能,自动开怪,不嘲讽");
   --top = top - frameFlag:GetHeight();
 
   local spellLabel = self:CreateFontString("NA_SpellLabel","OVERLAY","GameFontNormal");
-  spellLabel:SetText("debug");
+  spellLabel:SetText("");
   spellLabel:SetTextColor(1,1,1,1);
   spellLabel:SetPoint("BOTTOMLEFT",frameFlag, "BOTTOMLEFT", 0, -18);
   spellLabel:SetHeight(20);
   spellLabel:SetWidth(100);
 
-  W_UpdateLabelText('NA_SpellLabel', "debug....");
+  W_UpdateLabelText('NA_SpellLabel', "....");
 
   self:SetHeight(top*-1+40);
   self:SetWidth(110);

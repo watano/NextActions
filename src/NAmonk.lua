@@ -11,6 +11,7 @@ function getNA10Actions(no)
 end
 
 NA10ProfileNames = {[0]='Brewmaster',[1]='Mistweaver',[2]='Battledancer',};
+NA10ProfileDescriptions = {[0]='天赋:--属性:',[1]='天赋:--属性:',[2]='天赋:--属性:',};
 
 function NA10Dps()
   W_Log(1,"武僧 dps");

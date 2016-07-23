@@ -64,3 +64,17 @@ function W_UpdateLabelText(id, label)
     obj:SetText(label);
   end
 end
+
+function W_SetTooltip(ui, title, msg)
+	ui:SetScript("OnEnter", function(self)
+    GameTooltip:SetOwner(ui, "ANCHOR_CURSOR", 50 , 50);
+    GameTooltip:SetText(title);
+		if(msg)then
+			GameTooltip:AddLine(msg);
+		end
+    GameTooltip:Show();
+  end);
+  ui:SetScript("OnLeave", function(self)
+    GameTooltip:Hide();
+  end);
+end

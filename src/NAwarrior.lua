@@ -11,6 +11,7 @@ function getNA1Actions(no)
 end
 
 NA1ProfileNames = {[0]='防战',[1]='狂暴战',[2]='武器战',};
+NA1ProfileDescriptions = {[0]='天赋:--属性:',[1]='天赋:1112311--属性:',[2]='天赋:--属性:',};
 
 function NA1Dps()
   W_Log(1,"战士 dps");

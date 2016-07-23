@@ -12,7 +12,8 @@ function getNA11Actions(no)
   return {};
 end
 
-NA11ProfileNames = {[0]='Bear',[1]='Cat',[2]='Restoration',[3]='Balance',};
+NA11ProfileNames = {[0]='熊德',[1]='貓德',[2]='恢复德',[3]='Balance',};
+NA11ProfileDescriptions = {[0]='天赋:--属性:',[1]='天赋:--属性:',[2]='天赋:--属性:精神>急速≥精通>暴击=溅射>全能',[3]='天赋:--属性:',};
 
 function NA11Dps()
   W_Log(1,"德鲁伊 dps");
@@ -27,7 +28,7 @@ function NA11Dps()
 	
   if(W_IsInCombat())then
     if(NA_ProfileNo < 0)then return false; --保命施法
-    elseif(NA_ProfileNo == 0)then --Bear
+    elseif(NA_ProfileNo == 0)then --熊德
       
       if(false
 					or NA_Fire(not inBear, '5487', NA_Player) --熊形态
@@ -46,7 +47,7 @@ function NA11Dps()
 					or NA_Fire(NA_checkHP(2) and NA_isUsableTalentSpell(6,2) and W_RetainBuff(NA_Player, 158501, true), '5185', NA_Player) --治疗之触
 
       )then return true; end
-    elseif(NA_ProfileNo == 1)then --Cat
+    elseif(NA_ProfileNo == 1)then --貓德
       
       if(false
 					or NA_Fire(NA_checkHP(0), '61336', NA_Player) --生存本能
@@ -54,7 +55,7 @@ function NA11Dps()
 					or NA_Fire(NA_checkHP(2) and W_HasBuff(NA_Player, 69369, true), '5185', NA_Player) --治疗之触
 
       )then return true; end
-    elseif(NA_ProfileNo == 2)then --Restoration
+    elseif(NA_ProfileNo == 2)then --恢复德
       
       if(false
 					or NA_Fire(NA_checkHP(1), '22812', NA_Player) --树皮术
@@ -70,7 +71,7 @@ function NA11Dps()
     end
     if(W_TargetCanAttack()) then  --攻击施法
       if(NA_ProfileNo < 0)then return false;
-      elseif(NA_ProfileNo == 0)then --Bear
+      elseif(NA_ProfileNo == 0)then --熊德
         local hasThrash = W_RetainBuff(NA_Target, -77758, true);   --痛击dot
 				local countLacerate = W_BuffCount(NA_Target, -33745, true);   --割伤dot
 				local hasFs = W_RetainBuff(NA_Player, 158792, true);   --粉碎buff
@@ -87,7 +88,7 @@ function NA11Dps()
 
           or NA_fireByOvale()
         ))then return true; end
-      elseif(NA_ProfileNo == 1)then --Cat
+      elseif(NA_ProfileNo == 1)then --貓德
         local hasgl = W_RetainBuff(NA_Target, -1079, true);   --割裂
 				local hasqxyz = W_RetainBuff(NA_Player, 16864, true);   --清晰预兆
 				local hasComboPoints = UnitPower(NA_Player,4)==5 or (NA_IsSolo and not NA_IsMaxDps and UnitPower(NA_Player,4)>2)
@@ -119,7 +120,7 @@ function NA11Dps()
 
           or NA_fireByOvale()
         ))then return true; end
-      elseif(NA_ProfileNo == 2)then --Restoration
+      elseif(NA_ProfileNo == 2)then --恢复德
         
 				
         
@@ -166,19 +167,19 @@ function NA11Dps()
       end
     elseif(UnitCanAssist(NA_Player, NA_Target))then --辅助施法
       if(NA_ProfileNo < 0)then return false;
-      elseif(NA_ProfileNo == 0)then --Bear
+      elseif(NA_ProfileNo == 0)then --熊德
         
 				
         if(false
 
         )then return true; end
-      elseif(NA_ProfileNo == 1)then --Cat
+      elseif(NA_ProfileNo == 1)then --貓德
         
 				
         if(false
 
         )then return true; end
-      elseif(NA_ProfileNo == 2)then --Restoration
+      elseif(NA_ProfileNo == 2)then --恢复德
         local hcs = W_RetainBuff(NA_Target, 774, true) or (NA_isUsableTalentSpell(7,2) and W_BuffCount(NA_Target, 774, true)<2);   --回春术 萌芽
 				local yh = W_RetainBuff(NA_Target, 8936, true);   --愈合
 				local smzf = W_RetainBuff(NA_Target, 33763, true);   --生命绽放
@@ -210,14 +211,14 @@ function NA11Dps()
     end
   else  --不在战斗中
     if(NA_ProfileNo < 0)then return false; --脱战后补buff，开怪等
-    elseif(NA_ProfileNo == 0)then --Bear
+    elseif(NA_ProfileNo == 0)then --熊德
       
       if(false
 					or NA_Fire(select(3,UnitStat(NA_Player,1))==0, '野性印记', NA_Player) --野性印记
 					or NA_Fire(W_TargetCanAttack(), '102401', NA_Target) --野性冲锋
 
       )then return true; end
-    elseif(NA_ProfileNo == 1)then --Cat
+    elseif(NA_ProfileNo == 1)then --貓德
       
       if(false
 					or NA_Fire(not W_HasBuff(NA_Player, 1126, true), '野性印记', NA_Player) --野性印记
@@ -226,7 +227,7 @@ function NA11Dps()
 					or NA_Fire(true and W_TargetCanAttack(), '1822', NA_Target) --斜掠
 
       )then return true; end
-    elseif(NA_ProfileNo == 2)then --Restoration
+    elseif(NA_ProfileNo == 2)then --恢复德
       
       if(false
 

@@ -9,6 +9,7 @@ class Profile {
   int profileID;
   String name;
   String specName;
+  String description;
   String commonCodes = '';
   Set<String> actions = new Set();
 
@@ -85,6 +86,7 @@ String cmdCodes(List<CmdInfo> cmds) {
 String classProfilesCodes() {
   String codeActions = '';
   String codeProfileNames = '';
+  String codeProfileDescriptions = '';
   String commonCodes = '';
 
   String attackAOECodes = '';
@@ -152,6 +154,7 @@ ${cmdCodes(p.keepBuffCmds)}
     return {${joinText2(actions.toList(), "'", "',", ",")}};
 ''';
     codeProfileNames += '[${p.profileID}]=\'${p.name}\',';
+    codeProfileDescriptions += '[${p.profileID}]=\'${p.description}\',';
     commonCodes += p.commonCodes;
     keepHPCodes += p.keepHPCodes;
     attackAOECodes += p.attackAOECodes;
@@ -172,6 +175,7 @@ ${codeActions}  end
 end
 
 NA${classInfo.classID}ProfileNames = {${codeProfileNames}};
+NA${classInfo.classID}ProfileDescriptions = {${codeProfileDescriptions}};
 
 function NA${classInfo.classID}Dps()
   W_Log(1,"${classInfo.cnName} dps");
@@ -278,6 +282,9 @@ Profile readProfileIni(String path){
         }
         if(name == 'specName'){
           p.specName = value;
+        }
+        if(name == 'description'){
+          p.description = value;
         }
         if(name == 'actions' && value.trim().length>0){
           p.actions.addAll(value.split(','));

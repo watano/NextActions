@@ -11,6 +11,7 @@ function getNA7Actions(no)
 end
 
 NA7ProfileNames = {[0]='Elemental',[1]='Enhancement',[2]='Restoration',};
+NA7ProfileDescriptions = {[0]='天赋:--属性:',[1]='天赋:--属性:',[2]='天赋:--属性:',};
 
 function NA7Dps()
   W_Log(1,"萨满 dps");

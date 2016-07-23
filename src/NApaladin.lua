@@ -11,6 +11,7 @@ function getNA2Actions(no)
 end
 
 NA2ProfileNames = {[0]='防骑',[1]='惩戒骑',[2]='奶骑',};
+NA2ProfileDescriptions = {[0]='天赋:--属性:',[1]='天赋:--属性:',[2]='天赋:--属性:',};
 
 function NA2Dps()
   W_Log(1,"圣骑士 dps");

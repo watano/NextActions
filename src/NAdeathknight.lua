@@ -10,7 +10,8 @@ function getNA6Actions(no)
   return {};
 end
 
-NA6ProfileNames = {[0]='Two-Handed Frost',[1]='Blood',[2]='Unholy',};
+NA6ProfileNames = {[0]='冰DK',[1]='血DK',[2]='邪DK',};
+NA6ProfileDescriptions = {[0]='天赋:--属性:',[1]='天赋:--属性:',[2]='天赋:--属性:',};
 
 function NA6Dps()
   W_Log(1,"死亡骑士 dps");
@@ -22,7 +23,7 @@ function NA6Dps()
 	
   if(W_IsInCombat())then
     if(NA_ProfileNo < 0)then return false; --保命施法
-    elseif(NA_ProfileNo == 0)then --Two-Handed Frost
+    elseif(NA_ProfileNo == 0)then --冰DK
       
       if(false
 					or NA_Fire(NA_checkHP(2), '49998', NA_Target) --灵界打击
@@ -30,7 +31,7 @@ function NA6Dps()
 					or NA_Fire(NA_checkHP(0), '48792', NA_Player) --冰封之韧
 
       )then return true; end
-    elseif(NA_ProfileNo == 1)then --Blood
+    elseif(NA_ProfileNo == 1)then --血DK
       
       if(false
 					or NA_Fire(NA_checkHP(2), '49998', NA_Target) --灵界打击
@@ -39,7 +40,7 @@ function NA6Dps()
 					or NA_Fire(countBoneshield > 5, '219809', NA_Player) --墓石
 
       )then return true; end
-    elseif(NA_ProfileNo == 2)then --Unholy
+    elseif(NA_ProfileNo == 2)then --邪DK
       
       if(false
 
@@ -48,7 +49,7 @@ function NA6Dps()
     end
     if(W_TargetCanAttack()) then  --攻击施法
       if(NA_ProfileNo < 0)then return false;
-      elseif(NA_ProfileNo == 0)then --Two-Handed Frost
+      elseif(NA_ProfileNo == 0)then --冰DK
         local ff = W_RetainBuff(NA_Target, -155159, true) or W_RetainBuff(NA_Target, -55095, true); --死疽/冰霜疫病
 				local ds = W_HasBuff(NA_Player, 101568, true);  --黑暗援助
 				local hasRime = W_HasBuff(NA_Player, 59052, true);   --白霜
@@ -74,7 +75,7 @@ function NA6Dps()
 
           or NA_fireByOvale()
         ))then return true; end
-      elseif(NA_ProfileNo == 1)then --Blood
+      elseif(NA_ProfileNo == 1)then --血DK
         local dp = W_RetainBuff(NA_Target, -155159, true) or W_RetainBuff(NA_Target, -55078, true); --死疽/血之疫病
 				local hasCrimsonScourge = W_HasBuff(NA_Player, 81141, true);    --赤色天灾
 				local kwdl = W_HasBuff(NA_Player, 81141, true);  --枯萎凋零
@@ -100,7 +101,7 @@ function NA6Dps()
 
           or NA_fireByOvale()
         ))then return true; end
-      elseif(NA_ProfileNo == 2)then --Unholy
+      elseif(NA_ProfileNo == 2)then --邪DK
         
 				
         
@@ -116,21 +117,21 @@ function NA6Dps()
       end
     elseif(UnitCanAssist(NA_Player, NA_Target))then --辅助施法
       if(NA_ProfileNo < 0)then return false;
-      elseif(NA_ProfileNo == 0)then --Two-Handed Frost
+      elseif(NA_ProfileNo == 0)then --冰DK
         
 				
         if(false
 					or NA_Fire(UnitIsDead(NA_Target), '61999', NA_Target) --复活盟友
 
         )then return true; end
-      elseif(NA_ProfileNo == 1)then --Blood
+      elseif(NA_ProfileNo == 1)then --血DK
         
 				
         if(false
 					or NA_Fire(UnitIsDead(NA_Target), '61999', NA_Target) --复活盟友
 
         )then return true; end
-      elseif(NA_ProfileNo == 2)then --Unholy
+      elseif(NA_ProfileNo == 2)then --邪DK
         
 				
         if(false
@@ -141,14 +142,14 @@ function NA6Dps()
     end
   else  --不在战斗中
     if(NA_ProfileNo < 0)then return false; --脱战后补buff，开怪等
-    elseif(NA_ProfileNo == 0)then --Two-Handed Frost
+    elseif(NA_ProfileNo == 0)then --冰DK
       
       if(false
 					or NA_Fire(NA_IsSolo and W_TargetCanAttack(), '49143', NA_Target) --冰霜打击
 					or NA_Fire(NA_IsSolo and W_TargetCanAttack(), '49576', NA_Target) --死亡之握
 
       )then return true; end
-    elseif(NA_ProfileNo == 1)then --Blood
+    elseif(NA_ProfileNo == 1)then --血DK
       
       if(false
 					or NA_Fire(NA_IsSolo and W_TargetCanAttack(), '206930', NA_Target) --心脏打击
@@ -157,7 +158,7 @@ function NA6Dps()
 					or NA_Fire(countBoneshield > 5, '219809', NA_Player) --墓石
 
       )then return true; end
-    elseif(NA_ProfileNo == 2)then --Unholy
+    elseif(NA_ProfileNo == 2)then --邪DK
       
       if(false
 

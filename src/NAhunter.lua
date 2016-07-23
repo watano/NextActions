@@ -10,7 +10,8 @@ function getNA3Actions(no)
   return {};
 end
 
-NA3ProfileNames = {[0]='Beastmaster',[1]='Marksman',[2]='Survival',};
+NA3ProfileNames = {[0]='兽王猎',[1]='射击猎',[2]='生存猎',};
+NA3ProfileDescriptions = {[0]='天赋:3112112--属性:急速>暴击>精通>全能',[1]='天赋:--属性:',[2]='天赋:--属性:溅射>暴击≈全能>精通>急速',};
 
 function NA3Dps()
   W_Log(1,"猎人 dps");
@@ -20,21 +21,21 @@ function NA3Dps()
 	
   if(W_IsInCombat())then
     if(NA_ProfileNo < 0)then return false; --保命施法
-    elseif(NA_ProfileNo == 0)then --Beastmaster
+    elseif(NA_ProfileNo == 0)then --兽王猎
       
       if(false
 					or NA_Fire(W_HPlevel(NA_Pet)>0 and W_HPlevel(NA_Pet) < 0.5 and not W_HasBuff(NA_Pet, 136, true), '136', NA_Pet) --治疗宠物
 					or NA_Fire(W_HPlevel(NA_Pet)<=0, '982', NA_Pet) --复活宠物
 
       )then return true; end
-    elseif(NA_ProfileNo == 1)then --Marksman
+    elseif(NA_ProfileNo == 1)then --射击猎
       
       if(false
 					or NA_Fire(W_HPlevel(NA_Pet)>0 and W_HPlevel(NA_Pet) < 0.5 and not W_HasBuff(NA_Pet, 136, true), '136', NA_Pet) --治疗宠物
 					or NA_Fire(W_HPlevel(NA_Pet)<=0, '982', NA_Pet) --复活宠物
 
       )then return true; end
-    elseif(NA_ProfileNo == 2)then --Survival
+    elseif(NA_ProfileNo == 2)then --生存猎
       
       if(false
 					or NA_Fire(W_HPlevel(NA_Pet)>0 and W_HPlevel(NA_Pet) < 0.5 and not W_HasBuff(NA_Pet, 136, true), '136', NA_Pet) --治疗宠物
@@ -45,7 +46,7 @@ function NA3Dps()
     end
     if(W_TargetCanAttack()) then  --攻击施法
       if(NA_ProfileNo < 0)then return false;
-      elseif(NA_ProfileNo == 0)then --Beastmaster
+      elseif(NA_ProfileNo == 0)then --兽王猎
         
 				
         
@@ -82,7 +83,7 @@ function NA3Dps()
 
           or NA_fireByOvale()
         ))then return true; end
-      elseif(NA_ProfileNo == 1)then --Marksman
+      elseif(NA_ProfileNo == 1)then --射击猎
         
 				
         
@@ -102,7 +103,7 @@ function NA3Dps()
 
           or NA_fireByOvale()
         ))then return true; end
-      elseif(NA_ProfileNo == 2)then --Survival
+      elseif(NA_ProfileNo == 2)then --生存猎
         
 				
         
@@ -122,21 +123,21 @@ function NA3Dps()
       end
     elseif(UnitCanAssist(NA_Player, NA_Target))then --辅助施法
       if(NA_ProfileNo < 0)then return false;
-      elseif(NA_ProfileNo == 0)then --Beastmaster
+      elseif(NA_ProfileNo == 0)then --兽王猎
         
 				
         if(false
 					or NA_Fire(NA_CheckRoles(NA_Target)==1, '34477', NA_Target) --误导
 
         )then return true; end
-      elseif(NA_ProfileNo == 1)then --Marksman
+      elseif(NA_ProfileNo == 1)then --射击猎
         
 				
         if(false
 					or NA_Fire(NA_CheckRoles(NA_Target)==1, '34477', NA_Target) --误导
 
         )then return true; end
-      elseif(NA_ProfileNo == 2)then --Survival
+      elseif(NA_ProfileNo == 2)then --生存猎
         
 				
         if(false
@@ -146,20 +147,20 @@ function NA3Dps()
     end
   else  --不在战斗中
     if(NA_ProfileNo < 0)then return false; --脱战后补buff，开怪等
-    elseif(NA_ProfileNo == 0)then --Beastmaster
+    elseif(NA_ProfileNo == 0)then --兽王猎
       
       if(false
 					or NA_Fire(W_HPlevel(NA_Pet) < 0.9 and not UnitIsDead(NA_Pet) and not W_HasBuff(NA_Pet, 136, true), '136', NA_Pet) --治疗宠物
 					or NA_Fire(NA_IsSolo and W_TargetCanAttack(), '193455', NA_Target) --眼镜蛇射击
 
       )then return true; end
-    elseif(NA_ProfileNo == 1)then --Marksman
+    elseif(NA_ProfileNo == 1)then --射击猎
       
       if(false
 					or NA_Fire(W_HPlevel(NA_Pet) < 0.9 and not UnitIsDead(NA_Pet) and not W_HasBuff(NA_Pet, 136, true), '136', NA_Pet) --治疗宠物
 
       )then return true; end
-    elseif(NA_ProfileNo == 2)then --Survival
+    elseif(NA_ProfileNo == 2)then --生存猎
       
       if(false
 
