@@ -34,56 +34,67 @@ function NA_initClassData(className, profileNo)
     NA_Actions = getNA1Actions(profileNo);
     NA_ProfileName = NA1ProfileNames[profileNo];
     NA_MaxDps = NA1Dps;
+		NA_ProfileNames = NA1ProfileNames;
 		NA_ProfileDescriptions = NA1ProfileDescriptions;
   elseif(className == "PALADIN") then
     NA_Actions = getNA2Actions(profileNo);
     NA_ProfileName = NA2ProfileNames[profileNo];
     NA_MaxDps = NA2Dps;
+		NA_ProfileNames = NA2ProfileNames;
 		NA_ProfileDescriptions = NA2ProfileDescriptions;
   elseif(className == "HUNTER") then
     NA_Actions = getNA3Actions(profileNo);
     NA_ProfileName = NA3ProfileNames[profileNo];
     NA_MaxDps = NA3Dps;
+		NA_ProfileNames = NA3ProfileNames;
 		NA_ProfileDescriptions = NA3ProfileDescriptions;
   elseif(className == "ROGUE") then
     NA_Actions = getNA4Actions(profileNo);
     NA_ProfileName = NA4ProfileNames[profileNo];
     NA_MaxDps = NA4Dps;
+		NA_ProfileNames = NA4ProfileNames;
 		NA_ProfileDescriptions = NA4ProfileDescriptions;
   elseif(className == "PRIEST") then
     NA_Actions = getNA5Actions(profileNo);
     NA_ProfileName = NA5ProfileNames[profileNo];
     NA_MaxDps = NA5Dps;
+		NA_ProfileNames = NA5ProfileNames;
 		NA_ProfileDescriptions = NA5ProfileDescriptions;
   elseif(className == "DEATHKNIGHT") then
     NA_Actions = getNA6Actions(profileNo);
     NA_ProfileName = NA6ProfileNames[profileNo];
     NA_MaxDps = NA6Dps;
+		NA_ProfileNames = NA6ProfileNames;
 		NA_ProfileDescriptions = NA6ProfileDescriptions;
   elseif(className == "SHAMAN") then
     NA_Actions = getNA7Actions(profileNo);
     NA_ProfileName = NA7ProfileNames[profileNo];
     NA_MaxDps = NA7Dps;
+		NA_ProfileNames = NA7ProfileNames;
 		NA_ProfileDescriptions = NA7ProfileDescriptions;
   elseif(className == "MAGE") then
     NA_Actions = getNA8Actions(profileNo);
     NA_ProfileName = NA8ProfileNames[profileNo];
     NA_MaxDps = NA8Dps;
+		NA_ProfileNames = NA8ProfileNames;
 		NA_ProfileDescriptions = NA8ProfileDescriptions;
   elseif(className == "WARLOCK") then
     NA_Actions = getNA9Actions(profileNo);
     NA_ProfileName = NA9ProfileNames[profileNo];
     NA_MaxDps = NA9Dps;
+		NA_ProfileNames = NA9ProfileNames;
 		NA_ProfileDescriptions = NA9ProfileDescriptions;
   elseif(className == "MONK") then
     NA_Actions = getNA10Actions(profileNo);
     NA_ProfileName = NA10ProfileNames[profileNo];
     NA_MaxDps = NA10Dps;
+		NA_ProfileNames = NA10ProfileNames;
 		NA_ProfileDescriptions = NA10ProfileDescriptions;
   elseif(className == "DRUID") then
     NA_Actions = getNA11Actions(profileNo);
     NA_ProfileName = NA11ProfileNames[profileNo];
     NA_MaxDps = NA11Dps;
+		NA_ProfileNames = NA11ProfileNames;
 		NA_ProfileDescriptions = NA11ProfileDescriptions;
     NA_ProfileSize = 4;
   else

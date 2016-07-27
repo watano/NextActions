@@ -48,7 +48,7 @@ function NA_Option_Frame_OnLoad(self)
         NA_Option_Frame_Update();
       end
     );
-		W_SetTooltip(btnProfile, NA_ProfileName, NA_ProfileDescriptions[i]);
+		W_SetTooltip(btnProfile, NA_ProfileNames[i], NA_ProfileDescriptions[i]);
   end
   NA_Option_Frame_Update();
   top = top - frameProfile:GetHeight();
