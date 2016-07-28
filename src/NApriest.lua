@@ -1,7 +1,7 @@
 function getNA5Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'摧心魔','暗影魔','真言术：慰','神圣之火','惩击','痛苦压制','神圣之星','快速治疗','天使长','真言术：盾','意志洞悉','救赎恩惠','能量灌注','治疗祷言','愈合祷言','苦修','治疗术','渐隐术','绝望祷言','幽灵伪装','真言术：韧'};
+    return {'123040','34433','129250','神圣之火','585','33206','110744','快速治疗','天使长','17','152118','救赎恩惠','10060','治疗祷言','愈合祷言','47540','治疗术','586','绝望祷言','幽灵伪装','真言术：韧'};
   elseif(no == 1)then
     return {'123040','暗影魔','129250','14914','585','47788','真言术：盾','139','33076','10060','救赎恩惠','瀑流','110744','32546','2061','2060','586','19236','幽灵伪装','真言术：韧'};
   elseif(no == 2)then
@@ -24,10 +24,10 @@ function NA5Dps()
     elseif(NA_ProfileNo == 0)then --Discipline
       
       if(false
-					or NA_Fire(NA_checkHP(0), '渐隐术', NA_Player) --渐隐术
+					or NA_Fire(NA_checkHP(0), '586', NA_Player) --渐隐术
 					or NA_Fire(NA_checkHP(1) and NA_isUsableTalentSpell(1,1), '绝望祷言', NA_Player) --绝望祷言
 					or NA_Fire(NA_checkHP(1) and NA_isUsableTalentSpell(1,2), '幽灵伪装', NA_Player) --幽灵伪装
-					or NA_Fire(NA_checkHP(1), '真言术：盾', NA_Player) --真言术：盾
+					or NA_Fire(NA_checkHP(1), '17', NA_Player) --真言术：盾
 
       )then return true; end
     elseif(NA_ProfileNo == 1)then --Holy
@@ -58,11 +58,11 @@ function NA5Dps()
 				
         
         if(not NA_IsAOE and (false
-					or NA_Fire(NA_isUsableTalentSpell(3,2), '摧心魔', NA_Target) --摧心魔
-					or NA_Fire(not NA_isUsableTalentSpell(3,2), '暗影魔', NA_Target) --暗影魔
-					or NA_Fire(NA_isUsableTalentSpell(3,3), '真言术：慰', NA_Target) --真言术：慰
+					or NA_Fire(NA_isUsableTalentSpell(3,2), '123040', NA_Target) --摧心魔
+					or NA_Fire(not NA_isUsableTalentSpell(3,2), '34433', NA_Target) --暗影魔
+					or NA_Fire(NA_isUsableTalentSpell(3,3), '129250', NA_Target) --真言术：慰
 					or NA_Fire(not NA_isUsableTalentSpell(3,3), '神圣之火', NA_Target) --神圣之火
-					or NA_Fire(true, '惩击', NA_Target) --惩击
+					or NA_Fire(true, '585', NA_Target) --惩击
 
           or NA_fireByOvale()
         ))then return true; end
@@ -195,17 +195,17 @@ function NA5Dps()
 				
 				
         if(false
-					or NA_Fire(W_HPlevel(NA_Target)<0.4, '痛苦压制', NA_Target) --痛苦压制
-					or NA_Fire(NA_isUsableTalentSpell(6,2) and W_HPlevel(NA_Target)<=0.8, '神圣之星', NA_Target) --神圣之星
+					or NA_Fire(W_HPlevel(NA_Target)<0.4, '33206', NA_Target) --痛苦压制
+					or NA_Fire(NA_isUsableTalentSpell(6,2) and W_HPlevel(NA_Target)<=0.8, '110744', NA_Target) --神圣之星
 					or NA_Fire(W_HPlevel(NA_Target)<0.9 and W_RetainBuff(NA_Player, 115255, true), '快速治疗', NA_Target) --快速治疗
 					or NA_Fire((W_HPlevel(NA_Target)<0.7 and fycb>3) or W_BuffTime(NA_Player, 81661, true)<3, '天使长', NA_Player) --天使长
-					or NA_Fire(W_HPlevel(NA_Target)<0.9 and not xrlh, '真言术：盾', NA_Target) --真言术：盾
-					or NA_Fire(NA_isUsableTalentSpell(7,1) and NA_CheckRoles(NA_Target)==1 and W_HPlevel(NA_Target)<0.8 and not W_RetainBuff(NA_Target, 152118, true), '意志洞悉', NA_Target) --意志洞悉
+					or NA_Fire(W_HPlevel(NA_Target)<0.9 and not xrlh, '17', NA_Target) --真言术：盾
+					or NA_Fire(NA_isUsableTalentSpell(7,1) and NA_CheckRoles(NA_Target)==1 and W_HPlevel(NA_Target)<0.8 and not W_RetainBuff(NA_Target, 152118, true), '152118', NA_Target) --意志洞悉
 					or NA_Fire(NA_isUsableTalentSpell(7,3) and W_HPlevel(NA_Target)<0.7 and W_BuffCount(NA_Player, 152116)<=3, '救赎恩惠', NA_Target) --救赎恩惠
-					or NA_Fire(NA_isUsableTalentSpell(5,2) and W_HPlevel(NA_Target)<0.7, '能量灌注', NA_Player) --能量灌注
+					or NA_Fire(NA_isUsableTalentSpell(5,2) and W_HPlevel(NA_Target)<0.7, '10060', NA_Player) --能量灌注
 					or NA_Fire(W_RetainBuff(NA_Player, 109964, true), '治疗祷言', NA_Target) --治疗祷言
 					or NA_Fire(W_HPlevel(NA_Target)<=0.8, '愈合祷言', NA_Target) --愈合祷言
-					or NA_Fire(W_HPlevel(NA_Target)<=0.8, '苦修', NA_Target) --苦修
+					or NA_Fire(W_HPlevel(NA_Target)<=0.8, '47540', NA_Target) --苦修
 					or NA_Fire(W_HPlevel(NA_Target)<=0.8, '快速治疗', NA_Target) --快速治疗
 					or NA_Fire(W_HPlevel(NA_Target)<0.9 and W_HPlevel(NA_Target)>0.8, '治疗术', NA_Target) --治疗术
 
