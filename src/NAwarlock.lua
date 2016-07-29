@@ -3,7 +3,7 @@ function getNA9Actions(no)
   elseif(no == 0)then
     return {'689','18540','603','686','104316','193396','105174','1122','193440'};
   elseif(no == 1)then
-    return {'黑暗灵魂：易爆','119898','18540','17877','80240','116858','348','17962','29722','灰烬转换','6789','黑暗再生','黑暗意图'};
+    return {'119898','18540','17877','80240','116858','348','17962','29722','6789'};
   elseif(no == 2)then
     return {'689','18540','172','980','30108','27243','1122'};
   end
@@ -29,9 +29,7 @@ function NA9Dps()
     elseif(NA_ProfileNo == 1)then --毁灭术
       
       if(false
-					or NA_Fire(W_HPlevel(NA_Player)<0.2, '灰烬转换', NA_Player) --灰烬转换
 					or NA_Fire(W_HPlevel(NA_Player)<0.9, '6789', NA_Target) --死亡缠绕
-					or NA_Fire(W_HPlevel(NA_Player)<0.9, '黑暗再生', NA_Target) --黑暗再生
 
       )then return true; end
     elseif(NA_ProfileNo == 2)then --痛苦术
@@ -70,7 +68,7 @@ function NA9Dps()
 					or NA_Fire(not retain603, '603', NA_Target) --末日降临
 					or NA_Fire(has196606, '686', NA_Target) --暗影箭
 					or NA_Fire(true, '104316', NA_Target) --召唤恐惧猎犬
-					or NA_Fire(not has193396, '193396', NA_Nil) --恶魔增效
+					or NA_Fire(NA_IsMaxDps and not has193396, '193396', NA_Nil) --恶魔增效
 					or NA_Fire(true, '193440', NA_Target) --恶魔之怒
 					or NA_Fire(true, '686', NA_Target) --暗影箭
 
@@ -81,7 +79,6 @@ function NA9Dps()
 				
         
         if(not NA_IsAOE and (false
-					or NA_Fire(true, '黑暗灵魂：易爆', NA_Player) --黑暗灵魂：易爆
 					or NA_Fire(UnitName(NA_Pet)=='菲兹托克' and W_GetSpellCooldown(119899)<=0, '119898', NA_Target) --恶魔掌控
 					or NA_Fire(UnitName(NA_Pet)=='克丽欧拉' and W_GetSpellCooldown(115770)<=0, '119898', NA_Target) --恶魔掌控
 					or NA_Fire(UnitName(NA_Pet)=='科尔拉克' and W_GetSpellCooldown(115781)<=0, '119898', NA_Target) --恶魔掌控
@@ -169,7 +166,6 @@ function NA9Dps()
     elseif(NA_ProfileNo == 1)then --毁灭术
       
       if(false
-					or NA_Fire(select(3,UnitStat(NA_Player,4))==0, '黑暗意图', NA_Player) --黑暗意图
 					or NA_Fire(W_TargetCanAttack(), '348', NA_Target) --献祭
 
       )then return true; end
