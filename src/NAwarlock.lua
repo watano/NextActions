@@ -1,7 +1,7 @@
 function getNA9Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'689','18540','603','686','104316','193396','105174','1122','193440'};
+    return {'689','1454','18540','603','686','104316','193396','105174','1122','193440'};
   elseif(no == 1)then
     return {'119898','18540','17877','80240','116858','348','17962','29722','6789'};
   elseif(no == 2)then
@@ -50,7 +50,8 @@ function NA9Dps()
 				
         
         if(not NA_IsAOE and (false
-					or NA_Fire(NA_checkHP(0), '689', NA_Target) --吸取生命
+					or NA_Fire(NA_checkHP(1), '689', NA_Target) --吸取生命
+					or NA_Fire(W_PowerLevel(NA_Player)<0.5 and W_HPlevel(NA_Player)>0.5, '1454', NA_Player) --生命分流
 					or NA_Fire(NA_IsMaxDps, '18540', NA_Player) --召唤末日守卫
 					or NA_Fire(not retain603, '603', NA_Target) --末日降临
 					or NA_Fire(has196606, '686', NA_Target) --暗影箭

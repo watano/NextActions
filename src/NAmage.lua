@@ -1,7 +1,7 @@
 function getNA8Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'45438','11426','5143','30451','44425','30449'};
+    return {'45438','11426','12042','114923','5143','44425','30451'};
   elseif(no == 1)then
     return {'45438','11426','12472','30455','55342','84714','112948','108839','116','120','30449','31687'};
   elseif(no == 2)then
@@ -24,7 +24,6 @@ function NA8Dps()
     elseif(NA_ProfileNo == 0)then --Arcane
       
       if(false
-					or NA_Fire(NA_hasStealableBuff(NA_Target), '30449', NA_Target) --法术吸取
 
       )then return true; end
     elseif(NA_ProfileNo == 1)then --Frost
@@ -46,20 +45,17 @@ function NA8Dps()
     if(W_TargetCanAttack()) then  --攻击施法
       if(NA_ProfileNo < 0)then return false;
       elseif(NA_ProfileNo == 0)then --Arcane
-        local countArcaneCharge = W_BuffCount(NA_Player, -36032); --奥术充能
-				local countArcaneMissiles = W_BuffCount(NA_Player, 79683); --奥术飞弹
-				
+        
 				
         
         if(not NA_IsAOE and (false
 					or NA_Fire(W_HPlevel(NA_Player) < 0.2, '45438', NA_Player) --寒冰屏障
 					or NA_Fire(W_HPlevel(NA_Player) < 0.9, '11426', NA_Player) --寒冰护体
-					or NA_Fire(NA_IsMaxDps and countArcaneMissiles>1, '5143', NA_Target) --奥术飞弹
-					or NA_Fire(countArcaneMissiles>0, '5143', NA_Target) --奥术飞弹
-					or NA_Fire(NA_IsMaxDps and W_PowerLevel(NA_Player)>0.9, '30451', NA_Target) --奥术冲击
-					or NA_Fire(NA_IsMaxDps and countArcaneMissiles>0, '5143', NA_Target) --奥术飞弹
-					or NA_Fire(NA_IsMaxDps and W_BuffTime(NA_Player, -36032, true)<3, '30451', NA_Target) --奥术冲击
-					or NA_Fire(not NA_IsMaxDps and NA_IsSolo, '44425', NA_Target) --奥术弹幕
+					or NA_Fire(W_HPlevel(NA_Target) > 0.9, '12042', NA_Player) --奥术强化
+					or NA_Fire(not W_HasBuff(NA_Target, -114923, true), '114923', NA_Target) --虚空风暴
+					or NA_Fire(true, '5143', NA_Target) --奥术飞弹
+					or NA_Fire(true, '44425', NA_Target) --奥术弹幕
+					or NA_Fire(true, '30451', NA_Target) --奥术冲击
 
           or NA_fireByOvale()
         ))then return true; end

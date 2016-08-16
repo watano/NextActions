@@ -56,9 +56,7 @@ function NA1Dps()
           or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 1)then --狂暴战
-        local hascs = W_RetainBuff(NA_Player, 29725, true);   --猝死
-				local hasjn = W_RetainBuff(NA_Player, 13046, true);   --激怒
-				local hascklx =  W_HasBuff(NA_Player, 6673, true); --摧枯拉朽
+        local has215570 =  W_HasBuff(NA_Player, 215570, true); --摧枯拉朽
 				local in5308 = W_HPlevel(NA_Target)<0.2; --斩杀阶段
 				
 				
@@ -73,8 +71,9 @@ function NA1Dps()
 					or NA_Fire(in5308, '85288', NA_Target) --怒击
 					or NA_Fire(in5308, '23881', NA_Target) --嗜血
 					or NA_Fire(true, '184367', NA_Target) --暴怒
+					or NA_Fire(has215570, '190411', NA_Target) --旋风斩
 					or NA_Fire(true, '85288', NA_Target) --怒击
-					or NA_Fire(true, '23881', NA_Target) --嗜血
+					or NA_Fire(NA_IsSolo and not NA_checkHP(1), '23881', NA_Target) --嗜血
 					or NA_Fire(true, '190411', NA_Target) --旋风斩
 					or NA_Fire(true, '100', NA_Target) --冲锋
 					or NA_Fire(true, '57755', NA_Target) --英勇投掷

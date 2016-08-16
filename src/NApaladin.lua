@@ -5,19 +5,18 @@ function getNA2Actions(no)
   elseif(no == 1)then
     return {'31884','20271','85256','224668','184575','35395','205191','53385','633','642','184662','19750'};
   elseif(no == 2)then
-    return {'20271','20473'};
+    return {'20271','35395','26573','853','498','642','633','20473','6940','31842','85222','223306','19750','82326'};
   end
   return {};
 end
 
 NA2ProfileNames = {[0]='防骑',[1]='惩戒骑',[2]='奶骑',};
-NA2ProfileDescriptions = {[0]='天赋:--属性:',[1]='天赋:1111112--属性:',[2]='天赋:--属性:',};
+NA2ProfileDescriptions = {[0]='天赋:--属性:',[1]='天赋:1111112--属性:',[2]='天赋:1113122--属性:智力>精通≥暴击>急速>全能',};
 
 function NA2Dps()
   W_Log(1,"圣骑士 dps");
   
 	
-	local hastorch_thrown = W_HasBuff(NA_Target, 114163, true);  --永恒之火
 	
 	
   if(W_IsInCombat())then
@@ -93,9 +92,10 @@ function NA2Dps()
 				
         
         if(not NA_IsAOE and (false
-					or NA_Fire(NA_isUsableTalentSpell(3,1) and W_BuffCount(NA_Player, 85804)<3, '20271', NA_Target) --审判
-					or NA_Fire(W_PaladinPower(NA_Player)<=3, '20473', NA_Target) --神圣震击
-					or NA_Fire(W_PaladinPower(NA_Player)<3, '20271', NA_Target) --审判
+					or NA_Fire(true, '20271', NA_Target) --审判
+					or NA_Fire(true, '35395', NA_Target) --十字军打击
+					or NA_Fire(true, '26573', NA_Nil) --奉献
+					or NA_Fire(true, '853', NA_Target) --制裁之锤
 
           or NA_fireByOvale()
         ))then return true; end
@@ -123,6 +123,16 @@ function NA2Dps()
         
 				
         if(false
+					or NA_Fire(NA_checkHP(1), '498', NA_Player) --圣佑术
+					or NA_Fire(NA_checkHP(0), '642', NA_Player) --圣盾术
+					or NA_Fire(W_HPlevel(NA_Target)<0.3, '633', NA_Target) --圣疗术
+					or NA_Fire(true, '20473', NA_Target) --神圣震击
+					or NA_Fire(W_HPlevel(NA_Target)<0.4 and W_HPlevel(NA_Player)>0.6, '6940', NA_Target) --牺牲祝福
+					or NA_Fire(W_HPlevel(NA_Target) < 0.3, '31842', NA_Target) --复仇之怒
+					or NA_Fire(W_HPlevel(NA_Target) < 0.8, '85222', NA_Target) --黎明之光
+					or NA_Fire(W_HPlevel(NA_Target) < 1, '223306', NA_Target) --赋予信仰
+					or NA_Fire(W_HPlevel(NA_Target) < 1, '19750', NA_Target) --圣光闪现
+					or NA_Fire(W_HPlevel(NA_Target)<1, '82326', NA_Target) --圣光术
 
         )then return true; end
       end
@@ -144,7 +154,6 @@ function NA2Dps()
     elseif(NA_ProfileNo == 2)then --奶骑
       
       if(false
-					or NA_Fire(W_HPlevel(NA_Target)<1, '20473', NA_Target) --神圣震击
 
       )then return true; end
     end
