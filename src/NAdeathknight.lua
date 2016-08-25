@@ -1,7 +1,7 @@
 function getNA6Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'51271','194913','196770','47568','49998','49184','49143','49576','61999','48707','48792'};
+    return {'49998','48707','48792','47568','51271','207256','196770','49020','49184','49143','49576','61999'};
   elseif(no == 1)then
     return {'56222','49998','49028','50842','195292','43265','206930','195182','61999','48707','55233','219809','49576','194844'};
   elseif(no == 2)then
@@ -26,9 +26,6 @@ function NA6Dps()
     elseif(NA_ProfileNo == 0)then --冰DK
       
       if(false
-					or NA_Fire(NA_checkHP(2), '49998', NA_Target) --灵界打击
-					or NA_Fire(NA_checkHP(2), '48707', NA_Player) --反魔法护罩
-					or NA_Fire(NA_checkHP(0), '48792', NA_Player) --冰封之韧
 
       )then return true; end
     elseif(NA_ProfileNo == 1)then --血DK
@@ -58,11 +55,15 @@ function NA6Dps()
 				
         
         if(not NA_IsAOE and (false
-					or NA_Fire(true, '51271', NA_Target) --冰霜之柱
-					or NA_Fire(true, '194913', NA_Player) --冰川突进
-					or NA_Fire(true, '196770', NA_Target) --冷酷严冬
+					or NA_Fire(NA_checkHP(2), '49998', NA_Target) --灵界打击
+					or NA_Fire(NA_checkHP(2), '48707', NA_Player) --反魔法护罩
+					or NA_Fire(NA_checkHP(0), '48792', NA_Player) --冰封之韧
 					or NA_Fire(NA_IsMaxDps, '47568', NA_Target) --符文武器增效
-					or NA_Fire(NA_checkHP(2) or ds, '49998', NA_Target) --灵界打击
+					or NA_Fire(true, '51271', NA_Target) --冰霜之柱
+					or NA_Fire(true, '207256', NA_Player) --207256
+					or NA_Fire(true, '196770', NA_Target) --冷酷严冬
+					or NA_Fire(ds, '49998', NA_Target) --灵界打击
+					or NA_Fire(hasKillingMachine or ff, '49020', NA_Target) --49020
 					or NA_Fire(hasRime or not ff, '49184', NA_Target) --凛风冲击
 					or NA_Fire(true, '49143', NA_Target) --冰霜打击
 					or NA_Fire(true, '49184', NA_Target) --凛风冲击
