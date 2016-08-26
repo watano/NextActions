@@ -306,7 +306,7 @@ Profile readProfileIni(String path){
 }
 
 void genLuaCodes(){
-  for (int classID=1;classID<12; classID++) {
+  for (int classID=1;classID<13; classID++) {
     classInfo = readClassInfo(classID);
     String code = classProfilesCodes();
     writeToFile(r'..\src\NA' + classInfo.enName.toLowerCase() + '.lua', code, encoding: 'utf-8');

@@ -18,6 +18,7 @@ List<WOWClassInfo> AllClassInfo = [
   new WOWClassInfo()..classID=9 ..name='WARLOCK' ..cnName='术士' ..enName='warlock',
   new WOWClassInfo()..classID=10 ..name='MONK' ..cnName='武僧' ..enName='monk',
   new WOWClassInfo()..classID=11 ..name='DRUID' ..cnName='德鲁伊' ..enName='druid',
+  new WOWClassInfo()..classID=12 ..name='DEMONHUNTER' ..cnName='恶魔猎手' ..enName='demonhunter',
 ];
 
 class WOWClassInfo {
@@ -92,7 +93,6 @@ class WOWSpellInfo {
 }
 
 void fetchAll() {
-  //战士1 圣骑士2 猎人3 盗贼4 牧师5 死亡骑士6 萨满7 法师8 术士9 武僧10 德鲁伊11
   for (WOWClassInfo ci in AllClassInfo) {
     var url = Uri.parse('http://www.battlenet.com.cn/wow/zh/tool/talent-calculator/' + ci.classID.toString());
     //print(url);
@@ -158,12 +158,13 @@ WOWClassInfo readClassInfo(int classID) {
   int maxspec = 3;
   if (classInfo.classID == 11) {
     maxspec = 4;
+  }else if (classInfo.classID == 12) {
+    maxspec = 2;
   }
   for (int specNo = 0; specNo < maxspec; specNo++) {
     var spec = info['specs'][specNo];
-    String specName = spec['bg'].toString();
-    specName = specName.substring(specName.lastIndexOf('-') + 1, specName.length);
-    specName = specName.substring(0, 1).toUpperCase() + specName.substring(1);
+    String specName = spec['name'].toString();
+		//print('specName='+specName);
     classInfo.specNames.add(specName);
     classInfo.specCnNames.add(spec['name'].toString());
     classInfo.specIDs.add(spec['id']);

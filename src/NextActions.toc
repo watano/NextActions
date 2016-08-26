@@ -19,5 +19,6 @@ NAmonk.lua
 NApriest.lua
 NArogue.lua
 NAshaman.lua
+NAdemonhunter.lua
 
 NAframe.xml

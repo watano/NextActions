@@ -97,6 +97,13 @@ function NA_initClassData(className, profileNo)
 		NA_ProfileNames = NA11ProfileNames;
 		NA_ProfileDescriptions = NA11ProfileDescriptions;
     NA_ProfileSize = 4;
+  elseif(className == "DEMONHUNTER") then
+    NA_Actions = getNA12Actions(profileNo);
+    NA_ProfileName = NA12ProfileNames[profileNo];
+    NA_MaxDps = NA12Dps;
+		NA_ProfileNames = NA12ProfileNames;
+		NA_ProfileDescriptions = NA12ProfileDescriptions;
+    NA_ProfileSize = 2;
   else
     W_Log(4, "不能支持此职业!");
     return nil;

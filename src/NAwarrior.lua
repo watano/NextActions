@@ -3,7 +3,7 @@ function getNA1Actions(no)
   elseif(no == 0)then
     return {};
   elseif(no == 1)then
-    return {'184364','97462','5308','1719','118000','184367','85288','23881','190411','100','57755'};
+    return {'184364','97462','5308','1719','118000','46924','184367','85288','23881','190411','100','57755'};
   elseif(no == 2)then
     return {};
   end
@@ -11,7 +11,7 @@ function getNA1Actions(no)
 end
 
 NA1ProfileNames = {[0]='防战',[1]='狂暴战',[2]='武器战',};
-NA1ProfileDescriptions = {[0]='天赋:--属性:',[1]='天赋:2313333--属性:急速>暴击>精通/全能',[2]='天赋:--属性:',};
+NA1ProfileDescriptions = {[0]='天赋:--属性:',[1]='天赋:2312331--属性:急速>精通>暴击>全能',[2]='天赋:--属性:',};
 
 function NA1Dps()
   W_Log(1,"战士 dps");
@@ -67,6 +67,7 @@ function NA1Dps()
 					or NA_Fire(true, '5308', NA_Target) --斩杀
 					or NA_Fire(true, '1719', NA_Player) --战吼
 					or NA_Fire(true, '118000', NA_Player) --巨龙怒吼
+					or NA_Fire(true, '46924', NA_Player) --剑刃风暴
 					or NA_Fire(in5308 and W_PowerLevel(NA_Player) > 0.85, '184367', NA_Target) --暴怒
 					or NA_Fire(in5308, '85288', NA_Target) --怒击
 					or NA_Fire(in5308, '23881', NA_Target) --嗜血
