@@ -1,7 +1,7 @@
 function getNA12Actions(no)
   if(no < 0)then return {};
   elseif(no == 0)then
-    return {'185123','162794','188499','198793','195072'};
+    return {'198589','179057','185123','162794','188499','198793','195072'};
   elseif(no == 1)then
     return {};
   end
@@ -37,6 +37,8 @@ function NA12Dps()
 				
         
         if(not NA_IsAOE and (false
+					or NA_Fire(NA_checkHP(1), '198589', NA_Player) --疾影
+					or NA_Fire(NA_checkHP(0), '179057', NA_Player) --混乱新星
 					or NA_Fire(true, '185123', NA_Target) --投掷利刃
 					or NA_Fire(true, '162794', NA_Target) --混乱打击
 					or NA_Fire(true, '188499', NA_Target) --刃舞

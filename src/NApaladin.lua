@@ -45,7 +45,7 @@ function NA2Dps()
     if(W_TargetCanAttack()) then  --攻击施法
       if(NA_ProfileNo < 0)then return false;
       elseif(NA_ProfileNo == 0)then --防骑
-        local notTanking = not W_isTanking();
+        local notTanking = not NA_IsSolo and not W_isTanking();
 				
 				
         

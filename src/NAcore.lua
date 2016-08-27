@@ -162,6 +162,19 @@ function NA_InitClass()
           W_Log(1,"NA_ClassInfo["..k.."]: ".. name);
           NA_ClassInfo[v]['keyNo'] = no;
           W_SetBinding(no, NA_ClassInfo[v].name, 1);
+				else
+          NA_ClassInfo[v] = {};
+          NA_ClassInfo[v]['spellID'] = tonumber(v);
+          NA_ClassInfo[v]['name'] = name;
+          NA_ClassInfo[v]['rank'] = rank;
+          NA_ClassInfo[v]['icon'] = icon;
+          NA_ClassInfo[v]['castTime'] = castTime;
+          NA_ClassInfo[v]['minRange'] = minRange;
+          NA_ClassInfo[v]['maxRange'] = maxRange;
+          W_Log(1,"NA_ClassInfo["..k.."]: ".. name);
+          NA_ClassInfo[v]['keyNo'] = no;
+          W_SetBinding(no, NA_ClassInfo[v].name, 1);
+					W_Log(3,"IsPlayerSpell error: ".. k..'--'..v);
         end
       elseif(spellInfoType == 2)then --Item
         local name = strsub(v,1,strlen(v))
