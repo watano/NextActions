@@ -5,7 +5,7 @@ function getNA5Actions(no)
   elseif(no == 1)then
     return {};
   elseif(no == 2)then
-    return {};
+    return {'200829','17','589','47540','585'};
   end
   return {};
 end
@@ -71,6 +71,11 @@ function NA5Dps()
 				
         
         if(not NA_IsAOE and (false
+					or NA_Fire(NA_checkHP(2), '200829', NA_Player) --200829
+					or NA_Fire(NA_checkHP(3), '17', NA_Player) --真言术：盾
+					or NA_Fire(not W_RetainBuff(NA_Target, -589, true), '589', NA_Target) --暗言术：痛
+					or NA_Fire(true, '47540', NA_Target) --47540
+					or NA_Fire(true, '585', NA_Target) --惩击
 
           or NA_fireByOvale()
         ))then return true; end
@@ -117,6 +122,7 @@ function NA5Dps()
     elseif(NA_ProfileNo == 2)then --Shadow
       
       if(false
+					or NA_Fire(NA_IsSolo and W_TargetCanAttack(), '589', NA_Target) --暗言术：痛
 
       )then return true; end
     end

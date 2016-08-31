@@ -1,2 +1,2 @@
-e:\work\devtools\dart\dart-sdk\bin\dart.exe WowProfile.dart
+e:\work\devtools\dart-sdk\bin\dart.exe WowProfile.dart
 pause

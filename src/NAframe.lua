@@ -61,7 +61,7 @@ function NA_Option_Frame_OnLoad(self)
         W_Log(3, "AOE mode enable!");
       end
     end
-  );	
+  );
 	W_SetTooltip(getglobal("cbtnNA_Flag"..0), "AOE", "A怪模式");
 
   getglobal("cbtnNA_Flag"..1):SetScript("OnClick",

@@ -318,9 +318,7 @@ function W_IsUsableSpell(spellID, UnitId)
   end
   local isUsable, nomana = IsUsableSpell(spellInfo.spellID);
   if (isUsable == true and nomana == false and W_GetCooldown(1, spellID) <= 1) then
-    if(SpellHasRange(spellInfo.name) ~=true or IsSpellInRange(spellInfo.name, UnitId) ==1) then
-      return true;
-    end
+    return W_InRange(spellInfo, UnitId);
   end
   return false;
 end
@@ -472,17 +470,18 @@ function NA_testSpell(spellID, UnitId)
   local spellInfo = NA_getSpellInfo(spellID);
   if(spellInfo == nil)then return; end
   print("2.0-spellInfo.name="..spellInfo.name);
-  print(SpellHasRange(spellInfo.name));
 
   if(UnitIsVisible(UnitId) == false)then return; end
   print("3-UnitIsVisible("..UnitId..")==true");
   if(NA_SpellInfoType(spellID) == 1)then
     local isUsable, nomana = IsUsableSpell(spellInfo.spellID);
-    print(isUsable);
-    print(nomana);
+    print('isUsable='..NA_Bool(isUsable));
+    print('nomana='..NA_Bool(nomana));
     if (isUsable == true and nomana == false and W_GetCooldown(1, spellID) <= 1) then
       print("3.1-W_GetCooldown(1, "..spellID..")="..W_GetCooldown(1, spellID));
-      if(SpellHasRange(spellInfo.name) ~=true or IsSpellInRange(spellInfo.name, UnitId) ==1) then
+			print('SpellHasRange='..NA_Bool(SpellHasRange(spellInfo.name)));
+			print('IsSpellInRange='..NA_Bool(IsSpellInRange(spellInfo.name, UnitId)));
+      if(W_InRange(spellInfo, UnitId)) then
         print("4-SpellHasRange("..spellInfo.name..")==true");
         print("5-IsSpellInRange("..spellInfo.name..", "..UnitId..")==true");
 
@@ -496,8 +495,26 @@ function NA_testSpell(spellID, UnitId)
   --	if(W_IsUsableSpell(spellID, UnitId) == false)then return; end
   --	print("8-W_IsUsableSpell("..spellID..", "..UnitId..")==true");
 end
---/run NA_testSpell('82692', NA_Target)
+--/run NA_testSpell('77758', NA_Player)
+--/script print(SpellHasRange())
 
+function W_InRange(spellInfo, UnitId)
+	if(spellInfo.spellID == 77758)then
+		return true;
+	end
+	if(SpellHasRange(spellInfo.name) ~=true or IsSpellInRange(spellInfo.name, UnitId) ==1) then
+		return true;
+  end
+	return false;
+end
+
+function NA_Bool(cond)
+	if(cond)then
+		return 'true';
+	else
+		return 'false';
+	end
+end
 function NA_testBuff(UnitId, buffID, onlyMine)
   if(W_getBuff(UnitId, buffID, onlyMine) ~= nil)then
     print("W_getBuff("..UnitId..", "..buffID..", "..onlyMine..")="..W_getBuff(UnitId, buffID, onlyMine));

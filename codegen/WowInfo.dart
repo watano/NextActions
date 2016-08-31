@@ -42,7 +42,7 @@ class WOWClassInfo {
       }
       index++;
     }
-    if(index>=specNames.length){
+    if (index >= specNames.length) {
       print('[错误]${spec}![${specNames.toString()}]');
       return null;
     }
@@ -66,9 +66,12 @@ class WOWClassInfo {
         return s;
       }
     }
-	if(!spell.startsWith('NA_') && !spell.startsWith('I') && !spell.startsWith('M')){
-		print('[警告]不能找到法术:${spell}@${spec}');
-	}
+    if (!spell.startsWith('NA_') &&
+        !spell.startsWith('I') &&
+        !spell.startsWith('M') &&
+        !(new RegExp(r"(\d+)").hasMatch(spell))) {
+      print('[警告]不能找到法术:${spell}@${spec}');
+    }
     return null;
   }
 }
@@ -143,7 +146,7 @@ WOWSpellInfo buildSpellInfo(dynamic info, String minLevel, String filter) {
 }
 
 WOWClassInfo readClassInfo(int classID) {
-  WOWClassInfo classInfo = AllClassInfo[classID-1];
+  WOWClassInfo classInfo = AllClassInfo[classID - 1];
   var config = new File('.\\' + classID.toString() + '.json');
   String data = config.readAsStringSync();
   Map info = JSON.decode(data);
@@ -158,13 +161,13 @@ WOWClassInfo readClassInfo(int classID) {
   int maxspec = 3;
   if (classInfo.classID == 11) {
     maxspec = 4;
-  }else if (classInfo.classID == 12) {
+  } else if (classInfo.classID == 12) {
     maxspec = 2;
   }
   for (int specNo = 0; specNo < maxspec; specNo++) {
     var spec = info['specs'][specNo];
     String specName = spec['name'].toString();
-		//print('specName='+specName);
+    //print('specName='+specName);
     classInfo.specNames.add(specName);
     classInfo.specCnNames.add(spec['name'].toString());
     classInfo.specIDs.add(spec['id']);
@@ -179,9 +182,9 @@ WOWClassInfo readClassInfo(int classID) {
   //talent spells
   for (var talentNo = 0; talentNo < 21; talentNo++) {
     int no = ((talentNo - talentNo % 3) ~/ 3).toInt();
-    for(dynamic talentSpells in info['talents'][no][talentNo % 3]){
+    for (dynamic talentSpells in info['talents'][no][talentNo % 3]) {
       int minLevel = (no + 1) * 15;
-      if(minLevel>=100){
+      if (minLevel >= 100) {
         minLevel = 100;
       }
       classInfo.talents.add(buildSpellInfo(talentSpells, minLevel.toString(), 'talent:${talentNo}_${talentSpells['specId']}'));

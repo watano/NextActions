@@ -3,7 +3,7 @@ function getNA9Actions(no)
   elseif(no == 0)then
     return {'689','1454','755','18540','603','686','104316','193396','105174','1122','193440'};
   elseif(no == 1)then
-    return {'119898','18540','17877','80240','116858','348','17962','29722','6789'};
+    return {'689','1454','755','80240','17962','116858','29722','348','152108','5740'};
   elseif(no == 2)then
     return {'689','18540','172','980','30108','27243','1122'};
   end
@@ -16,6 +16,8 @@ NA9ProfileDescriptions = {[0]='天赋:--属性:精通>急速>暴击>全能',[1]=
 function NA9Dps()
   W_Log(1,"术士 dps");
   
+	local has117828=W_HasBuff(NA_Player, 117828, true)
+	local countSoulShards=UnitPower(NA_Player, SPELL_POWER_BURNING_EMBERS)
 	
 	
 	
@@ -29,7 +31,6 @@ function NA9Dps()
     elseif(NA_ProfileNo == 1)then --毁灭术
       
       if(false
-					or NA_Fire(W_HPlevel(NA_Player)<0.9, '6789', NA_Target) --死亡缠绕
 
       )then return true; end
     elseif(NA_ProfileNo == 2)then --痛苦术
@@ -81,23 +82,27 @@ function NA9Dps()
 				
         
         if(not NA_IsAOE and (false
-					or NA_Fire(UnitName(NA_Pet)=='菲兹托克' and W_GetSpellCooldown(119899)<=0, '119898', NA_Target) --恶魔掌控
-					or NA_Fire(UnitName(NA_Pet)=='克丽欧拉' and W_GetSpellCooldown(115770)<=0, '119898', NA_Target) --恶魔掌控
-					or NA_Fire(UnitName(NA_Pet)=='科尔拉克' and W_GetSpellCooldown(115781)<=0, '119898', NA_Target) --恶魔掌控
-					or NA_Fire(NA_IsMaxDps, '18540', NA_Player) --召唤末日守卫
-					or NA_Fire(W_HPlevel(NA_Target)<0.2 and UnitPower(NA_Player, SPELL_POWER_BURNING_EMBERS)>0, '17877', NA_Target) --暗影灼烧
-					or NA_Fire(UnitPower(NA_Player, SPELL_POWER_BURNING_EMBERS)>3, '80240', NA_Target) --浩劫
-					or NA_Fire(GetUnitSpeed(NA_Player)<1 and (W_HasBuff(NA_Player, 80240, true) or UnitPower(NA_Player, SPELL_POWER_BURNING_EMBERS)>3), '116858', NA_Target) --混乱之箭
-					or NA_Fire(NA_IsSolo and GetUnitSpeed(NA_Player)<1 and UnitPower(NA_Player, SPELL_POWER_BURNING_EMBERS)>1, '116858', NA_Target) --混乱之箭
-					or NA_Fire(GetUnitSpeed(NA_Player)<1 and not W_RetainBuff(NA_Target, -348, true), '348', NA_Target) --献祭
-					or NA_Fire(true, '17962', NA_Target) --燃烧
-					or NA_Fire(true, '29722', NA_Target) --烧尽
+					or NA_Fire(NA_checkHP(1), '689', NA_Target) --吸取生命
+					or NA_Fire(W_PowerLevel(NA_Player)<0.5 and W_HPlevel(NA_Player)>0.5, '1454', NA_Player) --生命分流
+					or NA_Fire(W_HPlevel(NA_Player)>0.8 and W_HPlevel(NA_Pet)<0.5, '755', NA_Player) --生命通道
+					or NA_Fire(countSoulShards>3, '80240', NA_Target) --浩劫
+					or NA_Fire(not has117828, '17962', NA_Target) --燃烧
+					or NA_Fire(true, '116858', NA_Target) --混乱之箭
+					or NA_Fire(has117828, '29722', NA_Target) --烧尽
+					or NA_Fire(true, '348', NA_Target) --献祭
 
           or NA_fireByOvale()
         ))then return true; end
 
         if(NA_IsAOE and (false
-					or NA_Fire(W_HasBuff(NA_Player, 108683, true), '17962', NA_Target) --燃烧
+					or NA_Fire(NA_checkHP(1), '689', NA_Target) --吸取生命
+					or NA_Fire(W_PowerLevel(NA_Player)<0.5 and W_HPlevel(NA_Player)>0.5, '1454', NA_Player) --生命分流
+					or NA_Fire(W_HPlevel(NA_Player)>0.8 and W_HPlevel(NA_Pet)<0.5, '755', NA_Player) --生命通道
+					or NA_Fire(countSoulShards>3, '80240', NA_Target) --浩劫
+					or NA_Fire(not has117828, '17962', NA_Target) --燃烧
+					or NA_Fire(true, '152108', NA_player) --大灾变
+					or NA_Fire(true, '5740', NA_player) --火焰之雨
+					or NA_Fire(countSoulShards<3, '348', NA_Target) --献祭
 					or NA_Fire(true, '29722', NA_Target) --烧尽
 
           or NA_fireByOvale()
@@ -168,6 +173,7 @@ function NA9Dps()
     elseif(NA_ProfileNo == 1)then --毁灭术
       
       if(false
+					or NA_Fire(NA_IsSolo and W_TargetCanAttack(), '17962', NA_Target) --燃烧
 					or NA_Fire(W_TargetCanAttack(), '348', NA_Target) --献祭
 
       )then return true; end
