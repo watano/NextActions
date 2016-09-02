@@ -7,7 +7,7 @@ function getNA11Actions(no)
   elseif(no == 2)then
     return {'8921','93402','197626','197628','5176','5185','8936','774','33763','18562','102342','48438','740','22812'};
   elseif(no == 3)then
-    return {'8921','93402','202359','194153','78674','190984','191034','22812'};
+    return {'202767','8921','93402','202359','194153','78674','190984','191034','22812'};
   end
   return {};
 end
@@ -23,6 +23,7 @@ function NA11Dps()
 	local inCat = W_FormInfo(2);
 	
 	
+	local inBird = W_FormInfo(5);
 	
 	
   if(W_IsInCombat())then
@@ -148,12 +149,12 @@ function NA11Dps()
           or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 3)then --平衡德
-        local inBird = W_FormInfo(5);
-				
+        
 				
         
         if(not NA_IsAOE and (false
-					or NA_Fire(not W_RetainBuff(NA_Target, -164812, true), '8921', NA_Target) --8921
+					or NA_Fire(UnitPower(NA_Player,8)<80, '202767', NA_Target) --新月
+					or NA_Fire(not W_HasBuff(NA_Target, -164812, true), '8921', NA_Target) --8921
 					or NA_Fire(not W_RetainBuff(NA_Target, -164815, true), '93402', NA_Target) --阳炎术
 					or NA_Fire(inBird and UnitPower(NA_Player,8)<20, '202359', NA_Player) --沟通星界
 					or NA_Fire(inBird and W_HasBuff(NA_Player, 202425, true), '194153', NA_Target) --明月打击
@@ -165,7 +166,8 @@ function NA11Dps()
         ))then return true; end
 
         if(NA_IsAOE and (false
-					or NA_Fire(not W_RetainBuff(NA_Target, -164812, true), '8921', NA_Target) --8921
+					or NA_Fire(UnitPower(NA_Player,8)<80, '202767', NA_Target) --新月
+					or NA_Fire(not W_HasBuff(NA_Target, -164812, true), '8921', NA_Target) --8921
 					or NA_Fire(not W_RetainBuff(NA_Target, -164815, true), '93402', NA_Target) --阳炎术
 					or NA_Fire(inBird and UnitPower(NA_Player,8)<20, '202359', NA_Player) --沟通星界
 					or NA_Fire(true, '191034', NA_Target) --星辰坠落
