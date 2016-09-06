@@ -64,7 +64,6 @@ function NA1Dps()
 					or NA_Fire(true, '57755', NA_Target) --英勇投掷
 					or NA_Fire(true, '198304', NA_Target) --拦截
 
-          or NA_fireByOvale()
         ))then return true; end
 
         if(NA_IsAOE and (false
@@ -87,7 +86,6 @@ function NA1Dps()
 					or NA_Fire(true, '57755', NA_Target) --英勇投掷
 					or NA_Fire(true, '198304', NA_Target) --拦截
 
-          or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 1)then --狂暴战
         local has215570 =  W_HasBuff(NA_Player, 215570, true); --摧枯拉朽
@@ -112,12 +110,10 @@ function NA1Dps()
 					or NA_Fire(true, '100', NA_Target) --冲锋
 					or NA_Fire(true, '57755', NA_Target) --英勇投掷
 
-          or NA_fireByOvale()
         ))then return true; end
 
         if(NA_IsAOE and (false
 
-          or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 2)then --武器战
         
@@ -125,12 +121,10 @@ function NA1Dps()
         
         if(not NA_IsAOE and (false
 
-          or NA_fireByOvale()
         ))then return true; end
 
         if(NA_IsAOE and (false
 
-          or NA_fireByOvale()
         ))then return true; end
       end
     elseif(UnitCanAssist(NA_Player, NA_Target))then --辅助施法

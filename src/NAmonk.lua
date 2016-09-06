@@ -46,12 +46,10 @@ function NA10Dps()
         
         if(not NA_IsAOE and (false
 
-          or NA_fireByOvale()
         ))then return true; end
 
         if(NA_IsAOE and (false
 
-          or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 1)then --织雾
         
@@ -59,12 +57,10 @@ function NA10Dps()
         
         if(not NA_IsAOE and (false
 
-          or NA_fireByOvale()
         ))then return true; end
 
         if(NA_IsAOE and (false
 
-          or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 2)then --踏风
         
@@ -75,12 +71,10 @@ function NA10Dps()
 					or NA_Fire(true, '100784', NA_Target) --幻灭踢
 					or NA_Fire(true, '100780', NA_Target) --猛虎掌
 
-          or NA_fireByOvale()
         ))then return true; end
 
         if(NA_IsAOE and (false
 
-          or NA_fireByOvale()
         ))then return true; end
       end
     elseif(UnitCanAssist(NA_Player, NA_Target))then --辅助施法

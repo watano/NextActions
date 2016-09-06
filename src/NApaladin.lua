@@ -51,13 +51,11 @@ function NA2Dps()
         
         if(not NA_IsAOE and (false
 
-          or NA_fireByOvale()
         ))then return true; end
 
         if(NA_IsAOE and (false
 					or NA_Fire(true, '20271', NA_Target) --审判
 
-          or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 1)then --惩戒骑
         
@@ -72,7 +70,6 @@ function NA2Dps()
 					or NA_Fire(true, '35395', NA_Target) --十字军打击
 					or NA_Fire(NA_IsSolo, '205191', NA_Player) --以眼还眼
 
-          or NA_fireByOvale()
         ))then return true; end
 
         if(NA_IsAOE and (false
@@ -85,7 +82,6 @@ function NA2Dps()
 					or NA_Fire(true, '35395', NA_Target) --十字军打击
 					or NA_Fire(NA_IsSolo, '205191', NA_Player) --以眼还眼
 
-          or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 2)then --奶骑
         
@@ -97,12 +93,10 @@ function NA2Dps()
 					or NA_Fire(true, '26573', NA_Nil) --奉献
 					or NA_Fire(true, '853', NA_Target) --制裁之锤
 
-          or NA_fireByOvale()
         ))then return true; end
 
         if(NA_IsAOE and (false
 
-          or NA_fireByOvale()
         ))then return true; end
       end
     elseif(UnitCanAssist(NA_Player, NA_Target))then --辅助施法

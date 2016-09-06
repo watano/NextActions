@@ -62,7 +62,6 @@ function NA9Dps()
 					or NA_Fire(countPower>3, '105174', NA_Target) --古尔丹之手
 					or NA_Fire(true, '686', NA_Target) --暗影箭
 
-          or NA_fireByOvale()
         ))then return true; end
 
         if(NA_IsAOE and (false
@@ -75,7 +74,6 @@ function NA9Dps()
 					or NA_Fire(true, '193440', NA_Target) --恶魔之怒
 					or NA_Fire(true, '686', NA_Target) --暗影箭
 
-          or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 1)then --毁灭术
         
@@ -91,7 +89,6 @@ function NA9Dps()
 					or NA_Fire(has117828, '29722', NA_Target) --烧尽
 					or NA_Fire(true, '348', NA_Target) --献祭
 
-          or NA_fireByOvale()
         ))then return true; end
 
         if(NA_IsAOE and (false
@@ -105,7 +102,6 @@ function NA9Dps()
 					or NA_Fire(countSoulShards<3, '348', NA_Target) --献祭
 					or NA_Fire(true, '29722', NA_Target) --烧尽
 
-          or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 2)then --痛苦术
         local count980 = W_BuffCount(NA_Target, -980, true); --痛楚
@@ -126,7 +122,6 @@ function NA9Dps()
 					or NA_Fire(not retain146739, '172', NA_Target) --腐蚀术
 					or NA_Fire(NA_checkHP(2), '689', NA_Target) --吸取生命
 
-          or NA_fireByOvale()
         ))then return true; end
 
         if(NA_IsAOE and (false
@@ -137,7 +132,6 @@ function NA9Dps()
 					or NA_Fire(not retain146739, '172', NA_Target) --腐蚀术
 					or NA_Fire(NA_checkHP(2), '689', NA_Target) --吸取生命
 
-          or NA_fireByOvale()
         ))then return true; end
       end
     elseif(UnitCanAssist(NA_Player, NA_Target))then --辅助施法

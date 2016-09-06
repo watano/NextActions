@@ -77,7 +77,6 @@ function NA11Dps()
 					or NA_Fire(UnitPower(NA_Player)>50, '6807', NA_Target) --重殴
 					or NA_Fire(true, '33917', NA_Target) --裂伤
 
-          or NA_fireByOvale()
         ))then return true; end
 
         if(NA_IsAOE and (false
@@ -97,7 +96,6 @@ function NA11Dps()
 					or NA_Fire(true, '213764', NA_Target) --横扫
 					or NA_Fire(true, '33917', NA_Target) --裂伤
 
-          or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 1)then --貓德
         local hasgl = W_RetainBuff(NA_Target, -1079, true);   --割裂
@@ -117,7 +115,6 @@ function NA11Dps()
 					or NA_Fire(not W_RetainBuff(NA_Target, -5215, true), '1822', NA_Target) --斜掠
 					or NA_Fire(UnitPower(NA_Player,4)<5 or W_RetainBuff(NA_Player, 58984, true), '5221', NA_Target) --撕碎
 
-          or NA_fireByOvale()
         ))then return true; end
 
         if(NA_IsAOE and (false
@@ -128,7 +125,6 @@ function NA11Dps()
 					or NA_Fire(not W_RetainBuff(NA_Target, -5215, true), '1822', NA_Target) --斜掠
 					or NA_Fire(UnitPower(NA_Player,4)<5 or W_RetainBuff(NA_Player, 58984, true), '5221', NA_Target) --撕碎
 
-          or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 2)then --恢复德
         
@@ -141,12 +137,10 @@ function NA11Dps()
 					or NA_Fire(W_FormInfo(4) and W_HasBuff(NA_Player, 164547, true), '197628', NA_Target) --197628
 					or NA_Fire(true, '5176', NA_Target) --阳炎之怒
 
-          or NA_fireByOvale()
         ))then return true; end
 
         if(NA_IsAOE and (false
 
-          or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 3)then --平衡德
         
@@ -162,7 +156,6 @@ function NA11Dps()
 					or NA_Fire(inBird and W_HasBuff(NA_Player, 164547, true), '194153', NA_Target) --明月打击
 					or NA_Fire(true, '190984', NA_Target) --阳炎之怒
 
-          or NA_fireByOvale()
         ))then return true; end
 
         if(NA_IsAOE and (false
@@ -173,7 +166,6 @@ function NA11Dps()
 					or NA_Fire(true, '191034', NA_Target) --星辰坠落
 					or NA_Fire(inBird, '194153', NA_Target) --明月打击
 
-          or NA_fireByOvale()
         ))then return true; end
       end
     elseif(UnitCanAssist(NA_Player, NA_Target))then --辅助施法

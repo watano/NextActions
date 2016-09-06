@@ -54,7 +54,7 @@ function NA3Dps()
 					or NA_Fire(W_HPlevel(NA_Pet)>0 and W_HPlevel(NA_Pet) < 0.5 and not W_HasBuff(NA_Pet, 136, true), '136', NA_Pet) --治疗宠物
 					or NA_Fire(W_HPlevel(NA_Pet)<=0, '982', NA_Pet) --复活宠物
 					or NA_Fire(true, '193530', NA_Player) --野性守护
-					or NA_Fire(W_PowerLevel(NA_Player)>0.7 and W_HPlevel(NA_Pet) > 0, '19574', NA_Pet) --狂野怒火
+					or NA_Fire(W_HPlevel(NA_Pet) > 0, '19574', NA_Player) --狂野怒火
 					or NA_Fire(true, '34026', NA_Target) --杀戮命令
 					or NA_Fire(true, '120679', NA_Target) --凶暴野兽
 					or NA_Fire(true, '34026', NA_Target) --杀戮命令
@@ -62,16 +62,15 @@ function NA3Dps()
 					or NA_Fire(NA_isUsableTalentSpell(2,3), '53209', NA_Target) --奇美拉射击
 					or NA_Fire(NA_isUsableTalentSpell(6,2), '120360', NA_Target) --弹幕射击
 					or NA_Fire(NA_isUsableTalentSpell(7,1), '201430', NA_Target) --群兽奔腾
-					or NA_Fire(true, '193455', NA_Target) --眼镜蛇射击
+					or NA_Fire(UnitPower(NA_Player)>50, '193455', NA_Target) --眼镜蛇射击
 
-          or NA_fireByOvale()
         ))then return true; end
 
         if(NA_IsAOE and (false
 					or NA_Fire(W_HPlevel(NA_Pet)>0 and W_HPlevel(NA_Pet) < 0.5 and not W_HasBuff(NA_Pet, 136, true), '136', NA_Pet) --治疗宠物
 					or NA_Fire(W_HPlevel(NA_Pet)<=0, '982', NA_Pet) --复活宠物
 					or NA_Fire(true, '193530', NA_Target) --野性守护
-					or NA_Fire(W_PowerLevel(NA_Player)>0.7 and W_HPlevel(NA_Pet) > 0, '19574', NA_Pet) --狂野怒火
+					or NA_Fire(W_HPlevel(NA_Pet) > 0, '19574', NA_Player) --狂野怒火
 					or NA_Fire(true, '2643', NA_Target) --多重射击
 					or NA_Fire(NA_isUsableTalentSpell(6,2), '120360', NA_Target) --弹幕射击
 					or NA_Fire(NA_isUsableTalentSpell(7,1), '201430', NA_Target) --群兽奔腾
@@ -81,7 +80,6 @@ function NA3Dps()
 					or NA_Fire(NA_isUsableTalentSpell(6,1), '131894', NA_Target) --夺命黑鸦
 					or NA_Fire(true, '2643', NA_Target) --多重射击
 
-          or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 1)then --射击猎
         
@@ -94,14 +92,12 @@ function NA3Dps()
 					or NA_Fire(NA_isUsableTalentSpell(6,3) and W_HPlevel(NA_Target) < 0.8 and not W_HasBuff(NA_Player, 3045, true), '120360', NA_Target) --弹幕射击
 					or NA_Fire(W_HPlevel(NA_Target) < 0.8 and not W_HasBuff(NA_Player, 3045, true), '19434', NA_Target) --瞄准射击
 
-          or NA_fireByOvale()
         ))then return true; end
 
         if(NA_IsAOE and (false
 					or NA_Fire(W_HPlevel(NA_Pet) < 0.5 and not W_HasBuff(NA_Pet, 136, true), '136', NA_Pet) --治疗宠物
 					or NA_Fire(NA_isUsableTalentSpell(5,1), '131894', NA_Target) --夺命黑鸦
 
-          or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 2)then --生存猎
         
@@ -111,14 +107,12 @@ function NA3Dps()
 					or NA_Fire(W_HPlevel(NA_Pet)>0 and W_HPlevel(NA_Pet) < 0.5 and not W_HasBuff(NA_Pet, 136, true), '136', NA_Pet) --治疗宠物
 					or NA_Fire(W_HPlevel(NA_Pet)<=0, '982', NA_Pet) --复活宠物
 
-          or NA_fireByOvale()
         ))then return true; end
 
         if(NA_IsAOE and (false
 					or NA_Fire(W_HPlevel(NA_Pet)>0 and W_HPlevel(NA_Pet) < 0.5 and not W_HasBuff(NA_Pet, 136, true), '136', NA_Pet) --治疗宠物
 					or NA_Fire(W_HPlevel(NA_Pet)<=0, '982', NA_Pet) --复活宠物
 
-          or NA_fireByOvale()
         ))then return true; end
       end
     elseif(UnitCanAssist(NA_Player, NA_Target))then --辅助施法

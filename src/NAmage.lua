@@ -57,12 +57,10 @@ function NA8Dps()
 					or NA_Fire(true, '44425', NA_Target) --奥术弹幕
 					or NA_Fire(true, '30451', NA_Target) --奥术冲击
 
-          or NA_fireByOvale()
         ))then return true; end
 
         if(NA_IsAOE and (false
 
-          or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 1)then --Frost
         local counthbz = W_BuffCount(NA_Player, 44544); --寒冰指
@@ -82,14 +80,12 @@ function NA8Dps()
 					or NA_Fire(true, '108839', NA_Player) --浮冰
 					or NA_Fire(true, '116', NA_Target) --寒冰箭
 
-          or NA_fireByOvale()
         ))then return true; end
 
         if(NA_IsAOE and (false
 					or NA_Fire(not NA_IsMaxDps and NA_IsSolo, '120', NA_Target) --冰锥术
 					or NA_Fire(true, '84714', NA_Target) --寒冰宝珠
 
-          or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 2)then --Fire
         local hasfb = W_RetainBuff(NA_Player, 108839, true); --浮冰
@@ -101,12 +97,10 @@ function NA8Dps()
 					or NA_Fire(not hasfb, '108839', NA_Player) --浮冰
 					or NA_Fire(W_BuffTime(NA_Player,116011)<5, '116011', NA_Player) --能量符文
 
-          or NA_fireByOvale()
         ))then return true; end
 
         if(NA_IsAOE and (false
 
-          or NA_fireByOvale()
         ))then return true; end
       end
     elseif(UnitCanAssist(NA_Player, NA_Target))then --辅助施法

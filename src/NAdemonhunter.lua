@@ -45,7 +45,6 @@ function NA12Dps()
 					or NA_Fire(true, '198793', NA_Target) --复仇回避
 					or NA_Fire(true, '195072', NA_Target) --邪能冲撞
 
-          or NA_fireByOvale()
         ))then return true; end
 
         if(NA_IsAOE and (false
@@ -55,7 +54,6 @@ function NA12Dps()
 					or NA_Fire(true, '198793', NA_Target) --复仇回避
 					or NA_Fire(true, '195072', NA_Target) --邪能冲撞
 
-          or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 1)then --复仇
         
@@ -63,12 +61,10 @@ function NA12Dps()
         
         if(not NA_IsAOE and (false
 
-          or NA_fireByOvale()
         ))then return true; end
 
         if(NA_IsAOE and (false
 
-          or NA_fireByOvale()
         ))then return true; end
       end
     elseif(UnitCanAssist(NA_Player, NA_Target))then --辅助施法

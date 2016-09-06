@@ -46,12 +46,10 @@ function NA5Dps()
         
         if(not NA_IsAOE and (false
 
-          or NA_fireByOvale()
         ))then return true; end
 
         if(NA_IsAOE and (false
 
-          or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 1)then --Holy
         
@@ -59,12 +57,10 @@ function NA5Dps()
         
         if(not NA_IsAOE and (false
 
-          or NA_fireByOvale()
         ))then return true; end
 
         if(NA_IsAOE and (false
 
-          or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 2)then --Shadow
         
@@ -77,12 +73,10 @@ function NA5Dps()
 					or NA_Fire(true, '47540', NA_Target) --47540
 					or NA_Fire(true, '585', NA_Target) --惩击
 
-          or NA_fireByOvale()
         ))then return true; end
 
         if(NA_IsAOE and (false
 
-          or NA_fireByOvale()
         ))then return true; end
       end
     elseif(UnitCanAssist(NA_Player, NA_Target))then --辅助施法

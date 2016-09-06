@@ -69,12 +69,10 @@ function NA6Dps()
 					or NA_Fire(true, '49184', NA_Target) --凛风冲击
 					or NA_Fire(NA_IsSolo, '49576', NA_Target) --死亡之握
 
-          or NA_fireByOvale()
         ))then return true; end
 
         if(NA_IsAOE and (false
 
-          or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 1)then --血DK
         local dp = W_RetainBuff(NA_Target, -155159, true) or W_RetainBuff(NA_Target, -55078, true); --死疽/血之疫病
@@ -95,12 +93,10 @@ function NA6Dps()
 					or NA_Fire(countBoneshield<10, '195182', NA_Target) --骨髓分裂
 					or NA_Fire(true, '206930', NA_Target) --心脏打击
 
-          or NA_fireByOvale()
         ))then return true; end
 
         if(NA_IsAOE and (false
 
-          or NA_fireByOvale()
         ))then return true; end
       elseif(NA_ProfileNo == 2)then --邪DK
         
@@ -108,12 +104,10 @@ function NA6Dps()
         
         if(not NA_IsAOE and (false
 
-          or NA_fireByOvale()
         ))then return true; end
 
         if(NA_IsAOE and (false
 
-          or NA_fireByOvale()
         ))then return true; end
       end
     elseif(UnitCanAssist(NA_Player, NA_Target))then --辅助施法

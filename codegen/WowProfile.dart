@@ -14,7 +14,7 @@ class Profile {
   Set<String> actions = new Set();
 
   String keepHPCodes = '';
-  List<CmdInfo> keepHPCmds = [];
+  List<CmdInfo> commonCmds = [];
 
   String attackAOECodes = '';
   List<CmdInfo> attackAOECmds = [];
@@ -25,13 +25,13 @@ class Profile {
   String assistCodes = '';
   List<CmdInfo> assistCmds = [];
 
-  String keepBuffCodes = '';
-  List<CmdInfo> keepBuffCmds = [];
+  String preAttackCodes = '';
+  List<CmdInfo> preAttackCmds = [];
 
   Profile(this.classID, this.profileID, this.name, this.specName);
 
   void addkeepHPCmd(String cnd, String spell, String target) {
-    keepHPCmds.add(new CmdInfo(cnd, spell, target));
+    commonCmds.add(new CmdInfo(cnd, spell, target));
   }
 
   void addattackAOECmd(String cnd, String spell, String target) {
@@ -47,7 +47,7 @@ class Profile {
   }
 
   void addkeepBuffCmd(String cnd, String spell, String target) {
-    keepBuffCmds.add(new CmdInfo(cnd, spell, target));
+    preAttackCmds.add(new CmdInfo(cnd, spell, target));
   }
 }
 
@@ -93,12 +93,12 @@ String classProfilesCodes() {
   String attackCodes = '';
   String assistCodes = '';
   String keepHPCodes = '';
-  String keepBuffCodes = '';
+  String preAttackCodes = '';
 
   String profileAtkCodes = '';
   String profileAssistCodes = '';
   String profileKeepHPCodes = '';
-  String profileKeepBuffCodes = '';
+  String profilePreAttackCodes = '';
   for (Profile p in AllProfiles) {
     currProfile = p;
     if (p.classID != classInfo.classID) {
@@ -117,12 +117,10 @@ String classProfilesCodes() {
         ${p.attackAOECodes.replaceAll('\n', '\n\t\t\t\t')}
         if(not NA_IsAOE and (false
 ${cmdCodes(p.attackCmds)}
-          or NA_fireByOvale()
         ))then return true; end
 
         if(NA_IsAOE and (false
 ${cmdCodes(p.attackAOECmds)}
-          or NA_fireByOvale()
         ))then return true; end
 ''';
     profileAssistCodes += '''
@@ -136,14 +134,14 @@ ${cmdCodes(p.assistCmds)}
     elseif(NA_ProfileNo == ${p.profileID})then --${p.name}
       ${p.keepHPCodes.replaceAll('\n', '\n\t\t\t\t')}
       if(false
-${cmdCodes(p.keepHPCmds)}
+${cmdCodes(p.commonCmds)}
       )then return true; end
 ''';
-    profileKeepBuffCodes += '''
+    profilePreAttackCodes += '''
     elseif(NA_ProfileNo == ${p.profileID})then --${p.name}
-      ${p.keepBuffCodes.replaceAll('\n', '\n\t\t\t\t')}
+      ${p.preAttackCodes.replaceAll('\n', '\n\t\t\t\t')}
       if(false
-${cmdCodes(p.keepBuffCmds)}
+${cmdCodes(p.preAttackCmds)}
       )then return true; end
 ''';
 
@@ -160,7 +158,7 @@ ${cmdCodes(p.keepBuffCmds)}
     attackAOECodes += p.attackAOECodes;
     attackCodes += p.attackCodes;
     assistCodes += p.assistCodes;
-    keepBuffCodes += p.keepBuffCodes;
+    preAttackCodes += p.preAttackCodes;
 
     if (actions.length > 36) {
       print(p.name + '==' + actions.length.toString());
@@ -193,7 +191,7 @@ ${profileAssistCodes}      end
     end
   else  --不在战斗中
     if(NA_ProfileNo < 0)then return false; --脱战后补buff，开怪等
-${profileKeepBuffCodes}    end
+${profilePreAttackCodes}    end
   end
   return false;
 end
@@ -211,12 +209,12 @@ specName=${p.specName}\n''';
   codes += '\n[commonCodes]\n';
   codes += p.commonCodes;
 
-  codes += '\n[keepHPCmds]\n';
-  for (CmdInfo cmd in p.keepHPCmds) {
+  codes += '\n[commonCmds]\n';
+  for (CmdInfo cmd in p.commonCmds) {
     codes += cmd.spell + '@' + cmd.target + '=' + cmd.cnd + '\n';
   }
-  codes += '\n[keepBuffCmds]\n';
-  for (CmdInfo cmd in p.keepBuffCmds) {
+  codes += '\n[preAttackCmds]\n';
+  for (CmdInfo cmd in p.preAttackCmds) {
     codes += cmd.spell + '@' + cmd.target + '=' + cmd.cnd + '\n';
   }
 
@@ -295,9 +293,9 @@ Profile readProfileIni(String path) {
         p.addattackAOECmd(value, name.substring(0, name.indexOf('@')), name.substring(name.indexOf('@') + 1));
       } else if (section == 'assistCmds'.toLowerCase()) {
         p.addassistCmd(value, name.substring(0, name.indexOf('@')), name.substring(name.indexOf('@') + 1));
-      } else if (section == 'keepHPCmds'.toLowerCase()) {
+      } else if (section == 'commonCmds'.toLowerCase()) {
         p.addkeepHPCmd(value, name.substring(0, name.indexOf('@')), name.substring(name.indexOf('@') + 1));
-      } else if (section == 'keepBuffCmds'.toLowerCase()) {
+      } else if (section == 'preAttackCmds'.toLowerCase()) {
         p.addkeepBuffCmd(value, name.substring(0, name.indexOf('@')), name.substring(name.indexOf('@') + 1));
       }
     }
