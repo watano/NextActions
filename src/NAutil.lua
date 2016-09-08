@@ -256,7 +256,7 @@ end
 
 function NA_FireSpell(spellID, UnitId)
   local spellInfo = NA_getSpellInfo(spellID);
-  if(spellInfo ~= nil and spellInfo.keyNo ~= nil and (UnitId == nil or (W_IsUsableSpell(spellID, UnitId) and UnitIsVisible(UnitId)))) then
+  if(spellInfo ~= nil and spellInfo.keyNo ~= nil and (W_IsUsableSpell(spellID, UnitId) and W_UnitIsVisible(UnitId))) then
     W_Log(2,"NA_FireSpell:" .. spellID .."->"..spellInfo.name..spellInfo.keyNo);
     W_UpdateLabelText('NA_SpellLabel', spellInfo.name);
     NA_ShowVars(spellInfo.keyNo);
@@ -498,8 +498,18 @@ end
 --/run NA_testSpell('77758', NA_Player)
 --/script print(SpellHasRange())
 
+function W_UnitIsVisible(UnitId)
+	if(UnitId == NA_Nil)then
+		return true;
+	end
+	return UnitIsVisible(UnitId);
+end
+
 function W_InRange(spellInfo, UnitId)
 	if(spellInfo.spellID == 77758)then
+		return true;
+	end
+	if(UnitId == NA_Nil)then
 		return true;
 	end
 	if(SpellHasRange(spellInfo.name) ~=true or IsSpellInRange(spellInfo.name, UnitId) ==1) then
