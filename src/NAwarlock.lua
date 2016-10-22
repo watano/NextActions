@@ -5,7 +5,7 @@ function getNA9Actions(no)
   elseif(no == 1)then
     return {'689','1454','755','80240','17962','116858','29722','348','152108','5740'};
   elseif(no == 2)then
-    return {'689','18540','172','980','30108','27243','1122'};
+    return {'689','18540','980','172','30108','27243','1122'};
   end
   return {};
 end
@@ -19,6 +19,10 @@ function NA9Dps()
 	local has117828=W_HasBuff(NA_Player, 117828, true)
 	local countSoulShards=UnitPower(NA_Player, SPELL_POWER_BURNING_EMBERS)
 	
+	local count980 = W_BuffCount(NA_Target, -980, true); --痛楚
+	local retain146739 = true or NA_isUsableTalentSpell(2,2) or W_RetainBuff(NA_Target, -146739, true); --腐蚀术
+	local retain30108 = W_RetainBuff(NA_Target, -30108, true); --痛苦无常
+	local retain27243 = W_RetainBuff(NA_Target, -27243, true); -- 腐蚀之种
 	
 	
   if(W_IsInCombat())then
@@ -104,30 +108,26 @@ function NA9Dps()
 
         ))then return true; end
       elseif(NA_ProfileNo == 2)then --痛苦术
-        local count980 = W_BuffCount(NA_Target, -980, true); --痛楚
-				local retain146739 = true or NA_isUsableTalentSpell(2,2) or W_RetainBuff(NA_Target, -146739, true); --腐蚀术
-				local retain30108 = W_RetainBuff(NA_Target, -30108, true); --痛苦无常
-				local retain27243 = W_RetainBuff(NA_Target, -27243, true); -- 腐蚀之种
-				
+        
 				
         
         if(not NA_IsAOE and (false
 					or NA_Fire(NA_checkHP(0), '689', NA_Target) --吸取生命
 					or NA_Fire(NA_IsMaxDps, '18540', NA_Player) --召唤末日守卫
-					or NA_Fire(NA_IsSolo and not retain146739, '172', NA_Target) --腐蚀术
 					or NA_Fire(NA_IsSolo and count980<0, '980', NA_Target) --痛楚
-					or NA_Fire(count980<20 or not W_RetainBuff(NA_Target, -980, true), '980', NA_Target) --痛楚
+					or NA_Fire(NA_IsSolo and not retain146739, '172', NA_Target) --腐蚀术
+					or NA_Fire(not W_RetainBuff(NA_Target, -980, true) or (NA_IsSolo and count980 < 10) or count980 < 20, '980', NA_Target) --痛楚
 					or NA_Fire(not retain30108, '30108', NA_Target) --痛苦无常
 					or NA_Fire(not retain27243, '27243', NA_Target) --腐蚀之种
 					or NA_Fire(not retain146739, '172', NA_Target) --腐蚀术
-					or NA_Fire(NA_checkHP(2), '689', NA_Target) --吸取生命
 
         ))then return true; end
 
         if(NA_IsAOE and (false
+					or NA_Fire(NA_checkHP(0), '689', NA_Target) --吸取生命
 					or NA_Fire(NA_IsMaxDps, '1122', NA_Player) --召唤地狱火
-					or NA_Fire(NA_IsSolo and not retain146739, '172', NA_Target) --腐蚀术
 					or NA_Fire(NA_IsSolo and count980<0, '980', NA_Target) --痛楚
+					or NA_Fire(NA_IsSolo and not retain146739, '172', NA_Target) --腐蚀术
 					or NA_Fire(not retain27243, '27243', NA_Target) --腐蚀之种
 					or NA_Fire(not retain146739, '172', NA_Target) --腐蚀术
 					or NA_Fire(NA_checkHP(2), '689', NA_Target) --吸取生命

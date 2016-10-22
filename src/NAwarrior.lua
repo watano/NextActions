@@ -3,7 +3,7 @@ function getNA1Actions(no)
   elseif(no == 0)then
     return {'2565','355','871','12975','190456','34428','1160','163558','1719','228920','23922','6572','20243','100','57755','198304','6343','46968'};
   elseif(no == 1)then
-    return {'184364','97462','5308','1719','118000','184367','85288','23881','190411','100','57755'};
+    return {'184364','97462','5308','205545','1719','118000','184367','85288','23881','100130','190411','100','57755'};
   elseif(no == 2)then
     return {};
   end
@@ -97,14 +97,16 @@ function NA1Dps()
 					or NA_Fire(NA_IsSolo and NA_checkHP(2), '184364', NA_Player) --狂怒回复
 					or NA_Fire(NA_IsSolo and NA_checkHP(0), '97462', NA_Player) --命令怒吼
 					or NA_Fire(true, '5308', NA_Target) --斩杀
+					or NA_Fire(true, '205545', NA_Player) --奥丁之怒
 					or NA_Fire(true, '1719', NA_Player) --战吼
 					or NA_Fire(true, '118000', NA_Player) --巨龙怒吼
 					or NA_Fire(in5308 and W_PowerLevel(NA_Player) > 0.85, '184367', NA_Target) --暴怒
 					or NA_Fire(in5308, '85288', NA_Target) --怒击
-					or NA_Fire(in5308, '23881', NA_Target) --嗜血
+					or NA_Fire(in5308 or W_BuffCount(NA_Player, 206333, true)>5 or W_HasBuff(NA_Player, 184364, true), '23881', NA_Target) --嗜血
 					or NA_Fire(true, '184367', NA_Target) --暴怒
-					or NA_Fire(has215570, '190411', NA_Target) --旋风斩
 					or NA_Fire(true, '85288', NA_Target) --怒击
+					or NA_Fire(true, '100130', NA_Target) --狂暴挥砍
+					or NA_Fire(has215570, '190411', NA_Target) --旋风斩
 					or NA_Fire(NA_IsSolo and not NA_checkHP(1), '23881', NA_Target) --嗜血
 					or NA_Fire(true, '190411', NA_Target) --旋风斩
 					or NA_Fire(true, '100', NA_Target) --冲锋
