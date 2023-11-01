@@ -7,10 +7,10 @@ NA_lastMsg = '';
 
 function W_Log(level, msg)
   if(level >= NA_LogLevel and not NA_IsTest) then
-		if(NA_lastMsg == msg)then 
-			return;
-		end
-		NA_lastMsg = msg;
+    if(NA_lastMsg == msg)then 
+      return;
+    end
+    NA_lastMsg = msg;
     if(level > 3)then
       UIErrorsFrame:AddMessage(msg);
     else
@@ -74,17 +74,16 @@ function W_SetBinding(no, text, f)
     return;
   end
 
-  W_Log(2,"W_SetBinding: ".. key .."->"..text);
   if(f==1) then --spell
-    if(not SetBindingSpell(key, text) == 1)then
-      W_Log(4,"SetBindingSpell error : ".. key .."->"..text);
+    if(not SetBinding("key","SPELL "..text) == 1)then
+      W_Log(3,"SetBindingSpell error : ".. key .."->"..text);
   end
   elseif(f==2) then --item
     if(not SetBindingItem(key, 'item:'..text) == 1)then
       W_Log(4,"SetBindingItem error : ".. key .."->"..text);
   end
   elseif(f==3) then --macro
-    if(not SetBindingMacro(key, text) == 1)then
+    if(not SetBinding(key, 'MACRO '..text) == 1)then
       W_Log(4,"SetBindingMacro error : ".. key .."->"..text);
   end
   else
@@ -94,19 +93,19 @@ function W_SetBinding(no, text, f)
 end
 
 function NA_ClearAction()
-  --	if(NA_IsRunning == true)then
-  --		NA_ShowVars(99);
-  --	else
-  --		NA_ShowVars(0);
-  --	end
+  --  if(NA_IsRunning == true)then
+  --    NA_ShowVars(99);
+  --  else
+  --    NA_ShowVars(0);
+  --  end
   NA_ShowVars(0);
 end
 
 function NA_test(cnd, yes, no)
   if(NA_IsRunning == true)then
-  	return yes;
+    return yes;
   else
-  	return no;
+    return no;
   end
 end
 
@@ -228,14 +227,14 @@ function W_isTanking()
 end
 
 function NA_Fire(cond, spellID, UnitId, interval)
-  --	if(interval == nil)then
-  --		interval = 0;
-  --		NA_SpellTimes[spellID] = nil;
-  --	end
+  --  if(interval == nil)then
+  --    interval = 0;
+  --    NA_SpellTimes[spellID] = nil;
+  --  end
   --
-  --	if(NA_SpellTimes[spellID] ~= nil and (GetTime() - NA_SpellTimes[spellID]) < interval)then
-  --		return false;
-  --	end
+  --  if(NA_SpellTimes[spellID] ~= nil and (GetTime() - NA_SpellTimes[spellID]) < interval)then
+  --    return false;
+  --  end
   if(spellID == 'NA_fireByOvale')then
     return NA_fireByOvale();
   end
@@ -479,8 +478,8 @@ function NA_testSpell(spellID, UnitId)
     print('nomana='..NA_Bool(nomana));
     if (isUsable == true and nomana == false and W_GetCooldown(1, spellID) <= 1) then
       print("3.1-W_GetCooldown(1, "..spellID..")="..W_GetCooldown(1, spellID));
-			print('SpellHasRange='..NA_Bool(SpellHasRange(spellInfo.name)));
-			print('IsSpellInRange='..NA_Bool(IsSpellInRange(spellInfo.name, UnitId)));
+      print('SpellHasRange='..NA_Bool(SpellHasRange(spellInfo.name)));
+      print('IsSpellInRange='..NA_Bool(IsSpellInRange(spellInfo.name, UnitId)));
       if(W_InRange(spellInfo, UnitId)) then
         print("4-SpellHasRange("..spellInfo.name..")==true");
         print("5-IsSpellInRange("..spellInfo.name..", "..UnitId..")==true");
@@ -492,38 +491,38 @@ function NA_testSpell(spellID, UnitId)
     end
   end
 
-  --	if(W_IsUsableSpell(spellID, UnitId) == false)then return; end
-  --	print("8-W_IsUsableSpell("..spellID..", "..UnitId..")==true");
+  --  if(W_IsUsableSpell(spellID, UnitId) == false)then return; end
+  --  print("8-W_IsUsableSpell("..spellID..", "..UnitId..")==true");
 end
 --/run NA_testSpell('77758', NA_Player)
 --/script print(SpellHasRange())
 
 function W_UnitIsVisible(UnitId)
-	if(UnitId == NA_Nil)then
-		return true;
-	end
-	return UnitIsVisible(UnitId);
+  if(UnitId == NA_Nil)then
+    return true;
+  end
+  return UnitIsVisible(UnitId);
 end
 
 function W_InRange(spellInfo, UnitId)
-	if(spellInfo.spellID == 77758)then
-		return true;
-	end
-	if(UnitId == NA_Nil)then
-		return true;
-	end
-	if(SpellHasRange(spellInfo.name) ~=true or IsSpellInRange(spellInfo.name, UnitId) ==1) then
-		return true;
+  if(spellInfo.spellID == 77758)then
+    return true;
   end
-	return false;
+  if(UnitId == NA_Nil)then
+    return true;
+  end
+  if(SpellHasRange(spellInfo.name) ~=true or IsSpellInRange(spellInfo.name, UnitId) ==1) then
+    return true;
+  end
+  return false;
 end
 
 function NA_Bool(cond)
-	if(cond)then
-		return 'true';
-	else
-		return 'false';
-	end
+  if(cond)then
+    return 'true';
+  else
+    return 'false';
+  end
 end
 function NA_testBuff(UnitId, buffID, onlyMine)
   if(W_getBuff(UnitId, buffID, onlyMine) ~= nil)then
@@ -543,11 +542,11 @@ function W_printBuffInfo(UnitId)
   local buffs, i = { }, 1;
   local buff = UnitBuff(UnitId, i);
   while buff do
-    buffs[#buffs + 1] = buff;
+    buffs[buffs.size + 1] = buff;
     i = i + 1;
     buff = UnitBuff(UnitId, i);
   end;
-  if #buffs < 1 then
+  if buffs.size < 1 then
     buffs = "You have no buffs";
   else
     buffs[1] = "You're buffed with: "..buffs[1];
@@ -561,11 +560,11 @@ function W_printDeBuffInfo(UnitId)
   local buffs, i = { }, 1;
   local buff = UnitDebuff(UnitId, i);
   while buff do
-    buffs[#buffs + 1] = buff;
+    buffs[buffs.size + 1] = buff;
     i = i + 1;
     buff = UnitDebuff(UnitId, i);
   end;
-  if #buffs < 1 then
+  if buffs.size < 1 then
     buffs = "You have no debuffs";
   else
     buffs[1] = "You're debuffs with: "..buffs[1];
@@ -600,14 +599,14 @@ end
 
 --技能打断确认
 function NA_SpellInterrupt(UnitId)
---	local name, subText, text, texture, startTime, endTime, isTradeSkill, castID, notInterruptible = UnitCastingInfo(UnitId);
---	if(name ~= nill and notInterruptible ~= 1 and startTime > 0)then
---		return true;
---	end 
---	local name2, subText2, text2, texture2, startTime2, endTime2, isTradeSkill2, notInterruptible2 = UnitChannelInfo(UnitId);
---	if(name2 ~= nill and notInterruptible2 ~= 1 and startTime > 0)then
---		return true;
---	end
+--  local name, subText, text, texture, startTime, endTime, isTradeSkill, castID, notInterruptible = UnitCastingInfo(UnitId);
+--  if(name ~= nill and notInterruptible ~= 1 and startTime > 0)then
+--    return true;
+--  end 
+--  local name2, subText2, text2, texture2, startTime2, endTime2, isTradeSkill2, notInterruptible2 = UnitChannelInfo(UnitId);
+--  if(name2 ~= nill and notInterruptible2 ~= 1 and startTime > 0)then
+--    return true;
+--  end
   return false;
 end
 
@@ -705,19 +704,19 @@ function NA_fireByOvale()
 end
 
 -- actionTexture, actionInRange, actionCooldownStart, actionCooldownDuration,
---		actionUsable, actionShortcut, actionIsCurrent, actionEnable, actionType, actionId, actionTarget
+--    actionUsable, actionShortcut, actionIsCurrent, actionEnable, actionType, actionId, actionTarget
 -- /script print(OV_fireAction(2));
 function OV_fireAction(index)
-	if(Ovale and Ovale["OvaleCompile"] and Ovale["OvaleCompile"].GetIconNodes() and Ovale["OvaleCompile"].GetIconNodes()[index])then 
-		local OvAction = Ovale["OvaleCompile"].GetIconNodes()[index]["child"][1]["result"];
-		if(OvAction ~= nil and OvAction.actionUsable and OvAction.actionEnable == 1)then
-			if(OvAction.actionType == 'spell')then
-				--print(OvAction.actionId.."---"..OvAction.actionTarget);
-				return NA_FireSpell(OvAction.actionId..'', OvAction.actionTarget..'');
-			elseif(OvAction.actionType == "item") then
-				return NA_FireItem(OvAction.actionId, OvAction.actionTarget);
-			end
-		end	
-	end
+  if(Ovale and Ovale["OvaleCompile"] and Ovale["OvaleCompile"].GetIconNodes() and Ovale["OvaleCompile"].GetIconNodes()[index])then 
+    local OvAction = Ovale["OvaleCompile"].GetIconNodes()[index]["child"][1]["result"];
+    if(OvAction ~= nil and OvAction.actionUsable and OvAction.actionEnable == 1)then
+      if(OvAction.actionType == 'spell')then
+        --print(OvAction.actionId.."---"..OvAction.actionTarget);
+        return NA_FireSpell(OvAction.actionId..'', OvAction.actionTarget..'');
+      elseif(OvAction.actionType == "item") then
+        return NA_FireItem(OvAction.actionId, OvAction.actionTarget);
+      end
+    end 
+  end
   return false;
 end
